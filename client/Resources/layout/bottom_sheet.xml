@@ -1,0 +1,136 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    android:padding="15dp"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+>
+    <RelativeLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout1"
+    >
+
+        <ImageView
+            android:src="@drawable/delivary_icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/imageView1"
+            android:layout_centerHorizontal="true"
+        />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#ffffff"
+            android:id="@+id/view1"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_below="@+id/imageView1"
+        />
+        <TextView
+            android:text="Distance"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="25px"
+            android:paddingTop="5dp"
+            android:textColor="#ffffff"
+            android:minHeight="25px"
+            android:textStyle="bold"
+            android:layout_below="@+id/view1"
+            
+        />
+        <TextView
+            android:text="Distance: 10 km"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="25px"
+            android:layout_alignParentRight="true"
+            android:paddingTop="5dp"
+            android:textColor="#ffffff"
+            android:minHeight="25px"
+            android:textStyle="bold"
+            android:id="@+id/TxtDistance"
+            android:layout_below="@+id/view1"
+            
+        />
+        <TextView
+            android:text="Price"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="25px"
+            android:paddingTop="5dp"
+            android:textColor="#ffffff"
+            android:minHeight="25px"
+            android:textStyle="bold"
+            android:layout_below="@+id/TxtDistance"
+            
+        />
+        <TextView
+            android:text="Price: R75.50"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="25px"
+            android:paddingTop="5dp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:layout_alignParentRight="true"
+            android:minHeight="25px"
+            android:id="@+id/TxtPrice"
+            android:layout_below="@+id/TxtDistance"
+        />
+        <TextView
+            android:text="Estimate Duration"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="25px"
+            android:paddingTop="5dp"
+            android:textColor="#ffffff"
+            android:minHeight="25px"
+            android:textStyle="bold"
+            android:layout_below="@+id/TxtPrice"
+            
+        />
+         <TextView
+            android:text="Duration"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="25px"
+            android:layout_alignParentRight="true"
+            android:paddingTop="5dp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:minHeight="25px"
+            android:id="@+id/TxtDuration"
+            android:layout_below="@+id/TxtPrice"
+        />
+        <android.support.design.button.MaterialButton
+            android:text="Continue"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/BtnContinueRequest"
+            android:textAllCaps="false"
+            android:layout_marginTop="5dp"
+            android:textColor="#ffffff"
+            android:layout_below="@+id/TxtDuration"
+            app:strokeColor="@color/quantum_white_100"
+            app:strokeWidth="2dp"
+        
+        />
+    </RelativeLayout>
+
+</LinearLayout>

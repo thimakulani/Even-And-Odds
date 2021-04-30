@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:id="@+id/linearLayoutProfile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:animateLayoutChanges="true"
+        android:background="#220438"
+        android:fadingEdge="none|horizontal|vertical" 
+        
+    >
+        <TextView
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="25px"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:minHeight="25px"
+            android:id="@+id/txtUserFirstname"
+            android:layout_centerInParent="true"
+        />
+    </RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/FabEditProfile"
+        android:layout_gravity="right"
+        android:layout_marginTop="-15dp"
+        android:layout_marginRight="5dp"
+        app:fabSize="normal"
+        android:src="@android:drawable/ic_menu_edit"
+    />
+    <ScrollView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView1" 
+        android:layout_marginTop="20dp"
+    >
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/linearLayout1"
+        >
+            <TextView
+                android:text="First name"
+                android:layout_marginLeft="5dp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            />
+            <TextView
+                
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtProfileFirstname"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/profile_textView_style"
+            />
+            <TextView
+                android:text="Surname"
+                android:layout_marginLeft="5dp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            />
+            <TextView
+                
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtProfileSurname"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/profile_textView_style"
+            />
+            <TextView
+                android:text="Phone number"
+                android:layout_marginLeft="5dp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtProfilePhone"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/profile_textView_style"
+            />
+            <TextView
+                android:text="Alternative phone number"
+                android:layout_marginLeft="5dp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            />
+       
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtProfileAltPhone"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/profile_textView_style"
+            />
+            <TextView
+                android:text="Email address"
+                android:layout_marginLeft="5dp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            />
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtProfileEmail"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/profile_textView_style"
+            />
+            
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

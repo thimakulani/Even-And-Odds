@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginLeft="2dp"
+        android:background="@drawable/chats_reciever_style"
+    >
+        <RelativeLayout
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativeLayout1"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="1dp"
+        >
+            <TextView
+                android:text="Small Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:id="@+id/TxtMessage"
+                android:textColor="#ffff"
+            />
+            <TextView
+                android:text="Small Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:id="@+id/TxtMsgTime"
+                android:layout_below="@+id/TxtMessage"
+                android:textSize="5dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/darker_gray"
+            /> 
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
