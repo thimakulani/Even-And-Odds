@@ -15,10 +15,14 @@ using Android.Widget;
 using Firebase.Database;
 using Firebase.Events;
 using driver.FirebaseHelper;
+using Plugin.CloudFirestore;
+using Firebase.Auth;
+using driver.Models;
+using AndroidHUD;
 
 namespace driver.Fragments
 {
-    public class ProfileFragment : Android.Support.V4.App.Fragment, IValueEventListener
+    public class ProfileFragment : Android.Support.V4.App.Fragment
     {
         private EditText InputNames;
         private EditText InputSurname;
@@ -30,7 +34,7 @@ namespace driver.Fragments
 
 
         //userkeyId
-        private string UserKeyId;
+        private Context context;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -44,6 +48,7 @@ namespace driver.Fragments
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
             var view = inflater.Inflate(Resource.Layout.update_profile_dialog, container, false);
+            context = view.Context;
             ConnectViews(view);
             
             return view;
@@ -61,10 +66,20 @@ namespace driver.Fragments
             BtnAppyChanges.Click += BtnAppyChanges_Click;
            
             //ISharedPreferences pref = Application.Context.GetSharedPreferences("UserInfo", FileCreationMode.Private);
-            UserKeyId = Firebase.Auth.FirebaseAuth.Instance.CurrentUser.Uid;
-            FirebaseDatabase.Instance.GetReference("AppUsers")
-                .Child(UserKeyId)
-                .AddValueEventListener(this);
+            //UserKeyId = FirebaseAuth.Instance.CurrentUser.Uid;
+            CrossCloudFirestore.Current.Instance.Collection("AppUsers")
+                .Document(FirebaseAuth.Instance.Uid)
+                .AddSnapshotListener((snapshot, error) =>
+                {
+                    if (snapshot.Exists)
+                    {
+                        var user = snapshot.ToObject<DriverModel>();
+                        InputNames.Text = user.Name;
+                        InputSurname.Text = user.Surname;
+                        InputPhone.Text = user.Phone;
+                        InputEmail.Text = user.Email;
+                    }
+                });
         }
         
         
@@ -96,63 +111,27 @@ namespace driver.Fragments
                 InputEmail.Error = "Email cannot be empty";
                 return;
             }
-            if (!IsEmailValid())
+
+            DriverModel d = new DriverModel()
             {
+                Email = InputEmail.Text,
+                Name = InputNames.Text,
+                Phone = InputPhone.Text,
+                Surname = InputSurname.Text,
+
+            };
+            var fieldpath = FieldPath.CreateFrom((DelivaryModal driver) => driver.Name);
+            await CrossCloudFirestore.Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(FirebaseAuth.Instance.Uid)
+                .UpdateAsync(FieldPath.CreateFrom<driver.>);
                 
-                InputEmail.RequestFocus();
-                InputEmail.Error = "Invalid email format";
-                return;
-            }
-            
 
-           
+            AndHUD.Shared.ShowSuccess(context, "Profile has been successfully updated!!", MaskType.Black, TimeSpan.FromSeconds(3));
 
-        }
-        private bool IsEmailValid()
-        {
-            return Android.Util.Patterns.EmailAddress.Matcher(InputEmail.Text).Matches();
-        }
-        private string CheckPhoneNumber(string phone)
-        {
-            phone = phone.Trim();
-            if (phone.StartsWith("0"))
-            {
-                phone = $"+27{phone.Remove(0, 1)}";
-            }
-            return phone;
-        }
-
-        public void OnCancelled(DatabaseError error)
-        {
 
         }
 
-        public void OnDataChange(DataSnapshot snapshot)
-        {
-            if (snapshot != null)
-            {
-                if (snapshot.Child("Name").Exists())
-                {
-                    InputNames.Text = snapshot.Child("Name").Value.ToString();
-                }
-                if (snapshot.Child("Surname").Exists())
-                {
-                    InputSurname.Text = snapshot.Child("Surname").Value.ToString();
-                }
-                if (snapshot.Child("Phone").Exists())
-                {
-                    InputPhone.Text = snapshot.Child("Phone").Value.ToString();
-                }
-                if (snapshot.Child("AltPhone").Exists())
-                {
-                    InputAltPhone.Text = snapshot.Child("AltPhone").Value.ToString();
-                }
-                if (snapshot.Child("Email").Exists())
-                {
-                    InputEmail.Text = snapshot.Child("Email").Value.ToString();
-                }
-
-            }
-        }
     }
 }
