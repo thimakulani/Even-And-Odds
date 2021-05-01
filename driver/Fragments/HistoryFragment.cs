@@ -15,6 +15,7 @@ using Firebase.Auth;
 using driver.Adapters;
 using driver.AppData;
 using driver.Models;
+using Plugin.CloudFirestore;
 
 namespace driver.Fragments
 {
@@ -22,8 +23,7 @@ namespace driver.Fragments
     {
         private RecyclerView RecyclerHistory;
         private List<DelivaryModal> items = new List<DelivaryModal>();
-        private HistoryData data;
-        private string keyId;
+        
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -37,7 +37,6 @@ namespace driver.Fragments
 
             base.OnCreateView(inflater, container, savedInstanceState);
             //ISharedPreferences pref = Application.Context.GetSharedPreferences("UserInfo", FileCreationMode.Private);
-            keyId = FirebaseAuth.Instance.CurrentUser.Uid;
             var view =  inflater.Inflate(Resource.Layout.activity_history, container, false);
             ConnectViews(view);
             return view;
@@ -47,21 +46,41 @@ namespace driver.Fragments
         {
 
             RecyclerHistory = view.FindViewById<RecyclerView>(Resource.Id.RecyclerHistory);
-            data = new HistoryData(keyId);
-            data.GetDeliveryRequests();
-            data.RetrievedDeliveries += Data_RetrievedDeliveries;
-        }
-        private void Data_RetrievedDeliveries(object sender, HistoryData.RetriveDelivaryHystoryHandler e)
-        {
-            items = e.itemList;
-            SetRecycler();
-        }
-        private void SetRecycler()
-        {
             LinearLayoutManager linearLayout = new LinearLayoutManager(Application.Context);
             RequestAdapter adapter = new RequestAdapter(items);
             RecyclerHistory.SetLayoutManager(linearLayout);
             RecyclerHistory.SetAdapter(adapter);
+
+
+
+            CrossCloudFirestore.Current
+                .Instance
+                .Collection("DeliveryRequests")
+                .WhereEqualsTo("DriverId", FirebaseAuth.Instance.Uid)
+                .AddSnapshotListener((snapshot, error) =>
+                {
+                    if(!snapshot.IsEmpty)
+                    {
+                        foreach(var dc in snapshot.DocumentChanges)
+                        {
+                            switch (dc.Type)
+                            {
+                                case DocumentChangeType.Added:
+                                    var doc = dc.Document.ToObject<DelivaryModal>();
+                                    doc.KeyId = dc.Document.Id;
+                                    items.Add(doc);
+                                    
+                                    adapter.NotifyDataSetChanged();
+                                    break;
+                                case DocumentChangeType.Modified:
+                                    break;
+                                case DocumentChangeType.Removed:
+                                    break;
+                            }
+                        }
+                    }
+                });
         }
+
     }
 }

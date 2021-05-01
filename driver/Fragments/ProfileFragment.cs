@@ -7,8 +7,6 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.Design.Button;
-using Android.Support.Design.Widget;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -19,16 +17,18 @@ using Plugin.CloudFirestore;
 using Firebase.Auth;
 using driver.Models;
 using AndroidHUD;
+using Java.Util;
+using Google.Android.Material.TextField;
+using Google.Android.Material.Button;
 
 namespace driver.Fragments
 {
     public class ProfileFragment : Android.Support.V4.App.Fragment
     {
-        private EditText InputNames;
-        private EditText InputSurname;
-        private EditText InputPhone;
-        private EditText InputAltPhone;
-        private EditText InputEmail;
+        private TextInputEditText InputNames;
+        private TextInputEditText InputSurname;
+        private TextInputEditText InputPhone;
+        private TextInputEditText InputEmail;
         
         private MaterialButton BtnAppyChanges;
 
@@ -56,11 +56,10 @@ namespace driver.Fragments
 
         private void ConnectViews(View view)
         {
-            InputNames = view.FindViewById<EditText>(Resource.Id.ProfileUpdateName);
-            InputSurname = view.FindViewById<EditText>(Resource.Id.ProfileUpdateSurname);
-            InputPhone = view.FindViewById<EditText>(Resource.Id.ProfileUpdatePhone);
-            InputAltPhone = view.FindViewById<EditText>(Resource.Id.ProfileUpdateAltPhone);
-            InputEmail = view.FindViewById<EditText>(Resource.Id.ProfileUpdateEmail);
+            InputNames = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateName);
+            InputSurname = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateSurname);
+            InputPhone = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdatePhone);
+            InputEmail = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateEmail);
             BtnAppyChanges = view.FindViewById<MaterialButton>(Resource.Id.BtnUpdateProfile);
 
             BtnAppyChanges.Click += BtnAppyChanges_Click;
@@ -83,12 +82,7 @@ namespace driver.Fragments
         }
         
         
-        public event EventHandler<FailUpdateHandlerArgs> FailUpdateHandler; 
-        public class FailUpdateHandlerArgs : EventArgs
-        {
-            public string Error { get; set; }
-        }
-        public event EventHandler SuccessUpdateHandler;
+       
         private async void BtnAppyChanges_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(InputNames.Text))
@@ -120,12 +114,17 @@ namespace driver.Fragments
                 Surname = InputSurname.Text,
 
             };
-            var fieldpath = FieldPath.CreateFrom((DelivaryModal driver) => driver.Name);
+
+            Dictionary<string, object> keyValues = new Dictionary<string, object>();
+            keyValues.Add("Name", InputNames.Text.Trim());
+            keyValues.Add("Phone", InputPhone.Text.Trim());
+            keyValues.Add("Surname", InputSurname.Text.Trim());
             await CrossCloudFirestore.Current
                 .Instance
                 .Collection("AppUsers")
                 .Document(FirebaseAuth.Instance.Uid)
-                .UpdateAsync(FieldPath.CreateFrom<driver.>);
+                .UpdateAsync(keyValues);
+                
                 
 
             AndHUD.Shared.ShowSuccess(context, "Profile has been successfully updated!!", MaskType.Black, TimeSpan.FromSeconds(3));
