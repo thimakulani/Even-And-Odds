@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Android;
 using Android.App;
 using Android.Content;
@@ -11,28 +9,25 @@ using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.Design.Button;
-using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using Android.Support.V7.App;
-using Android.Support.V7.Widget;
-using Android.Util;
 using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
 using AndroidHUD;
 using Firebase.Auth;
-using Firebase.Database;
-using Java.Util;
-using Java.Util.Zip;
 using driver.Adapters;
-using driver.AppData;
-using driver.FirebaseHelper;
 using driver.MapsHelper;
 using driver.Models;
 using Xamarin.Essentials;
 using AlertDialog = Android.Support.V7.App.AlertDialog;
-using Toolbar = Android.Support.V7.Widget.Toolbar;
+using Plugin.CloudFirestore;
+using Google.Android.Material.Button;
+using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.BottomSheet;
+using Google.Android.Material.TextField;
+using AndroidX.RecyclerView.Widget;
+using Google.Android.Material.AppBar;
 
 namespace driver.Activities
 {
@@ -49,9 +44,9 @@ namespace driver.Activities
         LocationRequest locationRequest;
         FusedLocationProviderClient locationClient;
         Android.Locations.Location lastLocation;
-        static int UPDATE_INTERVAL = 5;
-        static int UPDATE_FASTEST_INTERVAL = 5;
-        static int DISPLACEMENT = 3;
+        private static readonly int UPDATE_INTERVAL = 5;
+        private static readonly int UPDATE_FASTEST_INTERVAL = 5;
+        private static readonly int DISPLACEMENT = 3;
 
         private LocationCallBackHelper locationCallBack;
         private LatLng pickupLocationLatLng;
@@ -64,9 +59,7 @@ namespace driver.Activities
         double Destinationlatitude;
         //
 
-        private string UserKeyId;
-        private DeliveryRequestData deliveryRequest;
-        private List<DelivaryModal> items = new List<DelivaryModal>();
+        private readonly List<DelivaryModal> items = new List<DelivaryModal>();
         private RecyclerView RecyclerRequests;
         string KeyPosition;
 
@@ -75,7 +68,6 @@ namespace driver.Activities
         private BottomSheetBehavior bottomSheet;
         private TextView txtRequestFromName;
         private TextView txtRequestFromContact;
-        private TextView txtRequestFromAltNr;
         private TextView txtRequestToName;
         private TextView txtRequestToContact;
         private TextView txtRequestItemType;
@@ -85,7 +77,6 @@ namespace driver.Activities
         private TextView txtRequestPrice;
         private TextView txtRequestStatus;
         private MaterialButton BtnAcceptRequest;
-        private TextView DriverInfo;
 
         private RelativeLayout RequestMainMenuLayout;
 
@@ -95,7 +86,7 @@ namespace driver.Activities
         private MaterialButton BtnReassign;
         private FloatingActionButton ImgNavigate, imgCancelDelivery, ImgCall;
         private SupportMapFragment mapFragment;
-        private Toolbar toolbarRequests;
+        private MaterialToolbar toolbarRequests;
 
 
 
@@ -131,19 +122,20 @@ namespace driver.Activities
             RecyclerRequests = FindViewById<RecyclerView>(Resource.Id.RecyclerDeliveryRequest);
             
             RequestMainMenuLayout = FindViewById<RelativeLayout>(Resource.Id.RequestMainMenuLayout);
-            toolbarRequests = FindViewById<Toolbar>(Resource.Id.toolbarRequests);
+            toolbarRequests = FindViewById<MaterialToolbar>(Resource.Id.toolbarRequests);
             ConnectDeliveryRequestNavigation();
-            UserKeyId = FirebaseAuth.Instance.CurrentUser.Uid;
             
             ConnectBottomSheet();
             toolbarRequests.NavigationClick += ToolbarRequests_NavigationClick;
             // Notifications();
-            deliveryRequest = new DeliveryRequestData(UserKeyId);
-            deliveryRequest.DeliveryRequests();
-            deliveryRequest.RequestRetrived += DeliveryRequest_RequestRetrived;
+
+
+
+            SetupAdapter();
+            
         }
 
-        private void ToolbarRequests_NavigationClick(object sender, Toolbar.NavigationClickEventArgs e)
+        private void ToolbarRequests_NavigationClick(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
         {
             OnBackPressed();
             Finish();
@@ -157,7 +149,6 @@ namespace driver.Activities
 
             txtRequestDestination = FindViewById<TextView>(Resource.Id.txtRequestDestination);
             txtRequestDistance = FindViewById<TextView>(Resource.Id.txtRequestDistance);
-            txtRequestFromAltNr = FindViewById<TextView>(Resource.Id.txtRequestFromAltNr);
             txtRequestFromContact = FindViewById<TextView>(Resource.Id.txtRequestFromContact);
             txtRequestFromName = FindViewById<TextView>(Resource.Id.txtRequestFromName);
             txtRequestItemType = FindViewById<TextView>(Resource.Id.txtRequestItemType);
@@ -178,15 +169,20 @@ namespace driver.Activities
             if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
                 mGoogleMap.Clear();//driver's name to be added
-                FirebaseDatabase.Instance.GetReference("DelivaryRequest").Child(KeyPosition).Child("Status").SetValue("Accepted");
-                Java.Util.HashMap hashMap = new Java.Util.HashMap();
-                hashMap.Put("DriverId", UserKeyId);
-                FirebaseDatabase.Instance.GetReference("DelivaryRequest")
-                    .Child(KeyPosition).Child("Driver").SetValue(hashMap);
-                FirebaseDatabase.Instance.GetReference("AppUsers")
-                    .Child(UserKeyId)
-                    .Child("Status")
-                    .SetValue("Busy");
+                Dictionary<string, object> valuePairs = new Dictionary<string, object>
+                {
+                    { "Status", "A" },
+                    { "DriverId", FirebaseAuth.Instance.Uid }
+                };
+                await CrossCloudFirestore.Current.Instance
+                    .Collection("DelivaryRequests")
+                    .Document(KeyPosition)
+                    .UpdateAsync(valuePairs);
+
+
+
+
+                
                 //Toast.MakeText(this, UserKeyId, ToastLength.Long).Show();
                 bottomSheet.State = BottomSheetBehavior.StateCollapsed;
                 RequestMainMenuLayout.StartAnimation(AnimMainMenuLayout);
@@ -227,73 +223,115 @@ namespace driver.Activities
         {
 
         }
-        int check = 0;
         private string PickPhone;
         private string DestPhone;
-        private async void DeliveryRequest_RequestRetrived(object sender, DeliveryRequestData.DeliveryRequestEventArgs e)
-        {
-
-            items = e.delivaryList;
-            if (check == 0)
-            {
-                foreach (var data in items)
-                {
-                    if (UserKeyId == data.DriverId)
-                    {
-                        if (data.Status == "Accepted" || data.Status == "Picked")
-                        {
-                            RequestMainMenuLayout.Visibility = ViewStates.Gone;
-                            DeliveryRequestNavigation.Visibility = ViewStates.Visible;
-                            KeyPosition = data.KeyId;
-                            PickPhone = data.ContactNo;
-                            DestPhone = data.PersonContact;
-                            
-                            System.Globalization.CultureInfo cultureInfo = new System.Globalization.CultureInfo("en-US");
-                            cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
-                            System.Threading.Thread.CurrentThread.CurrentCulture = cultureInfo;
-
-
-                            Pickuplatitude = double.Parse(data.PickupLat);
-
-                            //Toast.MakeText(this, Pickuplatitude.ToString(), ToastLength.Long).Show();
-
-                            PickupLongitude = Convert.ToDouble(data.PickupLong);
-                            Destinationlatitude = Convert.ToDouble(data.DestinationLat);
-                            DestinationLongitude = Convert.ToDouble(data.DestinationLong);
-                            try
-                            {
-                                pickupLocationLatLng = new LatLng(Pickuplatitude, PickupLongitude);
-                                destinationLocationLatLng = new LatLng(Destinationlatitude, DestinationLongitude);
-                                mGoogleMap.Clear();
-                                string json;
-                                json = await mapHelper.GetDirectionJsonAsync(pickupLocationLatLng, destinationLocationLatLng);
-                                if (!string.IsNullOrEmpty(json))
-                                {
-                                    mapHelper.DrawTripOnMap(json);
-                                }
-                            }
-                            catch (Exception Ex)
-                            {
-                                //Toast.MakeText(this, Ex.Message, ToastLength.Long).Show();
-                            }
-
-                        }
-                    }
-                }
-                check = 1;
-            }
-            SetupAdapter();
-        }
         private void SetupAdapter()
         {
             LinearLayoutManager linearLayout = new LinearLayoutManager(this);
             RecyclerRequests.SetLayoutManager(linearLayout);
-            RequestAdapter requestAdapter = new RequestAdapter(items);
-            requestAdapter.ItemClick += RequestAdapter_ItemClick;
-            RecyclerRequests.SetAdapter(requestAdapter);
+            RequestAdapter adapter = new RequestAdapter(items);
+            adapter.ItemClick += Adapter_ItemClick;
+            RecyclerRequests.SetAdapter(adapter);
+
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("DeliveryRequests")
+                .WhereIn("Status", new[] {"P", "A", "W"})
+
+                .AddSnapshotListener((snapshot, value) =>
+                {
+                    if (!snapshot.IsEmpty)
+                    {
+                        foreach (var dc in snapshot.DocumentChanges)
+                        {
+                            switch (dc.Type)
+                            {
+                                case DocumentChangeType.Added:
+                                    var doc = dc.Document.ToObject<DelivaryModal>();
+                                    doc.KeyId = dc.Document.Id;
+                                    items.Add(doc);
+                                    adapter.NotifyDataSetChanged();
+
+                                    CheckRequestAsync(doc);
+
+                                    break;
+                                case DocumentChangeType.Modified:
+
+                                    var mod = dc.Document.ToObject<DelivaryModal>();
+                                    mod.KeyId = dc.Document.Id;
+                                    if(mod.DriverId == FirebaseAuth.Instance.Uid && mod.Status == "A" && mod.Status == "P")
+                                    {
+                                        CheckRequestAsync(mod);
+                                    }
+
+                                    if(mod.Status == "D" || mod.Status == "D")
+                                    {
+                                        items.Remove(new DelivaryModal() { KeyId = mod.KeyId});
+                                        adapter.NotifyDataSetChanged();
+                                    }
+                                    if (mod.Status == "W")
+                                    {
+                                        items.Add(mod);
+                                        adapter.NotifyDataSetChanged();
+                                    }
+
+
+                                    break;
+                                case DocumentChangeType.Removed:
+                                    break;
+                            }
+                        }
+                    }
+                });
 
         }
-        private void RequestAdapter_ItemClick(object sender, RequestAdapterClickEventArgs e)
+
+        private async void CheckRequestAsync(DelivaryModal doc)
+        {
+            if (doc.DriverId == FirebaseAuth.Instance.Uid)
+            {
+                if (doc.Status == "A" || doc.Status == "P")
+                {
+                    RequestMainMenuLayout.Visibility = ViewStates.Gone;
+                    DeliveryRequestNavigation.Visibility = ViewStates.Visible;
+                    KeyPosition = doc.KeyId;
+                    PickPhone = doc.ContactNo;
+                    DestPhone = doc.PersonContact;
+
+                    System.Globalization.CultureInfo cultureInfo = new System.Globalization.CultureInfo("en-US");
+                    cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
+                    System.Threading.Thread.CurrentThread.CurrentCulture = cultureInfo;
+
+
+                    Pickuplatitude = double.Parse(doc.PickupLat);
+
+                    //Toast.MakeText(this, Pickuplatitude.ToString(), ToastLength.Long).Show();
+
+                    PickupLongitude = Convert.ToDouble(doc.PickupLong);
+                    Destinationlatitude = Convert.ToDouble(doc.DestinationLat);
+                    DestinationLongitude = Convert.ToDouble(doc.DestinationLong);
+                    try
+                    {
+                        pickupLocationLatLng = new LatLng(Pickuplatitude, PickupLongitude);
+                        destinationLocationLatLng = new LatLng(Destinationlatitude, DestinationLongitude);
+                        mGoogleMap.Clear();
+                        string json;
+                        json = await mapHelper.GetDirectionJsonAsync(pickupLocationLatLng, destinationLocationLatLng);
+                        if (!string.IsNullOrEmpty(json))
+                        {
+                            mapHelper.DrawTripOnMap(json);
+                        }
+                    }
+                    catch (Exception Ex)
+                    {
+                        Console.WriteLine("Error: Line 329", Ex.Message);
+                    }
+                }
+            }
+        }
+
+        private void Adapter_ItemClick(object sender, RequestAdapterClickEventArgs e)
         {
 
             int indexPos = (items.Count - 1) - e.Position;
@@ -301,7 +339,6 @@ namespace driver.Activities
             KeyPosition = items[indexPos].KeyId;
             txtRequestDestination.Text = items[indexPos].DestinationAddress;
             txtRequestDistance.Text = items[indexPos].Distance;
-            txtRequestFromAltNr.Text = items[indexPos].AlteContactNo;
             txtRequestFromContact.Text = items[indexPos].ContactNo;
             txtRequestFromName.Text = items[indexPos].Name;
             txtRequestItemType.Text = items[indexPos].ItemType;
@@ -332,7 +369,7 @@ namespace driver.Activities
 
 
 
-            if (items[indexPos].Status != "Canceled")
+            if (items[indexPos].Status != "C")
             {
                 BtnAcceptRequest.Visibility = ViewStates.Visible;
 
@@ -385,12 +422,15 @@ namespace driver.Activities
         {
             if (!string.IsNullOrEmpty(InputReason.Text))
             {
-                HashMap hashMap = new HashMap();
-                hashMap.Put("driver_id", FirebaseAuth.Instance.CurrentUser.Uid);
-                hashMap.Put("request_id", FirebaseAuth.Instance.CurrentUser.Uid);
-                var dbref = FirebaseDatabase.Instance.GetReference("Reassign");
-                dbref.Child(KeyPosition);
-                dbref.SetValue(hashMap);
+                Dictionary<string, object> hashMap = new Dictionary<string, object>
+                {
+                    { "driver_id", FirebaseAuth.Instance.CurrentUser.Uid },
+                    { "request_id", FirebaseAuth.Instance.CurrentUser.Uid }
+                };
+
+                CrossCloudFirestore.Current.Instance.Collection("Reassign")
+                    .Document(KeyPosition)
+                    .SetAsync(hashMap);
                 HUD("Your request has been successfully submitted");
                 dialog.Dismiss();
                 
@@ -403,11 +443,17 @@ namespace driver.Activities
 
         private void BtnPickupDestination_Click(object sender, EventArgs e)
         {
+            var query = CrossCloudFirestore.Current.Instance
+                    .Collection("DeliveryRequests")
+                    .Document(KeyPosition);
+            Dictionary<string, object> valuePairs = new Dictionary<string, object>();
+                    
             if (BtnPickupDestination.Text == "Pickup")
             {
-                FirebaseDatabase.Instance.GetReference("DelivaryRequest")
-                    .Child(KeyPosition).Child("Status")
-                    .SetValue("Picked up");
+                valuePairs.Add("Status", "P");
+                query.UpdateAsync(valuePairs);
+
+                
                 //UpdateState("Picked up", KeyPosition);
                 BtnPickupDestination.Text = "Deliver";
                 imgCancelDelivery.Enabled = false;
@@ -416,13 +462,11 @@ namespace driver.Activities
             }
             else if (BtnPickupDestination.Text == "Deliver")
             {
-                FirebaseDatabase.Instance.GetReference("DelivaryRequest")
-                    .Child(KeyPosition).Child("Status")
-                    .SetValue("Delivered");
-                FirebaseDatabase.Instance.GetReference("AppUsers")
-                    .Child(UserKeyId)
-                    .Child("Status")
-                    .SetValue("Available");
+                valuePairs.Add("Status", "D");
+                query.UpdateAsync(valuePairs);
+
+
+                
                 BtnPickupDestination.Text = "Done";
                 HUD("Updated");
                 //preferencesEditor.Clear();
@@ -484,17 +528,26 @@ namespace driver.Activities
         }
         private Animation animOpenNavigation;
         private Animation animOpenMainMenu;
-        private void ImgCancelDelivery_Click(object sender, EventArgs e)
+        private async void ImgCancelDelivery_Click(object sender, EventArgs e)
         {
 
             animOpenNavigation = AnimationUtils.LoadAnimation(this, Resource.Animation.float_down);
-            FirebaseDatabase.Instance.GetReference("DelivaryRequest").Child(KeyPosition).Child("Status").SetValue("Waiting");
-            FirebaseDatabase.Instance.GetReference("DelivaryRequest").Child(KeyPosition).Child("Driver").RemoveValue();//Child("DriverName").SetValue("Waiting");
-                                                                                                                                       //FirebaseHelper.FirebaseData.GetDatabase().GetReference("DelivaryRequest").Child(KeyPosition).Child("Driver").Child("DriverId").SetValue(" ");
+
+            Dictionary<string, object> valuePairs = new Dictionary<string, object>
+            {
+                { "Status", "W" },
+                { "DriverId", null }
+            };
+
+            await CrossCloudFirestore.Current.Instance
+                    .Collection("DeliveryRequests")
+                    .Document(KeyPosition)
+                    .UpdateAsync(valuePairs);
+
 
             DeliveryRequestNavigation.StartAnimation(animOpenNavigation);
             animOpenNavigation.AnimationEnd += AnimOpenNavigation_AnimationEnd;
-            HUD("Request cancelled");
+            HUD("Request canceled");
 
         }
         private void AnimOpenNavigation_AnimationEnd(object sender, Animation.AnimationEndEventArgs e)
@@ -597,7 +650,7 @@ namespace driver.Activities
 
         private void LocationCallBack_CurrentLocation(object sender, LocationCallBackHelper.OnLocationCapturedEventArgs e)
         {
-            lastLocation = e.location;
+            lastLocation = e.Location_;
             LatLng position = new LatLng(lastLocation.Latitude, lastLocation.Longitude);
             //if (!RdbDestinationLocation.Checked && !RdbPickUpLocation.Checked && !PickupAddressFromSearch && !DestinationAddressFromSearch)
             //{
@@ -620,13 +673,15 @@ namespace driver.Activities
                 mGoogleMap.MoveCamera(CameraUpdateFactory.NewLatLngZoom(pos, 13));
                 ////loading to database
                 ///
-                HashMap hashMap = new HashMap();
-                hashMap.Put("lat", lastLocation.Latitude);
-                hashMap.Put("lon", lastLocation.Longitude);
-                FirebaseDatabase.Instance.GetReference("Driver_Location")
-                    .Child(FirebaseAuth.Instance.CurrentUser.Uid)
-                    .SetValue(hashMap);
-                   
+                Dictionary<string, object> hashMap = new Dictionary<string, object>
+                {
+                    { "lat", lastLocation.Latitude },
+                    { "lon", lastLocation.Longitude }
+                };
+                await CrossCloudFirestore.Current.Instance
+                    .Collection("Driver_Location")
+                    .Document(FirebaseAuth.Instance.CurrentUser.Uid)
+                    .SetAsync(hashMap);
 
                 //TxtPickup.Text =  address.Result[0].Thoroughfare.Append(" ") + " " + address.Result[0].SubAdminArea;
             }

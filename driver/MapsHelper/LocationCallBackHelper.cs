@@ -19,7 +19,7 @@ namespace driver.MapsHelper
         public event EventHandler<OnLocationCapturedEventArgs> CurrentLocation;
         public class OnLocationCapturedEventArgs: EventArgs
         {
-            public Location location { get; set; }
+            public Location Location_ { get; set; }
         }
         public override void OnLocationAvailability(LocationAvailability locationAvailability)
         {
@@ -29,7 +29,7 @@ namespace driver.MapsHelper
         {
             if(result.Locations.Count !=0)
             {
-                CurrentLocation?.Invoke(this, new OnLocationCapturedEventArgs { location = result.Locations[0] });
+                CurrentLocation?.Invoke(this, new OnLocationCapturedEventArgs { Location_ = result.Locations[0] });
             }
         }
     }

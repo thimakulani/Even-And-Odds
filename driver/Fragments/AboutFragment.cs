@@ -29,8 +29,10 @@ namespace driver.Fragments
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
             base.OnCreateView(inflater, container, savedInstanceState);
-            Element element = new Element();
-            element.Title = "About";
+            Element element = new Element
+            {
+                Title = "About"
+            };
 
             View about = new AboutPage(Application.Context)
                 .IsRtl(false)

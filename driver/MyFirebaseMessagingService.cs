@@ -37,13 +37,11 @@ namespace driver
             var pendingIntent = PendingIntent.GetActivity(this, 0 /* Request code */, intent, PendingIntentFlags.OneShot);
 
             var defaultSoundUri = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
-            var notificationBuilder = new NotificationCompat.Builder(this, "MY_NOTIFICATION")
+            var notificationBuilder = new NotificationCompat.Builder(this)
                 .SetSmallIcon(Resource.Mipmap.delivery_icon)
                 .SetContentTitle(remoteMessage.GetNotification().Title)
                 .SetContentText(messageBody)
                 .SetAutoCancel(true)
-                
-                .SetBadgeIconType(Resource.Mipmap.delivery_icon)
                 .SetSound(defaultSoundUri)
                 .SetContentIntent(pendingIntent);
 

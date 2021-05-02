@@ -13,8 +13,8 @@ namespace driver.MapsHelper
 {
     public class MapFunctionHelper
     {
-        string mapkey;
-        GoogleMap map;
+        private readonly string mapkey;
+        private readonly GoogleMap map;
         public double distance;
         public double duration;
         public string distanceString;
@@ -43,11 +43,10 @@ namespace driver.MapsHelper
         public async Task<string> FindCordinateAddress(LatLng position)
         {
             string url = GetGeoCodeUrl(position.Latitude, position.Longitude);
-            string json = "";
             string placeAddress = "";
 
             //Check for Internet connection
-            json = await GetGeoJsonAsync(url);
+            string json = await GetGeoJsonAsync(url);
 
             if (!string.IsNullOrEmpty(json))
             {
@@ -85,9 +84,7 @@ namespace driver.MapsHelper
 
             //Building the final url string
             string url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters + key;
-
-            string json = "";
-            json = await GetGeoJsonAsync(url);
+            string json = await GetGeoJsonAsync(url);
 
             return json;
             
@@ -116,8 +113,7 @@ namespace driver.MapsHelper
                 .InvokeEndCap(new SquareCap())
                 .InvokeJointType(JointType.Round)
                 .Geodesic(true);
-
-            Android.Gms.Maps.Model.Polyline mPolyline = map.AddPolyline(polylineOptions);
+            _ = map.AddPolyline(polylineOptions);
 
             //Get first point and lastpoint
             LatLng firstpoint = line[0];
@@ -136,7 +132,7 @@ namespace driver.MapsHelper
             destinationMarkerOptions.SetIcon(BitmapDescriptorFactory.DefaultMarker(BitmapDescriptorFactory.HueRed));
 
             Marker pickupMarker = map.AddMarker(pickupMarkerOptions);
-            Marker destinationMarker = map.AddMarker(destinationMarkerOptions);
+            _ = map.AddMarker(destinationMarkerOptions);
 
             //Get Trip Bounds
             double southlng = directionData.routes[0].bounds.southwest.lng;

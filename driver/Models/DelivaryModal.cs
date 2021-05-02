@@ -16,9 +16,7 @@ namespace driver.Models
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string DriverName { get; set; }
         public string ContactNo { get; set; }
-        public string AlteContactNo { get; set; }
         //parcle to be collected
         public string ItemType { get; set; }
         public string PickupAddress { get; set; }

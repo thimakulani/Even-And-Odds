@@ -2,11 +2,10 @@
 
 using Android.Views;
 using Android.Widget;
-using Android.Support.V7.Widget;
 using System.Collections.Generic;
 using driver.Models;
-using driver.FirebaseHelper;
-using Firebase.Database;
+using Plugin.CloudFirestore;
+using AndroidX.RecyclerView.Widget;
 
 namespace driver.Adapters
 {
@@ -14,7 +13,7 @@ namespace driver.Adapters
     {
         public event EventHandler<HistoryAdapterClickEventArgs> ItemClick;
         public event EventHandler<HistoryAdapterClickEventArgs> ItemLongClick;
-        private List<DelivaryModal> items = new List<DelivaryModal>();
+        private readonly List<DelivaryModal> items = new List<DelivaryModal>();
 
         public HistoryAdapter(List<DelivaryModal> data)
         {
@@ -49,10 +48,20 @@ namespace driver.Adapters
             holder.TxtPickUploaction.Text = items[indexPos].PickupAddress;
             holder.TxtPrice.Text = items[indexPos].Price;
             holder.TxtStatus.Text = items[indexPos].Status;
-            holder.txtHistoryRequestDatesTimeCreated.Text = items[indexPos].RequestTime;
-            FirebaseDatabase.Instance.GetReference("AppUsers")
-                .Child(items[indexPos].UserId)
-                .AddValueEventListener(new ClientValues(holder));
+            holder.TxtHistoryRequestDatesTimeCreated.Text = items[indexPos].RequestTime;
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(items[indexPos].UserId)
+                .AddSnapshotListener((snapshot, value) =>
+                {
+                    if (snapshot.Exists)
+                    {
+                        var user = snapshot.ToObject<AppUsers>();
+                        holder.TxtClientName.Text = $"{user.Name} {user.Surname}";
+                    }
+                });
 
         }
 
@@ -61,28 +70,6 @@ namespace driver.Adapters
         void OnClick(HistoryAdapterClickEventArgs args) => ItemClick?.Invoke(this, args);
         void OnLongClick(HistoryAdapterClickEventArgs args) => ItemLongClick?.Invoke(this, args);
 
-        private class ClientValues : Java.Lang.Object, IValueEventListener
-        {
-            private HistoryAdapterViewHolder holder;
-
-            public ClientValues(HistoryAdapterViewHolder holder)
-            {
-                this.holder = holder;
-            }
-
-            public void OnCancelled(DatabaseError error)
-            {
-                
-            }
-
-            public void OnDataChange(DataSnapshot snapshot)
-            {
-                if (snapshot.Exists())
-                {
-                    holder.TxtClientName.Text = $"{snapshot.Child("Name").Value} {snapshot.Child("Surname").Value}";
-                }
-            }
-        }
     }
 
     public class HistoryAdapterViewHolder : RecyclerView.ViewHolder
@@ -94,7 +81,7 @@ namespace driver.Adapters
         public TextView TxtStatus { get; set; }
         public TextView TxtDistance { get; set; }
         public TextView TxtPrice { get; set; }
-        public TextView txtHistoryRequestDatesTimeCreated { get; set; }
+        public TextView TxtHistoryRequestDatesTimeCreated { get; set; }
 
 
         public HistoryAdapterViewHolder(View itemView, Action<HistoryAdapterClickEventArgs> clickListener,
@@ -107,7 +94,7 @@ namespace driver.Adapters
             TxtStatus = itemView.FindViewById<TextView>(Resource.Id.HistoryRequestStatus);
             TxtDistance = itemView.FindViewById<TextView>(Resource.Id.HistoryDistance);
             TxtPrice = itemView.FindViewById<TextView>(Resource.Id.HistoryPrice);
-            txtHistoryRequestDatesTimeCreated = itemView.FindViewById<TextView>(Resource.Id.HistoryRequestDatesTimeCreated);
+            TxtHistoryRequestDatesTimeCreated = itemView.FindViewById<TextView>(Resource.Id.HistoryRequestDatesTimeCreated);
 
             itemView.Click += (sender, e) => clickListener(new HistoryAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
             itemView.LongClick += (sender, e) => longClickListener(new HistoryAdapterClickEventArgs { View = itemView, Position = AdapterPosition });

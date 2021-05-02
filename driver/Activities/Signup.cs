@@ -1,23 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Content.Res;
 using Android.Gms.Tasks;
-using Android.Media;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Firebase.Auth;
 using Java.Util;
 using AlertDialog = Android.App.AlertDialog;
-using Firebase.Firestore;
 using Google.Android.Material.TextField;
 using Google.Android.Material.Button;
 using AndroidX.AppCompat.App;
@@ -283,16 +277,6 @@ namespace driver.Activities
             loading = loadingBuilder.Create();
             loading.Show();
         }
-        private Firebase.Auth.FirebaseAuth auth;
-        private string CheckPhoneNumber(string phone)
-        {
-            phone = phone.Trim();
-            if (phone.StartsWith("0"))
-            {
-                phone = $"+27{phone.Remove(0, 1)}";
-            }
-            return phone;
-        }
      
         public void OnComplete(Task task)
         {
@@ -325,7 +309,7 @@ namespace driver.Activities
                 Role = null,
                 Surname = InputSurname.Text,
                 Type = BtnType.Text,
-                uid = FirebaseAuth.Instance.Uid
+                Uid = FirebaseAuth.Instance.Uid
 
             };
 

@@ -1,24 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Gms.Tasks;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.V4.App;
 using Android.Views;
 using Android.Widget;
 using Firebase.Auth;
-using Java.Lang;
-using driver.FirebaseHelper;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.Button;
 using Google.Android.Material.TextField;
-using Firebase.Firestore;
 using driver.Models;
 using Plugin.CloudFirestore;
 

@@ -11,8 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/delivary_icon"
-        android:alpha="0.5"
         android:scaleType="fitCenter"
+        android:alpha="0.5"
+        tools:ignore="MissingDimension" 
     />
     <TextView
         android:layout_width="match_parent"
@@ -25,7 +26,7 @@
         android:textAlignment="center"
         android:id="@+id/textView1"
      />
-    <android.support.design.button.MaterialButton
+    <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/BtnGoOnline" 

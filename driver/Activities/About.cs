@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 using AndroidAboutPage;
 using Xamarin.Essentials;
 
@@ -25,9 +19,11 @@ namespace driver.Activities
             // Create your application here
             //  SetContentView(Resource.Layout.activity_about);
             RequestedOrientation = ScreenOrientation.Portrait;
-            Element element = new Element();
-            element.Title = "About";
-           
+            Element element = new Element
+            {
+                Title = "About"
+            };
+
             View about = new AboutPage(this)
                 .IsRtl(false)
                 .SetImage(Resource.Drawable.delivary_icon_2)

@@ -65,14 +65,10 @@
     <Compile Include="Activities\App_Intro.cs" />
     <Compile Include="Activities\Dashboad.cs" />
     <Compile Include="Activities\DelivaryRequestActivity.cs" />
-    <Compile Include="Activities\History.cs" />
     <Compile Include="Activities\Login.cs" />
     <Compile Include="Activities\Signup.cs" />
     <Compile Include="Adapters\HistoryAdapter.cs" />
     <Compile Include="Adapters\RequestAdapter.cs" />
-    <Compile Include="AppData\AppUsersData.cs" />
-    <Compile Include="AppData\DeliveryRequestData.cs" />
-    <Compile Include="AppData\HistoryData.cs" />
     <Compile Include="FirebaseHelper\FBInstanceID.cs" />
     <Compile Include="Fragments\AboutFragment.cs" />
     <Compile Include="Fragments\HistoryFragment.cs" />
@@ -158,21 +154,6 @@
     <PackageReference Include="Xamarin.Android.Maps.Utils">
       <Version>0.5.0</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
-    <PackageReference Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
-    <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.3" />
-    <PackageReference Include="Xamarin.Android.Support.v4">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.v7.CardView">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Android.Support.v7.RecyclerView">
-      <Version>28.0.0.3</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="Xamarin.Firebase.Analytics">
       <Version>118.0.2</Version>
@@ -185,6 +166,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Messaging">
       <Version>121.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Google.Android.Places">
+      <Version>1.1.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Google.Dagger">
       <Version>2.27.0</Version>
@@ -512,9 +496,6 @@
     <AndroidResource Include="Resources\layout\activity_dashboard.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\activity_help_queries.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_history.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -524,19 +505,10 @@
     <AndroidResource Include="Resources\layout\activity_login.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\activity_profile.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_request.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_sign_up.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\chat_message_reciever_row.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\chat_message_sender_row.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\delivery_bottom_sheet.xml" />
@@ -546,12 +518,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\history_row.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\layout_queries.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\layout_query_sender_list.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\loading_progress.xml" />
@@ -765,6 +731,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\dimens.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AppData\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

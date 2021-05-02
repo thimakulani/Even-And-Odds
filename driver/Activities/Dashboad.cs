@@ -5,24 +5,17 @@ using Android.Gms.Extensions;
 using Android.Gms.Tasks;
 using Android.Locations;
 using Android.OS;
-using Android.Support.Design.Widget;
 using Android.Support.V7.App;
-using Android.Util;
 using Android.Views;
 using AndroidHUD;
-using Firebase.Database;
-using Firebase.Iid;
 using Firebase.Messaging;
-using Java.Lang;
-using driver.AppData;
-using driver.FirebaseHelper;
 using driver.Fragments;
 using System;
-using System.Collections.Generic;
 using AlertDialog = Android.App.AlertDialog;
 using Plugin.CloudFirestore;
 using Firebase.Auth;
 using driver.Models;
+using Google.Android.Material.BottomNavigation;
 
 namespace driver.Activities
 {
@@ -48,19 +41,6 @@ namespace driver.Activities
                 .Add(Resource.Id.frameLayout_container, welcomeFrag)
                 .Commit();
             welcomeFrag.RequestEventHandler += WelcomeFrag_RequestEventHandler;
-
-            //var instanceIdResult = await FirebaseInstanceId.Instance.GetInstanceId().AsAsync<IInstanceIdResult>();
-            ////var refresh = FirebaseInstanceId.Instance.Token;//.AddOnSuccessListener(this);
-
-            //if (!string.IsNullOrEmpty(instanceIdResult.Token))
-            //{
-            //    var auth = FirebaseData.GetFirebaseAuth();
-            //    await FirebaseData.GetDatabase().GetReference("DeviceTokens")
-            //        .Child(auth.CurrentUser.Uid)
-            //        .SetValue(instanceIdResult.Token);
-            //    //await FirebaseMessaging.Instance.SubscribeToTopic("requests");
-
-            //}
             await FirebaseMessaging.Instance.SubscribeToTopic("requests");
 
 
@@ -85,7 +65,7 @@ namespace driver.Activities
                     .Instance
                     .Collection("DeliveryRequests")
                     .WhereEqualsTo("Driver", FirebaseAuth.Instance.Uid)
-                    .WhereIn("Status", new[] { "Accepted", "Picked" })
+                    .WhereIn("Status", new[] { "A", "P" })
                     .GetAsync();
                 if(requests.Count > 0)
                 {
@@ -102,31 +82,13 @@ namespace driver.Activities
                 builder.SetNeutralButton("Continue", delegate
                 {
                     builder.Dispose();
-                    Firebase.Auth.FirebaseAuth.Instance.SignOut();
+                    FirebaseAuth.Instance.SignOut();
                     Finish();
                 });
                 builder.Show();
             }
 
         }
-        bool check = true;
-        private void DeliveryRequest_RequestRetrived(object sender, DeliveryRequestData.DeliveryRequestEventArgs e)
-        {
-            if (check)
-            {
-                foreach (var items in e.delivaryList)
-                {
-                    if (items.Status == "Accepted" || items.Status == "Picked" && items.DriverId == Firebase.Auth.FirebaseAuth.Instance.Uid)
-                    {
-                        Intent intent = new Intent(this, typeof(DelivaryRequestActivity));
-                        StartActivity(intent);
-                        OverridePendingTransition(Resource.Animation.Side_in_left, Resource.Animation.Side_out_right);
-                    }
-                }
-                check = false;
-            }
-        }
-
         private void WelcomeFrag_RequestEventHandler(object sender, EventArgs e)
         {
             Intent intent = new Intent(this, typeof(DelivaryRequestActivity));
@@ -167,8 +129,6 @@ namespace driver.Activities
                     SupportFragmentManager.BeginTransaction()
                         .Replace(Resource.Id.frameLayout_container, profileFrag)
                         .Commit();
-                    profileFrag.SuccessUpdateHandler += ProfileFrag_SuccessUpdateHandler;
-                    profileFrag.FailUpdateHandler += ProfileFrag_FailUpdateHandler;
                     return true;
                 case Resource.Id.navigation_logout:
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -199,20 +159,6 @@ namespace driver.Activities
             return false;
         }
 
-        private void ProfileFrag_FailUpdateHandler(object sender, ProfileFragment.FailUpdateHandlerArgs e)
-        {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Error");
-
-            builder.SetMessage(e.Error);
-            builder.SetPositiveButton("Ok", delegate
-            {
-                builder.Dispose();
-                //  base.OnBackPressed();
-               
-            });
-            builder.Show();
-        }
 
         private void ProfileFrag_SuccessUpdateHandler(object sender, EventArgs e)
         {

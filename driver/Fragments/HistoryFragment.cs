@@ -1,28 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.V7.Widget;
-using Android.Util;
 using Android.Views;
-using Android.Widget;
 using Firebase.Auth;
 using driver.Adapters;
-using driver.AppData;
 using driver.Models;
 using Plugin.CloudFirestore;
+using AndroidX.RecyclerView.Widget;
 
 namespace driver.Fragments
 {
     public class HistoryFragment : Android.Support.V4.App.Fragment
     {
         private RecyclerView RecyclerHistory;
-        private List<DelivaryModal> items = new List<DelivaryModal>();
+        private readonly List<DelivaryModal> items = new List<DelivaryModal>();
         
         public override void OnCreate(Bundle savedInstanceState)
         {

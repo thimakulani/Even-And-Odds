@@ -2,10 +2,10 @@
 
 using Android.Views;
 using Android.Widget;
-using Android.Support.V7.Widget;
 using System.Collections.Generic;
 using driver.Models;
-using Firebase.Database;
+using Plugin.CloudFirestore;
+using AndroidX.RecyclerView.Widget;
 
 namespace driver.Adapters
 {
@@ -13,7 +13,7 @@ namespace driver.Adapters
     {
         public event EventHandler<RequestAdapterClickEventArgs> ItemClick;
         public event EventHandler<RequestAdapterClickEventArgs> ItemLongClick;
-        private List<DelivaryModal> items = new List<DelivaryModal>();
+        private readonly List<DelivaryModal> items = new List<DelivaryModal>();
 
         public RequestAdapter(List<DelivaryModal> data)
         {
@@ -50,10 +50,24 @@ namespace driver.Adapters
             holder.RequestPickupLocation.Text = items[indexPos].PickupAddress;
             holder.RequestDestination.Text = items[indexPos].DestinationAddress;
             holder.RequestDate.Text = items[indexPos].RequestTime;
-            //holder.TextView.Text = items[position];
-            FirebaseDatabase.Instance.GetReference("AppUsers")
-                .Child(items[indexPos].UserId)
-                .AddValueEventListener(new ClientValues(holder));
+
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(items[indexPos].UserId)
+                .AddSnapshotListener((snapshot, value) =>
+                {
+                    if (snapshot.Exists)
+                    {
+                        var user = snapshot.ToObject<AppUsers>();
+                        holder.RequestDate.Text = $"{user.Name} {user.Surname}";
+                    }
+                });
+
+            
+
+           
             
         }
 
@@ -63,28 +77,7 @@ namespace driver.Adapters
         void OnClick(RequestAdapterClickEventArgs args) => ItemClick?.Invoke(this, args);
         void OnLongClick(RequestAdapterClickEventArgs args) => ItemLongClick?.Invoke(this, args);
 
-        private class ClientValues : Java.Lang.Object, IValueEventListener
-        {
-            private RequestAdapterViewHolder holder;
-
-            public ClientValues(RequestAdapterViewHolder holder)
-            {
-                this.holder = holder;
-            }
-
-            public void OnCancelled(DatabaseError error)
-            {
-
-            }
-
-            public void OnDataChange(DataSnapshot snapshot)
-            {
-                if (snapshot.Exists())
-                {
-                    holder.RequestName.Text = $"{snapshot.Child("Name").Value} {snapshot.Child("Surname").Value}";
-                }
-            }
-        }
+       
     }
 
     public class RequestAdapterViewHolder : RecyclerView.ViewHolder

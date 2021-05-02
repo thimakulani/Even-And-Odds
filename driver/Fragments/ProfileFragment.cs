@@ -115,10 +115,12 @@ namespace driver.Fragments
 
             };
 
-            Dictionary<string, object> keyValues = new Dictionary<string, object>();
-            keyValues.Add("Name", InputNames.Text.Trim());
-            keyValues.Add("Phone", InputPhone.Text.Trim());
-            keyValues.Add("Surname", InputSurname.Text.Trim());
+            Dictionary<string, object> keyValues = new Dictionary<string, object>
+            {
+                { "Name", InputNames.Text.Trim() },
+                { "Phone", InputPhone.Text.Trim() },
+                { "Surname", InputSurname.Text.Trim() }
+            };
             await CrossCloudFirestore.Current
                 .Instance
                 .Collection("AppUsers")

@@ -1,5 +1,5 @@
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,32 +13,34 @@
         android:layout_height="match_parent"
         android:id="@+id/relativeLayout2"
     >
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/appBarLayout1"
         >
-            <android.support.v7.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:navigationIcon="@drawable/ic_home_black_24dp"
+                app:navigationIcon="@drawable/ic_arrow_back_black_18dp"
                 android:id="@+id/toolbarRequests"
             />
 
-        </android.support.design.widget.AppBarLayout>
-       
+        </com.google.android.material.appbar.AppBarLayout>
+
         <fragment
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/fragMap"
-            class="com.google.android.gms.maps.SupportMapFragment"
             android:layout_below="@+id/appBarLayout1"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            tools:ignore="MissingAndroidNamespace" 
         />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:src="@android:drawable/presence_online"
+            tools:ignore="ContentDescription" 
             
         />
         <RelativeLayout
@@ -73,7 +75,7 @@
         
                 >
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:minWidth="25px"
                         android:minHeight="25px"
                         android:layout_width="match_parent"
@@ -101,4 +103,4 @@
     </RelativeLayout>
 
     <include layout="@layout/delivery_bottom_sheet"/> 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

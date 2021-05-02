@@ -56,7 +56,7 @@
             />
         </LinearLayout>
     </ScrollView>
-    <android.support.design.button.MaterialButton
+    <com.google.android.material.button.MaterialButton
         android:layout_alignParentBottom="true"
         android:text="Accept" 
         android:layout_width="match_parent"
