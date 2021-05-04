@@ -61,10 +61,40 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\DeliveryRequest.cs" />
+    <Compile Include="Activities\Login.cs" />
+    <Compile Include="Activities\Register.cs" />
+    <Compile Include="Adapters\AnnouncementAdapter.cs" />
+    <Compile Include="Adapters\RequestAdapter.cs" />
+    <Compile Include="AppData\AnnouncementData.cs" />
+    <Compile Include="AppData\AppUsersData.cs" />
+    <Compile Include="AppData\HistoryData.cs" />
+    <Compile Include="AppData\PriceData.cs" />
+    <Compile Include="AppData\QueriesData.cs" />
+    <Compile Include="Classes\AnnouncementModel.cs" />
+    <Compile Include="Classes\AppUsers.cs" />
+    <Compile Include="Classes\DatePickerFragment.cs" />
+    <Compile Include="Classes\DelivaryModal.cs" />
+    <Compile Include="Classes\Queries.cs" />
+    <Compile Include="Classes\TimePickerFragment.cs" />
+    <Compile Include="Fragments\AboutFragment.cs" />
+    <Compile Include="Fragments\CompleteRequestFragment.cs" />
+    <Compile Include="Fragments\DriverDialogFragment.cs" />
+    <Compile Include="Fragments\HelpFragment.cs" />
+    <Compile Include="Fragments\HistoryFragment.cs" />
+    <Compile Include="Fragments\ProfileFragment.cs" />
+    <Compile Include="Fragments\WelcomeFragment.cs" />
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="MapsHelper\DirectionParser.cs" />
+    <Compile Include="MapsHelper\GeocodingPurser.cs" />
+    <Compile Include="MapsHelper\LocationCallBackHelper.cs" />
+    <Compile Include="MapsHelper\MapFunctionHelper.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplashScreen.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\service_account.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
@@ -95,7 +125,9 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidAsset Include="Assets\terms.txt" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AndHUD">
       <Version>1.4.2</Version>

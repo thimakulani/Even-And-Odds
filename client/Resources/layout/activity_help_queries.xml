@@ -28,7 +28,7 @@
         
         
     </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativeLayout1"
@@ -54,18 +54,18 @@
             android:id="@+id/relativeLayout2" 
         >
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:minWidth="25px"
                 android:minHeight="25px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textInputLayout1" 
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_toLeftOf="@+id/TBtnSendMessage"
                 
             >
       
-                 <EditText
+                 <com.google.android.material.textfield.TextInputEditText
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      android:hint="Message here"
@@ -80,8 +80,8 @@
                      android:id="@+id/TInputMessage"
                      android:textColor="#ffff"
                  />
-            </android.support.design.widget.TextInputLayout>
-             <android.support.design.widget.FloatingActionButton
+            </com.google.android.material.textfield.TextInputLayout>
+             <com.google.android.material.floatingactionbutton.FloatingActionButton
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:layout_marginTop="5dp"

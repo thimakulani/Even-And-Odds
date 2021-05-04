@@ -23,7 +23,7 @@
         android:layout_marginRight="20dp"
         android:background="@android:color/black"
         android:layout_height="2dp"/>
-    <android.support.design.button.MaterialButton
+    <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/BtnDeliveryRequest" 
@@ -39,7 +39,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
     />
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

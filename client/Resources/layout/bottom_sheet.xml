@@ -1,6 +1,8 @@
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,7 +11,7 @@
     app:behavior_hideable="true"
     app:behavior_peekHeight="0dp"
     android:padding="15dp"
-    app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
 >
     <RelativeLayout
         android:minWidth="25px"
@@ -25,10 +27,11 @@
             android:layout_height="100dp"
             android:id="@+id/imageView1"
             android:layout_centerHorizontal="true"
+            tools:ignore="ContentDescription" 
         />
         <View
             android:layout_width="match_parent"
-            android:layout_height="3dp"
+            android:layout_height="1dp"
             android:background="#ffffff"
             android:id="@+id/view1"
             android:layout_marginTop="5dp"
@@ -103,7 +106,7 @@
             android:layout_below="@+id/TxtPrice"
             
         />
-         <TextView
+        <TextView
             android:text="Duration"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
@@ -117,7 +120,7 @@
             android:id="@+id/TxtDuration"
             android:layout_below="@+id/TxtPrice"
         />
-        <android.support.design.button.MaterialButton
+        <com.google.android.material.button.MaterialButton
             android:text="Continue"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"

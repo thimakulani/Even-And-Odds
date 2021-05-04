@@ -50,7 +50,7 @@
             android:id="@+id/relativeLayout2"
             android:orientation="vertical"
         >
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -61,12 +61,11 @@
                     android:inputType="textPersonName"
                     android:textStyle="bold"
                     android:id="@+id/InputPacelFullnames"
-                    android:background="@drawable/pascel_input_style"
                     android:hint="Names"
                     android:textColorHint="#220438"
                     android:textColor="#220438"          
                 />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
