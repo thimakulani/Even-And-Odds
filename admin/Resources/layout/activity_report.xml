@@ -37,7 +37,7 @@
         android:textStyle="bold"
         android:textColor="#ffffff"
     />
-    <com.google.android.material.button.MaterialButton
+    <android.support.design.button.MaterialButton
         android:text="All-Requests"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
     />
 
 
-    <com.google.android.material.button.MaterialButton
+    <android.support.design.button.MaterialButton
         android:text="Generate Report"
         android:textStyle="bold"
         android:textColor="#ffffff"

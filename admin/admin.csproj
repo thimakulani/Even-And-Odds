@@ -61,10 +61,63 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\About.cs" />
+    <Compile Include="Activities\Anouncements.cs" />
+    <Compile Include="Activities\App_Intro.cs" />
+    <Compile Include="Activities\Dashboad.cs" />
+    <Compile Include="Activities\DriverRequests.cs" />
+    <Compile Include="Activities\Invoice.cs" />
+    <Compile Include="Activities\Login.cs" />
+    <Compile Include="Activities\Profile.cs" />
+    <Compile Include="Activities\Queries.cs" />
+    <Compile Include="Activities\ReasignDriver.cs" />
+    <Compile Include="Activities\RegisterDriver.cs" />
+    <Compile Include="Activities\Report.cs" />
+    <Compile Include="Activities\StatsActivity.cs" />
+    <Compile Include="Activities\SuperUser.cs" />
+    <Compile Include="Activities\TripPrice.cs" />
+    <Compile Include="Adapters\AdminAdapter.cs" />
+    <Compile Include="Adapters\AnnouncementAdapter.cs" />
+    <Compile Include="Adapters\AppUsersAdapter.cs" />
+    <Compile Include="Adapters\DriverRequestAdapter.cs" />
+    <Compile Include="Adapters\MenuAdapter.cs" />
+    <Compile Include="Adapters\QueriesAdapter.cs" />
+    <Compile Include="Adapters\ReassignAdapter.cs" />
+    <Compile Include="Adapters\RequestAdapter.cs" />
+    <Compile Include="AppData\AnnouncementData.cs" />
+    <Compile Include="AppData\AppAdminUsers.cs" />
+    <Compile Include="AppData\AppUsersData.cs" />
+    <Compile Include="AppData\DeliveryRequestData.cs" />
+    <Compile Include="AppData\DriverRequestData.cs" />
+    <Compile Include="AppData\GetDrivers.cs" />
+    <Compile Include="AppData\QueriesData.cs" />
+    <Compile Include="AppData\ReasignData.cs" />
+    <Compile Include="AppData\ReplyData.cs" />
+    <Compile Include="Common\PrintPDFAdapter.cs" />
+    <Compile Include="Common\PrintReport.cs" />
+    <Compile Include="FirebaseHelper\FirebaseData.cs" />
+    <Compile Include="Fragments\DriverRegistrationDialog.cs" />
+    <Compile Include="Fragments\LoadingDialog.cs" />
+    <Compile Include="Fragments\QueriesFragment.cs" />
+    <Compile Include="Fragments\QueryRepliesFragment.cs" />
+    <Compile Include="Fragments\UpdateExistingUserFragment.cs" />
+    <Compile Include="Models\AnnouncementModel.cs" />
+    <Compile Include="Models\AppUsers.cs" />
+    <Compile Include="Models\DelivaryModal.cs" />
+    <Compile Include="Models\DriverRequestModel.cs" />
+    <Compile Include="Models\DriverStatsClass.cs" />
+    <Compile Include="Models\Menu_Items.cs" />
+    <Compile Include="Models\QueriesModel.cs" />
+    <Compile Include="Models\ReasignModel.cs" />
+    <Compile Include="Models\Replies.cs" />
+    <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SplashScreen.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\Lato_Black.ttf" />
+    <AndroidAsset Include="Assets\service_account.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
@@ -95,7 +148,9 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidAsset Include="Assets\delivary_icon.png" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AndHUD">
       <Version>1.4.2</Version>
@@ -124,7 +179,6 @@
     <PackageReference Include="Xam.iTextSharpLGPL">
       <Version>0.1.0</Version>
     </PackageReference>
-    
     <PackageReference Include="Xamarin.AndroidX.AppCompat.AppCompatResources">
       <Version>1.2.0.7</Version>
     </PackageReference>

@@ -13,13 +13,13 @@
         android:src="@mipmap/ic_announcement_black_18dp"
         />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_margin="10dp"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
     >
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
             android:inputType="textMultiLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,8 +27,8 @@
             android:padding="10dp"
             android:id="@+id/dlgInputAnnouncement" 
         />
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.button.MaterialButton
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.button.MaterialButton
         android:text="@string/txt_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

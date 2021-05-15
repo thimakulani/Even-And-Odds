@@ -16,14 +16,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="100"
-        tools:ignore="MissingDimension"
     >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="208.5dp"
             android:background="@drawable/view_style"
         >
-            <com.google.android.material.textview.MaterialTextView
+            <ImageView
                 android:layout_width="74.0dp"
                 android:layout_height="73.0dp"
                 android:src="@mipmap/delivery_icon"
@@ -45,7 +44,7 @@
 
             />
         </RelativeLayout>
-        <com.google.android.material.textfield.TextInputLayout
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -53,9 +52,9 @@
             app:boxStrokeWidth="2dp"
             app:boxStrokeColor="@color/colorPrimary"
             android:layout_marginRight="20dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -63,21 +62,21 @@
                 android:inputType="textEmailAddress"
                 android:hint=" Email"
             />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+        </android.support.design.widget.TextInputLayout>
+        
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="20dp"
             app:boxStrokeWidth="2dp"
             app:boxStrokeColor="@color/colorPrimary"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="20dp" 
             
             
         >
-            <com.google.android.material.textfield.TextInputEditText
+           <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -86,7 +85,7 @@
                 android:inputType="textPassword"
                 android:id="@+id/LoginInputPassword"
             />
-        </com.google.android.material.textfield.TextInputLayout>
+        </android.support.design.widget.TextInputLayout>
         <TextView
             android:text="Forgot password?"
             android:layout_gravity="right"
@@ -94,8 +93,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/TxtForgotPassword" />
-
-        <com.google.android.material.button.MaterialButton
+        
+        <android.support.design.button.MaterialButton
             android:text="Login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -111,7 +110,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
         />
-    </LinearLayout>
+     </LinearLayout>
     
     
 </RelativeLayout>

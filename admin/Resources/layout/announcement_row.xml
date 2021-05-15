@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:background="#000000"
             android:layout_height="1dp"/>
-        <com.google.android.material.button.MaterialButton
+        <android.support.design.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:strokeWidth="2dp"

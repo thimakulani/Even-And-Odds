@@ -1,6 +1,8 @@
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_sheet_delivery_request"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -376,6 +378,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="100"
+            tools:ignore="MissingDimension"
         >
             <TextView
                 android:text="Status"
@@ -406,7 +409,7 @@
             </LinearLayout>
 
         </LinearLayout>
-       
+
         <com.google.android.material.button.MaterialButton
             android:text="Accept Request"
             android:layout_width="wrap_content"
@@ -417,5 +420,5 @@
             android:id="@+id/BtnAcceptRequest"
         />
     </LinearLayout>
-    
+
 </LinearLayout>

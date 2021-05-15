@@ -46,17 +46,17 @@
             android:id="@+id/relativeLayout2" 
         >
 
-            <com.google.android.material.textfield.TextInputLayout
+            <android.support.design.widget.TextInputLayout
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textInputLayout1" 
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_toLeftOf="@+id/TBtnSendMessage"
                 
             >
       
-                 <com.google.android.material.textfield.TextInputEditText
+                 <EditText
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      android:hint="Reply here"
@@ -66,7 +66,7 @@
                      android:id="@+id/TInputMessage"
                      android:textColor="#ffff"
                  />
-            </com.google.android.material.textfield.TextInputLayout>
+            </android.support.design.widget.TextInputLayout>
              <android.support.design.widget.FloatingActionButton
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"

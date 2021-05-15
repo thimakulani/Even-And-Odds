@@ -1,0 +1,208 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Support.V7.Widget;
+using Android.Views;
+using Android.Widget;
+using Even_Odds_Delivary.AppData;
+using Even_Odds_Delivary.Models;
+using Firebase.Database;
+using Microcharts;
+using Microcharts.Droid;
+using SkiaSharp;
+using Toolbar = Android.Support.V7.Widget.Toolbar;
+
+namespace Even_Odds_Delivary.Activities
+{
+    [Activity(Label = "StatsActivity")]
+    public class StatsActivity : Activity, IValueEventListener
+    {
+        private ChartView chartStats;
+        private Toolbar toolbar;
+        private ProgressBar loading_stats_progress;
+        private List<string> months = new List<string>();
+        private List<int> counter = new List<int>();
+        private Android.Support.Design.Button.MaterialButton BtnChartType;
+        private Android.Support.Design.Button.MaterialButton BtnYear;
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+
+            // Create your application here
+            SetContentView(Resource.Layout.activity_graphs_stats);
+            toolbar = FindViewById<Toolbar>(Resource.Id.include_app_toolbar);
+            BtnChartType = FindViewById<Android.Support.Design.Button.MaterialButton>(Resource.Id.BtnChartType);
+            BtnYear = FindViewById<Android.Support.Design.Button.MaterialButton>(Resource.Id.BtnYear);
+            loading_stats_progress = FindViewById<ProgressBar>(Resource.Id.loading_stats_progress);
+            //BtnYear.Click += BtnYear_Click;
+            BtnYear.Visibility = ViewStates.Gone;
+            BtnChartType.Click += BtnChartType_Click;
+
+            chartStats = FindViewById<ChartView>(Resource.Id.chartStats);
+            toolbar.NavigationClick += Toolbar_NavigationClick;
+            string[] monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
+            foreach (var m in monthNames)
+            {
+                months.Add(m);
+                counter.Add(0);
+            }
+       
+            FirebaseDatabase.Instance
+                .GetReference("DelivaryRequest")
+                .AddValueEventListener(this);
+        }
+
+        private void BtnChartType_Click(object sender, EventArgs e)
+        {
+            Android.Widget.PopupMenu popupMenu = new Android.Widget.PopupMenu(this, BtnChartType);
+            popupMenu.Menu.Add(Menu.First, 0, 1, "Bar Chart");
+            popupMenu.Menu.Add(Menu.First, 1, 1, "Line Chart");
+            popupMenu.Menu.Add(Menu.First, 2, 1, "Point Chart");
+            popupMenu.Menu.Add(Menu.First, 3, 1, "Donut Chart");
+            popupMenu.Menu.Add(Menu.First, 4, 1, "Radar Chart");
+            popupMenu.Show();
+            popupMenu.MenuItemClick += PopupMenu_MenuItemClick;
+        }
+       // int Year = 2020;
+        //private void BtnYear_Click(object sender, EventArgs e)
+        //{
+        //    Android.Widget.PopupMenu popupYear = new Android.Widget.PopupMenu(this, BtnYear);
+        //    var currentYear = DateTime.Now.Year;
+
+
+        //    while (Year <= currentYear)
+        //    {
+        //        popupYear.Menu.Add(Menu.First, 0, 1, Year.ToString());
+        //        Year++;
+
+        //    }
+
+        //    popupYear.Show();
+        //    popupYear.MenuItemClick += PopupYear_MenuItemClick;
+
+
+        //}
+
+        private void PopupYear_MenuItemClick(object sender, Android.Widget.PopupMenu.MenuItemClickEventArgs e)
+        {
+            BtnYear.Text = e.Item.TitleFormatted.ToString();
+        }
+
+        private void PopupMenu_MenuItemClick(object sender, Android.Widget.PopupMenu.MenuItemClickEventArgs e)
+        {
+            type = e.Item.ItemId;
+            BtnYear.Text = e.Item.TitleFormatted.ToString();
+            DrawCharts();
+        }
+        private void Toolbar_NavigationClick(object sender, Toolbar.NavigationClickEventArgs e)
+        {
+            Finish();
+        }
+        private int type = 0;
+        private void DrawCharts()
+        {
+            List<ChartEntry> DataEntry = new List<ChartEntry>();
+            string[] colors = { "#157979", "#154779", "#5F1C80", "#801C59",
+                            "#9CBDD6", "#75863D" , "#1E1011", "#48D53B",
+                            "#48D5C7", "#6761F0", "#8A80A3", "#D3C6F4"
+            };
+            for (int i = 0; i < months.Count; i++)
+            {
+                DataEntry.Add(new ChartEntry(counter[i])
+                {
+                    Label = months[i],
+                    Color = SKColor.Parse(colors[i]),
+                    ValueLabel = counter[i].ToString(),
+                    TextColor = SKColor.Parse(colors[i]),
+                    ValueLabelColor = SKColor.Parse(colors[i])
+                });
+                if(months[i].Contains(DateTime.Now.ToString("MMMM")))
+                {
+                    break;
+                }
+            }
+            loading_stats_progress.Visibility = ViewStates.Gone;
+            
+            if (type == 0)
+            {
+                var chart = new BarChart()
+                {
+                    Entries = DataEntry,
+                };
+                chartStats.Chart = chart; 
+            }
+            if (type == 1)
+            {
+                var chart = new LineChart()
+                {
+                    Entries = DataEntry,
+                };
+                chartStats.Chart = chart;
+            }
+            if (type == 2)
+            {
+                var chart = new PointChart()
+                {
+                    Entries = DataEntry,
+                };
+                chartStats.Chart = chart;
+            }
+            if (type == 3)
+            {
+                var chart = new DonutChart()
+                {
+                    Entries = DataEntry,
+                };
+                chartStats.Chart = chart;
+            }
+            if (type == 4)
+            {
+                var chart = new RadarChart()
+                {
+                    Entries = DataEntry,
+                };
+                chartStats.Chart = chart;
+            }
+        }
+
+        public void OnCancelled(DatabaseError error)
+        {
+
+        }
+
+        public void OnDataChange(DataSnapshot snapshot)
+        {
+            if (snapshot != null)
+            {
+                
+                var child = snapshot.Children.ToEnumerable<DataSnapshot>();
+                foreach (DataSnapshot data in child)
+                {
+                    
+                    DateTime dateTime = DateTime.Parse(data.Child("RequestTime").Value.ToString());
+                    if (months.Contains(dateTime.ToString("MMMM")))
+                    {
+                        int pos = months.IndexOf(dateTime.ToString("MMMM"));
+                        counter[pos] = counter[pos] + 1;
+                    }
+                    
+                }
+                DrawCharts();
+            }
+            else
+            {
+                DrawCharts();
+            }
+        }
+
+
+    }
+}
