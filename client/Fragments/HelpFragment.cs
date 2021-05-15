@@ -53,7 +53,7 @@ namespace client.Fragments
 
         private void ConnectViews(View view)
         {
-            InputMessage = view.FindViewById<EditText>(Resource.Id.TInputMessage);
+            InputMessage = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.TInputMessage);
 
             BtnSend = view.FindViewById<Android.Support.Design.Widget.FloatingActionButton>(Resource.Id.TBtnSendMessage);
             recyclerView = view.FindViewById<RecyclerView>(Resource.Id.TRecyclerChatMessage);

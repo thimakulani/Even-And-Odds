@@ -44,7 +44,7 @@
             android:id="@+id/txtLocation" 
             android:layout_below="@+id/txtReason"
         />
-        <android.support.design.button.MaterialButton
+        <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Re-assign"
@@ -53,7 +53,7 @@
             android:layout_below="@+id/txtLocation"
             
         />
-        <android.support.design.button.MaterialButton
+        <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reject"

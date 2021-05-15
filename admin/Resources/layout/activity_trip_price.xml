@@ -23,15 +23,15 @@
         android:gravity="center"
         android:orientation="vertical"
     >
-        <android.support.design.widget.TextInputLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:id="@+id/textInputLayout1"
         >
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/InitialPrice"
@@ -41,15 +41,15 @@
                 android:hint="Initial Price Within 5KM"
             />
 
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_margin="10dp"
             android:layout_gravity="center_vertical"
         >
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/InitialAfter"
@@ -59,8 +59,8 @@
                 android:hint="Additional Price After 5KM"
             />
 
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.button.MaterialButton
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_margin="10dp"
             android:layout_height="wrap_content"

@@ -53,25 +53,24 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:textStyle="bold"
                     android:id="@+id/InputPacelFullnames"
                     android:hint="Names"
-                    android:textColorHint="#220438"
-                    android:textColor="#220438"          
+                              
                 />
             </com.google.android.material.textfield.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
@@ -84,13 +83,13 @@
                     android:layout_marginTop="3dp"
                     android:layout_below="@+id/InputPacelFullnames"
                 />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
@@ -103,13 +102,13 @@
                     android:layout_marginTop="3dp"
                     android:layout_below="@+id/InputPacelSurname"
                 />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
@@ -122,7 +121,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_below="@+id/InputPacelContact"
                 />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -144,12 +143,12 @@
                 android:textStyle="bold"
             />
             
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
@@ -162,13 +161,13 @@
                     android:layout_marginTop="3dp"
                     android:layout_below="@+id/textView2"
                 />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
@@ -182,13 +181,13 @@
                     android:layout_marginTop="3dp"
                     android:layout_below="@+id/InputPacelItemType"
                 />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
@@ -203,7 +202,7 @@
                     android:layout_marginBottom="3dp"
                     android:layout_below="@+id/InputPacelPickupLocation"
                 />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 android:text="Select a pickup date and time"
                 android:visibility="gone"
@@ -237,12 +236,12 @@
                 android:layout_alignParentRight="true"
                 android:background="@drawable/button_style"
             />
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:inputType="textPersonName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -254,13 +253,13 @@
                     android:textStyle="bold"
                     android:layout_below="@+id/BtnPicupDate"
                 />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -273,8 +272,8 @@
                     android:textStyle="bold"
                     android:layout_below="@+id/InputPacelPersonN"
                 />
-            </android.support.design.widget.TextInputLayout>
-            <TextView
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textview.MaterialTextView
                 android:text="Payment method"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="wrap_content"
@@ -295,7 +294,7 @@
                 android:layout_below="@+id/txtPaymentMethod"
                 
             >
-                <RadioButton
+                <com.google.android.material.radiobutton.MaterialRadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -304,7 +303,7 @@
                     android:textStyle="bold"
                     android:textColor="#2e7dd9"
                 />
-                <RadioButton
+                <com.google.android.material.radiobutton.MaterialRadioButton
                     android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -315,7 +314,7 @@
                     
                 />
             </RadioGroup>
-            <android.support.design.button.MaterialButton
+            <com.google.android.material.button.MaterialButton
                 android:text="Proceed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

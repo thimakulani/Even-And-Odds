@@ -69,8 +69,8 @@ namespace client.Activities
             BtnLogin = FindViewById<MaterialButton>(Resource.Id.BtnLogin);
             TxtSignUp = FindViewById<TextView>(Resource.Id.TxtCreateAccount);
             TxtForgotPassword = FindViewById<TextView>(Resource.Id.TxtForgotPassword);
-            InputEmail = FindViewById<EditText>(Resource.Id.LoginInputEmail);
-            InputPassword = FindViewById<EditText>(Resource.Id.LoginInputPassword);
+            InputEmail = FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.LoginInputEmail);
+            InputPassword = FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.LoginInputPassword);
             rootLayout = FindViewById<RelativeLayout>(Resource.Id.rootLayout);
             /////user infor
             //
@@ -125,7 +125,7 @@ namespace client.Activities
             LayoutInflater inflater = (LayoutInflater)GetSystemService(Context.LayoutInflaterService);
             View view = inflater.Inflate(Resource.Layout.reset_password_dialog, null);
 
-            ResetInputEmail = view.FindViewById<EditText>(Resource.Id.ResetInputEmail);
+            ResetInputEmail = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.ResetInputEmail);
             BtnReset = view.FindViewById<MaterialButton>(Resource.Id.BtnReset);
             BtnCloseDialog = view.FindViewById<FloatingActionButton>(Resource.Id.FabCloseResetDialog);
             BtnCloseDialog.Click += BtnCloseDialog_Click;

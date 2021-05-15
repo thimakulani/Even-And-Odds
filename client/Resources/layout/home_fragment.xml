@@ -139,7 +139,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
         >
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:src="@android:drawable/ic_menu_mylocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

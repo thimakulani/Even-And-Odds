@@ -53,7 +53,7 @@
             app:boxStrokeWidth="2dp"
             app:boxStrokeColor="@color/colorPrimary"
             android:layout_marginRight="20dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         >
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -68,7 +68,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="20dp"
             app:boxStrokeWidth="2dp"

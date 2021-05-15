@@ -16,7 +16,7 @@
        />
    </android.support.design.widget.AppBarLayout>
    
-   <android.support.design.button.MaterialButton
+   <com.google.android.material.button.MaterialButton
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:text="Year"
@@ -26,7 +26,7 @@
        android:layout_marginRight="20dp"
        android:layout_below="@+id/appBarLayout1"
    />
-   <android.support.design.button.MaterialButton
+   <com.google.android.material.button.MaterialButton
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:text="Month"
@@ -36,7 +36,7 @@
        android:id="@+id/BtnMonth"
         android:layout_below="@+id/BtnYear"
    />
-    <android.support.design.button.MaterialButton
+    <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

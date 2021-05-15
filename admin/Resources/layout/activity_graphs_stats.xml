@@ -26,7 +26,7 @@
        android:background="@android:color/black"
        android:layout_height="1dp"
    />
-    <android.support.design.button.MaterialButton
+    <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/BtnChartType"
@@ -34,7 +34,7 @@
         app:icon="@mipmap/ic_arrow_drop_down_black_18dp"
         android:drawableLeft="@mipmap/ic_arrow_drop_down_black_18dp"
     />
-    <android.support.design.button.MaterialButton
+    <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/BtnYear"

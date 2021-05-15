@@ -53,11 +53,11 @@ namespace client.Fragments
 
         private void ConnectViews(View view)
         {
-            InputNames = view.FindViewById<EditText>(Resource.Id.ProfileUpdateName);
-            InputSurname = view.FindViewById<EditText>(Resource.Id.ProfileUpdateSurname);
-            InputPhone = view.FindViewById<EditText>(Resource.Id.ProfileUpdatePhone);
-            InputAltPhone = view.FindViewById<EditText>(Resource.Id.ProfileUpdateAltPhone);
-            InputEmail = view.FindViewById<EditText>(Resource.Id.ProfileUpdateEmail);
+            InputNames = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.ProfileUpdateName);
+            InputSurname = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.ProfileUpdateSurname);
+            InputPhone = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.ProfileUpdatePhone);
+            InputAltPhone = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.ProfileUpdateAltPhone);
+            InputEmail = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.ProfileUpdateEmail);
             
             BtnAppyChanges = view.FindViewById<MaterialButton>(Resource.Id.BtnUpdateProfile);
 
