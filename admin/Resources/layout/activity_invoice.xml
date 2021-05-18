@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 >
-   <android.support.design.widget.AppBarLayout
+   <com.google.android.material.appbar.AppBarLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
      android:id="@+id/appBarLayout1"
@@ -14,9 +14,9 @@
        <include
            layout="@layout/include_toolbar"
        />
-   </android.support.design.widget.AppBarLayout>
+   </com.google.android.material.appbar.AppBarLayout>
    
-   <android.support.design.button.MaterialButton
+   <com.google.android.material.button.MaterialButton
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:text="Year"
@@ -26,17 +26,17 @@
        android:layout_marginRight="20dp"
        android:layout_below="@+id/appBarLayout1"
    />
-   <android.support.design.button.MaterialButton
+   <com.google.android.material.button.MaterialButton
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:text="Month"
        android:layout_marginLeft="20dp"
-    app:icon="@mipmap/ic_arrow_drop_down_black_18dp"
+        app:icon="@mipmap/ic_arrow_drop_down_black_18dp"
        android:layout_marginRight="20dp"
        android:id="@+id/BtnMonth"
         android:layout_below="@+id/BtnYear"
    />
-    <android.support.design.button.MaterialButton
+    <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

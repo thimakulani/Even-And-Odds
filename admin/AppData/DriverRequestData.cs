@@ -4,14 +4,14 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Even_Odds_Delivary.Models;
+using admin.Models;
 using Firebase.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Even_Odds_Delivary.AppData
+namespace admin.AppData
 {
     public class DriverRequestData : Java.Lang.Object, IValueEventListener
     {

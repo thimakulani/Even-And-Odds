@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "453662960073",
+    "firebase_url": "https://moshopjadi-45b4a.firebaseio.com",
+    "project_id": "moshopjadi-45b4a",
+    "storage_bucket": "moshopjadi-45b4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453662960073:android:15a60256e30a2f7835a018",
+        "android_client_info": {
+          "package_name": "com.evenandodds.admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "453662960073-di4o1o8jltiso09tt7gep17bdp6e7mnr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjj4FHDYwBhzIiSWLNkrJxxikKrorVuVE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "453662960073-di4o1o8jltiso09tt7gep17bdp6e7mnr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453662960073:android:d03c1b05e5014c5235a018",
+        "android_client_info": {
+          "package_name": "com.evenandodds.client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "453662960073-di4o1o8jltiso09tt7gep17bdp6e7mnr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjj4FHDYwBhzIiSWLNkrJxxikKrorVuVE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "453662960073-di4o1o8jltiso09tt7gep17bdp6e7mnr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453662960073:android:723ad2288d65183835a018",
+        "android_client_info": {
+          "package_name": "com.evenandodds.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "453662960073-di4o1o8jltiso09tt7gep17bdp6e7mnr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjj4FHDYwBhzIiSWLNkrJxxikKrorVuVE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "453662960073-di4o1o8jltiso09tt7gep17bdp6e7mnr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

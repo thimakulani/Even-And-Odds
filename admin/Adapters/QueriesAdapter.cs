@@ -2,15 +2,12 @@
 
 using Android.Views;
 using Android.Widget;
-using Android.Support.V7.Widget;
 using System.Collections.Generic;
-using Android.Content.Res;
-using System.IO;
-using FirebaseAdmin.Auth;
-using Even_Odds_Delivary.Models;
+using admin.Models;
 using Firebase.Database;
+using AndroidX.RecyclerView.Widget;
 
-namespace Even_Odds_Delivary.Adapters
+namespace admin.Adapters
 {
     class QueriesAdapter : RecyclerView.Adapter
     {

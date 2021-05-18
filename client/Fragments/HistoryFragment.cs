@@ -7,7 +7,7 @@ using Android.OS;
 using Android.Views;
 using AndroidX.RecyclerView.Widget;
 using client.Adapters;
-using client.AppData;
+ 
 using client.Classes;
 using Firebase.Auth;
 
@@ -17,8 +17,6 @@ namespace client.Fragments
     {
         private RecyclerView RecyclerHistory;
         private List<DelivaryModal> items = new List<DelivaryModal>();
-        private HistoryData data;
-        private string keyId;
         private Context context;
 
         public HistoryFragment(Context context)
@@ -39,8 +37,6 @@ namespace client.Fragments
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
             var view = inflater.Inflate(Resource.Layout.activity_history, container, false);
-            ISharedPreferences pref = Application.Context.GetSharedPreferences("UserInfo", FileCreationMode.Private);
-            keyId = FirebaseAuth.Instance.CurrentUser.Uid;
             ConnectViews(view);
             return view;
         }
@@ -49,25 +45,13 @@ namespace client.Fragments
         {
             RecyclerHistory = view.FindViewById<RecyclerView>(Resource.Id.RecyclerHistory);
 
-
-            data = new HistoryData();
-            data.GetDeliveryRequests(keyId);
-            data.RetrievedDeliveries += Data_RetrievedDeliveries;
-        }
-    
-        private void Data_RetrievedDeliveries(object sender, HistoryData.RetriveDelivaryHystoryHandler e)
-        {
-            items = e.itemList;
-            SetRecycler();
-        }
-        private void SetRecycler()
-        {
-            LinearLayoutManager linearLayout = new LinearLayoutManager(context.ApplicationContext);
+            LinearLayoutManager linearLayout = new LinearLayoutManager(view.Context);
             RequestAdapter adapter = new RequestAdapter(items);
             RecyclerHistory.SetLayoutManager(linearLayout);
             RecyclerHistory.SetAdapter(adapter);
             adapter.BtnCancelClick += Adapter_BtnCancelClick;
             adapter.BtnViewDriverClick += Adapter_BtnViewDriverClick;
+            /*get history*/
         }
 
         private void Adapter_BtnViewDriverClick(object sender, RequestAdapterClickEventArgs e)

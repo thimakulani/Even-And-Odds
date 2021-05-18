@@ -60,7 +60,7 @@ namespace driver.Adapters
                 {
                     if (snapshot.Exists)
                     {
-                        var user = snapshot.ToObject<AppUsers>();
+                        var user = snapshot.ToObject<ClientModel>();
                         holder.RequestDate.Text = $"{user.Name} {user.Surname}";
                     }
                 });

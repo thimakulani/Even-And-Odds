@@ -9,13 +9,13 @@ using Android.App.Usage;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.Design.Button;
+using Google.Android.Material.Button;
 using Android.Support.V7.Widget;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
 using client.Adapters;
-using client.AppData;
+ 
 using client.Classes;
 using Firebase.Auth;
 using Xamarin.Essentials;
@@ -32,7 +32,6 @@ namespace client.Fragments
         private MaterialButton RequestBtn;
         private RecyclerView recyclerFeeds;
         private List<AnnouncementModel> Items = new List<AnnouncementModel>();
-        private AnnouncementData data = new AnnouncementData();
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
@@ -56,18 +55,16 @@ namespace client.Fragments
             recyclerFeeds = view.FindViewById<RecyclerView>(Resource.Id.recyclerFeeds);
             RequestBtn.Click += RequestBtn_Click;
             context = view.Context;
-            data.RetrieveAnnouncement();
-            data.RetrieveHandler += Data_RetrieveHandler;
-        }
-
-        private void Data_RetrieveHandler(object sender, AnnouncementData.RetrieveAnnouncementsEventHandler e)
-        {
-            Items = e.Items;
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context.ApplicationContext);
             AnnouncementAdapter adapter = new AnnouncementAdapter(Items);
             recyclerFeeds.SetLayoutManager(linearLayoutManager);
             recyclerFeeds.SetAdapter(adapter);
+
+            /*GET ANNOUNCEMENTS*/
+            
         }
+
+       
 
         public event EventHandler RequestEventHandler;
         private void RequestBtn_Click(object sender, EventArgs e)

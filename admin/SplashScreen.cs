@@ -5,13 +5,13 @@ using Android.Runtime;
 using Android.Widget;
 using System.Threading.Tasks;
 using Android.Content;
-using Even_Odds_Delivary.Activities;
+using admin.Activities;
 using static Firebase.Auth.FirebaseAuth;
 using Firebase.Auth;
 using System;
 using Firebase.Database;
 
-namespace Even_Odds_Delivary
+namespace admin
 {
     [Activity(Label = "@string/app_name", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
     public class SplashScreen : Activity

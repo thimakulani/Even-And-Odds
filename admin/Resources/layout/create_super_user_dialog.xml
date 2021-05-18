@@ -96,7 +96,7 @@
                 android:textColor="#3b8255"
                 android:background="@drawable/login_input"
             />
-            <android.support.design.button.MaterialButton
+            <com.google.android.material.button.MaterialButton
                 android:text="Submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

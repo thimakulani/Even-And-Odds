@@ -1,23 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.V7.Widget;
-using Android.Util;
 using Android.Views;
-using Android.Widget;
-using Even_Odds_Delivary.Adapters;
-using Even_Odds_Delivary.AppData;
-using Even_Odds_Delivary.Models;
+using admin.Adapters;
+using admin.AppData;
+using admin.Models;
+using AndroidX.RecyclerView.Widget;
+using AndroidX.Fragment.App;
+using Android.Content;
 
-namespace Even_Odds_Delivary.Fragments
+namespace admin.Fragments
 {
-    public class QueriesFragment : Android.Support.V4.App.Fragment
+    public class QueriesFragment : Fragment
     {
         private List<QueriesModel> Items = new List<QueriesModel>();
         private RecyclerView Recycler;
@@ -27,7 +22,7 @@ namespace Even_Odds_Delivary.Fragments
             base.OnCreate(savedInstanceState);
             // Create your fragment here
         }
-
+        private Context context;
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
@@ -35,6 +30,7 @@ namespace Even_Odds_Delivary.Fragments
 
 
             var view =  inflater.Inflate(Resource.Layout.activity_queries, container, false);
+            context = view.Context;
             ConnectViews(view);
             return view;
         }
@@ -50,7 +46,7 @@ namespace Even_Odds_Delivary.Fragments
         {
             Items = e.queries;
             Items.Sort((x, y) => y.Datetime.CompareTo(x.Datetime));
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Application.Context);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
             QueriesAdapter adapter = new QueriesAdapter(Items);
             Recycler.SetLayoutManager(linearLayoutManager);
             Recycler.SetAdapter(adapter);

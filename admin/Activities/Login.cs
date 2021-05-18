@@ -2,16 +2,16 @@
 using Android.Content;
 using Android.Gms.Tasks;
 using Android.OS;
-using Android.Support.Design.Button;
-using Android.Support.Design.Widget;
+using Google.Android.Material.Button;
 using Android.Views;
 using Android.Widget;
-using Even_Odds_Delivary.FirebaseHelper;
 using Firebase.Auth;
 using Firebase.Database;
 using System;
+using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.TextField;
 
-namespace Even_Odds_Delivary.Activities
+namespace admin.Activities
 {
     [Activity(Label = "Login", NoHistory = true)]
     public class Login : Activity, IOnSuccessListener, IOnFailureListener, IValueEventListener
@@ -29,15 +29,15 @@ namespace Even_Odds_Delivary.Activities
         private AlertDialog.Builder dialogBuilder;
 
         private FloatingActionButton BtnCloseDialog;
-        private EditText ResetInputEmail;
+        private TextInputEditText ResetInputEmail;
         private MaterialButton BtnReset;
         private int EventType;
         /**/
         private Button BtnLogin;
         //private TextView TxtSignUp;
         private TextView TxtForgotPassword;
-        private EditText InputEmail;
-        private EditText InputPassword;
+        private TextInputEditText InputEmail;
+        private TextInputEditText InputPassword;
 
         /*root layout*/
         private RelativeLayout rootLayout;
@@ -63,8 +63,8 @@ namespace Even_Odds_Delivary.Activities
             BtnLogin = FindViewById<MaterialButton>(Resource.Id.BtnLogin);
             // TxtSignUp = FindViewById<TextView>(Resource.Id.TxtCreateAccount);
             TxtForgotPassword = FindViewById<TextView>(Resource.Id.TxtForgotPassword);
-            InputEmail = FindViewById<EditText>(Resource.Id.LoginInputEmail);
-            InputPassword = FindViewById<EditText>(Resource.Id.LoginInputPassword);
+            InputEmail = FindViewById<TextInputEditText>(Resource.Id.LoginInputEmail);
+            InputPassword = FindViewById<TextInputEditText>(Resource.Id.LoginInputPassword);
             rootLayout = FindViewById<RelativeLayout>(Resource.Id.rootLayout);
             /////user infor
             //
@@ -106,7 +106,7 @@ namespace Even_Odds_Delivary.Activities
             LayoutInflater inflater = (LayoutInflater)GetSystemService(Context.LayoutInflaterService);
             View view = inflater.Inflate(Resource.Layout.reset_password_dialog, null);
 
-            ResetInputEmail = view.FindViewById<EditText>(Resource.Id.ResetInputEmail);
+            ResetInputEmail = view.FindViewById<TextInputEditText>(Resource.Id.ResetInputEmail);
             BtnReset = view.FindViewById<MaterialButton>(Resource.Id.BtnReset);
             BtnCloseDialog = view.FindViewById<FloatingActionButton>(Resource.Id.FabCloseResetDialog);
             BtnCloseDialog.Click += BtnCloseDialog_Click;

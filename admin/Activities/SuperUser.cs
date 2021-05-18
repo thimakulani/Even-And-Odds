@@ -1,31 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.Gms.Tasks;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Button;
-using Android.Support.Design.Widget;
+using Google.Android.Material.Button;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using AndroidHUD;
-using Even_Odds_Delivary.Adapters;
-using Even_Odds_Delivary.AppData;
-using Even_Odds_Delivary.FirebaseHelper;
-using Even_Odds_Delivary.Models;
-using Firebase.Auth;
+using admin.Adapters;
+using admin.AppData;
+using admin.FirebaseHelper;
+using admin.Models;
 using Firebase.Database;
 using FirebaseAdmin.Auth;
 using Java.Util;
 using Xamarin.Essentials;
 using SearchView = Android.Support.V7.Widget.SearchView;
+using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.TextField;
 
-namespace Even_Odds_Delivary.Activities
+namespace admin.Activities
 {
     [Activity(Label = "SuperUser", MainLauncher = false)]
     public class SuperUser : Activity, IOnSuccessListener, IDialogInterfaceOnDismissListener
@@ -45,10 +43,10 @@ namespace Even_Odds_Delivary.Activities
 
         /*views*/
         private RelativeLayout root_superuser_layout;
-        private EditText InputName;
-        private EditText InputEmail;
-        private EditText InputSurname;
-        private EditText InputPhone;
+        private TextInputEditText InputName;
+        private TextInputEditText InputEmail;
+        private TextInputEditText InputSurname;
+        private TextInputEditText InputPhone;
         private SearchView InputSearchUser;
         
 
@@ -143,10 +141,10 @@ namespace Even_Odds_Delivary.Activities
             dialogBuilder = new AlertDialog.Builder(this);
             LayoutInflater layoutInflater = (LayoutInflater)GetSystemService(Context.LayoutInflaterService);
             View view = layoutInflater.Inflate(Resource.Layout.create_super_user_dialog, null);
-            InputName = view.FindViewById<EditText>(Resource.Id.SuperUserRegisterInputFirstName);
-            InputSurname = view.FindViewById<EditText>(Resource.Id.SuperUserRegisterInputLastName);
-            InputPhone = view.FindViewById<EditText>(Resource.Id.SuperUserRegisterInputPhoneNumber);
-            InputEmail = view.FindViewById<EditText>(Resource.Id.SuperUserRegisterInputEmail);
+            InputName = view.FindViewById<TextInputEditText>(Resource.Id.SuperUserRegisterInputFirstName);
+            InputSurname = view.FindViewById<TextInputEditText>(Resource.Id.SuperUserRegisterInputLastName);
+            InputPhone = view.FindViewById<TextInputEditText>(Resource.Id.SuperUserRegisterInputPhoneNumber);
+            InputEmail = view.FindViewById<TextInputEditText>(Resource.Id.SuperUserRegisterInputEmail);
             BtnSubmitReg = view.FindViewById<MaterialButton>(Resource.Id.SuperUserBtnRegisterDriver);
             BtnSubmitReg.Click += BtnSubmitReg_Click;
             FloatingActionButton FabCloseSuperRegDialog = view.FindViewById<FloatingActionButton>(Resource.Id.SuperUserFabCloseSuperUserRegDialog);

@@ -12,13 +12,17 @@ using Android.Widget;
 
 namespace driver.Models
 {
-    class AppUsers
+    class ClientModel
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string PhoneNumber { get; set; }
-        public string AltPhoneNumber { get; set; }
+        public string Phone { get; set; }
         public string Email { get; set; }
-        public string KeyId { get; set; }
+        public string Uid { get; set; }
+        public string Role { get; set; }
+        public string RegNo { get; set; }
+        public string Type { get; set; }
+        public string Color { get; set; }
+        public string Make { get; set; }
     }
 }

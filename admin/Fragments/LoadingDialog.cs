@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Even_Odds_Delivary.Fragments
+namespace admin.Fragments
 {
     public class LoadingDialog : DialogFragment
     {

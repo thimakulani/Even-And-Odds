@@ -1,33 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.Gms.Tasks;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Button;
-using Android.Support.Design.Widget;
+using Google.Android.Material.Button;
 using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using AndroidHUD;
-using Even_Odds_Delivary.Adapters;
-using Even_Odds_Delivary.AppData;
-using Even_Odds_Delivary.FirebaseHelper;
-using Even_Odds_Delivary.Fragments;
-using Even_Odds_Delivary.Models;
-using Firebase.Auth;
+using admin.Adapters;
+using admin.AppData;
+using admin.Fragments;
+using admin.Models;
 using Firebase.Database;
-using FirebaseAdmin.Auth;
-using Java.Util;
 using Xamarin.Essentials;
 using AlertDialog = Android.App.AlertDialog;
 
-namespace Even_Odds_Delivary.Activities
+namespace admin.Activities
 {
     [Activity(Label = "RegisterDriver", MainLauncher = false)]
     public class RegisterDriver : AppCompatActivity, IOnFailureListener, IOnCompleteListener
@@ -43,15 +36,11 @@ namespace Even_Odds_Delivary.Activities
 
 
         /*views*/
-        private RelativeLayout root_registration_layout;
-        private EditText InputName;
-        private EditText InputEmail;
-        private EditText InputSurname;
-        private EditText InputPhone;
+        
         private Android.Support.V7.Widget.SearchView InputSearchUser;
         
         
-        private MaterialButton BtnSubmitReg;
+        
         //private CheckBox Terms;
         private ImageView ImgBack;
         private RecyclerView recyclerUsersList;
@@ -77,7 +66,6 @@ namespace Even_Odds_Delivary.Activities
         private void ConnectViews()
         {
 
-            root_registration_layout = FindViewById<RelativeLayout>(Resource.Id.root_registration_layout);
 
             //InputSearchUser.Visibility = ViewStates.Gone;
 
@@ -105,10 +93,10 @@ namespace Even_Odds_Delivary.Activities
             var users = (from data in UseritemsList
                          where
                         data.Name.Contains(e.NewText) ||
-                        data.UserType.Contains(e.NewText) ||
+                        data.Role.Contains(e.NewText) ||
                         data.Surname.Contains(e.NewText) ||
                         data.Email.Contains(e.NewText) ||
-                        data.PhoneNumber.Contains(e.NewText)
+                        data.Phone.Contains(e.NewText)
                          select data).ToList<AppUsers>();
 
             SetUpRecycler(users);
@@ -122,27 +110,6 @@ namespace Even_Odds_Delivary.Activities
             DriverRegistrationDialog dlg = new DriverRegistrationDialog();
             dlg.Show(SupportFragmentManager.BeginTransaction(), "Driver Reg");
         }
-
-        //private bool SearchOpen = false;
-        //private void FabSearch_Click(object sender, EventArgs e)
-        //{
-        //    if(SearchOpen == false)
-        //    {
-        //        FabSearch.SetImageResource(Resource.Drawable.abc_ic_clear_material);
-        //        InputSearchUser.Visibility = ViewStates.Visible;
-        //        InputSearchUser.RequestFocus();
-        //        SearchOpen = true;
-        //        return;
-        //    }
-        //    if(SearchOpen == true)
-        //    {
-        //        FabSeaalphrch.SetImageResource(Resource.Drawable.abc_ic_search_api_material);
-        //        InputSearchUser.Visibility = ViewStates.Gone;
-        //        SearchOpen = false;
-        //        return;
-        //    }
-        //}
-
 
         public override void OnBackPressed()
         {
@@ -187,7 +154,7 @@ namespace Even_Odds_Delivary.Activities
 
         private void Adapter_CreateDriverClick(object sender, AppUsersAdapterClickEventArgs e)
         {
-            if(items[e.Position].UserType != "Driver")
+            if(items[e.Position].Role != "Driver")
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetTitle("Confirm");
@@ -218,7 +185,7 @@ namespace Even_Odds_Delivary.Activities
                 builder.SetPositiveButton("Yes", delegate
                 {
 
-                    FirebaseDatabase.Instance.GetReference("AppUsers").Child(items[e.Position].KeyId).Child("UserType").SetValue("Client");
+                    FirebaseDatabase.Instance.GetReference("AppUsers").Child(items[e.Position].Uid).Child("UserType").SetValue("Client");
                     builder.Dispose();
 
                 });
@@ -279,7 +246,7 @@ namespace Even_Odds_Delivary.Activities
         {
             try
             {
-                PhoneDialer.Open(items[e.Position].PhoneNumber);
+                PhoneDialer.Open(items[e.Position].Phone);
             }
             catch (ArgumentNullException anEx)
             {

@@ -7,21 +7,22 @@ using Android.Views;
 using Android.Widget;
 using Firebase.Database;
 using Google.Android.Material.Button;
+using Google.Android.Material.TextField;
 
 namespace client.Fragments
 {
     public class CompleteRequestFragment : Android.Support.V4.App.Fragment, IValueEventListener
     {
-        private EditText InputName;
-        private EditText InputSurname;
-        //  private EditText InputEmail;
-        private EditText InputContactNo;
-        private EditText InputAltNumber;
-        private EditText InputItemType;
-        private EditText InputPickUpLocation;
-        private EditText InputDestinationLocation;
-        private EditText InputPersonName;
-        private EditText InputPersonContact;
+        private TextInputEditText InputName;
+        private TextInputEditText InputSurname;
+        //  private TextInputEditText InputEmail;
+        private TextInputEditText InputContactNo;
+        private TextInputEditText InputAltNumber;
+        private TextInputEditText InputItemType;
+        private TextInputEditText InputPickUpLocation;
+        private TextInputEditText InputDestinationLocation;
+        private TextInputEditText InputPersonName;
+        private TextInputEditText InputPersonContact;
         private MaterialButton BtnSubmitDeliveryRequest;
         private MaterialButton BtnDatePick;
         private MaterialButton BtnTimePick;
@@ -76,15 +77,15 @@ namespace client.Fragments
 
         private void ConnectViews(View view)
         {
-            InputName = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.InputPacelFullnames);
-            InputSurname = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.InputPacelSurname);
-            InputContactNo = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.InputPacelContact);
-            InputAltNumber = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.InputPacelAltContact);
-            InputItemType = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.InputPacelItemType);
-            InputPickUpLocation = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.InputPacelPickupLocation);
-            InputDestinationLocation = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.InputPacelDestination);
-            InputPersonName = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.InputPacelPersonN);
-            InputPersonContact = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.InputPacelPersonContacts);
+            InputName = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelFullnames);
+            InputSurname = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelSurname);
+            InputContactNo = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelContact);
+            InputAltNumber = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelAltContact);
+            InputItemType = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelItemType);
+            InputPickUpLocation = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelPickupLocation);
+            InputDestinationLocation = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelDestination);
+            InputPersonName = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelPersonN);
+            InputPersonContact = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelPersonContacts);
             BtnSubmitDeliveryRequest = view.FindViewById<MaterialButton>(Resource.Id.BtnSubmitDeliveryRequest);
             RdbCash = view.FindViewById<RadioButton>(Resource.Id.RdbCash);
             RdbOnline = view.FindViewById<RadioButton>(Resource.Id.RdbOnline);

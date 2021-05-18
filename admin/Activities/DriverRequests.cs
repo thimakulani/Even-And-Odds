@@ -1,30 +1,24 @@
 ﻿using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V7.App;
 using Android.Support.V7.Widget;
-using Android.Views;
 using Android.Widget;
-using Even_Odds_Delivary.Adapters;
-using Even_Odds_Delivary.AppData;
-using Even_Odds_Delivary.Models;
+using admin.Adapters;
+using admin.AppData;
+using admin.Models;
 using Firebase.Database;
 using Java.Util;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Toolbar = Android.Support.V7.Widget.Toolbar;
+using Google.Android.Material.AppBar;
 
-namespace Even_Odds_Delivary.Activities
+namespace admin.Activities
 {
     [Activity(Label = "DriverRequests")]
     public class DriverRequests : AppCompatActivity
     {
-        private Toolbar include_app_toolbar;
+        private MaterialToolbar include_app_toolbar;
         private RecyclerView recycler_driver_requests;
-        DriverRequestData driverRequestData = new DriverRequestData();
+        private readonly DriverRequestData driverRequestData = new DriverRequestData();
         private List<DriverRequestModel> items = new List<DriverRequestModel>();
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -32,12 +26,17 @@ namespace Even_Odds_Delivary.Activities
 
             // Create your application here
             SetContentView(Resource.Layout.activity_driver_requests);
-            include_app_toolbar = FindViewById<Toolbar>(Resource.Id.include_app_toolbar);
+            include_app_toolbar = FindViewById<MaterialToolbar>(Resource.Id.include_app_toolbar);
             recycler_driver_requests = FindViewById<RecyclerView>(Resource.Id.recycler_driver_requests);
-            include_app_toolbar.NavigationClick += Include_app_toolbar_NavigationClick;
+            include_app_toolbar.NavigationClick += Include_app_toolbar_NavigationClick1; ;
             driverRequestData.GetDriverRequestData();
             driverRequestData.RetrivedData += DriverRequestData_RetrivedData;
 
+        }
+
+        private void Include_app_toolbar_NavigationClick1(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
+        {
+            Finish();
         }
 
         private void DriverRequestData_RetrivedData(object sender, DriverRequestData.DriverRequestDataEventArgs e)
@@ -86,12 +85,6 @@ namespace Even_Odds_Delivary.Activities
 
 
         }
-
-        private void Include_app_toolbar_NavigationClick(object sender, Toolbar.NavigationClickEventArgs e)
-        {
-            Finish();
-        }
-
 
       
     }

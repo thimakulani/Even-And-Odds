@@ -1,30 +1,32 @@
 ﻿using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.Design.Button;
+using Google.Android.Material.Button;
 using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using Even_Odds_Delivary.Models;
+using admin.Models;
 using Firebase.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.TextField;
 
-namespace Even_Odds_Delivary.Fragments
+namespace admin.Fragments
 {
     public class UpdateExistingUserFragment : DialogFragment
     {
-        private EditText InputName;
-        private EditText InputEmail;
-        private EditText InputSurname;
-        private EditText InputPhone;
-        private EditText InputColor;
-        private EditText InputRegNo;
-        private EditText InputMake;
+        private TextInputEditText InputName;
+        private TextInputEditText InputEmail;
+        private TextInputEditText InputSurname;
+        private TextInputEditText InputPhone;
+        private TextInputEditText InputColor;
+        private TextInputEditText InputRegNo;
+        private TextInputEditText InputMake;
         private MaterialButton BtnType;
         private MaterialButton BtnSubmitReg;
         private Context context;
@@ -52,13 +54,13 @@ namespace Even_Odds_Delivary.Fragments
         private void ConnectViews(View view)
         {
             context = view.Context;
-            InputName = view.FindViewById<EditText>(Resource.Id.RegisterInputFirstName);
-            InputSurname = view.FindViewById<EditText>(Resource.Id.RegisterInputLastName);
-            InputPhone = view.FindViewById<EditText>(Resource.Id.RegisterInputPhoneNumber);
-            InputEmail = view.FindViewById<EditText>(Resource.Id.RegisterInputEmail);
-            InputMake = view.FindViewById<EditText>(Resource.Id.RegisterInputMake);
-            InputColor = view.FindViewById<EditText>(Resource.Id.RegisterInputColor);
-            InputRegNo = view.FindViewById<EditText>(Resource.Id.RegisterInputRegNo);
+            InputName = view.FindViewById<TextInputEditText>(Resource.Id.RegisterInputFirstName);
+            InputSurname = view.FindViewById<TextInputEditText>(Resource.Id.RegisterInputLastName);
+            InputPhone = view.FindViewById<TextInputEditText>(Resource.Id.RegisterInputPhoneNumber);
+            InputEmail = view.FindViewById<TextInputEditText>(Resource.Id.RegisterInputEmail);
+            InputMake = view.FindViewById<TextInputEditText>(Resource.Id.RegisterInputMake);
+            InputColor = view.FindViewById<TextInputEditText>(Resource.Id.RegisterInputColor);
+            InputRegNo = view.FindViewById<TextInputEditText>(Resource.Id.RegisterInputRegNo);
             BtnType = view.FindViewById<MaterialButton>(Resource.Id.BtnRegisterCarType);
             BtnSubmitReg = view.FindViewById<MaterialButton>(Resource.Id.BtnRegisterDriver);
             FloatingActionButton FabClose = view.FindViewById<FloatingActionButton>(Resource.Id.FabCloseDirverRegDialog);
@@ -90,9 +92,9 @@ namespace Even_Odds_Delivary.Fragments
         private void BtnType_Click(object sender, EventArgs e)
         {
             PopupMenu popupMenu = new PopupMenu(context, BtnType);
-            popupMenu.Menu.Add(Menu.First, 1, 1, "Bike");
-            popupMenu.Menu.Add(Menu.First, 1, 1, "Bakkie");
-            popupMenu.Menu.Add(Menu.First, 1, 1, "Provate Car");
+            popupMenu.Menu.Add(IMenu.First, 1, 1, "Bike");
+            popupMenu.Menu.Add(IMenu.First, 1, 1, "Bakkie");
+            popupMenu.Menu.Add(IMenu.First, 1, 1, "Provate Car");
             popupMenu.Show();
             popupMenu.MenuItemClick += PopupMenu_MenuItemClick;
         }

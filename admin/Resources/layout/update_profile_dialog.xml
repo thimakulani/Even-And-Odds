@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@drawable/view_style"
@@ -17,7 +17,7 @@
             layout="@layout/include_toolbar"
         />
         
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
     <android.support.v4.widget.NestedScrollView
         android:minWidth="25px"
         android:minHeight="25px"
@@ -35,7 +35,7 @@
             android:id="@+id/linearLayout1"
             android:layout_margin="10dp"
         >
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -48,8 +48,8 @@
                     android:hint="Name"
                    
                 />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -61,8 +61,8 @@
                     android:id="@+id/ProfileUpdateSurname" 
                      android:hint="Surname"
                 />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -76,8 +76,8 @@
                     android:hint="Phone number"
                     
                 />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -90,9 +90,9 @@
                     android:id="@+id/ProfileUpdateAltPhone"
                     android:hint="Alternative phone number"
                 />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
             
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -106,8 +106,8 @@
                     android:hint="Email address"
                     android:enabled="false"
                 />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.button.MaterialButton
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.button.MaterialButton
                 android:layout_marginTop="5dp"
                 android:text="Apply changes"
                 android:textAllCaps="false"

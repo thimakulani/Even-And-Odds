@@ -263,6 +263,7 @@ namespace driver.Activities
                                     if(mod.DriverId == FirebaseAuth.Instance.Uid && mod.Status == "A" && mod.Status == "P")
                                     {
                                         CheckRequestAsync(mod);
+                                        adapter.NotifyDataSetChanged();
                                     }
 
                                     if(mod.Status == "D" || mod.Status == "D")

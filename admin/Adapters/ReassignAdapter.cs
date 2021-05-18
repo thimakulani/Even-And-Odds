@@ -1,12 +1,12 @@
-﻿using Android.Support.Design.Button;
+﻿using Google.Android.Material.Button;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Even_Odds_Delivary.Models;
+using admin.Models;
 using System;
 using System.Collections.Generic;
 
-namespace Even_Odds_Delivary.Adapters
+namespace admin.Adapters
 {
     class ReassignAdapter : RecyclerView.Adapter
     {

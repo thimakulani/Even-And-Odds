@@ -17,12 +17,13 @@ using Firebase.Database;
 using Java.Util;
 using Therapy_In_A_Pocket.AppData;
 using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.TextField;
 
 namespace client.Fragments
 {
     public class HelpFragment : Android.Support.V4.App.Fragment, Firebase.Database.IValueEventListener
     {
-        private EditText InputMessage;
+        private TextInputEditText InputMessage;
         private FloatingActionButton BtnSend;
         private RecyclerView recyclerView;
         private string UserKeyId;
@@ -53,9 +54,9 @@ namespace client.Fragments
 
         private void ConnectViews(View view)
         {
-            InputMessage = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.TInputMessage);
+            InputMessage = view.FindViewById<TextInputEditText>(Resource.Id.TInputMessage);
 
-            BtnSend = view.FindViewById<Android.Support.Design.Widget.FloatingActionButton>(Resource.Id.TBtnSendMessage);
+            BtnSend = view.FindViewById<FloatingActionButton>(Resource.Id.TBtnSendMessage);
             recyclerView = view.FindViewById<RecyclerView>(Resource.Id.TRecyclerChatMessage);
             BtnSend.Click += BtnSend_Click;
             InputMessage.SetTextColor(Android.Graphics.Color.Black);

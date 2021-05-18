@@ -6,15 +6,13 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Xamarin.Essentials;
-using Java.Util;
 using Firebase.Database;
 using Firebase.Auth;
-using Android.Support.Design.Card;
 using System.Collections.Generic;
-using Even_Odds_Delivary.Models;
-using Even_Odds_Delivary.Adapters;
+using admin.Models;
+using admin.Adapters;
 
-namespace Even_Odds_Delivary.Activities
+namespace admin.Activities
 {
     [Activity(Label = "Dashboad")]
     public class Dashboad : Activity, IValueEventListener
@@ -43,7 +41,7 @@ namespace Even_Odds_Delivary.Activities
             SetUpMenu();
  
         }
-        private List<Menu_Items> items = new List<Menu_Items>();
+        private readonly List<Menu_Items> items = new List<Menu_Items>();
         private void SetUpMenu()
         {
             items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_admin_panel_settings_black_18dp, Title = "My Profile" });

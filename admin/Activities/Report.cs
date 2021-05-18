@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
-using Android.Content.Res;
 using Android.OS;
 using Android.Print;
 using Android.Runtime;
-using Android.Support.Design.Button;
+using Google.Android.Material.Button;
 using Android.Support.V4.App;
-using Android.Support.V4.Content;
 using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -22,16 +19,13 @@ using Android.Widget;
 using Com.Karumi.Dexter;
 using Com.Karumi.Dexter.Listener;
 using Com.Karumi.Dexter.Listener.Single;
-using Even_Odds_Delivary.Adapters;
-using Even_Odds_Delivary.AppData;
-using Even_Odds_Delivary.Common;
-using Even_Odds_Delivary.Models;
 using iTextSharp.text;
-using iTextSharp.text.pdf;
-using iTextSharp.text.pdf.draw;
-using AlertDialog = Android.App.AlertDialog;
+using admin.Models;
+using admin.Common;
+using admin.AppData;
+using admin.Adapters;
 
-namespace Even_Odds_Delivary.Activities
+namespace admin.Activities
 {
     [Activity(Label = "Report", MainLauncher =false)]
     public class Report : AppCompatActivity, IPermissionListener
@@ -46,7 +40,6 @@ namespace Even_Odds_Delivary.Activities
         private RecyclerView RecyclerHistory;
         private List<DelivaryModal> delivariesList = new List<DelivaryModal>();
         private List<DelivaryModal> ReportData = new List<DelivaryModal>();
-        private DeliveryRequestData requestData;// = new DeliveryRequestData(this);
        
 
         //permissions
@@ -74,9 +67,7 @@ namespace Even_Odds_Delivary.Activities
                 .WithPermission(Manifest.Permission.WriteExternalStorage)
                 .WithListener(this)
                 .Check();
-            requestData = new DeliveryRequestData(LoadingProgressBar);
-            requestData.DeliveryRequests();
-            requestData.RequestRetrived += RequestData_RequestRetrived;
+            //get data
             Common.PrintReport.WriteFileToStorage(this, "Lato_Black.ttf");
 
         }
@@ -89,10 +80,10 @@ namespace Even_Odds_Delivary.Activities
         private void RequestsType_Click(object sender, EventArgs e)
         {
             Android.Widget.PopupMenu popupMenu = new Android.Widget.PopupMenu(this, RequestsType);
-            popupMenu.Menu.Add(Menu.None, 1, 1, "All-Requests");
-            popupMenu.Menu.Add(Menu.None, 1, 1, "Monthly");
-            popupMenu.Menu.Add(Menu.None, 2, 2, "Weekly");
-            popupMenu.Menu.Add(Menu.None, 3, 3, "Daily"); 
+            popupMenu.Menu.Add(IMenu.None, 1, 1, "All-Requests");
+            popupMenu.Menu.Add(IMenu.None, 1, 1, "Monthly");
+            popupMenu.Menu.Add(IMenu.None, 2, 2, "Weekly");
+            popupMenu.Menu.Add(IMenu.None, 3, 3, "Daily"); 
             popupMenu.Show();
             popupMenu.MenuItemClick += PopupMenu_MenuItemClick;
         }
@@ -160,12 +151,7 @@ namespace Even_Odds_Delivary.Activities
         }
 
 
-        private void RequestData_RequestRetrived(object sender, DeliveryRequestData.DeliveryRequestEventArgs e)
-        {
-            delivariesList = e.delivaryModals;
-            ReportData = e.delivaryModals;
-            SetRecycler(ReportData);
-        }
+
 
         private async void BtnGenerate_Click(object sender, EventArgs e)
         {

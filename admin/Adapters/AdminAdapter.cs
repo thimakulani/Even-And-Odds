@@ -2,14 +2,15 @@
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
-using Even_Odds_Delivary.AppData;
-using Even_Odds_Delivary.Models;
+using admin.AppData;
+using admin.Models;
 using System.Collections.Generic;
 using Android.Support.Design.Widget;
 using Android.Content;
 using Android.Views.Animations;
+using Google.Android.Material.FloatingActionButton;
 
-namespace Even_Odds_Delivary.Adapters
+namespace admin.Adapters
 {
     class AdminAdapter : RecyclerView.Adapter
     {

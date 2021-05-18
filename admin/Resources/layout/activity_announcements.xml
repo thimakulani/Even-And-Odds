@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
  >
-    <android.support.v7.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         app:titleTextColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         android:background="@color/colorPrimary"
         
     />
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/RecyclerAnnouncements"

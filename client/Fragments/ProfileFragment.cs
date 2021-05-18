@@ -1,31 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Button;
-using Android.Support.Design.Widget;
-using Android.Util;
+using Google.Android.Material.Button;
 using Android.Views;
 using Android.Widget;
-using client.FirebaseHelper;
-using Firebase.Auth;
 using Firebase.Database;
-using FirebaseAdmin.Auth;
+using Google.Android.Material.TextField;
 
 namespace client.Fragments
 {
-    public class ProfileFragment : Android.Support.V4.App.Fragment, IValueEventListener
+    public class ProfileFragment : Android.Support.V4.App.Fragment
     {
-        private EditText InputNames;
-        private EditText InputSurname;
-        private EditText InputPhone;
-        private EditText InputAltPhone;
-        private EditText InputEmail;
+        private TextInputEditText InputNames;
+        private TextInputEditText InputSurname;
+        private TextInputEditText InputPhone;
+        private TextInputEditText InputAltPhone;
+        private TextInputEditText InputEmail;
         
         private MaterialButton BtnAppyChanges;
 
@@ -53,25 +43,23 @@ namespace client.Fragments
 
         private void ConnectViews(View view)
         {
-            InputNames = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.ProfileUpdateName);
-            InputSurname = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.ProfileUpdateSurname);
-            InputPhone = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.ProfileUpdatePhone);
-            InputAltPhone = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.ProfileUpdateAltPhone);
-            InputEmail = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.ProfileUpdateEmail);
+            InputNames = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateName);
+            InputSurname = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateSurname);
+            InputPhone = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdatePhone);
+            InputAltPhone = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateAltPhone);
+            InputEmail = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateEmail);
             
             BtnAppyChanges = view.FindViewById<MaterialButton>(Resource.Id.BtnUpdateProfile);
 
             BtnAppyChanges.Click += BtnAppyChanges_Click;
          
-            FirebaseDatabase.Instance.GetReference("AppUsers")
-                .Child(UserKeyId)
-                .AddValueEventListener(this);
+            
         }
         
       
         //public event EventHandler FailUpdateHandler; 
         public event EventHandler SuccessUpdateHandler;
-        private async void BtnAppyChanges_Click(object sender, EventArgs e)
+        private void BtnAppyChanges_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(InputNames.Text))
             {
@@ -93,48 +81,10 @@ namespace client.Fragments
                 InputEmail.Error = "Email cannot be empty";
                 return;
             }
-            var stream = Resources.Assets.Open("service_account.json");
-            var auth = FirebaseData.GetFirebaseAdminAuth(stream);
+            var stream = Resources.Assets.Open("service_account.json"); 
 
-            try
-            {
+         
 
-                UserRecordArgs user = new UserRecordArgs()
-                {
-                    DisplayName = $"{InputNames.Text.Trim()} {InputSurname.Text.Trim()}",
-                    Email = InputEmail.Text.Trim(),
-                    Uid = UserKeyId,
-                    //PhoneNumber = CheckPhoneNumber(InputPhone.Text.Trim()),
-
-                };
-                await auth.UpdateUserAsync(user);
-                FirebaseDatabase.Instance.GetReference("AppUsers").Child(UserKeyId).Child("Name").SetValue(InputNames.Text.Trim());
-                FirebaseDatabase.Instance.GetReference("AppUsers").Child(UserKeyId).Child("Surname").SetValue(InputSurname.Text.Trim());
-                FirebaseDatabase.Instance.GetReference("AppUsers").Child(UserKeyId).Child("Phone").SetValue(CheckPhoneNumber(InputPhone.Text.Trim()));
-                FirebaseDatabase.Instance.GetReference("AppUsers").Child(UserKeyId).Child("AltPhone").SetValue(CheckPhoneNumber(InputAltPhone.Text.Trim()));
-                FirebaseDatabase.Instance.GetReference("AppUsers").Child(UserKeyId).Child("Email").SetValue(InputEmail.Text.Trim());
-                
-                SuccessUpdateHandler(sender, e);
-
-            }
-            catch (Exception ex)
-            {
-                Toast.MakeText(Context.ApplicationContext, ex.Message, ToastLength.Long).Show();
-            }
-            finally
-            {
-
-            }
-
-        }
-        private string CheckPhoneNumber(string phone)
-        {
-            phone = phone.Trim();
-            if (phone.StartsWith("0"))
-            {
-                phone = $"+27{phone.Remove(0, 1)}";
-            }
-            return phone;
         }
 
         public void OnCancelled(DatabaseError error)
@@ -142,31 +92,6 @@ namespace client.Fragments
             
         }
 
-        public void OnDataChange(DataSnapshot snapshot)
-        {
-            if(snapshot != null)
-            {
-                if (snapshot.Child("Name").Exists())
-                {
-                    InputNames.Text = snapshot.Child("Name").Value.ToString();
-                }
-                if (snapshot.Child("Surname").Exists())
-                {
-                    InputSurname.Text = snapshot.Child("Surname").Value.ToString();
-                }
-                if (snapshot.Child("Phone").Exists())
-                {
-                    InputPhone.Text = snapshot.Child("Phone").Value.ToString();
-                }
-                if (snapshot.Child("AltPhone").Exists())
-                {
-                    InputAltPhone.Text = snapshot.Child("AltPhone").Value.ToString();
-                }
-                if (snapshot.Child("Email").Exists())
-                {
-                    InputEmail.Text = snapshot.Child("Email").Value.ToString();
-                }
-            }
-        }
+        
     }
 }

@@ -1,12 +1,10 @@
 ﻿using Android.App;
 using Android.OS;
 using Android.Support.V7.App;
-using Android.Runtime;
 using Android.Widget;
 using client.Fragments;
 using Android.Locations;
 using Android.Content;
-using Android.Support.Design.Widget;
 using AndroidHUD;
 using System;
 using Firebase.Database;
@@ -14,10 +12,9 @@ using client.Activities;
 using Android.Support.V4.Widget;
 using Firebase.Auth;
 using Android.Support.V7.Widget;
-using Toolbar = Android.Support.V7.Widget.Toolbar;
-using Firebase.Messaging;
 using Android.Content.PM;
 using Google.Android.Material.Navigation;
+using Google.Android.Material.AppBar;
 
 namespace client
 {
@@ -29,7 +26,7 @@ namespace client
         TextView HeaderUsername;
         TextView TxtHeaderEmail;
         private DrawerLayout drawerLayout;
-        private Toolbar toolbar_main;
+        private MaterialToolbar toolbar_main;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -38,7 +35,7 @@ namespace client
             string log = Intent.GetStringExtra("Log");
             RequestedOrientation = ScreenOrientation.Portrait;
 
-            toolbar_main = FindViewById<Toolbar>(Resource.Id.toolbar_main);
+            toolbar_main = FindViewById<MaterialToolbar>(Resource.Id.toolbar_main);
             nav_view = FindViewById<NavigationView>(Resource.Id.nav_view);
             nav_view.InflateMenu(Resource.Menu.nav_menu);
             nav_view.InflateHeaderView(Resource.Layout.nav_header_layout);
@@ -71,17 +68,16 @@ namespace client
            
             
             toolbar_main.SetNavigationIcon(Resource.Mipmap.ic_menu_white_18dp);
-            toolbar_main.NavigationClick += Toolbar_main_NavigationClick;
+            toolbar_main.NavigationClick += Toolbar_main_NavigationClick1;
             CheckGps();
 
 
         }
 
-        private void Toolbar_main_NavigationClick(object sender, Toolbar.NavigationClickEventArgs e)
+        private void Toolbar_main_NavigationClick1(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
         {
             drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
         }
-
         private void Frag_CancelHandler(object sender, HistoryFragment.CancelRequestEventHandler e)
         {
             Android.App.AlertDialog.Builder alert = new Android.App.AlertDialog.Builder(this);

@@ -12,7 +12,7 @@ using Android.Views;
 using Android.Widget;
 using AndroidAboutPage;
 
-namespace Even_Odds_Delivary.Activities
+namespace admin.Activities
 {
     [Activity(Label = "About")]
     public class About : AppCompatActivity
@@ -23,9 +23,11 @@ namespace Even_Odds_Delivary.Activities
 
             // Create your application here
             //  SetContentView(Resource.Layout.activity_about);
-            Element element = new Element();
-            element.Title = "About";
-           
+            Element element = new Element
+            {
+                Title = "About"
+            };
+
             View about = new AboutPage(this)
                 .IsRtl(false)
                 .SetImage(Resource.Drawable.delivary_icon_2)

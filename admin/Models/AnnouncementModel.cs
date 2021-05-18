@@ -9,13 +9,15 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Firebase.Firestore;
 
-namespace Even_Odds_Delivary.Models
+namespace admin.Models 
 {
     public class AnnouncementModel
     {
         public DateTime Date_Time { get; set; }
         public string Message { get; set; }
-        public string KeyId { get; set; }
+        [DocumentId]
+        public string Id { get; set; }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
@@ -13,24 +12,27 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Com.Github.Library.Bubbleview;
-using Even_Odds_Delivary.AppDataHelper;
-using Even_Odds_Delivary.Models;
+using admin.AppDataHelper;
+using admin.Models;
 using Firebase.Database;
 using Java.Util;
-using Toolbar = Android.Support.V7.Widget.Toolbar;
+using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.TextField;
+using Google.Android.Material.AppBar;
+using AndroidX.Fragment.App;
 
-namespace Even_Odds_Delivary.Fragments
+namespace admin.Fragments
 {
-    public class QueryRepliesFragment : Android.Support.V4.App.DialogFragment, IValueEventListener
+    public class QueryRepliesFragment : DialogFragment, IValueEventListener
     {
         private RecyclerView recyler;
-        private EditText InputMessage;
+        private TextInputEditText InputMessage;
         private FloatingActionButton FabSend;
         private ReplyData repliesData;
         private List<Replies> Items = new List<Replies>();
         private string queryId;
         
-        private Toolbar toolbar_reply_queries;
+        private MaterialToolbar toolbar_reply_queries;
 
         public QueryRepliesFragment(string queryId)
         {
@@ -45,11 +47,12 @@ namespace Even_Odds_Delivary.Fragments
             // Create your fragment her968e6
             SetStyle(StyleNoFrame, Resource.Style.FullScreenDialogStyle);
         }
-
+        private Context context;
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(Resource.Layout.activity_query_replay, container, false);
+            context = view.Context;
             ConnectView(view);
             return view;
         }
@@ -58,24 +61,26 @@ namespace Even_Odds_Delivary.Fragments
         {
             recyler = view.FindViewById<RecyclerView>(Resource.Id.TRecyclerChatMessage);
             FabSend = view.FindViewById<FloatingActionButton>(Resource.Id.TBtnSendMessage);
-            InputMessage = view.FindViewById<EditText>(Resource.Id.TInputMessage);
+            InputMessage = view.FindViewById<TextInputEditText>(Resource.Id.TInputMessage);
             InputMessage.SetTextColor(Android.Graphics.Color.Black);
-            toolbar_reply_queries = view.FindViewById<Toolbar>(Resource.Id.toolbar_reply_queries);
+            toolbar_reply_queries = view.FindViewById<MaterialToolbar>(Resource.Id.toolbar_reply_queries);
             
             toolbar_reply_queries.SetNavigationIcon(Resource.Mipmap.ic_arrow_back_black_18dp);
             repliesData = new ReplyData(queryId);
             repliesData.RetrivedReply += RepliesData_RetrivedReply;
             FabSend.Click += FabSend_Click;
-            toolbar_reply_queries.NavigationClick += Toolbar_reply_queries_NavigationClick;
+            toolbar_reply_queries.NavigationClick += Toolbar_reply_queries_NavigationClick1;
             FirebaseDatabase.Instance.GetReference("AppUsers")
                 .Child(queryId)
                 .AddValueEventListener(this);
         }
 
-        private void Toolbar_reply_queries_NavigationClick(object sender, Toolbar.NavigationClickEventArgs e)
+        private void Toolbar_reply_queries_NavigationClick1(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
         {
             Dismiss();
         }
+
+      
 
         private void FabSend_Click(object sender, EventArgs e)
         {
@@ -99,7 +104,7 @@ namespace Even_Odds_Delivary.Fragments
         {
             Items = e.replies;
             ChatAdapter adapter = new ChatAdapter(Items);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Application.Context);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
             recyler.SetLayoutManager(linearLayoutManager);
             recyler.SetAdapter(adapter);
         }

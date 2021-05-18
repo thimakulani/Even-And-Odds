@@ -1,10 +1,10 @@
-﻿using Even_Odds_Delivary.Models;
+﻿using admin.Models;
 using Firebase.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Even_Odds_Delivary.AppDataHelper
+namespace admin.AppDataHelper
 {
     public class ReplyData : Java.Lang.Object, IValueEventListener
     {

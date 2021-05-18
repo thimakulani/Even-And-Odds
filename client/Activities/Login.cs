@@ -10,6 +10,7 @@ using Android.Widget;
 using Firebase.Auth;
 using Google.Android.Material.Button;
 using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.TextField;
 
 namespace client.Activities
 {
@@ -29,15 +30,15 @@ namespace client.Activities
         private AlertDialog.Builder dialogBuilder;
 
         private FloatingActionButton BtnCloseDialog;
-        private EditText ResetInputEmail;
+        private TextInputEditText ResetInputEmail;
         private MaterialButton BtnReset;
         private int EventType;
         /**/
         private MaterialButton BtnLogin;
         private TextView TxtSignUp;
         private TextView TxtForgotPassword;
-        private EditText InputEmail;
-        private EditText InputPassword;
+        private TextInputEditText InputEmail;
+        private TextInputEditText InputPassword;
 
         /*root layout*/
         private RelativeLayout rootLayout;
@@ -69,8 +70,8 @@ namespace client.Activities
             BtnLogin = FindViewById<MaterialButton>(Resource.Id.BtnLogin);
             TxtSignUp = FindViewById<TextView>(Resource.Id.TxtCreateAccount);
             TxtForgotPassword = FindViewById<TextView>(Resource.Id.TxtForgotPassword);
-            InputEmail = FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.LoginInputEmail);
-            InputPassword = FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.LoginInputPassword);
+            InputEmail = FindViewById<TextInputEditText>(Resource.Id.LoginInputEmail);
+            InputPassword = FindViewById<TextInputEditText>(Resource.Id.LoginInputPassword);
             rootLayout = FindViewById<RelativeLayout>(Resource.Id.rootLayout);
             /////user infor
             //
@@ -125,7 +126,7 @@ namespace client.Activities
             LayoutInflater inflater = (LayoutInflater)GetSystemService(Context.LayoutInflaterService);
             View view = inflater.Inflate(Resource.Layout.reset_password_dialog, null);
 
-            ResetInputEmail = view.FindViewById<com.google.android.material.textfield.TextInputEditText>(Resource.Id.ResetInputEmail);
+            ResetInputEmail = view.FindViewById<TextInputEditText>(Resource.Id.ResetInputEmail);
             BtnReset = view.FindViewById<MaterialButton>(Resource.Id.BtnReset);
             BtnCloseDialog = view.FindViewById<FloatingActionButton>(Resource.Id.FabCloseResetDialog);
             BtnCloseDialog.Click += BtnCloseDialog_Click;

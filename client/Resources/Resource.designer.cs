@@ -1489,27 +1489,251 @@ namespace client
 			global::AndroidAboutPage.Resource.Styleable.ViewStubCompat_android_id = global::client.Resource.Styleable.ViewStubCompat_android_id;
 			global::AndroidAboutPage.Resource.Styleable.ViewStubCompat_android_inflatedId = global::client.Resource.Styleable.ViewStubCompat_android_inflatedId;
 			global::AndroidAboutPage.Resource.Styleable.ViewStubCompat_android_layout = global::client.Resource.Styleable.ViewStubCompat_android_layout;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_dialog_actioned_on_disabled_toast = global::client.Resource.String.appcenter_distribute_dialog_actioned_on_disabled_toast;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_download_progress_number_format = global::client.Resource.String.appcenter_distribute_download_progress_number_format;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_downloading_error = global::client.Resource.String.appcenter_distribute_downloading_error;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_downloading_mandatory_update = global::client.Resource.String.appcenter_distribute_downloading_mandatory_update;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_downloading_update = global::client.Resource.String.appcenter_distribute_downloading_update;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_install = global::client.Resource.String.appcenter_distribute_install;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_install_ready_message = global::client.Resource.String.appcenter_distribute_install_ready_message;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_install_ready_title = global::client.Resource.String.appcenter_distribute_install_ready_title;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_notification_category = global::client.Resource.String.appcenter_distribute_notification_category;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_unknown_sources_dialog_message = global::client.Resource.String.appcenter_distribute_unknown_sources_dialog_message;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_unknown_sources_dialog_settings = global::client.Resource.String.appcenter_distribute_unknown_sources_dialog_settings;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_download = global::client.Resource.String.appcenter_distribute_update_dialog_download;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_message_mandatory = global::client.Resource.String.appcenter_distribute_update_dialog_message_mandatory;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_message_optional = global::client.Resource.String.appcenter_distribute_update_dialog_message_optional;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_postpone = global::client.Resource.String.appcenter_distribute_update_dialog_postpone;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_title = global::client.Resource.String.appcenter_distribute_update_dialog_title;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_dialog_view_release_notes = global::client.Resource.String.appcenter_distribute_update_dialog_view_release_notes;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_failed_dialog_ignore = global::client.Resource.String.appcenter_distribute_update_failed_dialog_ignore;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_failed_dialog_message = global::client.Resource.String.appcenter_distribute_update_failed_dialog_message;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_failed_dialog_reinstall = global::client.Resource.String.appcenter_distribute_update_failed_dialog_reinstall;
-			global::Microsoft.AppCenter.Distribute.Resource.String.appcenter_distribute_update_failed_dialog_title = global::client.Resource.String.appcenter_distribute_update_failed_dialog_title;
+			global::Plugin.CloudFirestore.Resource.Attribute.alpha = global::client.Resource.Attribute.alpha;
+			global::Plugin.CloudFirestore.Resource.Attribute.buttonSize = global::client.Resource.Attribute.buttonSize;
+			global::Plugin.CloudFirestore.Resource.Attribute.circleCrop = global::client.Resource.Attribute.circleCrop;
+			global::Plugin.CloudFirestore.Resource.Attribute.colorScheme = global::client.Resource.Attribute.colorScheme;
+			global::Plugin.CloudFirestore.Resource.Attribute.font = global::client.Resource.Attribute.font;
+			global::Plugin.CloudFirestore.Resource.Attribute.fontProviderAuthority = global::client.Resource.Attribute.fontProviderAuthority;
+			global::Plugin.CloudFirestore.Resource.Attribute.fontProviderCerts = global::client.Resource.Attribute.fontProviderCerts;
+			global::Plugin.CloudFirestore.Resource.Attribute.fontProviderFetchStrategy = global::client.Resource.Attribute.fontProviderFetchStrategy;
+			global::Plugin.CloudFirestore.Resource.Attribute.fontProviderFetchTimeout = global::client.Resource.Attribute.fontProviderFetchTimeout;
+			global::Plugin.CloudFirestore.Resource.Attribute.fontProviderPackage = global::client.Resource.Attribute.fontProviderPackage;
+			global::Plugin.CloudFirestore.Resource.Attribute.fontProviderQuery = global::client.Resource.Attribute.fontProviderQuery;
+			global::Plugin.CloudFirestore.Resource.Attribute.fontStyle = global::client.Resource.Attribute.fontStyle;
+			global::Plugin.CloudFirestore.Resource.Attribute.fontVariationSettings = global::client.Resource.Attribute.fontVariationSettings;
+			global::Plugin.CloudFirestore.Resource.Attribute.fontWeight = global::client.Resource.Attribute.fontWeight;
+			global::Plugin.CloudFirestore.Resource.Attribute.imageAspectRatio = global::client.Resource.Attribute.imageAspectRatio;
+			global::Plugin.CloudFirestore.Resource.Attribute.imageAspectRatioAdjust = global::client.Resource.Attribute.imageAspectRatioAdjust;
+			global::Plugin.CloudFirestore.Resource.Attribute.scopeUris = global::client.Resource.Attribute.scopeUris;
+			global::Plugin.CloudFirestore.Resource.Attribute.ttcIndex = global::client.Resource.Attribute.ttcIndex;
+			global::Plugin.CloudFirestore.Resource.Color.common_google_signin_btn_text_dark = global::client.Resource.Color.common_google_signin_btn_text_dark;
+			global::Plugin.CloudFirestore.Resource.Color.common_google_signin_btn_text_dark_default = global::client.Resource.Color.common_google_signin_btn_text_dark_default;
+			global::Plugin.CloudFirestore.Resource.Color.common_google_signin_btn_text_dark_disabled = global::client.Resource.Color.common_google_signin_btn_text_dark_disabled;
+			global::Plugin.CloudFirestore.Resource.Color.common_google_signin_btn_text_dark_focused = global::client.Resource.Color.common_google_signin_btn_text_dark_focused;
+			global::Plugin.CloudFirestore.Resource.Color.common_google_signin_btn_text_dark_pressed = global::client.Resource.Color.common_google_signin_btn_text_dark_pressed;
+			global::Plugin.CloudFirestore.Resource.Color.common_google_signin_btn_text_light = global::client.Resource.Color.common_google_signin_btn_text_light;
+			global::Plugin.CloudFirestore.Resource.Color.common_google_signin_btn_text_light_default = global::client.Resource.Color.common_google_signin_btn_text_light_default;
+			global::Plugin.CloudFirestore.Resource.Color.common_google_signin_btn_text_light_disabled = global::client.Resource.Color.common_google_signin_btn_text_light_disabled;
+			global::Plugin.CloudFirestore.Resource.Color.common_google_signin_btn_text_light_focused = global::client.Resource.Color.common_google_signin_btn_text_light_focused;
+			global::Plugin.CloudFirestore.Resource.Color.common_google_signin_btn_text_light_pressed = global::client.Resource.Color.common_google_signin_btn_text_light_pressed;
+			global::Plugin.CloudFirestore.Resource.Color.common_google_signin_btn_tint = global::client.Resource.Color.common_google_signin_btn_tint;
+			global::Plugin.CloudFirestore.Resource.Color.notification_action_color_filter = global::client.Resource.Color.notification_action_color_filter;
+			global::Plugin.CloudFirestore.Resource.Color.notification_icon_bg_color = global::client.Resource.Color.notification_icon_bg_color;
+			global::Plugin.CloudFirestore.Resource.Color.ripple_material_light = global::client.Resource.Color.ripple_material_light;
+			global::Plugin.CloudFirestore.Resource.Color.secondary_text_default_material_light = global::client.Resource.Color.secondary_text_default_material_light;
+			global::Plugin.CloudFirestore.Resource.Dimension.compat_button_inset_horizontal_material = global::client.Resource.Dimension.compat_button_inset_horizontal_material;
+			global::Plugin.CloudFirestore.Resource.Dimension.compat_button_inset_vertical_material = global::client.Resource.Dimension.compat_button_inset_vertical_material;
+			global::Plugin.CloudFirestore.Resource.Dimension.compat_button_padding_horizontal_material = global::client.Resource.Dimension.compat_button_padding_horizontal_material;
+			global::Plugin.CloudFirestore.Resource.Dimension.compat_button_padding_vertical_material = global::client.Resource.Dimension.compat_button_padding_vertical_material;
+			global::Plugin.CloudFirestore.Resource.Dimension.compat_control_corner_material = global::client.Resource.Dimension.compat_control_corner_material;
+			global::Plugin.CloudFirestore.Resource.Dimension.compat_notification_large_icon_max_height = global::client.Resource.Dimension.compat_notification_large_icon_max_height;
+			global::Plugin.CloudFirestore.Resource.Dimension.compat_notification_large_icon_max_width = global::client.Resource.Dimension.compat_notification_large_icon_max_width;
+			global::Plugin.CloudFirestore.Resource.Dimension.notification_action_icon_size = global::client.Resource.Dimension.notification_action_icon_size;
+			global::Plugin.CloudFirestore.Resource.Dimension.notification_action_text_size = global::client.Resource.Dimension.notification_action_text_size;
+			global::Plugin.CloudFirestore.Resource.Dimension.notification_big_circle_margin = global::client.Resource.Dimension.notification_big_circle_margin;
+			global::Plugin.CloudFirestore.Resource.Dimension.notification_content_margin_start = global::client.Resource.Dimension.notification_content_margin_start;
+			global::Plugin.CloudFirestore.Resource.Dimension.notification_large_icon_height = global::client.Resource.Dimension.notification_large_icon_height;
+			global::Plugin.CloudFirestore.Resource.Dimension.notification_large_icon_width = global::client.Resource.Dimension.notification_large_icon_width;
+			global::Plugin.CloudFirestore.Resource.Dimension.notification_main_column_padding_top = global::client.Resource.Dimension.notification_main_column_padding_top;
+			global::Plugin.CloudFirestore.Resource.Dimension.notification_media_narrow_margin = global::client.Resource.Dimension.notification_media_narrow_margin;
+			global::Plugin.CloudFirestore.Resource.Dimension.notification_right_icon_size = global::client.Resource.Dimension.notification_right_icon_size;
+			global::Plugin.CloudFirestore.Resource.Dimension.notification_right_side_padding_top = global::client.Resource.Dimension.notification_right_side_padding_top;
+			global::Plugin.CloudFirestore.Resource.Dimension.notification_small_icon_background_padding = global::client.Resource.Dimension.notification_small_icon_background_padding;
+			global::Plugin.CloudFirestore.Resource.Dimension.notification_small_icon_size_as_large = global::client.Resource.Dimension.notification_small_icon_size_as_large;
+			global::Plugin.CloudFirestore.Resource.Dimension.notification_subtext_size = global::client.Resource.Dimension.notification_subtext_size;
+			global::Plugin.CloudFirestore.Resource.Dimension.notification_top_pad = global::client.Resource.Dimension.notification_top_pad;
+			global::Plugin.CloudFirestore.Resource.Dimension.notification_top_pad_large_text = global::client.Resource.Dimension.notification_top_pad_large_text;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_full_open_on_phone = global::client.Resource.Drawable.common_full_open_on_phone;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_icon_dark = global::client.Resource.Drawable.common_google_signin_btn_icon_dark;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_icon_dark_focused = global::client.Resource.Drawable.common_google_signin_btn_icon_dark_focused;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_icon_dark_normal = global::client.Resource.Drawable.common_google_signin_btn_icon_dark_normal;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_icon_dark_normal_background = global::client.Resource.Drawable.common_google_signin_btn_icon_dark_normal_background;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_icon_disabled = global::client.Resource.Drawable.common_google_signin_btn_icon_disabled;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_icon_light = global::client.Resource.Drawable.common_google_signin_btn_icon_light;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_icon_light_focused = global::client.Resource.Drawable.common_google_signin_btn_icon_light_focused;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_icon_light_normal = global::client.Resource.Drawable.common_google_signin_btn_icon_light_normal;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_icon_light_normal_background = global::client.Resource.Drawable.common_google_signin_btn_icon_light_normal_background;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_text_dark = global::client.Resource.Drawable.common_google_signin_btn_text_dark;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_text_dark_focused = global::client.Resource.Drawable.common_google_signin_btn_text_dark_focused;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_text_dark_normal = global::client.Resource.Drawable.common_google_signin_btn_text_dark_normal;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_text_dark_normal_background = global::client.Resource.Drawable.common_google_signin_btn_text_dark_normal_background;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_text_disabled = global::client.Resource.Drawable.common_google_signin_btn_text_disabled;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_text_light = global::client.Resource.Drawable.common_google_signin_btn_text_light;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_text_light_focused = global::client.Resource.Drawable.common_google_signin_btn_text_light_focused;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_text_light_normal = global::client.Resource.Drawable.common_google_signin_btn_text_light_normal;
+			global::Plugin.CloudFirestore.Resource.Drawable.common_google_signin_btn_text_light_normal_background = global::client.Resource.Drawable.common_google_signin_btn_text_light_normal_background;
+			global::Plugin.CloudFirestore.Resource.Drawable.googleg_disabled_color_18 = global::client.Resource.Drawable.googleg_disabled_color_18;
+			global::Plugin.CloudFirestore.Resource.Drawable.googleg_standard_color_18 = global::client.Resource.Drawable.googleg_standard_color_18;
+			global::Plugin.CloudFirestore.Resource.Drawable.notification_action_background = global::client.Resource.Drawable.notification_action_background;
+			global::Plugin.CloudFirestore.Resource.Drawable.notification_bg = global::client.Resource.Drawable.notification_bg;
+			global::Plugin.CloudFirestore.Resource.Drawable.notification_bg_low = global::client.Resource.Drawable.notification_bg_low;
+			global::Plugin.CloudFirestore.Resource.Drawable.notification_bg_low_normal = global::client.Resource.Drawable.notification_bg_low_normal;
+			global::Plugin.CloudFirestore.Resource.Drawable.notification_bg_low_pressed = global::client.Resource.Drawable.notification_bg_low_pressed;
+			global::Plugin.CloudFirestore.Resource.Drawable.notification_bg_normal = global::client.Resource.Drawable.notification_bg_normal;
+			global::Plugin.CloudFirestore.Resource.Drawable.notification_bg_normal_pressed = global::client.Resource.Drawable.notification_bg_normal_pressed;
+			global::Plugin.CloudFirestore.Resource.Drawable.notification_icon_background = global::client.Resource.Drawable.notification_icon_background;
+			global::Plugin.CloudFirestore.Resource.Drawable.notification_template_icon_bg = global::client.Resource.Drawable.notification_template_icon_bg;
+			global::Plugin.CloudFirestore.Resource.Drawable.notification_template_icon_low_bg = global::client.Resource.Drawable.notification_template_icon_low_bg;
+			global::Plugin.CloudFirestore.Resource.Drawable.notification_tile_bg = global::client.Resource.Drawable.notification_tile_bg;
+			global::Plugin.CloudFirestore.Resource.Drawable.notify_panel_notification_icon_bg = global::client.Resource.Drawable.notify_panel_notification_icon_bg;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_action_clickable_span = global::client.Resource.Id.accessibility_action_clickable_span;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_0 = global::client.Resource.Id.accessibility_custom_action_0;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_1 = global::client.Resource.Id.accessibility_custom_action_1;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_10 = global::client.Resource.Id.accessibility_custom_action_10;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_11 = global::client.Resource.Id.accessibility_custom_action_11;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_12 = global::client.Resource.Id.accessibility_custom_action_12;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_13 = global::client.Resource.Id.accessibility_custom_action_13;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_14 = global::client.Resource.Id.accessibility_custom_action_14;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_15 = global::client.Resource.Id.accessibility_custom_action_15;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_16 = global::client.Resource.Id.accessibility_custom_action_16;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_17 = global::client.Resource.Id.accessibility_custom_action_17;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_18 = global::client.Resource.Id.accessibility_custom_action_18;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_19 = global::client.Resource.Id.accessibility_custom_action_19;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_2 = global::client.Resource.Id.accessibility_custom_action_2;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_20 = global::client.Resource.Id.accessibility_custom_action_20;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_21 = global::client.Resource.Id.accessibility_custom_action_21;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_22 = global::client.Resource.Id.accessibility_custom_action_22;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_23 = global::client.Resource.Id.accessibility_custom_action_23;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_24 = global::client.Resource.Id.accessibility_custom_action_24;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_25 = global::client.Resource.Id.accessibility_custom_action_25;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_26 = global::client.Resource.Id.accessibility_custom_action_26;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_27 = global::client.Resource.Id.accessibility_custom_action_27;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_28 = global::client.Resource.Id.accessibility_custom_action_28;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_29 = global::client.Resource.Id.accessibility_custom_action_29;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_3 = global::client.Resource.Id.accessibility_custom_action_3;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_30 = global::client.Resource.Id.accessibility_custom_action_30;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_31 = global::client.Resource.Id.accessibility_custom_action_31;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_4 = global::client.Resource.Id.accessibility_custom_action_4;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_5 = global::client.Resource.Id.accessibility_custom_action_5;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_6 = global::client.Resource.Id.accessibility_custom_action_6;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_7 = global::client.Resource.Id.accessibility_custom_action_7;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_8 = global::client.Resource.Id.accessibility_custom_action_8;
+			global::Plugin.CloudFirestore.Resource.Id.accessibility_custom_action_9 = global::client.Resource.Id.accessibility_custom_action_9;
+			global::Plugin.CloudFirestore.Resource.Id.actions = global::client.Resource.Id.actions;
+			global::Plugin.CloudFirestore.Resource.Id.action_container = global::client.Resource.Id.action_container;
+			global::Plugin.CloudFirestore.Resource.Id.action_divider = global::client.Resource.Id.action_divider;
+			global::Plugin.CloudFirestore.Resource.Id.action_image = global::client.Resource.Id.action_image;
+			global::Plugin.CloudFirestore.Resource.Id.action_text = global::client.Resource.Id.action_text;
+			global::Plugin.CloudFirestore.Resource.Id.adjust_height = global::client.Resource.Id.adjust_height;
+			global::Plugin.CloudFirestore.Resource.Id.adjust_width = global::client.Resource.Id.adjust_width;
+			global::Plugin.CloudFirestore.Resource.Id.async = global::client.Resource.Id.async;
+			global::Plugin.CloudFirestore.Resource.Id.auto = global::client.Resource.Id.auto;
+			global::Plugin.CloudFirestore.Resource.Id.blocking = global::client.Resource.Id.blocking;
+			global::Plugin.CloudFirestore.Resource.Id.chronometer = global::client.Resource.Id.chronometer;
+			global::Plugin.CloudFirestore.Resource.Id.dark = global::client.Resource.Id.dark;
+			global::Plugin.CloudFirestore.Resource.Id.dialog_button = global::client.Resource.Id.dialog_button;
+			global::Plugin.CloudFirestore.Resource.Id.forever = global::client.Resource.Id.forever;
+			global::Plugin.CloudFirestore.Resource.Id.icon = global::client.Resource.Id.icon;
+			global::Plugin.CloudFirestore.Resource.Id.icon_group = global::client.Resource.Id.icon_group;
+			global::Plugin.CloudFirestore.Resource.Id.icon_only = global::client.Resource.Id.icon_only;
+			global::Plugin.CloudFirestore.Resource.Id.info = global::client.Resource.Id.info;
+			global::Plugin.CloudFirestore.Resource.Id.italic = global::client.Resource.Id.italic;
+			global::Plugin.CloudFirestore.Resource.Id.light = global::client.Resource.Id.light;
+			global::Plugin.CloudFirestore.Resource.Id.line1 = global::client.Resource.Id.line1;
+			global::Plugin.CloudFirestore.Resource.Id.line3 = global::client.Resource.Id.line3;
+			global::Plugin.CloudFirestore.Resource.Id.none = global::client.Resource.Id.none;
+			global::Plugin.CloudFirestore.Resource.Id.normal = global::client.Resource.Id.normal;
+			global::Plugin.CloudFirestore.Resource.Id.notification_background = global::client.Resource.Id.notification_background;
+			global::Plugin.CloudFirestore.Resource.Id.notification_main_column = global::client.Resource.Id.notification_main_column;
+			global::Plugin.CloudFirestore.Resource.Id.notification_main_column_container = global::client.Resource.Id.notification_main_column_container;
+			global::Plugin.CloudFirestore.Resource.Id.right_icon = global::client.Resource.Id.right_icon;
+			global::Plugin.CloudFirestore.Resource.Id.right_side = global::client.Resource.Id.right_side;
+			global::Plugin.CloudFirestore.Resource.Id.standard = global::client.Resource.Id.standard;
+			global::Plugin.CloudFirestore.Resource.Id.tag_accessibility_actions = global::client.Resource.Id.tag_accessibility_actions;
+			global::Plugin.CloudFirestore.Resource.Id.tag_accessibility_clickable_spans = global::client.Resource.Id.tag_accessibility_clickable_spans;
+			global::Plugin.CloudFirestore.Resource.Id.tag_accessibility_heading = global::client.Resource.Id.tag_accessibility_heading;
+			global::Plugin.CloudFirestore.Resource.Id.tag_accessibility_pane_title = global::client.Resource.Id.tag_accessibility_pane_title;
+			global::Plugin.CloudFirestore.Resource.Id.tag_screen_reader_focusable = global::client.Resource.Id.tag_screen_reader_focusable;
+			global::Plugin.CloudFirestore.Resource.Id.tag_transition_group = global::client.Resource.Id.tag_transition_group;
+			global::Plugin.CloudFirestore.Resource.Id.tag_unhandled_key_event_manager = global::client.Resource.Id.tag_unhandled_key_event_manager;
+			global::Plugin.CloudFirestore.Resource.Id.tag_unhandled_key_listeners = global::client.Resource.Id.tag_unhandled_key_listeners;
+			global::Plugin.CloudFirestore.Resource.Id.text = global::client.Resource.Id.text;
+			global::Plugin.CloudFirestore.Resource.Id.text2 = global::client.Resource.Id.text2;
+			global::Plugin.CloudFirestore.Resource.Id.time = global::client.Resource.Id.time;
+			global::Plugin.CloudFirestore.Resource.Id.title = global::client.Resource.Id.title;
+			global::Plugin.CloudFirestore.Resource.Id.wide = global::client.Resource.Id.wide;
+			global::Plugin.CloudFirestore.Resource.Integer.google_play_services_version = global::client.Resource.Integer.google_play_services_version;
+			global::Plugin.CloudFirestore.Resource.Integer.status_bar_notification_info_maxnum = global::client.Resource.Integer.status_bar_notification_info_maxnum;
+			global::Plugin.CloudFirestore.Resource.Layout.custom_dialog = global::client.Resource.Layout.custom_dialog;
+			global::Plugin.CloudFirestore.Resource.Layout.notification_action = global::client.Resource.Layout.notification_action;
+			global::Plugin.CloudFirestore.Resource.Layout.notification_action_tombstone = global::client.Resource.Layout.notification_action_tombstone;
+			global::Plugin.CloudFirestore.Resource.Layout.notification_template_custom_big = global::client.Resource.Layout.notification_template_custom_big;
+			global::Plugin.CloudFirestore.Resource.Layout.notification_template_icon_group = global::client.Resource.Layout.notification_template_icon_group;
+			global::Plugin.CloudFirestore.Resource.Layout.notification_template_part_chronometer = global::client.Resource.Layout.notification_template_part_chronometer;
+			global::Plugin.CloudFirestore.Resource.Layout.notification_template_part_time = global::client.Resource.Layout.notification_template_part_time;
+			global::Plugin.CloudFirestore.Resource.String.common_google_play_services_enable_button = global::client.Resource.String.common_google_play_services_enable_button;
+			global::Plugin.CloudFirestore.Resource.String.common_google_play_services_enable_text = global::client.Resource.String.common_google_play_services_enable_text;
+			global::Plugin.CloudFirestore.Resource.String.common_google_play_services_enable_title = global::client.Resource.String.common_google_play_services_enable_title;
+			global::Plugin.CloudFirestore.Resource.String.common_google_play_services_install_button = global::client.Resource.String.common_google_play_services_install_button;
+			global::Plugin.CloudFirestore.Resource.String.common_google_play_services_install_text = global::client.Resource.String.common_google_play_services_install_text;
+			global::Plugin.CloudFirestore.Resource.String.common_google_play_services_install_title = global::client.Resource.String.common_google_play_services_install_title;
+			global::Plugin.CloudFirestore.Resource.String.common_google_play_services_notification_channel_name = global::client.Resource.String.common_google_play_services_notification_channel_name;
+			global::Plugin.CloudFirestore.Resource.String.common_google_play_services_notification_ticker = global::client.Resource.String.common_google_play_services_notification_ticker;
+			global::Plugin.CloudFirestore.Resource.String.common_google_play_services_unknown_issue = global::client.Resource.String.common_google_play_services_unknown_issue;
+			global::Plugin.CloudFirestore.Resource.String.common_google_play_services_unsupported_text = global::client.Resource.String.common_google_play_services_unsupported_text;
+			global::Plugin.CloudFirestore.Resource.String.common_google_play_services_update_button = global::client.Resource.String.common_google_play_services_update_button;
+			global::Plugin.CloudFirestore.Resource.String.common_google_play_services_update_text = global::client.Resource.String.common_google_play_services_update_text;
+			global::Plugin.CloudFirestore.Resource.String.common_google_play_services_update_title = global::client.Resource.String.common_google_play_services_update_title;
+			global::Plugin.CloudFirestore.Resource.String.common_google_play_services_updating_text = global::client.Resource.String.common_google_play_services_updating_text;
+			global::Plugin.CloudFirestore.Resource.String.common_google_play_services_wear_update_text = global::client.Resource.String.common_google_play_services_wear_update_text;
+			global::Plugin.CloudFirestore.Resource.String.common_open_on_phone = global::client.Resource.String.common_open_on_phone;
+			global::Plugin.CloudFirestore.Resource.String.common_signin_button_text = global::client.Resource.String.common_signin_button_text;
+			global::Plugin.CloudFirestore.Resource.String.common_signin_button_text_long = global::client.Resource.String.common_signin_button_text_long;
+			global::Plugin.CloudFirestore.Resource.String.status_bar_notification_info_overflow = global::client.Resource.String.status_bar_notification_info_overflow;
+			global::Plugin.CloudFirestore.Resource.Style.TextAppearance_Compat_Notification = global::client.Resource.Style.TextAppearance_Compat_Notification;
+			global::Plugin.CloudFirestore.Resource.Style.TextAppearance_Compat_Notification_Info = global::client.Resource.Style.TextAppearance_Compat_Notification_Info;
+			global::Plugin.CloudFirestore.Resource.Style.TextAppearance_Compat_Notification_Line2 = global::client.Resource.Style.TextAppearance_Compat_Notification_Line2;
+			global::Plugin.CloudFirestore.Resource.Style.TextAppearance_Compat_Notification_Time = global::client.Resource.Style.TextAppearance_Compat_Notification_Time;
+			global::Plugin.CloudFirestore.Resource.Style.TextAppearance_Compat_Notification_Title = global::client.Resource.Style.TextAppearance_Compat_Notification_Title;
+			global::Plugin.CloudFirestore.Resource.Style.Widget_Compat_NotificationActionContainer = global::client.Resource.Style.Widget_Compat_NotificationActionContainer;
+			global::Plugin.CloudFirestore.Resource.Style.Widget_Compat_NotificationActionText = global::client.Resource.Style.Widget_Compat_NotificationActionText;
+			global::Plugin.CloudFirestore.Resource.Styleable.ColorStateListItem = global::client.Resource.Styleable.ColorStateListItem;
+			global::Plugin.CloudFirestore.Resource.Styleable.ColorStateListItem_alpha = global::client.Resource.Styleable.ColorStateListItem_alpha;
+			global::Plugin.CloudFirestore.Resource.Styleable.ColorStateListItem_android_alpha = global::client.Resource.Styleable.ColorStateListItem_android_alpha;
+			global::Plugin.CloudFirestore.Resource.Styleable.ColorStateListItem_android_color = global::client.Resource.Styleable.ColorStateListItem_android_color;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamily = global::client.Resource.Styleable.FontFamily;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamilyFont = global::client.Resource.Styleable.FontFamilyFont;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamilyFont_android_font = global::client.Resource.Styleable.FontFamilyFont_android_font;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamilyFont_android_fontStyle = global::client.Resource.Styleable.FontFamilyFont_android_fontStyle;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamilyFont_android_fontVariationSettings = global::client.Resource.Styleable.FontFamilyFont_android_fontVariationSettings;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamilyFont_android_fontWeight = global::client.Resource.Styleable.FontFamilyFont_android_fontWeight;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamilyFont_android_ttcIndex = global::client.Resource.Styleable.FontFamilyFont_android_ttcIndex;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamilyFont_font = global::client.Resource.Styleable.FontFamilyFont_font;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamilyFont_fontStyle = global::client.Resource.Styleable.FontFamilyFont_fontStyle;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamilyFont_fontVariationSettings = global::client.Resource.Styleable.FontFamilyFont_fontVariationSettings;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamilyFont_fontWeight = global::client.Resource.Styleable.FontFamilyFont_fontWeight;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamilyFont_ttcIndex = global::client.Resource.Styleable.FontFamilyFont_ttcIndex;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamily_fontProviderAuthority = global::client.Resource.Styleable.FontFamily_fontProviderAuthority;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamily_fontProviderCerts = global::client.Resource.Styleable.FontFamily_fontProviderCerts;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamily_fontProviderFetchStrategy = global::client.Resource.Styleable.FontFamily_fontProviderFetchStrategy;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamily_fontProviderFetchTimeout = global::client.Resource.Styleable.FontFamily_fontProviderFetchTimeout;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamily_fontProviderPackage = global::client.Resource.Styleable.FontFamily_fontProviderPackage;
+			global::Plugin.CloudFirestore.Resource.Styleable.FontFamily_fontProviderQuery = global::client.Resource.Styleable.FontFamily_fontProviderQuery;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColor = global::client.Resource.Styleable.GradientColor;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColorItem = global::client.Resource.Styleable.GradientColorItem;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColorItem_android_color = global::client.Resource.Styleable.GradientColorItem_android_color;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColorItem_android_offset = global::client.Resource.Styleable.GradientColorItem_android_offset;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColor_android_centerColor = global::client.Resource.Styleable.GradientColor_android_centerColor;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColor_android_centerX = global::client.Resource.Styleable.GradientColor_android_centerX;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColor_android_centerY = global::client.Resource.Styleable.GradientColor_android_centerY;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColor_android_endColor = global::client.Resource.Styleable.GradientColor_android_endColor;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColor_android_endX = global::client.Resource.Styleable.GradientColor_android_endX;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColor_android_endY = global::client.Resource.Styleable.GradientColor_android_endY;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColor_android_gradientRadius = global::client.Resource.Styleable.GradientColor_android_gradientRadius;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColor_android_startColor = global::client.Resource.Styleable.GradientColor_android_startColor;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColor_android_startX = global::client.Resource.Styleable.GradientColor_android_startX;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColor_android_startY = global::client.Resource.Styleable.GradientColor_android_startY;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColor_android_tileMode = global::client.Resource.Styleable.GradientColor_android_tileMode;
+			global::Plugin.CloudFirestore.Resource.Styleable.GradientColor_android_type = global::client.Resource.Styleable.GradientColor_android_type;
+			global::Plugin.CloudFirestore.Resource.Styleable.LoadingImageView = global::client.Resource.Styleable.LoadingImageView;
+			global::Plugin.CloudFirestore.Resource.Styleable.LoadingImageView_circleCrop = global::client.Resource.Styleable.LoadingImageView_circleCrop;
+			global::Plugin.CloudFirestore.Resource.Styleable.LoadingImageView_imageAspectRatio = global::client.Resource.Styleable.LoadingImageView_imageAspectRatio;
+			global::Plugin.CloudFirestore.Resource.Styleable.LoadingImageView_imageAspectRatioAdjust = global::client.Resource.Styleable.LoadingImageView_imageAspectRatioAdjust;
+			global::Plugin.CloudFirestore.Resource.Styleable.SignInButton = global::client.Resource.Styleable.SignInButton;
+			global::Plugin.CloudFirestore.Resource.Styleable.SignInButton_buttonSize = global::client.Resource.Styleable.SignInButton_buttonSize;
+			global::Plugin.CloudFirestore.Resource.Styleable.SignInButton_colorScheme = global::client.Resource.Styleable.SignInButton_colorScheme;
+			global::Plugin.CloudFirestore.Resource.Styleable.SignInButton_scopeUris = global::client.Resource.Styleable.SignInButton_scopeUris;
 			global::Xamarin.Essentials.Resource.Attribute.alpha = global::client.Resource.Attribute.alpha;
 			global::Xamarin.Essentials.Resource.Attribute.font = global::client.Resource.Attribute.font;
 			global::Xamarin.Essentials.Resource.Attribute.fontProviderAuthority = global::client.Resource.Attribute.fontProviderAuthority;
@@ -12232,461 +12456,407 @@ namespace client
 			// aapt resource value: 0x7F100026
 			public const int appbar_scrolling_view_behavior = 2131755046;
 			
-			// aapt resource value: 0x7F100027
-			public const int appcenter_distribute_dialog_actioned_on_disabled_toast = 2131755047;
-			
-			// aapt resource value: 0x7F100029
-			public const int appcenter_distribute_downloading_error = 2131755049;
-			
-			// aapt resource value: 0x7F10002A
-			public const int appcenter_distribute_downloading_mandatory_update = 2131755050;
-			
-			// aapt resource value: 0x7F10002B
-			public const int appcenter_distribute_downloading_update = 2131755051;
-			
-			// aapt resource value: 0x7F10002C
-			public const int appcenter_distribute_downloading_version = 2131755052;
-			
-			// aapt resource value: 0x7F100028
-			public const int appcenter_distribute_download_progress_number_format = 2131755048;
-			
-			// aapt resource value: 0x7F10002D
-			public const int appcenter_distribute_install = 2131755053;
-			
-			// aapt resource value: 0x7F10002E
-			public const int appcenter_distribute_install_ready_message = 2131755054;
-			
-			// aapt resource value: 0x7F10002F
-			public const int appcenter_distribute_install_ready_title = 2131755055;
-			
-			// aapt resource value: 0x7F100030
-			public const int appcenter_distribute_notification_category = 2131755056;
-			
-			// aapt resource value: 0x7F100031
-			public const int appcenter_distribute_unknown_sources_dialog_message = 2131755057;
-			
-			// aapt resource value: 0x7F100032
-			public const int appcenter_distribute_unknown_sources_dialog_settings = 2131755058;
-			
-			// aapt resource value: 0x7F100033
-			public const int appcenter_distribute_update_dialog_download = 2131755059;
-			
-			// aapt resource value: 0x7F100034
-			public const int appcenter_distribute_update_dialog_message_mandatory = 2131755060;
-			
-			// aapt resource value: 0x7F100035
-			public const int appcenter_distribute_update_dialog_message_optional = 2131755061;
-			
-			// aapt resource value: 0x7F100036
-			public const int appcenter_distribute_update_dialog_postpone = 2131755062;
-			
-			// aapt resource value: 0x7F100037
-			public const int appcenter_distribute_update_dialog_title = 2131755063;
-			
-			// aapt resource value: 0x7F100038
-			public const int appcenter_distribute_update_dialog_view_release_notes = 2131755064;
-			
-			// aapt resource value: 0x7F100039
-			public const int appcenter_distribute_update_failed_dialog_ignore = 2131755065;
-			
-			// aapt resource value: 0x7F10003A
-			public const int appcenter_distribute_update_failed_dialog_message = 2131755066;
-			
-			// aapt resource value: 0x7F10003B
-			public const int appcenter_distribute_update_failed_dialog_reinstall = 2131755067;
-			
-			// aapt resource value: 0x7F10003C
-			public const int appcenter_distribute_update_failed_dialog_title = 2131755068;
-			
 			// aapt resource value: 0x7F100025
 			public const int app_name = 2131755045;
 			
-			// aapt resource value: 0x7F10003E
-			public const int bottomsheet_action_expand_halfway = 2131755070;
+			// aapt resource value: 0x7F100028
+			public const int bottomsheet_action_expand_halfway = 2131755048;
+			
+			// aapt resource value: 0x7F100027
+			public const int bottom_sheet_behavior = 2131755047;
+			
+			// aapt resource value: 0x7F100029
+			public const int character_counter_content_description = 2131755049;
+			
+			// aapt resource value: 0x7F10002A
+			public const int character_counter_overflowed_content_description = 2131755050;
+			
+			// aapt resource value: 0x7F10002B
+			public const int character_counter_pattern = 2131755051;
+			
+			// aapt resource value: 0x7F10002C
+			public const int chip_text = 2131755052;
+			
+			// aapt resource value: 0x7F10002D
+			public const int clear_text_end_icon_content_description = 2131755053;
+			
+			// aapt resource value: 0x7F10002E
+			public const int common_google_play_services_enable_button = 2131755054;
+			
+			// aapt resource value: 0x7F10002F
+			public const int common_google_play_services_enable_text = 2131755055;
+			
+			// aapt resource value: 0x7F100030
+			public const int common_google_play_services_enable_title = 2131755056;
+			
+			// aapt resource value: 0x7F100031
+			public const int common_google_play_services_install_button = 2131755057;
+			
+			// aapt resource value: 0x7F100032
+			public const int common_google_play_services_install_text = 2131755058;
+			
+			// aapt resource value: 0x7F100033
+			public const int common_google_play_services_install_title = 2131755059;
+			
+			// aapt resource value: 0x7F100034
+			public const int common_google_play_services_notification_channel_name = 2131755060;
+			
+			// aapt resource value: 0x7F100035
+			public const int common_google_play_services_notification_ticker = 2131755061;
+			
+			// aapt resource value: 0x7F100036
+			public const int common_google_play_services_unknown_issue = 2131755062;
+			
+			// aapt resource value: 0x7F100037
+			public const int common_google_play_services_unsupported_text = 2131755063;
+			
+			// aapt resource value: 0x7F100038
+			public const int common_google_play_services_update_button = 2131755064;
+			
+			// aapt resource value: 0x7F100039
+			public const int common_google_play_services_update_text = 2131755065;
+			
+			// aapt resource value: 0x7F10003A
+			public const int common_google_play_services_update_title = 2131755066;
+			
+			// aapt resource value: 0x7F10003B
+			public const int common_google_play_services_updating_text = 2131755067;
+			
+			// aapt resource value: 0x7F10003C
+			public const int common_google_play_services_wear_update_text = 2131755068;
 			
 			// aapt resource value: 0x7F10003D
-			public const int bottom_sheet_behavior = 2131755069;
+			public const int common_open_on_phone = 2131755069;
+			
+			// aapt resource value: 0x7F10003E
+			public const int common_signin_button_text = 2131755070;
 			
 			// aapt resource value: 0x7F10003F
-			public const int character_counter_content_description = 2131755071;
+			public const int common_signin_button_text_long = 2131755071;
 			
 			// aapt resource value: 0x7F100040
-			public const int character_counter_overflowed_content_description = 2131755072;
+			public const int copy_toast_msg = 2131755072;
 			
 			// aapt resource value: 0x7F100041
-			public const int character_counter_pattern = 2131755073;
+			public const int error_icon_content_description = 2131755073;
 			
 			// aapt resource value: 0x7F100042
-			public const int chip_text = 2131755074;
+			public const int exposed_dropdown_menu_content_description = 2131755074;
 			
 			// aapt resource value: 0x7F100043
-			public const int clear_text_end_icon_content_description = 2131755075;
+			public const int fab_transformation_scrim_behavior = 2131755075;
 			
 			// aapt resource value: 0x7F100044
-			public const int common_google_play_services_enable_button = 2131755076;
+			public const int fab_transformation_sheet_behavior = 2131755076;
 			
 			// aapt resource value: 0x7F100045
-			public const int common_google_play_services_enable_text = 2131755077;
+			public const int fallback_menu_item_copy_link = 2131755077;
 			
 			// aapt resource value: 0x7F100046
-			public const int common_google_play_services_enable_title = 2131755078;
+			public const int fallback_menu_item_open_in_browser = 2131755078;
 			
 			// aapt resource value: 0x7F100047
-			public const int common_google_play_services_install_button = 2131755079;
+			public const int fallback_menu_item_share_link = 2131755079;
 			
 			// aapt resource value: 0x7F100048
-			public const int common_google_play_services_install_text = 2131755080;
+			public const int fcm_fallback_notification_channel_label = 2131755080;
 			
 			// aapt resource value: 0x7F100049
-			public const int common_google_play_services_install_title = 2131755081;
+			public const int firebase_database_url = 2131755081;
 			
 			// aapt resource value: 0x7F10004A
-			public const int common_google_play_services_notification_channel_name = 2131755082;
+			public const int gcm_defaultSenderId = 2131755082;
 			
 			// aapt resource value: 0x7F10004B
-			public const int common_google_play_services_notification_ticker = 2131755083;
+			public const int google_storage_bucket = 2131755083;
 			
 			// aapt resource value: 0x7F10004C
-			public const int common_google_play_services_unknown_issue = 2131755084;
+			public const int hide_bottom_view_on_scroll_behavior = 2131755084;
 			
 			// aapt resource value: 0x7F10004D
-			public const int common_google_play_services_unsupported_text = 2131755085;
+			public const int icon_content_description = 2131755085;
 			
 			// aapt resource value: 0x7F10004E
-			public const int common_google_play_services_update_button = 2131755086;
+			public const int item_view_role_description = 2131755086;
 			
 			// aapt resource value: 0x7F10004F
-			public const int common_google_play_services_update_text = 2131755087;
+			public const int library_name = 2131755087;
 			
 			// aapt resource value: 0x7F100050
-			public const int common_google_play_services_update_title = 2131755088;
+			public const int mapKey = 2131755088;
 			
 			// aapt resource value: 0x7F100051
-			public const int common_google_play_services_updating_text = 2131755089;
+			public const int material_clock_display_divider = 2131755089;
 			
 			// aapt resource value: 0x7F100052
-			public const int common_google_play_services_wear_update_text = 2131755090;
+			public const int material_clock_toggle_content_description = 2131755090;
 			
 			// aapt resource value: 0x7F100053
-			public const int common_open_on_phone = 2131755091;
+			public const int material_hour_selection = 2131755091;
 			
 			// aapt resource value: 0x7F100054
-			public const int common_signin_button_text = 2131755092;
+			public const int material_hour_suffix = 2131755092;
 			
 			// aapt resource value: 0x7F100055
-			public const int common_signin_button_text_long = 2131755093;
+			public const int material_minute_selection = 2131755093;
 			
 			// aapt resource value: 0x7F100056
-			public const int copy_toast_msg = 2131755094;
+			public const int material_minute_suffix = 2131755094;
 			
 			// aapt resource value: 0x7F100057
-			public const int error_icon_content_description = 2131755095;
+			public const int material_slider_range_end = 2131755095;
 			
 			// aapt resource value: 0x7F100058
-			public const int exposed_dropdown_menu_content_description = 2131755096;
+			public const int material_slider_range_start = 2131755096;
 			
 			// aapt resource value: 0x7F100059
-			public const int fab_transformation_scrim_behavior = 2131755097;
+			public const int material_timepicker_am = 2131755097;
 			
 			// aapt resource value: 0x7F10005A
-			public const int fab_transformation_sheet_behavior = 2131755098;
+			public const int material_timepicker_clock_mode_description = 2131755098;
 			
 			// aapt resource value: 0x7F10005B
-			public const int fallback_menu_item_copy_link = 2131755099;
+			public const int material_timepicker_hour = 2131755099;
 			
 			// aapt resource value: 0x7F10005C
-			public const int fallback_menu_item_open_in_browser = 2131755100;
+			public const int material_timepicker_minute = 2131755100;
 			
 			// aapt resource value: 0x7F10005D
-			public const int fallback_menu_item_share_link = 2131755101;
+			public const int material_timepicker_pm = 2131755101;
 			
 			// aapt resource value: 0x7F10005E
-			public const int fcm_fallback_notification_channel_label = 2131755102;
+			public const int material_timepicker_select_time = 2131755102;
 			
 			// aapt resource value: 0x7F10005F
-			public const int hide_bottom_view_on_scroll_behavior = 2131755103;
+			public const int material_timepicker_text_input_mode_description = 2131755103;
 			
 			// aapt resource value: 0x7F100060
-			public const int icon_content_description = 2131755104;
+			public const int mr_button_content_description = 2131755104;
 			
 			// aapt resource value: 0x7F100061
-			public const int item_view_role_description = 2131755105;
+			public const int mr_cast_button_connected = 2131755105;
 			
 			// aapt resource value: 0x7F100062
-			public const int library_name = 2131755106;
+			public const int mr_cast_button_connecting = 2131755106;
 			
 			// aapt resource value: 0x7F100063
-			public const int mapKey = 2131755107;
+			public const int mr_cast_button_disconnected = 2131755107;
 			
 			// aapt resource value: 0x7F100064
-			public const int material_clock_display_divider = 2131755108;
+			public const int mr_cast_dialog_title_view_placeholder = 2131755108;
 			
 			// aapt resource value: 0x7F100065
-			public const int material_clock_toggle_content_description = 2131755109;
+			public const int mr_chooser_searching = 2131755109;
 			
 			// aapt resource value: 0x7F100066
-			public const int material_hour_selection = 2131755110;
+			public const int mr_chooser_title = 2131755110;
 			
 			// aapt resource value: 0x7F100067
-			public const int material_hour_suffix = 2131755111;
+			public const int mr_controller_album_art = 2131755111;
 			
 			// aapt resource value: 0x7F100068
-			public const int material_minute_selection = 2131755112;
+			public const int mr_controller_casting_screen = 2131755112;
 			
 			// aapt resource value: 0x7F100069
-			public const int material_minute_suffix = 2131755113;
+			public const int mr_controller_close_description = 2131755113;
 			
 			// aapt resource value: 0x7F10006A
-			public const int material_slider_range_end = 2131755114;
+			public const int mr_controller_collapse_group = 2131755114;
 			
 			// aapt resource value: 0x7F10006B
-			public const int material_slider_range_start = 2131755115;
+			public const int mr_controller_disconnect = 2131755115;
 			
 			// aapt resource value: 0x7F10006C
-			public const int material_timepicker_am = 2131755116;
+			public const int mr_controller_expand_group = 2131755116;
 			
 			// aapt resource value: 0x7F10006D
-			public const int material_timepicker_clock_mode_description = 2131755117;
+			public const int mr_controller_no_info_available = 2131755117;
 			
 			// aapt resource value: 0x7F10006E
-			public const int material_timepicker_hour = 2131755118;
+			public const int mr_controller_no_media_selected = 2131755118;
 			
 			// aapt resource value: 0x7F10006F
-			public const int material_timepicker_minute = 2131755119;
+			public const int mr_controller_pause = 2131755119;
 			
 			// aapt resource value: 0x7F100070
-			public const int material_timepicker_pm = 2131755120;
+			public const int mr_controller_play = 2131755120;
 			
 			// aapt resource value: 0x7F100071
-			public const int material_timepicker_select_time = 2131755121;
+			public const int mr_controller_stop = 2131755121;
 			
 			// aapt resource value: 0x7F100072
-			public const int material_timepicker_text_input_mode_description = 2131755122;
+			public const int mr_controller_stop_casting = 2131755122;
 			
 			// aapt resource value: 0x7F100073
-			public const int mr_button_content_description = 2131755123;
+			public const int mr_controller_volume_slider = 2131755123;
 			
 			// aapt resource value: 0x7F100074
-			public const int mr_cast_button_connected = 2131755124;
+			public const int mr_dialog_default_group_name = 2131755124;
 			
 			// aapt resource value: 0x7F100075
-			public const int mr_cast_button_connecting = 2131755125;
+			public const int mr_dialog_groupable_header = 2131755125;
 			
 			// aapt resource value: 0x7F100076
-			public const int mr_cast_button_disconnected = 2131755126;
+			public const int mr_dialog_transferable_header = 2131755126;
 			
 			// aapt resource value: 0x7F100077
-			public const int mr_cast_dialog_title_view_placeholder = 2131755127;
+			public const int mr_system_route_name = 2131755127;
 			
 			// aapt resource value: 0x7F100078
-			public const int mr_chooser_searching = 2131755128;
+			public const int mr_user_route_category_name = 2131755128;
 			
 			// aapt resource value: 0x7F100079
-			public const int mr_chooser_title = 2131755129;
+			public const int mtrl_badge_numberless_content_description = 2131755129;
 			
 			// aapt resource value: 0x7F10007A
-			public const int mr_controller_album_art = 2131755130;
+			public const int mtrl_chip_close_icon_content_description = 2131755130;
 			
 			// aapt resource value: 0x7F10007B
-			public const int mr_controller_casting_screen = 2131755131;
+			public const int mtrl_exceed_max_badge_number_content_description = 2131755131;
 			
 			// aapt resource value: 0x7F10007C
-			public const int mr_controller_close_description = 2131755132;
+			public const int mtrl_exceed_max_badge_number_suffix = 2131755132;
 			
 			// aapt resource value: 0x7F10007D
-			public const int mr_controller_collapse_group = 2131755133;
+			public const int mtrl_picker_a11y_next_month = 2131755133;
 			
 			// aapt resource value: 0x7F10007E
-			public const int mr_controller_disconnect = 2131755134;
+			public const int mtrl_picker_a11y_prev_month = 2131755134;
 			
 			// aapt resource value: 0x7F10007F
-			public const int mr_controller_expand_group = 2131755135;
+			public const int mtrl_picker_announce_current_selection = 2131755135;
 			
 			// aapt resource value: 0x7F100080
-			public const int mr_controller_no_info_available = 2131755136;
+			public const int mtrl_picker_cancel = 2131755136;
 			
 			// aapt resource value: 0x7F100081
-			public const int mr_controller_no_media_selected = 2131755137;
+			public const int mtrl_picker_confirm = 2131755137;
 			
 			// aapt resource value: 0x7F100082
-			public const int mr_controller_pause = 2131755138;
+			public const int mtrl_picker_date_header_selected = 2131755138;
 			
 			// aapt resource value: 0x7F100083
-			public const int mr_controller_play = 2131755139;
+			public const int mtrl_picker_date_header_title = 2131755139;
 			
 			// aapt resource value: 0x7F100084
-			public const int mr_controller_stop = 2131755140;
+			public const int mtrl_picker_date_header_unselected = 2131755140;
 			
 			// aapt resource value: 0x7F100085
-			public const int mr_controller_stop_casting = 2131755141;
+			public const int mtrl_picker_day_of_week_column_header = 2131755141;
 			
 			// aapt resource value: 0x7F100086
-			public const int mr_controller_volume_slider = 2131755142;
+			public const int mtrl_picker_invalid_format = 2131755142;
 			
 			// aapt resource value: 0x7F100087
-			public const int mr_dialog_default_group_name = 2131755143;
+			public const int mtrl_picker_invalid_format_example = 2131755143;
 			
 			// aapt resource value: 0x7F100088
-			public const int mr_dialog_groupable_header = 2131755144;
+			public const int mtrl_picker_invalid_format_use = 2131755144;
 			
 			// aapt resource value: 0x7F100089
-			public const int mr_dialog_transferable_header = 2131755145;
+			public const int mtrl_picker_invalid_range = 2131755145;
 			
 			// aapt resource value: 0x7F10008A
-			public const int mr_system_route_name = 2131755146;
+			public const int mtrl_picker_navigate_to_year_description = 2131755146;
 			
 			// aapt resource value: 0x7F10008B
-			public const int mr_user_route_category_name = 2131755147;
+			public const int mtrl_picker_out_of_range = 2131755147;
 			
 			// aapt resource value: 0x7F10008C
-			public const int mtrl_badge_numberless_content_description = 2131755148;
+			public const int mtrl_picker_range_header_only_end_selected = 2131755148;
 			
 			// aapt resource value: 0x7F10008D
-			public const int mtrl_chip_close_icon_content_description = 2131755149;
+			public const int mtrl_picker_range_header_only_start_selected = 2131755149;
 			
 			// aapt resource value: 0x7F10008E
-			public const int mtrl_exceed_max_badge_number_content_description = 2131755150;
+			public const int mtrl_picker_range_header_selected = 2131755150;
 			
 			// aapt resource value: 0x7F10008F
-			public const int mtrl_exceed_max_badge_number_suffix = 2131755151;
+			public const int mtrl_picker_range_header_title = 2131755151;
 			
 			// aapt resource value: 0x7F100090
-			public const int mtrl_picker_a11y_next_month = 2131755152;
+			public const int mtrl_picker_range_header_unselected = 2131755152;
 			
 			// aapt resource value: 0x7F100091
-			public const int mtrl_picker_a11y_prev_month = 2131755153;
+			public const int mtrl_picker_save = 2131755153;
 			
 			// aapt resource value: 0x7F100092
-			public const int mtrl_picker_announce_current_selection = 2131755154;
+			public const int mtrl_picker_text_input_date_hint = 2131755154;
 			
 			// aapt resource value: 0x7F100093
-			public const int mtrl_picker_cancel = 2131755155;
+			public const int mtrl_picker_text_input_date_range_end_hint = 2131755155;
 			
 			// aapt resource value: 0x7F100094
-			public const int mtrl_picker_confirm = 2131755156;
+			public const int mtrl_picker_text_input_date_range_start_hint = 2131755156;
 			
 			// aapt resource value: 0x7F100095
-			public const int mtrl_picker_date_header_selected = 2131755157;
+			public const int mtrl_picker_text_input_day_abbr = 2131755157;
 			
 			// aapt resource value: 0x7F100096
-			public const int mtrl_picker_date_header_title = 2131755158;
+			public const int mtrl_picker_text_input_month_abbr = 2131755158;
 			
 			// aapt resource value: 0x7F100097
-			public const int mtrl_picker_date_header_unselected = 2131755159;
+			public const int mtrl_picker_text_input_year_abbr = 2131755159;
 			
 			// aapt resource value: 0x7F100098
-			public const int mtrl_picker_day_of_week_column_header = 2131755160;
+			public const int mtrl_picker_toggle_to_calendar_input_mode = 2131755160;
 			
 			// aapt resource value: 0x7F100099
-			public const int mtrl_picker_invalid_format = 2131755161;
+			public const int mtrl_picker_toggle_to_day_selection = 2131755161;
 			
 			// aapt resource value: 0x7F10009A
-			public const int mtrl_picker_invalid_format_example = 2131755162;
+			public const int mtrl_picker_toggle_to_text_input_mode = 2131755162;
 			
 			// aapt resource value: 0x7F10009B
-			public const int mtrl_picker_invalid_format_use = 2131755163;
+			public const int mtrl_picker_toggle_to_year_selection = 2131755163;
 			
 			// aapt resource value: 0x7F10009C
-			public const int mtrl_picker_invalid_range = 2131755164;
+			public const int password_toggle_content_description = 2131755164;
 			
 			// aapt resource value: 0x7F10009D
-			public const int mtrl_picker_navigate_to_year_description = 2131755165;
+			public const int path_password_eye = 2131755165;
 			
 			// aapt resource value: 0x7F10009E
-			public const int mtrl_picker_out_of_range = 2131755166;
+			public const int path_password_eye_mask_strike_through = 2131755166;
 			
 			// aapt resource value: 0x7F10009F
-			public const int mtrl_picker_range_header_only_end_selected = 2131755167;
+			public const int path_password_eye_mask_visible = 2131755167;
 			
 			// aapt resource value: 0x7F1000A0
-			public const int mtrl_picker_range_header_only_start_selected = 2131755168;
+			public const int path_password_strike_through = 2131755168;
 			
 			// aapt resource value: 0x7F1000A1
-			public const int mtrl_picker_range_header_selected = 2131755169;
+			public const int places_autocomplete_clear_button = 2131755169;
 			
 			// aapt resource value: 0x7F1000A2
-			public const int mtrl_picker_range_header_title = 2131755170;
+			public const int places_autocomplete_label = 2131755170;
 			
 			// aapt resource value: 0x7F1000A3
-			public const int mtrl_picker_range_header_unselected = 2131755171;
+			public const int places_autocomplete_no_results_for_query = 2131755171;
 			
 			// aapt resource value: 0x7F1000A4
-			public const int mtrl_picker_save = 2131755172;
+			public const int places_autocomplete_search_hint = 2131755172;
 			
 			// aapt resource value: 0x7F1000A5
-			public const int mtrl_picker_text_input_date_hint = 2131755173;
+			public const int places_cancel = 2131755173;
 			
 			// aapt resource value: 0x7F1000A6
-			public const int mtrl_picker_text_input_date_range_end_hint = 2131755174;
+			public const int places_powered_by_google = 2131755174;
 			
 			// aapt resource value: 0x7F1000A7
-			public const int mtrl_picker_text_input_date_range_start_hint = 2131755175;
+			public const int places_search_error = 2131755175;
 			
 			// aapt resource value: 0x7F1000A8
-			public const int mtrl_picker_text_input_day_abbr = 2131755176;
+			public const int places_try_again = 2131755176;
 			
 			// aapt resource value: 0x7F1000A9
-			public const int mtrl_picker_text_input_month_abbr = 2131755177;
+			public const int project_id = 2131755177;
 			
 			// aapt resource value: 0x7F1000AA
-			public const int mtrl_picker_text_input_year_abbr = 2131755178;
+			public const int search_menu_title = 2131755178;
 			
 			// aapt resource value: 0x7F1000AB
-			public const int mtrl_picker_toggle_to_calendar_input_mode = 2131755179;
-			
-			// aapt resource value: 0x7F1000AC
-			public const int mtrl_picker_toggle_to_day_selection = 2131755180;
-			
-			// aapt resource value: 0x7F1000AD
-			public const int mtrl_picker_toggle_to_text_input_mode = 2131755181;
-			
-			// aapt resource value: 0x7F1000AE
-			public const int mtrl_picker_toggle_to_year_selection = 2131755182;
-			
-			// aapt resource value: 0x7F1000AF
-			public const int password_toggle_content_description = 2131755183;
-			
-			// aapt resource value: 0x7F1000B0
-			public const int path_password_eye = 2131755184;
-			
-			// aapt resource value: 0x7F1000B1
-			public const int path_password_eye_mask_strike_through = 2131755185;
-			
-			// aapt resource value: 0x7F1000B2
-			public const int path_password_eye_mask_visible = 2131755186;
-			
-			// aapt resource value: 0x7F1000B3
-			public const int path_password_strike_through = 2131755187;
-			
-			// aapt resource value: 0x7F1000B4
-			public const int places_autocomplete_clear_button = 2131755188;
-			
-			// aapt resource value: 0x7F1000B5
-			public const int places_autocomplete_label = 2131755189;
-			
-			// aapt resource value: 0x7F1000B6
-			public const int places_autocomplete_no_results_for_query = 2131755190;
-			
-			// aapt resource value: 0x7F1000B7
-			public const int places_autocomplete_search_hint = 2131755191;
-			
-			// aapt resource value: 0x7F1000B8
-			public const int places_cancel = 2131755192;
-			
-			// aapt resource value: 0x7F1000B9
-			public const int places_powered_by_google = 2131755193;
-			
-			// aapt resource value: 0x7F1000BA
-			public const int places_search_error = 2131755194;
-			
-			// aapt resource value: 0x7F1000BB
-			public const int places_try_again = 2131755195;
-			
-			// aapt resource value: 0x7F1000BC
-			public const int search_menu_title = 2131755196;
-			
-			// aapt resource value: 0x7F1000BD
-			public const int status_bar_notification_info_overflow = 2131755197;
+			public const int status_bar_notification_info_overflow = 2131755179;
 			
 			static String()
 			{

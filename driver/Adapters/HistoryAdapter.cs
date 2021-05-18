@@ -58,7 +58,7 @@ namespace driver.Adapters
                 {
                     if (snapshot.Exists)
                     {
-                        var user = snapshot.ToObject<AppUsers>();
+                        var user = snapshot.ToObject<ClientModel>();
                         holder.TxtClientName.Text = $"{user.Name} {user.Surname}";
                     }
                 });

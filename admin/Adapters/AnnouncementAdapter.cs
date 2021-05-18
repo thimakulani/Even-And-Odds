@@ -3,11 +3,11 @@
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
-using Android.Support.Design.Button;
-using Even_Odds_Delivary.Models;
+using Google.Android.Material.Button;
+using admin.Models;
 using System.Collections.Generic;
 
-namespace Even_Odds_Delivary.Adapters
+namespace admin.Adapters
 {
     class AnnouncementAdapter : RecyclerView.Adapter
     {

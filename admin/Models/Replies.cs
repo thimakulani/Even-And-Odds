@@ -1,4 +1,4 @@
-﻿namespace Even_Odds_Delivary.Models
+﻿namespace admin.Models
 {
     public class Replies
     {

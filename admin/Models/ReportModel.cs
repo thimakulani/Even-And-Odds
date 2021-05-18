@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace Even_Odds_Delivary.Models
+namespace admin.Models
 {
     class ReportModel
     {

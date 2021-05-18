@@ -12,42 +12,43 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Even_Odds_Delivary.AppData;
-using Even_Odds_Delivary.Models;
+using admin.AppData;
+using admin.Models;
 using Firebase.Database;
 using Microcharts;
 using Microcharts.Droid;
 using SkiaSharp;
-using Toolbar = Android.Support.V7.Widget.Toolbar;
+using Google.Android.Material.Button;
+using Google.Android.Material.AppBar;
 
-namespace Even_Odds_Delivary.Activities
+namespace admin.Activities
 {
     [Activity(Label = "StatsActivity")]
     public class StatsActivity : Activity, IValueEventListener
     {
         private ChartView chartStats;
-        private Toolbar toolbar;
+        private  MaterialToolbar toolbar;
         private ProgressBar loading_stats_progress;
         private List<string> months = new List<string>();
         private List<int> counter = new List<int>();
-        private Android.Support.Design.Button.MaterialButton BtnChartType;
-        private Android.Support.Design.Button.MaterialButton BtnYear;
+        private MaterialButton BtnChartType;
+        private MaterialButton BtnYear;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your application here
             SetContentView(Resource.Layout.activity_graphs_stats);
-            toolbar = FindViewById<Toolbar>(Resource.Id.include_app_toolbar);
-            BtnChartType = FindViewById<Android.Support.Design.Button.MaterialButton>(Resource.Id.BtnChartType);
-            BtnYear = FindViewById<Android.Support.Design.Button.MaterialButton>(Resource.Id.BtnYear);
+            toolbar = FindViewById<MaterialToolbar>(Resource.Id.include_app_toolbar);
+            BtnChartType = FindViewById<MaterialButton>(Resource.Id.BtnChartType);
+            BtnYear = FindViewById<MaterialButton>(Resource.Id.BtnYear);
             loading_stats_progress = FindViewById<ProgressBar>(Resource.Id.loading_stats_progress);
             //BtnYear.Click += BtnYear_Click;
             BtnYear.Visibility = ViewStates.Gone;
             BtnChartType.Click += BtnChartType_Click;
 
             chartStats = FindViewById<ChartView>(Resource.Id.chartStats);
-            toolbar.NavigationClick += Toolbar_NavigationClick;
+            toolbar.NavigationClick += Toolbar_NavigationClick1;
             string[] monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
             foreach (var m in monthNames)
             {
@@ -60,14 +61,19 @@ namespace Even_Odds_Delivary.Activities
                 .AddValueEventListener(this);
         }
 
+        private void Toolbar_NavigationClick1(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
+        {
+            Finish();
+        }
+
         private void BtnChartType_Click(object sender, EventArgs e)
         {
             Android.Widget.PopupMenu popupMenu = new Android.Widget.PopupMenu(this, BtnChartType);
-            popupMenu.Menu.Add(Menu.First, 0, 1, "Bar Chart");
-            popupMenu.Menu.Add(Menu.First, 1, 1, "Line Chart");
-            popupMenu.Menu.Add(Menu.First, 2, 1, "Point Chart");
-            popupMenu.Menu.Add(Menu.First, 3, 1, "Donut Chart");
-            popupMenu.Menu.Add(Menu.First, 4, 1, "Radar Chart");
+            popupMenu.Menu.Add(IMenu.First, 0, 1, "Bar Chart");
+            popupMenu.Menu.Add(IMenu.First, 1, 1, "Line Chart");
+            popupMenu.Menu.Add(IMenu.First, 2, 1, "Point Chart");
+            popupMenu.Menu.Add(IMenu.First, 3, 1, "Donut Chart");
+            popupMenu.Menu.Add(IMenu.First, 4, 1, "Radar Chart");
             popupMenu.Show();
             popupMenu.MenuItemClick += PopupMenu_MenuItemClick;
         }
@@ -80,7 +86,7 @@ namespace Even_Odds_Delivary.Activities
 
         //    while (Year <= currentYear)
         //    {
-        //        popupYear.Menu.Add(Menu.First, 0, 1, Year.ToString());
+        //        popupYear.Menu.Add(IMenu.First, 0, 1, Year.ToString());
         //        Year++;
 
         //    }
@@ -102,10 +108,7 @@ namespace Even_Odds_Delivary.Activities
             BtnYear.Text = e.Item.TitleFormatted.ToString();
             DrawCharts();
         }
-        private void Toolbar_NavigationClick(object sender, Toolbar.NavigationClickEventArgs e)
-        {
-            Finish();
-        }
+
         private int type = 0;
         private void DrawCharts()
         {

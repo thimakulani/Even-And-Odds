@@ -1,10 +1,10 @@
-﻿using Even_Odds_Delivary.Models;
+﻿using admin.Models;
 using Firebase.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Even_Odds_Delivary.AppData
+namespace admin.AppData
 {
     public class QueriesData : Java.Lang.Object, IValueEventListener
     {

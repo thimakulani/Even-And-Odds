@@ -1,31 +1,26 @@
 ﻿using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Button;
-using Android.Views;
-using Android.Widget;
+using Google.Android.Material.Button;
 using Firebase.Auth;
 using Firebase.Database;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Google.Android.Material.TextField;
+using Google.Android.Material.AppBar;
 
-namespace Even_Odds_Delivary.Activities
+namespace admin.Activities
 {
     [Activity(Label = "Profile")]
     public class Profile : Activity, IValueEventListener
     {
-        private EditText InputNames;
-        private EditText InputSurname;
-        private EditText InputPhone;
-        private EditText InputAltPhone;
-        private EditText InputEmail;
+        private TextInputEditText InputNames;
+        private TextInputEditText InputSurname;
+        private TextInputEditText InputPhone;
+        private TextInputEditText InputAltPhone;
+        private TextInputEditText InputEmail;
 
         private MaterialButton BtnAppyChanges;
 
-        private Android.Support.V7.Widget.Toolbar include_app_toolbar;
+        private MaterialToolbar include_app_toolbar;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -33,12 +28,12 @@ namespace Even_Odds_Delivary.Activities
 
             // Create your application here
             SetContentView(Resource.Layout.update_profile_dialog);
-            include_app_toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.include_app_toolbar);
-            InputNames = FindViewById<EditText>(Resource.Id.ProfileUpdateName);
-            InputSurname = FindViewById<EditText>(Resource.Id.ProfileUpdateSurname);
-            InputPhone = FindViewById<EditText>(Resource.Id.ProfileUpdatePhone);
-            InputAltPhone = FindViewById<EditText>(Resource.Id.ProfileUpdateAltPhone);
-            InputEmail = FindViewById<EditText>(Resource.Id.ProfileUpdateEmail);
+            include_app_toolbar = FindViewById<MaterialToolbar>(Resource.Id.include_app_toolbar);
+            InputNames = FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateName);
+            InputSurname = FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateSurname);
+            InputPhone = FindViewById<TextInputEditText>(Resource.Id.ProfileUpdatePhone);
+            InputAltPhone = FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateAltPhone);
+            InputEmail = FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateEmail);
             BtnAppyChanges = FindViewById<MaterialButton>(Resource.Id.BtnUpdateProfile);
             InputEmail.Enabled = false;
             BtnAppyChanges.Click += BtnAppyChanges_Click;
@@ -50,7 +45,7 @@ namespace Even_Odds_Delivary.Activities
             include_app_toolbar.NavigationClick += Include_app_toolbar_NavigationClick;
         }
 
-        private void Include_app_toolbar_NavigationClick(object sender, Android.Support.V7.Widget.Toolbar.NavigationClickEventArgs e)
+        private void Include_app_toolbar_NavigationClick(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
         {
             Finish();
         }

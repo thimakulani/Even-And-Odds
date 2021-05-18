@@ -5,22 +5,23 @@ using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Even_Odds_Delivary.AppData;
-using Even_Odds_Delivary.Models;
+using admin.AppData;
+using admin.Models;
 using Firebase.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Google.Android.Material.AppBar;
 
-namespace Even_Odds_Delivary.Activities
+namespace admin.Activities
 {
     [Activity(Label = "ReasignDriver")]
     public class ReasignDriver : Activity
     {
         private RecyclerView recyclerReasign;
         private ReasignData reasignData = new ReasignData();
-        private Android.Support.V7.Widget.Toolbar include_app_toolbar;
+        private MaterialToolbar include_app_toolbar;
         private List<ReasignModel> items = new List<ReasignModel>();
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -29,13 +30,13 @@ namespace Even_Odds_Delivary.Activities
             // Create your application here
             SetContentView(Resource.Layout.activity_reasign);
             recyclerReasign = FindViewById<RecyclerView>(Resource.Id.recyclerReasign);
-            include_app_toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.include_app_toolbar);
+            include_app_toolbar = FindViewById<MaterialToolbar>(Resource.Id.include_app_toolbar);
             reasignData.GetInformation();
             reasignData.ReassignHandler += ReasignData_ReassignHandler;
             include_app_toolbar.NavigationClick += Include_app_toolbar_NavigationClick;
         }
 
-        private void Include_app_toolbar_NavigationClick(object sender, Android.Support.V7.Widget.Toolbar.NavigationClickEventArgs e)
+        private void Include_app_toolbar_NavigationClick(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
         {
             Finish();
         }

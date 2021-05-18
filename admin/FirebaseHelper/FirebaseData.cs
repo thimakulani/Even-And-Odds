@@ -2,7 +2,7 @@
 using Google.Apis.Auth.OAuth2;
 using System.IO;
 
-namespace Even_Odds_Delivary.FirebaseHelper
+namespace admin.FirebaseHelper
 {
     class FirebaseData
     {

@@ -7,22 +7,24 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.Design.Button;
+using Google.Android.Material.Button;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Firebase.Database;
 using Java.Util;
-using Toolbar = Android.Support.V7.Widget.Toolbar;
 
-namespace Even_Odds_Delivary.Activities
+using Google.Android.Material.TextField;
+using Google.Android.Material.AppBar;
+
+namespace admin.Activities
 {
     [Activity(Label = "TripPrice")]
     public class TripPrice : Activity, IValueEventListener
     {
-        private Toolbar toolbar;
-        private EditText InputPrice;
-        private EditText InputPriceAfter;
+        private MaterialToolbar toolbar;
+        private TextInputEditText InputPrice;
+        private TextInputEditText InputPriceAfter;
         private MaterialButton BtnApplyChanges;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -34,20 +36,21 @@ namespace Even_Odds_Delivary.Activities
 
         private void ConnectViews()
         {
-            toolbar = FindViewById<Toolbar>(Resource.Id.include_app_toolbar);
-            InputPrice = FindViewById<EditText>(Resource.Id.InitialPrice);
-            InputPriceAfter = FindViewById<EditText>(Resource.Id.InitialAfter);
+            toolbar = FindViewById<MaterialToolbar>(Resource.Id.include_app_toolbar);
+            InputPrice = FindViewById<TextInputEditText>(Resource.Id.InitialPrice);
+            InputPriceAfter = FindViewById<TextInputEditText>(Resource.Id.InitialAfter);
             BtnApplyChanges = FindViewById<MaterialButton>(Resource.Id.BtnApplyChanges);
             BtnApplyChanges.Click += BtnApplyChanges_Click;
             FirebaseDatabase.Instance.GetReference("TripPrice").AddValueEventListener(this);
-            toolbar.NavigationClick += Toolbar_NavigationClick;
+            toolbar.NavigationClick += Toolbar_NavigationClick1;
         }
 
-        private void Toolbar_NavigationClick(object sender, Toolbar.NavigationClickEventArgs e)
+        private void Toolbar_NavigationClick1(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
         {
             Finish();
-            FirebaseDatabase.Instance.GetReference("TripPrice").RemoveEventListener(this);
         }
+
+  
 
         private void BtnApplyChanges_Click(object sender, EventArgs e)
         {

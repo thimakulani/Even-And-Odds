@@ -13,7 +13,7 @@ using Android.Widget;
 using System.Threading.Tasks;
 using Android.Content.Res;
 
-namespace Even_Odds_Delivary.Common
+namespace admin.Common
 {
     class PrintReport
     {

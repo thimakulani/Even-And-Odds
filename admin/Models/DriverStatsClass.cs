@@ -9,7 +9,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Even_Odds_Delivary.Models
+namespace admin.Models
 {
     public class DriverStatsClass
     {

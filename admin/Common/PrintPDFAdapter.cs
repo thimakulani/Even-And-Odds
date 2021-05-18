@@ -12,7 +12,7 @@ using Android.Views;
 using Android.Widget;
 using Java.IO;
 
-namespace Even_Odds_Delivary.Common
+namespace admin.Common
 {
     public class PrintReportPDFAdapter : PrintDocumentAdapter
     {

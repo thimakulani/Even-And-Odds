@@ -1,56 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Android;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Print;
-using Android.Runtime;
-using Android.Support.Design.Button;
+using Google.Android.Material.Button;
 using Android.Views;
 using Android.Widget;
 using Apitron.PDF.Kit;
 using Apitron.PDF.Kit.FixedLayout.Resources;
-using Apitron.PDF.Kit.FlowLayout;
 using Apitron.PDF.Kit.FlowLayout.Content;
 using Apitron.PDF.Kit.Styles;
 using Apitron.PDF.Kit.Styles.Appearance;
 using Com.Karumi.Dexter;
 using Com.Karumi.Dexter.Listener;
 using Com.Karumi.Dexter.Listener.Single;
-using Even_Odds_Delivary.AppData;
-using Even_Odds_Delivary.Common;
-using Even_Odds_Delivary.Models;
+using admin.Common;
+using admin.Models;
 using Firebase.Auth;
 using Firebase.Database;
-using Display = Apitron.PDF.Kit.Styles.Appearance.Display;
+using Plugin.CloudFirestore;
+using Google.Android.Material.AppBar;
 
-namespace Even_Odds_Delivary.Activities
+namespace admin.Activities
 {
     [Activity(Label = "Invoice")]
-    public class Invoice : Activity, IPermissionListener, IValueEventListener
+    public class Invoice : Activity, IPermissionListener
     {
-        private Android.Support.V7.Widget.Toolbar include_app_toolbar;
+        private MaterialToolbar include_app_toolbar;
         private MaterialButton BtnYear;
         private MaterialButton BtnMonth;
         private MaterialButton BtnGenerate;
         private ProgressBar progressBarInvoice;
-        string[] months = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
+        readonly string[] months = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
         private List<DelivaryModal> items = new List<DelivaryModal>();
-        private DeliveryRequestData requestData;
 
-        
+        private string PersonName = "Admin";
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your application here
             SetContentView(Resource.Layout.activity_invoice);
-            include_app_toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.include_app_toolbar);
+            include_app_toolbar = FindViewById<MaterialToolbar>(Resource.Id.include_app_toolbar);
             BtnYear = FindViewById<MaterialButton>(Resource.Id.BtnYear);
             BtnMonth = FindViewById<MaterialButton>(Resource.Id.BtnMonth);
             progressBarInvoice = FindViewById<ProgressBar>(Resource.Id.progressBarInvoice);
@@ -61,30 +56,61 @@ namespace Even_Odds_Delivary.Activities
             BtnYear.Text = DateTime.Now.Year.ToString();
             BtnMonth.Text = DateTime.Now.ToString("MMMM");
 
-            requestData = new DeliveryRequestData(progressBarInvoice);
-            requestData.DeliveryRequests();
-            requestData.RequestRetrived += RequestData_RequestRetrived;
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("DeliveryRequests")
+                .WhereIn("Status", new object[] {"D","A"})
+                .AddSnapshotListener((value, error) =>
+                {
+                    if (!value.IsEmpty)
+                    {
+                        foreach (var dc in value.DocumentChanges)
+                        {
+                            switch (dc.Type)
+                            {
+                                case DocumentChangeType.Added:
+                                    items.Add(dc.Document.ToObject<DelivaryModal>());
+                                    
+                                    break;
+                                case DocumentChangeType.Modified:
+                                    items[dc.OldIndex] = dc.Document.ToObject<DelivaryModal>();
+                                    break;
+                                case DocumentChangeType.Removed:
+                                    break;
+                            }
+                        }
+                    }
 
-            include_app_toolbar.NavigationClick += Include_app_toolbar_NavigationClick;
+                });
+
+            include_app_toolbar.NavigationClick += Include_app_toolbar_NavigationClick1;
 
             Dexter.WithActivity(this)
                 .WithPermission(Manifest.Permission.WriteExternalStorage)
                 .WithListener(this)
                 .Check();
-            FirebaseDatabase.Instance.GetReference("AppUsers")
-                .Child(FirebaseAuth.Instance.CurrentUser.Uid)
-                .AddValueEventListener(this);
+           
+
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(FirebaseAuth.Instance.Uid)
+                .AddSnapshotListener((snapshot, error) =>
+                {
+                    if (!snapshot.Exists)
+                    {
+                        AppUsers user = snapshot.ToObject<AppUsers>();
+                        PersonName = $"{user.Name} {user.Surname}";
+                    }
+                });
 
         }
 
-        private void Include_app_toolbar_NavigationClick(object sender, Android.Support.V7.Widget.Toolbar.NavigationClickEventArgs e)
+        private void Include_app_toolbar_NavigationClick1(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
         {
             Finish();
-        }
-
-        private void RequestData_RequestRetrived(object sender, DeliveryRequestData.DeliveryRequestEventArgs e)
-        {
-            items = e.delivaryModals;
         }
 
         private void BtnYear_Click(object sender, EventArgs e)
@@ -94,7 +120,7 @@ namespace Even_Odds_Delivary.Activities
             int diff = (DateTime.Now.Year - startYear) + 1;
             for (int i = 0; i < diff; i++)
             {
-                popupMenu.Menu.Add(Menu.First, 1, 1, (startYear + i).ToString());
+                popupMenu.Menu.Add(IMenu.First, 1, 1, (startYear + i).ToString());
             }
             popupMenu.Show();
             popupMenu.MenuItemClick += PopupMenu_MenuItemClick;
@@ -111,7 +137,7 @@ namespace Even_Odds_Delivary.Activities
 
             for (int i = 0; i < months.Length - 1; i++)
             {
-                popupMenu.Menu.Add(Menu.First, 1, 1, months[i]);
+                popupMenu.Menu.Add(IMenu.First, 1, 1, months[i]);
                 if (months[i] == DateTime.Now.ToString("MMMM") && BtnYear.Text == DateTime.Now.Year.ToString())
                 {
                     break;
@@ -162,7 +188,7 @@ namespace Even_Odds_Delivary.Activities
             document.PageHeader.LineHeight = 60;
             document.PageHeader.Add(new TextBlock("Invoice")
             {
-                Display = Display.InlineBlock,
+               // Display = Display.InlineBlock,
                 Align = Align.Right,
             });
             Section pageSection = new Section() { Padding = new Thickness(20) };
@@ -175,7 +201,7 @@ namespace Even_Odds_Delivary.Activities
             pageSection.AddItems(CreateInfoSubsections(new string[] { "Generated By", PersonName }));
             pageSection.Add(new Hr() { Padding = new Thickness(0, 20, 0, 20) });
             pageSection.Add(new Br { Height = 20 });
-            pageSection.Add(new Section() { Width = 250, Display = Display.InlineBlock });
+            //pageSection.Add(new Section() { Width = 250, Display = Display.InlineBlock });
 
             document.Add(pageSection);
 
@@ -240,7 +266,7 @@ namespace Even_Odds_Delivary.Activities
                 Section ss = new Section()
                 {
                     Width = Length.FromPercentage(width),
-                    Display = Display.InlineBlock
+                    //Display = Display.InlineBlock
                 };
 
                 ss.Add(new TextBlock(info[i]));
@@ -270,20 +296,7 @@ namespace Even_Odds_Delivary.Activities
         {
             
         }
-        private string PersonName = "Admin";
-        public void OnDataChange(DataSnapshot snapshot)
-        {
-            if (snapshot.Exists())
-            {
-                if (snapshot.Child("Name").Exists())
-                {
-                    PersonName = $"{snapshot.Child("Name").Value} {snapshot.Child("Surname").Value}";
-                }
-            }
-            else
-            {
-                PersonName = "Admin";
-            }
-        }
+
+
     }
 }

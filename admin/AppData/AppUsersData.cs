@@ -10,9 +10,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Firebase.Database;
-using Even_Odds_Delivary.Models;
+using admin.Models;
 
-namespace Even_Odds_Delivary.AppData
+namespace admin.AppData
 {
     class AppUsersData: Java.Lang.Object, IValueEventListener
     {

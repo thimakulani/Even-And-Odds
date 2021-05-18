@@ -4,10 +4,10 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
 using System.Collections.Generic;
-using Even_Odds_Delivary.Models;
+using admin.Models;
 using Firebase.Database;
 
-namespace Even_Odds_Delivary.Adapters
+namespace admin.Adapters
 {
     class RequestAdapter : RecyclerView.Adapter
     {
@@ -104,9 +104,9 @@ namespace Even_Odds_Delivary.Adapters
             {
                 if (snapshot.Exists())
                 {
-                    holder.DriverName.Text = $"{snapshot.Child("Name").Value} {snapshot.Child("Surname").Value}";
-                    delivaryModal.DriverName = $"{snapshot.Child("Name").Value} {snapshot.Child("Surname").Value}";
-                    adapter.Driver_Name.Add(holder.DriverName.Text);
+                    //holder.DriverName.Text = $"{snapshot.Child("Name").Value} {snapshot.Child("Surname").Value}";
+                    //delivaryModal.DriverName = $"{snapshot.Child("Name").Value} {snapshot.Child("Surname").Value}";
+                    //adapter.Driver_Name.Add(holder.DriverName.Text);
                 }
             }
         }
@@ -134,7 +134,7 @@ namespace Even_Odds_Delivary.Adapters
             Distance = itemView.FindViewById<TextView>(Resource.Id.HistoryDistance);
             Price = itemView.FindViewById<TextView>(Resource.Id.HistoryPrice);
             HistoryRequestStatus = itemView.FindViewById<TextView>(Resource.Id.HistoryRequestStatus);
-//            BtnCancelRequest = itemView.FindViewById<android.support.design.button.MaterialButton>(Resource.Id.BtnCancelRequest);
+//            BtnCancelRequest = itemView.FindViewById<com.google.android.material.button.MaterialButton>(Resource.Id.BtnCancelRequest);
             //TextView = v;
 
 

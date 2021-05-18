@@ -5,7 +5,7 @@ using Android.Content;
 using Android.OS;
 using Xamarin.Essentials;
 
-namespace Even_Odds_Delivary.Activities
+namespace admin.Activities
 {
     [Activity(Label = "AppIntro")]
     public class App_Intro : AppIntro.AppIntro

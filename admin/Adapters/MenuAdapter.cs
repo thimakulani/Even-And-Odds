@@ -4,9 +4,9 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
 using System.Collections.Generic;
-using Even_Odds_Delivary.Models;
+using admin.Models;
 
-namespace Even_Odds_Delivary.Adapters
+namespace admin.Adapters
 {
     class MenuAdapter : RecyclerView.Adapter
     {
