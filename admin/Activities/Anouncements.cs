@@ -11,7 +11,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using admin.Adapters;
-using admin.AppData;
+ 
 using admin.Models;
 using Firebase.Database;
 using Java.Util;
@@ -26,7 +26,7 @@ namespace admin.Activities
     {
         private RecyclerView Recycler;
         
-        private List<AnnouncementModel> items = new List<AnnouncementModel>();
+        private readonly List<AnnouncementModel> items = new List<AnnouncementModel>();
         private MaterialToolbar toolbar;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -124,11 +124,7 @@ namespace admin.Activities
             InputMessage.Text = string.Empty;
         }
 
-       
-
-        private void Data_RetrieveHandler(object sender, AnnouncementData.RetrieveAnnouncementsEventHandler e)
-        {items = e.Items;
-        }
+     
 
         private void Adapter_ItemDeleteClick(object sender, AnnouncementAdapterClickEventArgs e)
         {

@@ -34,9 +34,8 @@ namespace admin.Activities
         private MaterialButton BtnYear;
         private MaterialButton BtnMonth;
         private MaterialButton BtnGenerate;
-        private ProgressBar progressBarInvoice;
         readonly string[] months = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
-        private List<DelivaryModal> items = new List<DelivaryModal>();
+        private readonly List<DelivaryModal> items = new List<DelivaryModal>();
 
         private string PersonName = "Admin";
         protected override void OnCreate(Bundle savedInstanceState)
@@ -48,7 +47,6 @@ namespace admin.Activities
             include_app_toolbar = FindViewById<MaterialToolbar>(Resource.Id.include_app_toolbar);
             BtnYear = FindViewById<MaterialButton>(Resource.Id.BtnYear);
             BtnMonth = FindViewById<MaterialButton>(Resource.Id.BtnMonth);
-            progressBarInvoice = FindViewById<ProgressBar>(Resource.Id.progressBarInvoice);
             BtnGenerate = FindViewById<MaterialButton>(Resource.Id.BtnGenerateInvoice);
             BtnYear.Click += BtnYear_Click;
             BtnMonth.Click += BtnMonth_Click;
@@ -227,12 +225,14 @@ namespace admin.Activities
             System.Globalization.CultureInfo cultureInfo = new System.Globalization.CultureInfo("en-US");
             cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
             System.Threading.Thread.CurrentThread.CurrentCulture = cultureInfo;
-            Grid requestsGrid = new Grid(20, Length.Auto, Length.Auto, Length.Auto);
-            requestsGrid.Add(new GridRow(new TextBlock("#"), new TextBlock("Delivered Requests"), new TextBlock("Total Amount"),
-            new TextBlock("Total Requests"))
+            Grid requestsGrid = new Grid(20, Length.Auto, Length.Auto, Length.Auto)
             {
-                Class = "tableHeader centerAlignedCells"
-            });
+                new GridRow(new TextBlock("#"), new TextBlock("Delivered Requests"), new TextBlock("Total Amount"),
+                new TextBlock("Total Requests"))
+                {
+                    Class = "tableHeader centerAlignedCells"
+                }
+            };
             int counter = 0;
             int totalRequests = 0;
             double countAmout = 0.0;
@@ -243,7 +243,7 @@ namespace admin.Activities
                 {
                     if (items[i].Status == "Delivered")
                     {
-                        countAmout = countAmout + double.Parse(items[i].Price);
+                        countAmout += double.Parse(items[i].Price);
                         counter++;
                     }
                     totalRequests++;
@@ -292,10 +292,6 @@ namespace admin.Activities
         {
         }
 
-        public void OnCancelled(DatabaseError error)
-        {
-            
-        }
 
 
     }

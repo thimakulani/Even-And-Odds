@@ -18,6 +18,7 @@ using AndroidX.AppCompat.App;
 using Google.Android.Material.AppBar;
 using Plugin.CloudFirestore;
 using driver.Models;
+using AndroidHUD;
 
 namespace driver.Activities
 {
@@ -286,18 +287,7 @@ namespace driver.Activities
 
         public void OnSuccess(Java.Lang.Object result)
         {
-            HashMap data = new HashMap();
-            data.Put("Name", InputName.Text.Trim());
-            data.Put("Phone", InputPhone.Text.Trim());
-            data.Put("Surname", InputSurname.Text.Trim());
-            data.Put("Email", InputEmail.Text.Trim());
-            data.Put("Make", InputMake.Text.Trim());
-            data.Put("Color", InputColor.Text.Trim());
-            data.Put("Type", BtnType.Text.Trim());
-            data.Put("RegNo", InputRegNo.Text.Trim());
-            data.Put("Role", null);
-            data.Put("uid", FirebaseAuth.Instance.CurrentUser.Uid);
-            //data.Put("UserType", "Driver");
+            //data.Put(.Role", "Driver");
             DriverModel driver = new DriverModel()
             {
                 Color = InputColor.Text,
@@ -319,29 +309,13 @@ namespace driver.Activities
                 .Document(FirebaseAuth.Instance.Uid)
                 .SetAsync(driver);
 
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Successful");
-            builder.SetMessage("Your account has been successfully created, Please wait for administrator to approve your registration.");
-            builder.SetNeutralButton("OK", delegate
-            {
-                builder.Dispose();
-                
-            });
-            builder.Show();
+            AndHUD.Shared.ShowSuccess(this, "Your account has been successfully created, Please wait for administrator to approve your registration.", MaskType.Black, TimeSpan.FromSeconds(10));
+            
         }
 
         public void OnFailure(Java.Lang.Exception e)
         {
-           
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Error");
-            builder.SetMessage(e.Message);
-            builder.SetNeutralButton("OK", delegate
-            {
-                builder.Dispose();
-            });
-            builder.Show();
+            AndHUD.Shared.ShowSuccess(this, e.Message, MaskType.Black, TimeSpan.FromSeconds(10));
         }
 
 

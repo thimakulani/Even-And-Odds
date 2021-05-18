@@ -2,10 +2,8 @@
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
-using admin.AppData;
 using admin.Models;
 using System.Collections.Generic;
-using Android.Support.Design.Widget;
 using Android.Content;
 using Android.Views.Animations;
 using Google.Android.Material.FloatingActionButton;
@@ -52,8 +50,8 @@ namespace admin.Adapters
             holder.Email.Text = items[position].Email;
             holder.Names.Text = items[position].Name;
             holder.Surname.Text = items[position].Surname;
-            holder.UserType.Text = items[position].UserType;
-            holder.PhoneNumber.Text = items[position].PhoneNumber;
+            holder.UserType.Text = items[position].Role;
+            holder.PhoneNumber.Text = items[position].Phone;
 
             //ViewAnimationUtils(viewHolder.ItemView, position);
         }

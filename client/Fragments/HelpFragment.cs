@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V7.Widget;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Com.Github.Library.Bubbleview;
 using client.Classes;
 using Firebase.Database;
 using Java.Util;
-using Therapy_In_A_Pocket.AppData;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
 
@@ -30,7 +25,6 @@ namespace client.Fragments
         private string Names;
         private List<Queries> items = new List<Queries>();
 
-        private QueriesData queriesData = new QueriesData();
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -61,18 +55,13 @@ namespace client.Fragments
             BtnSend.Click += BtnSend_Click;
             InputMessage.SetTextColor(Android.Graphics.Color.Black);
 
-            queriesData.RetrieveGroupChats(UserKeyId);
-            queriesData.RetrivedQueriesMessages += QueriesData_RetrivedQueriesMessages;
-        }
-
-        private void QueriesData_RetrivedQueriesMessages(object sender, QueriesData.RetriveQueriesMessagesInbox e)
-        {
-            items = e.Queries;
             LinearLayoutManager linear = new LinearLayoutManager(Application.Context);
             QueriesAdapter adapter = new QueriesAdapter(items, UserKeyId);
             recyclerView.SetLayoutManager(linear);
             recyclerView.SetAdapter(adapter);
         }
+
+    
 
         private void BtnSend_Click(object sender, EventArgs e)
         {

@@ -13,7 +13,6 @@ using Android.Views;
 using Android.Widget;
 using AndroidHUD;
 using admin.Adapters;
-using admin.AppData;
 using admin.Fragments;
 using admin.Models;
 using Firebase.Database;
@@ -26,9 +25,8 @@ namespace admin.Activities
     public class RegisterDriver : AppCompatActivity, IOnFailureListener, IOnCompleteListener
     {
         
-        private List<AppUsers> items = new List<AppUsers>();
+        private readonly List<AppUsers> items = new List<AppUsers>();
         private List<AppUsers> UseritemsList = new List<AppUsers>();
-        private AppUsersData userData = new AppUsersData();
        // private RecyclerView RecyclerUserList;
         private AppUsersAdapter adapter;
 
@@ -59,7 +57,6 @@ namespace admin.Activities
             // Create your application here
             SetContentView(Resource.Layout.activity_driver_registration);
 
-            GetUserData();
             ConnectViews();
         }
 
@@ -84,7 +81,7 @@ namespace admin.Activities
            // FabSearch.Click += FabSearch_Click;
             txtCreateDriver.Click += TxtCreateDriver_Click;
 
-
+            SetUpRecycler(UseritemsList);
 
         }
 
@@ -126,19 +123,6 @@ namespace admin.Activities
             
         }
 
-
-        private void GetUserData()
-        {
-            userData.GetUsers();
-            userData.RetrivedData += UserData_RetrivedData;
-        }
-
-        private void UserData_RetrivedData(object sender, AppUsersData.UsersDataEventArgs e)
-        {
-            items = e.users_list;
-            UseritemsList = e.users_list;
-            SetUpRecycler(UseritemsList);
-        }
 
         private void SetUpRecycler(List<AppUsers> users)
         {

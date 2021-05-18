@@ -12,14 +12,10 @@ using Android.Views;
 using Android.Widget;
 using AndroidHUD;
 using admin.Adapters;
-using admin.AppData;
 using admin.FirebaseHelper;
 using admin.Models;
-using Firebase.Database;
 using FirebaseAdmin.Auth;
-using Java.Util;
 using Xamarin.Essentials;
-using SearchView = Android.Support.V7.Widget.SearchView;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
 
@@ -33,8 +29,6 @@ namespace admin.Activities
         private List<AppUsers> items = new List<AppUsers>();
         private List<AppUsers> UseritemsList = new List<AppUsers>();
         //private List<AppUsers> adminList = new List<AppUsers>();
-        private AppAdminUsers adminData = new AppAdminUsers(); 
-        private AppUsersData userData = new AppUsersData();
 
         // private RecyclerView RecyclerUserList;
         private AdminAdapter adapter;
@@ -47,7 +41,7 @@ namespace admin.Activities
         private TextInputEditText InputEmail;
         private TextInputEditText InputSurname;
         private TextInputEditText InputPhone;
-        private SearchView InputSearchUser;
+        private AndroidX.AppCompat.Widget.SearchView InputSearchUser;
         
 
         private MaterialButton BtnSubmitReg;
@@ -69,7 +63,7 @@ namespace admin.Activities
             // Create your application here
             SetContentView(Resource.Layout.activity_super_users);
 
-            GetUserData();
+
             ConnectViews();
         }
 
@@ -83,11 +77,11 @@ namespace admin.Activities
             ImgBack = FindViewById<ImageView>(Resource.Id.imgCloseSuperuser);
 
             //FabSearch = FindViewById<FloatingActionButton>(Resource.Id.FabSearchSuperUser);
-            InputSearchUser = FindViewById<SearchView>(Resource.Id.InputSearchSuperUsers);
+            InputSearchUser = FindViewById<AndroidX.AppCompat.Widget.SearchView>(Resource.Id.InputSearchSuperUsers);
             InputSearchUser.Visibility = ViewStates.Gone;
             recyclerUsersList = FindViewById<RecyclerView>(Resource.Id.recyclerSuperUsersList);
 
-            InputSearchUser.QueryTextChange += InputSearchUser_QueryTextChange;
+            InputSearchUser.QueryTextChange += InputSearchUser_QueryTextChange1;
             txtCreateSuperUser = FindViewById<MaterialButton>(Resource.Id.txtCreateSuperUser);
 
 
@@ -95,39 +89,24 @@ namespace admin.Activities
            
             txtCreateSuperUser.Click += TxtCreateSuperUser_Click;
 
-
+            SetUpRecycler(UseritemsList);
 
         }
 
-        private void InputSearchUser_QueryTextChange(object sender, SearchView.QueryTextChangeEventArgs e)
+        private void InputSearchUser_QueryTextChange1(object sender, AndroidX.AppCompat.Widget.SearchView.QueryTextChangeEventArgs e)
         {
             var users = (from data in UseritemsList
                          where
                         data.Name.Contains(e.NewText) ||
-                        data.UserType.Contains(e.NewText) ||
+                        data.Role.Contains(e.NewText) ||
                         data.Surname.Contains(e.NewText) ||
                         data.Email.Contains(e.NewText) ||
-                        data.PhoneNumber.Contains(e.NewText)
+                        data.Phone.Contains(e.NewText)
                          select data).ToList<AppUsers>();
 
             SetUpRecycler(users);
         }
 
-        private void InputSearchUser_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
-        {
-            /*ReportData = (from data in delivariesList
-                              where
-                              data.RequestTime.Contains(dates[0].Date.ToString("dd MMMMM yyyy")) ||
-                              data.RequestTime.Contains(dates[1].Date.ToString("dd MMMMM yyyy")) ||
-                              data.RequestTime.Contains(dates[2].Date.ToString("dd MMMMM yyyy")) ||
-                              data.RequestTime.Contains(dates[3].Date.ToString("dd MMMMM yyyy")) ||
-                              data.RequestTime.Contains(dates[4].Date.ToString("dd MMMMM yyyy")) ||
-                              data.RequestTime.Contains(dates[5].Date.ToString("dd MMMMM yyyy")) ||
-                              data.RequestTime.Contains(dates[6].Date.ToString("dd MMMMM yyyy"))
-                              select data).ToList<DelivaryModal>();
-                SetRecycler(ReportData);*/
-            
-        }
 
         private void TxtCreateSuperUser_Click(object sender, EventArgs e)
         {
@@ -214,13 +193,13 @@ namespace admin.Activities
                     builder.SetTitle("Warning");
                     // builder.SetMessage("Reset password link has been sent to your email address");
                     builder.SetMessage("Email address: " + data.Email + " has already been registered" +
-                        " to the system as a " + data.UserType + ", Would you like to activate user as " +
+                        " to the system as a " + data.Role + ", Would you like to activate user as " +
                         "a administrator?");
                     builder.SetPositiveButton("Yes", delegate
                     {
 
-                        FirebaseDatabase.Instance.GetReference("AppUsers")
-                        .Child(data.KeyId).Child("UserType").SetValue("Admin");
+                        //FirebaseDatabase.Instance.GetReference("AppUsers")
+                        //.Child(data.Uid).Child(.Role").SetValue("Admin");
                         builder.Dispose();
 
                     });
@@ -274,26 +253,6 @@ namespace admin.Activities
 
         }
 
-        private void GetUserData()
-        {
-            adminData.GetAdminData();
-            adminData.AdminRetrivedData += AdminData_AdminRetrivedData;
-            userData.GetUsers();
-            userData.RetrivedData += UserData_RetrivedData;
-        }
-
-        private void AdminData_AdminRetrivedData(object sender, AppAdminUsers.AdminDataEventArgs e)
-        {
-            UseritemsList = e.admin_list;
-            SetUpRecycler(UseritemsList);
-        }
-
-        private void UserData_RetrivedData(object sender, AppUsersData.UsersDataEventArgs e)
-        {
-            items = e.users_list;
-           // UseritemsList = e.users_list;
-            
-        }
 
         private void SetUpRecycler(List<AppUsers> users)
         {
@@ -365,7 +324,7 @@ namespace admin.Activities
         {
             try
             {
-                PhoneDialer.Open(items[e.Position].PhoneNumber);
+                PhoneDialer.Open(items[e.Position].Phone);
             }
             catch (ArgumentNullException anEx)
             {
@@ -408,16 +367,9 @@ namespace admin.Activities
             
         }
 
-        private async void RegisterInfor(UserRecord results)
+        private void RegisterInfor(UserRecord results)
         {
-            HashMap data = new HashMap();
-            data.Put("Name", InputName.Text);
-            data.Put("Phone", InputPhone.Text);
-            data.Put("Surname", InputSurname.Text);
-            data.Put("Email", InputEmail.Text);
-            data.Put("UserType", "Admin");
-            var database = FirebaseDatabase.Instance.GetReference("AppUsers").Child(results.Uid);
-            await database.SetValueAsync(data);
+            /*Register*/
             HUD($"Successfully registered a {InputName.Text} as administrator");
             RegistrationDialog.Dismiss();
         }

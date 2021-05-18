@@ -132,13 +132,14 @@ namespace admin.Models
                 counter++;
                 TextBlock pos = new TextBlock(counter.ToString("0#"));
                 TextBlock driver;
-                if (item.DriverName == null)
+                if (item.DriverId == null)
                 {
                     driver = new TextBlock("---------------");
                 }
                 else
                 {
-                    driver = new TextBlock(item.DriverName);
+
+                    driver = new TextBlock(item.DriverId);
                 }
                 TextBlock pickup = new TextBlock(item.PickupAddress);
                 TextBlock dest = new TextBlock(item.DestinationAddress);

@@ -78,7 +78,7 @@ namespace admin.Fragments
         {
             InputName.Text = appUsers.Name;
             InputSurname.Text = appUsers.Surname;
-            InputPhone.Text = appUsers.PhoneNumber;
+            InputPhone.Text = appUsers.Phone;
             InputEmail.Text = appUsers.Email;
             InputMake.Text = appUsers.Make;
             InputRegNo.Text = appUsers.RegNo;
@@ -159,11 +159,11 @@ namespace admin.Fragments
                 BtnType.Error = "required";
                 return;
             }
-            FirebaseDatabase.Instance.GetReference("AppUsers").Child(appUsers.KeyId).Child("UserType").SetValue("Driver");
-            FirebaseDatabase.Instance.GetReference("AppUsers").Child(appUsers.KeyId).Child("Make").SetValue(InputMake.Text);
-            FirebaseDatabase.Instance.GetReference("AppUsers").Child(appUsers.KeyId).Child("RegNo").SetValue(InputRegNo.Text);
-            FirebaseDatabase.Instance.GetReference("AppUsers").Child(appUsers.KeyId).Child("Color").SetValue(InputColor.Text);
-            FirebaseDatabase.Instance.GetReference("AppUsers").Child(appUsers.KeyId).Child("Type").SetValue(BtnType.Text);
+            //FirebaseDatabase.Instance.GetReference("AppUsers").Child(appUsers.KeyId).Child(.Role").SetValue("Driver");
+            //FirebaseDatabase.Instance.GetReference("AppUsers").Child(appUsers.KeyId).Child("Make").SetValue(InputMake.Text);
+            //FirebaseDatabase.Instance.GetReference("AppUsers").Child(appUsers.KeyId).Child("RegNo").SetValue(InputRegNo.Text);
+            //FirebaseDatabase.Instance.GetReference("AppUsers").Child(appUsers.KeyId).Child("Color").SetValue(InputColor.Text);
+            //FirebaseDatabase.Instance.GetReference("AppUsers").Child(appUsers.KeyId).Child("Type").SetValue(BtnType.Text);
 
             AndroidHUD.AndHUD.Shared.ShowSuccess(context, "Successfully created a driver", AndroidHUD.MaskType.Black, TimeSpan.FromSeconds(2));
             Dismiss();

@@ -2,9 +2,7 @@
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Support.V7.Widget;
-using Android.Widget;
 using admin.Adapters;
-using admin.AppData;
 using admin.Models;
 using Firebase.Database;
 using Java.Util;
@@ -18,8 +16,7 @@ namespace admin.Activities
     {
         private MaterialToolbar include_app_toolbar;
         private RecyclerView recycler_driver_requests;
-        private readonly DriverRequestData driverRequestData = new DriverRequestData();
-        private List<DriverRequestModel> items = new List<DriverRequestModel>();
+        private readonly List<DriverRequestModel> items = new List<DriverRequestModel>();
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -29,9 +26,12 @@ namespace admin.Activities
             include_app_toolbar = FindViewById<MaterialToolbar>(Resource.Id.include_app_toolbar);
             recycler_driver_requests = FindViewById<RecyclerView>(Resource.Id.recycler_driver_requests);
             include_app_toolbar.NavigationClick += Include_app_toolbar_NavigationClick1; ;
-            driverRequestData.GetDriverRequestData();
-            driverRequestData.RetrivedData += DriverRequestData_RetrivedData;
 
+            recycler_driver_requests.SetLayoutManager(new LinearLayoutManager(this));
+            DriverRequestAdapter adapter = new DriverRequestAdapter(items);
+            recycler_driver_requests.SetAdapter(adapter);
+            adapter.BtnApproveClick += Adapter_BtnApproveClick;
+            adapter.BtnDeclinelick += Adapter_BtnDeclinelick;
         }
 
         private void Include_app_toolbar_NavigationClick1(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
@@ -39,15 +39,6 @@ namespace admin.Activities
             Finish();
         }
 
-        private void DriverRequestData_RetrivedData(object sender, DriverRequestData.DriverRequestDataEventArgs e)
-        {
-            items = e.item;
-            recycler_driver_requests.SetLayoutManager(new LinearLayoutManager(this));
-            DriverRequestAdapter adapter = new DriverRequestAdapter(items);
-            recycler_driver_requests.SetAdapter(adapter);
-            adapter.BtnApproveClick += Adapter_BtnApproveClick;
-            adapter.BtnDeclinelick += Adapter_BtnDeclinelick;
-        }
 
         private void Adapter_BtnDeclinelick(object sender, DriverRequestAdapterClickEventArgs e)
         {

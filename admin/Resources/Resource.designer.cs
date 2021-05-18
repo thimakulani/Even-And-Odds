@@ -11496,44 +11496,44 @@ namespace admin
 			// aapt resource value: 0x7F0801D2
 			public const int rounded = 2131231186;
 			
-			// aapt resource value: 0x7F080046
-			public const int RowEmail = 2131230790;
-			
 			// aapt resource value: 0x7F080047
-			public const int RowFabCall = 2131230791;
+			public const int RowEmail = 2131230791;
 			
 			// aapt resource value: 0x7F080048
-			public const int RowFabEmail = 2131230792;
+			public const int RowFabCall = 2131230792;
 			
 			// aapt resource value: 0x7F080049
-			public const int RowMakeDriver = 2131230793;
+			public const int RowFabEmail = 2131230793;
 			
 			// aapt resource value: 0x7F08004A
-			public const int RowNames = 2131230794;
+			public const int RowMakeDriver = 2131230794;
 			
 			// aapt resource value: 0x7F08004B
-			public const int RowPhoneNumber = 2131230795;
+			public const int RowNames = 2131230795;
 			
 			// aapt resource value: 0x7F08004C
-			public const int RowSurname = 2131230796;
+			public const int RowPhoneNumber = 2131230796;
 			
 			// aapt resource value: 0x7F08004D
-			public const int RowUserCarType = 2131230797;
+			public const int RowSurname = 2131230797;
 			
 			// aapt resource value: 0x7F08004E
-			public const int RowUserColor = 2131230798;
+			public const int RowUserCarType = 2131230798;
 			
 			// aapt resource value: 0x7F08004F
-			public const int RowUserMake = 2131230799;
+			public const int RowUserColor = 2131230799;
 			
 			// aapt resource value: 0x7F080050
-			public const int RowUserRegNo = 2131230800;
+			public const int RowUserMake = 2131230800;
 			
 			// aapt resource value: 0x7F080051
-			public const int RowUserType = 2131230801;
+			public const int RowUserRegNo = 2131230801;
 			
 			// aapt resource value: 0x7F0801D3
 			public const int row_index_key = 2131231187;
+			
+			// aapt resource value: 0x7F080046
+			public const int Ro_Role = 2131230790;
 			
 			// aapt resource value: 0x7F0801D4
 			public const int satellite = 2131231188;
@@ -11748,26 +11748,26 @@ namespace admin
 			// aapt resource value: 0x7F08005C
 			public const int SuperUserRegisterInputPhoneNumber = 2131230812;
 			
-			// aapt resource value: 0x7F08005D
-			public const int SuperUserRowEmail = 2131230813;
-			
 			// aapt resource value: 0x7F08005E
-			public const int SuperUserRowFabCall = 2131230814;
+			public const int SuperUserRowEmail = 2131230814;
 			
 			// aapt resource value: 0x7F08005F
-			public const int SuperUserRowFabEmail = 2131230815;
+			public const int SuperUserRowFabCall = 2131230815;
 			
 			// aapt resource value: 0x7F080060
-			public const int SuperUserRowNames = 2131230816;
+			public const int SuperUserRowFabEmail = 2131230816;
 			
 			// aapt resource value: 0x7F080061
-			public const int SuperUserRowPhoneNumber = 2131230817;
+			public const int SuperUserRowNames = 2131230817;
 			
 			// aapt resource value: 0x7F080062
-			public const int SuperUserRowSurname = 2131230818;
+			public const int SuperUserRowPhoneNumber = 2131230818;
 			
 			// aapt resource value: 0x7F080063
-			public const int SuperUserRowUserType = 2131230819;
+			public const int SuperUserRowSurname = 2131230819;
+			
+			// aapt resource value: 0x7F08005D
+			public const int SuperUserRo_Role = 2131230813;
 			
 			// aapt resource value: 0x7F080056
 			public const int SYM = 2131230806;

@@ -84,14 +84,6 @@
     <Compile Include="Adapters\QueriesAdapter.cs" />
     <Compile Include="Adapters\ReassignAdapter.cs" />
     <Compile Include="Adapters\RequestAdapter.cs" />
-    <Compile Include="AppData\AnnouncementData.cs" />
-    <Compile Include="AppData\AppAdminUsers.cs" />
-    <Compile Include="AppData\AppUsersData.cs" />
-    <Compile Include="AppData\DriverRequestData.cs" />
-    <Compile Include="AppData\GetDrivers.cs" />
-    <Compile Include="AppData\QueriesData.cs" />
-    <Compile Include="AppData\ReasignData.cs" />
-    <Compile Include="AppData\ReplyData.cs" />
     <Compile Include="Common\PrintPDFAdapter.cs" />
     <Compile Include="Common\PrintReport.cs" />
     <Compile Include="FirebaseHelper\FirebaseData.cs" />

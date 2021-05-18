@@ -83,19 +83,7 @@ namespace admin.Activities
             //FirebaseDatabase.Instance.GetReference("AppUsers").Child(FirebaseAuth.Instance.CurrentUser.Uid).Child("Email").SetValue(InputEmail.Text);
 
         }
-        private bool IsEmailValid()
-        {
-            return Android.Util.Patterns.EmailAddress.Matcher(InputEmail.Text).Matches();
-        }
-        private string CheckPhoneNumber(string phone)
-        {
-            phone = phone.Trim();
-            if (phone.StartsWith("0"))
-            {
-                phone = $"+27{phone.Remove(0, 1)}";
-            }
-            return phone;
-        }
+
         public void OnCancelled(DatabaseError error)
         {
 
