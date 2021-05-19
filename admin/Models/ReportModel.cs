@@ -22,7 +22,7 @@ namespace admin.Models
 {
     class ReportModel
     {
-        private List<DelivaryModal> reportData = new List<DelivaryModal>();
+        private readonly List<DelivaryModal> reportData = new List<DelivaryModal>();
         
         public ReportModel(List<DelivaryModal> reportData)
         {
@@ -119,12 +119,14 @@ namespace admin.Models
         }
         private Grid CreateRequestsGrid()
         {
-            Grid requestsGrid = new Grid(20, Length.Auto, Length.Auto, Length.Auto, Length.Auto, Length.Auto);
-            requestsGrid.Add(new GridRow(new TextBlock("#"), new TextBlock("Driver"), new TextBlock("Pickup Location"),
-            new TextBlock("Destination"), new TextBlock("Dates"), new TextBlock("Trip Status"))
+            Grid requestsGrid = new Grid(20, Length.Auto, Length.Auto, Length.Auto, Length.Auto, Length.Auto)
             {
-                Class = "tableHeader centerAlignedCells"
-            });
+                new GridRow(new TextBlock("#"), new TextBlock("Driver"), new TextBlock("Pickup Location"),
+                new TextBlock("Destination"), new TextBlock("Dates"), new TextBlock("Trip Status"))
+                {
+                    Class = "tableHeader centerAlignedCells"
+                }
+            };
             int counter = 0;
 
             foreach (var item in reportData)
@@ -152,28 +154,6 @@ namespace admin.Models
 
 
             return  requestsGrid;
-        }
-
-        private IList<Section> CreateInfoSubsections(Dictionary<string, string> keyValuePairs)
-        {
-            List<Section> createdSections = new List<Section>();
-            double width = 100.0 / keyValuePairs.Count;
-            foreach (var item in keyValuePairs) 
-            {
-                Section section = new Section()
-                {
-                    Width = Length.FromPercentage(width),
-                    Display = Display.InlineBlock
-                };
-                section.Add(new Br());
-                section.Add(new TextBlock(item.Key));
-                section.Add(new TextBlock(item.Value));
-                section.Add(new Br());
-
-                createdSections.Add(section);
-            }
-
-            return createdSections;
         }
     }
 }

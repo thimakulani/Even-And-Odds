@@ -7,6 +7,7 @@ using client.Classes;
 using Firebase.Database;
 using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.Button;
+using Plugin.CloudFirestore;
 
 namespace client.Adapters
 {
@@ -41,7 +42,7 @@ namespace client.Adapters
         }
 
         // Replace the contents of a view (invoked by the layout manager)
-        public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
+        public  override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
 
             // Replace the contents of the view with that element
@@ -62,18 +63,30 @@ namespace client.Adapters
             holder.Distance.Text = items[indexPos].Distance;
             holder.HistoryRequestStatus.Text = items[indexPos].Status;
             holder.HistoryDatesTimeCreated.Text = items[indexPos].RequestTime;
-            if (items[indexPos].Status == "Canceled")
+            if (items[indexPos].Status == "C")
             {
                 holder.BtnCancelRequest.Visibility = ViewStates.Gone;
                 holder.DriverName.Text = "==== No driver ====";
             }
-            if(items[indexPos].Status == "Accepted" || items[indexPos].Status == "Delivered" || items[indexPos].Status == "Picked up")
+            if(items[indexPos].Status == "A" || items[indexPos].Status == "D" || items[indexPos].Status == "P")
             {
                 holder.BtnCancelRequest.Visibility = ViewStates.Gone;
                 // holder.DriverName.Text = items[indexPos].DriverName;
                 holder.BtnViewDriver.Visibility = ViewStates.Visible;
-                FirebaseDatabase.Instance.GetReference("AppUsers")
-                    .Child(items[indexPos].DriverId).AddValueEventListener(new ValueEventListener(holder));
+                
+                CrossCloudFirestore
+                    .Current
+                    .Instance
+                    .Collection("AppUsers")
+                    .Document(items[indexPos].DriverId)
+                    .AddSnapshotListener((value, error) =>
+                    {
+                        if (value.Exists)
+                        {
+                            AppUsers users = value.ToObject<AppUsers>();
+                            holder.DriverName.Text = $"{users.Name} {users.Surname}";
+                        }
+                    });
 
             }
             else if(items[indexPos].Status == "Waiting")
@@ -91,31 +104,7 @@ namespace client.Adapters
         void OnCancelClick(RequestAdapterClickEventArgs args) => BtnCancelClick?.Invoke(this, args);
         void OnViewDriverClick(RequestAdapterClickEventArgs args) => BtnViewDriverClick?.Invoke(this, args);
 
-        private class ValueEventListener :Java.Lang.Object, IValueEventListener
-        {
-            private readonly RequestAdapterViewHolder holder;
-
-            public ValueEventListener(RequestAdapterViewHolder holder)
-            {
-                this.holder = holder;
-            }
-
-            public void OnCancelled(DatabaseError error)
-            {
-            }
-
-            public void OnDataChange(DataSnapshot snapshot)
-            {
-                if (snapshot.Exists())
-                {
-                    if (snapshot.Child("Name").Exists())
-                    {
-                        holder.DriverName.Text = snapshot.Child("Name").Value.ToString()
-                        + " " + snapshot.Child("Surname").Value.ToString();
-                    }
-                }
-            }
-        }
+       
     }
     
     public class RequestAdapterViewHolder : RecyclerView.ViewHolder

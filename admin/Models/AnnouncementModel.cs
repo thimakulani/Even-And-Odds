@@ -9,15 +9,14 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Firebase.Firestore;
+using Plugin.CloudFirestore;
 
 namespace admin.Models 
 {
     public class AnnouncementModel
     {
-        public DateTime Date_Time { get; set; }
         public string Message { get; set; }
-        [DocumentId]
         public string Id { get; set; }
+        public FieldValue TimeStamp { get; set; }
     }
 }

@@ -34,8 +34,8 @@ using System.Threading.Tasks;
 namespace client.Activities
 {
     [Activity(Label = "DeliveryRequest")]
-    public class DeliveryRequest : AppCompatActivity, IOnMapReadyCallback, IValueEventListener, 
-        IOnSuccessListener, IOnFailureListener, IDialogInterfaceOnCancelListener
+    public class DeliveryRequest : AppCompatActivity, IOnMapReadyCallback, 
+        IDialogInterfaceOnCancelListener
     {
         //private LinearLayout PickUpDestinationLayout;
         //
@@ -104,7 +104,6 @@ namespace client.Activities
 
 
         //user keyId
-        private string keyId;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -113,7 +112,6 @@ namespace client.Activities
             RequestedOrientation = ScreenOrientation.Portrait;
             SetContentView(Resource.Layout.activity_delivery);
             //ISharedPreferences pref = Application.Context.GetSharedPreferences("UserInfo", FileCreationMode.Private);
-            keyId = FirebaseAuth.Instance.CurrentUser.Uid;
             //
 
 
@@ -209,7 +207,9 @@ namespace client.Activities
                 {
                     if(snapshot != null)
                     {
-                        
+                        var price = snapshot.ToObject<TripPrice>();
+                        InitialPrice = double.Parse(price.InitialPrice);
+                        AfterInitial = double.Parse(price.PriceAfter);
                     }
                 });
             
@@ -388,7 +388,6 @@ namespace client.Activities
         private TextInputEditText InputSurname;
         //  private TextInputEditText InputEmail;
         private TextInputEditText InputContactNo;
-        private TextInputEditText InputAltNumber;
         private TextInputEditText InputItemType;
         private TextInputEditText InputPickUpLocation;
         private TextInputEditText InputDestinationLocation;
@@ -413,7 +412,6 @@ namespace client.Activities
             InputName = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelFullnames);
             InputSurname = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelSurname);
             InputContactNo = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelContact);
-            InputAltNumber = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelAltContact);
             InputItemType = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelItemType);
             InputPickUpLocation = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelPickupLocation);
             InputDestinationLocation = view.FindViewById<TextInputEditText>(Resource.Id.InputPacelDestination);
@@ -480,7 +478,7 @@ namespace client.Activities
             alert.Show();
         }
 
-        private void RequestDelevary()
+        private async void RequestDelevary()
         {
             if (string.IsNullOrEmpty(InputPersonName.Text) && string.IsNullOrWhiteSpace(InputPersonName.Text))
             {
@@ -526,50 +524,37 @@ namespace client.Activities
             }
 
             string RequestTime = DateTime.Now.ToString("dddd, dd MMMM yyyy, HH:mm tt");
-            HashMap user = new HashMap();
-            user.Put("Name", InputName.Text);
-            user.Put("Surname", InputName.Text);
-            user.Put("ContactNo", InputContactNo.Text);
-            user.Put("UserId", keyId);
-            user.Put("AlteContactNo", InputAltNumber.Text);
+            DelivaryModal deliveryRequest = new DelivaryModal()
+            {
+                Price = trip_price,
+                ContactNo = InputContactNo.Text,
+                DestinationAddress = InputDestinationLocation.Text,
+                DestinationLat = destinationLocationLatLng.Latitude.ToString(),
+                DestinationLong = destinationLocationLatLng.Longitude.ToString(),
+                Distance = trip_distance,
+                DriverId = null,
+                ItemType = InputItemType.Text,
+                KeyId = null,
+                Name = InputName.Text,
+                PaymentType = PaymentType,
+                PersonContact = InputPersonContact.Text,
+                PersonName = InputPersonName.Text,
+                PickupAddress = InputPickUpLocation.Text,
+                PickupLat = pickupLocationLatLng.Latitude.ToString(),
+                PickupLong = pickupLocationLatLng.Longitude.ToString(),
+                RequestTime = RequestTime,
+                Status = "W",
+                Surname = InputName.Text,
+                UserId = FirebaseAuth.Instance.Uid,
+                TimeStamp = FieldValue.ServerTimestamp,
+            };
+            await CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("DeloiveryRequests")
+                .AddAsync(deliveryRequest);
+            SuccessPopUpDialog();
 
-
-            //HashMap driver = new HashMap();
-            //driver.Put("DriverName", "Waiting");
-            //driver.Put("DriverId", "Waiting");
-
-            HashMap location = new HashMap();
-
-            location.Put("PickupAddress", InputPickUpLocation.Text);
-            location.Put("PickupLat", pickupLocationLatLng.Latitude.ToString());
-            location.Put("PickupLong", pickupLocationLatLng.Longitude.ToString());
-            location.Put("DestinationAddress", InputDestinationLocation.Text);
-            location.Put("DestinationLatitude", destinationLocationLatLng.Latitude.ToString());
-            location.Put("DestinationLongitude", destinationLocationLatLng.Longitude.ToString());
-
-
-
-            HashMap data = new HashMap();
-
-
-           // data.Put("Driver", driver);
-            data.Put("Locations", location);
-            data.Put("User", user);
-            data.Put("ItemType", InputItemType.Text);
-            //data.Put("Date", BtnDatePick.Text);
-            //data.Put("Time", BtnTimePick.Text);
-            data.Put("PersonName", InputPersonName.Text);
-            data.Put("PersonContact", InputPersonContact.Text);
-            data.Put("PaymentType", PaymentType);
-            data.Put("Price", trip_price);
-            data.Put("Distance", trip_distance);
-            data.Put("RequestTime", RequestTime);
-            data.Put("Status", "Waiting");
-
-            DatabaseReference dbRef = FirebaseDatabase.Instance.GetReference("DelivaryRequest").Push();
-            dbRef.SetValue(data)
-                .AddOnSuccessListener(this)
-                .AddOnFailureListener(this);
         }
         
         private void BtnDatePick_Click(object sender, EventArgs e)
@@ -713,8 +698,8 @@ namespace client.Activities
         private bool CheckPermission()
         {
             bool permisionGranted = false;
-            if (ActivityCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) != Permission.Granted &&
-                ActivityCompat.CheckSelfPermission(this, Manifest.Permission.AccessCoarseLocation) != Permission.Granted)
+            if (Android.Support.V4.Content.ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) != Permission.Granted &&
+                Android.Support.V4.Content.ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessCoarseLocation) != Permission.Granted)
             {
                 //               permisionGranted = true;
                 RequestPermissions(permission, requestLocationId);
@@ -828,27 +813,24 @@ namespace client.Activities
         }
         private void RetriveUserInfo()
         {
-            FirebaseDatabase.Instance.GetReference("AppUsers").Child(keyId)
-                .AddValueEventListener(this);
+            CrossCloudFirestore.
+                Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(FirebaseAuth.Instance.Uid)
+                .AddSnapshotListener((value, error) =>
+                {
+                    if (value.Exists)
+                    {
+                        var user = value.ToObject<AppUsers>();
+                        InputName.Text = user.Name;
+                        InputContactNo.Text = user.Phone;
+                        InputSurname.Text = user.Surname;
+                    }
+                });
+            
             InputPickUpLocation.Text = TxtPickup.Text;
             InputDestinationLocation.Text = TxtDestination.Text;
-        }
-        public void OnCancelled(DatabaseError error)
-        {
-
-        }
-        public void OnDataChange(DataSnapshot snapshot)
-        {
-            if (snapshot.Value != null)
-            {
-                InputName.Text = snapshot.Child("Name").Value.ToString();
-                InputContactNo.Text = snapshot.Child("Phone").Value.ToString();
-                InputSurname.Text = snapshot.Child("Surname").Value.ToString();
-                //InputEmail.Text = snapshot.Child("Email").Value.ToString();
-                if (snapshot.Child("AltPhone").Exists())
-                    InputAltNumber.Text = snapshot.Child("AltPhone").Value.ToString();// != "null" ? snapshot.Child("AltPhone").Value.ToString() : "";
-            }
-
         }
         Android.App.AlertDialog SuccessDialog;
         Android.App.AlertDialog.Builder SuccessDialogBuilder;
@@ -907,23 +889,7 @@ namespace client.Activities
             Finish();
         }
 
-        public void OnSuccess(Java.Lang.Object result)
-        {
-            SuccessPopUpDialog();
 
-        }
-
-        public void OnFailure(Java.Lang.Exception e)
-        {
-            Android.App.AlertDialog.Builder alert = new Android.App.AlertDialog.Builder(this);
-            alert.SetTitle("Error");
-            alert.SetMessage(e.Message);
-            alert.SetNeutralButton("Ok", delegate
-            {
-                alert.Dispose();
-            });
-            alert.Show();
-        }
 
         public void OnCancel(IDialogInterface dialog)
         {

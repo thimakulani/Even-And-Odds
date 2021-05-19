@@ -1,18 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Widget;
 using Android.Support.V7.Widget;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Com.Github.Library.Bubbleview;
-using admin.AppDataHelper;
 using admin.Models;
 using Firebase.Database;
 using Java.Util;
@@ -20,17 +14,18 @@ using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
 using Google.Android.Material.AppBar;
 using AndroidX.Fragment.App;
+using Plugin.CloudFirestore;
+using Firebase.Auth;
 
 namespace admin.Fragments
 {
-    public class QueryRepliesFragment : DialogFragment, IValueEventListener
+    public class QueryRepliesFragment : DialogFragment
     {
         private RecyclerView recyler;
         private TextInputEditText InputMessage;
         private FloatingActionButton FabSend;
-        private ReplyData repliesData;
-        private List<Replies> Items = new List<Replies>();
-        private string queryId;
+        private readonly List<Replies> Items = new List<Replies>();
+        private readonly string queryId;
         
         private MaterialToolbar toolbar_reply_queries;
 
@@ -66,13 +61,66 @@ namespace admin.Fragments
             toolbar_reply_queries = view.FindViewById<MaterialToolbar>(Resource.Id.toolbar_reply_queries);
             
             toolbar_reply_queries.SetNavigationIcon(Resource.Mipmap.ic_arrow_back_black_18dp);
-            repliesData = new ReplyData(queryId);
-            repliesData.RetrivedReply += RepliesData_RetrivedReply;
             FabSend.Click += FabSend_Click;
             toolbar_reply_queries.NavigationClick += Toolbar_reply_queries_NavigationClick1;
-            FirebaseDatabase.Instance.GetReference("AppUsers")
-                .Child(queryId)
-                .AddValueEventListener(this);
+
+            ChatAdapter adapter = new ChatAdapter(Items);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+            recyler.SetLayoutManager(linearLayoutManager);
+            recyler.SetAdapter(adapter);
+
+            CrossCloudFirestore.Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(queryId)
+                .AddSnapshotListener((value, error) =>
+                {
+                    if (value.Exists)
+                    {
+                        var user = value.ToObject<AppUsers>();
+                        toolbar_reply_queries.Title = $"{user.Name} {user.Surname}";
+                    }
+                });
+
+            CrossCloudFirestore.Current
+                .Instance
+                .Collection("Query")
+                .Document(queryId)
+                .Collection("Messages")
+                .OrderBy("TimeStamp")
+                .AddSnapshotListener((value, error) =>
+                {
+                    if (!value.IsEmpty)
+                    {
+                        foreach (var dc in value.DocumentChanges)
+                        {
+                            var reply = new Replies();
+                            
+                            switch (dc.Type)
+                            {
+                                
+                                case DocumentChangeType.Added:
+                                    reply = dc.Document.ToObject<Replies>();
+                                    reply.Id = dc.Document.Id;
+                                    Items.Add(reply);
+                                    adapter.NotifyItemInserted(dc.NewIndex);
+                                    break;
+                                case DocumentChangeType.Modified:
+                                    reply = dc.Document.ToObject<Replies>();
+                                    reply.Id = dc.Document.Id;
+                                    Items[dc.OldIndex] = reply;
+                                    adapter.NotifyDataSetChanged();
+                                    break;
+                                case DocumentChangeType.Removed:
+                                    break;
+                            }
+                        }
+                    }
+                });
+
+
+
+
         }
 
         private void Toolbar_reply_queries_NavigationClick1(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
@@ -100,29 +148,9 @@ namespace admin.Fragments
             InputMessage.Text = string.Empty;
         }
 
-        private void RepliesData_RetrivedReply(object sender, ReplyData.ReplyRetrivedEventArgs e)
-        {
-            Items = e.replies;
-            ChatAdapter adapter = new ChatAdapter(Items);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-            recyler.SetLayoutManager(linearLayoutManager);
-            recyler.SetAdapter(adapter);
-        }
 
-        public void OnCancelled(DatabaseError error)
-        {
-        }
 
-        public void OnDataChange(DataSnapshot snapshot)
-        {
-            if (snapshot.Exists())
-            {
-                if (snapshot.Child("Name").Exists() && snapshot.Child("Surname").Exists())
-                {
-                    toolbar_reply_queries.Title = snapshot.Child("Name").Value.ToString() + snapshot.Child("Surname").Value.ToString();
-                }
-            }
-        }
+
     }
 
 
@@ -149,13 +177,13 @@ namespace admin.Fragments
             if (holder is ChatsView)
             {
                 ChatsView chatsView = holder as ChatsView;
-                chatsView.TxtMessage.Text = items[position].Msg;
+                chatsView.TxtMessage.Text = items[position].Message;
                 //chatsView.TxtName.Text = items[position].SenderName;
             }
             else
             {
                 SenderChats senderView = holder as SenderChats;
-                senderView.SenderTxtMessage.Text = items[position].Msg;
+                senderView.SenderTxtMessage.Text = items[position].Message;
             }
 
 
@@ -191,7 +219,7 @@ namespace admin.Fragments
         }
         public override int GetItemViewType(int position)
         {
-            if (items[position].SenderId == "Admin")
+            if (items[position].Uid == FirebaseAuth.Instance.Uid)
             {
                 return Resource.Layout.message_reply_row;
             }

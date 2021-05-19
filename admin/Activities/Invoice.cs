@@ -241,7 +241,7 @@ namespace admin.Activities
             {
                 if (items[i].RequestTime.Contains(BtnMonth.Text) && items[i].RequestTime.Contains(BtnYear.Text))
                 {
-                    if (items[i].Status == "Delivered")
+                    if (items[i].Status == "D")
                     {
                         countAmout += double.Parse(items[i].Price);
                         counter++;

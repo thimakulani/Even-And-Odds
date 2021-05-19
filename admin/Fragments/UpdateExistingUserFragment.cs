@@ -30,7 +30,7 @@ namespace admin.Fragments
         private MaterialButton BtnType;
         private MaterialButton BtnSubmitReg;
         private Context context;
-        private AppUsers appUsers = new AppUsers();
+        private readonly AppUsers appUsers = new AppUsers();
 
         public UpdateExistingUserFragment(AppUsers appUsers)
         {

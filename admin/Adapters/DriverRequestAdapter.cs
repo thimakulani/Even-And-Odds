@@ -14,9 +14,9 @@ namespace admin.Adapters
         public event EventHandler<DriverRequestAdapterClickEventArgs> ItemLongClick;
         public event EventHandler<DriverRequestAdapterClickEventArgs> BtnApproveClick;
         public event EventHandler<DriverRequestAdapterClickEventArgs> BtnDeclinelick;
-        private List<DriverRequestModel> items = new List<DriverRequestModel>();
+        private readonly List<AppUsers> items = new List<AppUsers>();
 
-        public DriverRequestAdapter(List<DriverRequestModel> data)
+        public DriverRequestAdapter(List<AppUsers> data)
         {
             items = data;
         }
@@ -41,7 +41,7 @@ namespace admin.Adapters
             var holder = viewHolder as DriverRequestAdapterViewHolder;
             //holder.TextView.Text = items[position];
             holder.Email.Text = items[position].Email;
-            holder.PhoneNumber.Text = items[position].PhoneNumber;
+            holder.PhoneNumber.Text = items[position].Phone;
             holder.Surname.Text = items[position].Surname;
             holder.Names.Text = items[position].Name;
             holder.Make.Text = items[position].Make;
@@ -49,19 +49,17 @@ namespace admin.Adapters
             holder.Type.Text = items[position].Type;
             holder.RegNo.Text = items[position].RegNo;
 
-            if (string.IsNullOrEmpty(items[position].Status))
+            if (string.IsNullOrEmpty(items[position].Role))
             {
                 holder.Status.Text = "Pendding";
             }
             else
             {
-                holder.Status.Text = items[position].Status;
-            }
-            if(items[position].Status == "Approved" || items[position].Status == "Desclined")
-            {
+                holder.Status.Text = "Approved";
                 holder.BtnAccept.Visibility = ViewStates.Gone;
                 holder.BtnDecline.Visibility = ViewStates.Gone;
             }
+            
             
         }
 

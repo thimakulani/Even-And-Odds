@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Plugin.CloudFirestore;
 
 namespace client.Classes
 {
@@ -39,5 +40,6 @@ namespace client.Classes
         public string Status { get; set; }
         public string Distance { get; set; }
         public string Price { get; set; }
+        public FieldValue TimeStamp { get; internal set; }
     }
 }

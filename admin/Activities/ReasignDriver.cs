@@ -21,7 +21,7 @@ namespace admin.Activities
     {
         private RecyclerView recyclerReasign;
         private MaterialToolbar include_app_toolbar;
-        private List<ReasignModel> items = new List<ReasignModel>();
+        private readonly List<ReasignModel> items = new List<ReasignModel>();
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

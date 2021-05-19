@@ -16,7 +16,6 @@
         app:arrowHeight="10dp"
         app:arrowWidth="8dp"
         app:angle="8dp"
-        android:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
         app:arrowPosition="14dp"
         app:arrowLocation="right"
         app:arrowCenter="true"

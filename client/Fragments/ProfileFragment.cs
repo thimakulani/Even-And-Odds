@@ -6,6 +6,10 @@ using Android.Views;
 using Android.Widget;
 using Firebase.Database;
 using Google.Android.Material.TextField;
+using Plugin.CloudFirestore;
+using System.Collections.Generic;
+using AndroidHUD;
+using Firebase.Auth;
 
 namespace client.Fragments
 {
@@ -14,14 +18,12 @@ namespace client.Fragments
         private TextInputEditText InputNames;
         private TextInputEditText InputSurname;
         private TextInputEditText InputPhone;
-        private TextInputEditText InputAltPhone;
         private TextInputEditText InputEmail;
         
         private MaterialButton BtnAppyChanges;
-
+        private Context context;
 
         //userkeyId
-        private string UserKeyId;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -36,7 +38,7 @@ namespace client.Fragments
 
             var view = inflater.Inflate(Resource.Layout.update_profile_dialog, container, false);
             //ISharedPreferences pref = Application.Context.GetSharedPreferences("UserInfo", FileCreationMode.Private);
-            UserKeyId = Firebase.Auth.FirebaseAuth.Instance.CurrentUser.Uid;
+            context = view.Context;
             ConnectViews(view);
             return view;
         }
@@ -46,7 +48,6 @@ namespace client.Fragments
             InputNames = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateName);
             InputSurname = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateSurname);
             InputPhone = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdatePhone);
-            InputAltPhone = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateAltPhone);
             InputEmail = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateEmail);
             
             BtnAppyChanges = view.FindViewById<MaterialButton>(Resource.Id.BtnUpdateProfile);
@@ -59,7 +60,7 @@ namespace client.Fragments
       
         //public event EventHandler FailUpdateHandler; 
         public event EventHandler SuccessUpdateHandler;
-        private void BtnAppyChanges_Click(object sender, EventArgs e)
+        private async void BtnAppyChanges_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(InputNames.Text))
             {
@@ -81,17 +82,27 @@ namespace client.Fragments
                 InputEmail.Error = "Email cannot be empty";
                 return;
             }
-            var stream = Resources.Assets.Open("service_account.json"); 
+            Dictionary<string, object> keyValues = new Dictionary<string, object>
+            {
+                { "Name", InputNames.Text.Trim() },
+                { "Phone", InputPhone.Text.Trim() },
+                { "Surname", InputSurname.Text.Trim() }
+            };
+            await CrossCloudFirestore.Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(FirebaseAuth.Instance.Uid)
+                .UpdateAsync(keyValues);
 
-         
+
+
+            AndHUD.Shared.ShowSuccess(context, "Profile has been successfully updated!!", MaskType.Black, TimeSpan.FromSeconds(3));
+
+
 
         }
 
-        public void OnCancelled(DatabaseError error)
-        {
-            
-        }
-
+  
         
     }
 }

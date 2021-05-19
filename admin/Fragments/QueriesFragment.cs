@@ -9,12 +9,13 @@ using admin.Models;
 using AndroidX.RecyclerView.Widget;
 using AndroidX.Fragment.App;
 using Android.Content;
+using Plugin.CloudFirestore;
 
 namespace admin.Fragments
 {
     public class QueriesFragment : Fragment
     {
-        private List<QueriesModel> Items = new List<QueriesModel>();
+        private readonly List<QueriesModel> Items = new List<QueriesModel>();
         private RecyclerView Recycler;
        
         public override void OnCreate(Bundle savedInstanceState)
@@ -43,6 +44,34 @@ namespace admin.Fragments
             Recycler.SetLayoutManager(linearLayoutManager);
             Recycler.SetAdapter(adapter);
             adapter.ItemClick += Adapter_ItemClick;
+
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("Query")
+                .OrderBy("TimeStamp", false)
+                .AddSnapshotListener((value, error) =>
+                {
+                    if (!value.IsEmpty)
+                    {
+                        foreach (var dc in value.DocumentChanges)
+                        {
+                            switch (dc.Type)
+                            {
+                                case DocumentChangeType.Added:
+                                    break;
+                                case DocumentChangeType.Modified:
+                                    break;
+                                case DocumentChangeType.Removed:
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                });
+
+
         }
 
 

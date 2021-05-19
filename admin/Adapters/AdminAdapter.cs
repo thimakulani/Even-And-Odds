@@ -16,13 +16,11 @@ namespace admin.Adapters
         public event EventHandler<AdminAdapterClickEventArgs> ItemLongClick;
         public event EventHandler<AppUsersAdapterClickEventArgs> FabCallClick;
         public event EventHandler<AppUsersAdapterClickEventArgs> FabEmailClick;
-        private List<AppUsers> items = new List<AppUsers>();
-        private Context context;
+        private readonly List<AppUsers> items = new List<AppUsers>();
 
-        public AdminAdapter(List<AppUsers> data, Context context)
+        public AdminAdapter(List<AppUsers> data)
         {
             items = data;
-            this.context = context;
         }
 
         // Create new views (invoked by the layout manager)
@@ -42,7 +40,6 @@ namespace admin.Adapters
         // Replace the contents of a view (invoked by the layout manager)
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
-            var item = items[position];
 
             // Replace the contents of the view with that element
             var holder = viewHolder as AdminAdapterViewHolder;
@@ -54,19 +51,6 @@ namespace admin.Adapters
             holder.PhoneNumber.Text = items[position].Phone;
 
             //ViewAnimationUtils(viewHolder.ItemView, position);
-        }
-        private void ViewAnimationUtils(View view, int pos)
-        {
-            if (pos % 2 == 0)
-            {
-                Animation anim = AnimationUtils.LoadAnimation(context, Resource.Animation.Side_in_right);
-                view.StartAnimation(anim);
-            }
-            else
-            {
-                Animation anim = AnimationUtils.LoadAnimation(context, Resource.Animation.Side_in_left);
-                view.StartAnimation(anim);
-            }
         }
 
         public override int ItemCount => items.Count;

@@ -26,8 +26,8 @@ namespace admin.Activities
     {
 
 
-        private List<AppUsers> items = new List<AppUsers>();
-        private List<AppUsers> UseritemsList = new List<AppUsers>();
+        private readonly List<AppUsers> items = new List<AppUsers>();
+        private readonly List<AppUsers> UseritemsList = new List<AppUsers>();
         //private List<AppUsers> adminList = new List<AppUsers>();
 
         // private RecyclerView RecyclerUserList;
@@ -258,7 +258,7 @@ namespace admin.Activities
         {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             recyclerUsersList.SetLayoutManager(linearLayoutManager);
-            adapter = new AdminAdapter(users, this);
+            adapter = new AdminAdapter(users);
             recyclerUsersList.SetAdapter(adapter);
             adapter.FabCallClick += Adapter_FabCallClick;
             adapter.FabEmailClick += Adapter_FabEmailClick;
@@ -282,8 +282,10 @@ namespace admin.Activities
 
             try
             {
-                List<string> to = new List<string>();// 
-                to.Add(items[e.Position].Email);
+                List<string> to = new List<string>
+                {
+                    items[e.Position].Email
+                };// 
                 var message = new EmailMessage
                 {
                     Subject = "Even & Odds Team",

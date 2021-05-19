@@ -29,8 +29,8 @@ namespace admin.Activities
         private ChartView chartStats;
         private  MaterialToolbar toolbar;
         private ProgressBar loading_stats_progress;
-        private List<string> months = new List<string>();
-        private List<int> counter = new List<int>();
+        private readonly List<string> months = new List<string>();
+        private readonly List<int> counter = new List<int>();
         private MaterialButton BtnChartType;
         private MaterialButton BtnYear;
         protected override void OnCreate(Bundle savedInstanceState)

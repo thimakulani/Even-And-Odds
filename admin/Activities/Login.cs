@@ -10,11 +10,13 @@ using Firebase.Database;
 using System;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
+using Plugin.CloudFirestore;
+using admin.Models;
 
 namespace admin.Activities
 {
     [Activity(Label = "Login", NoHistory = true)]
-    public class Login : Activity, IOnSuccessListener, IOnFailureListener, IValueEventListener
+    public class Login : Activity, IOnSuccessListener, IOnFailureListener
     {
         //firebase auth
         FirebaseAuth auth;
@@ -149,9 +151,51 @@ namespace admin.Activities
             PasswordDialog.Dismiss();
             //  PasswordDialog.Dispose();
         }
-        private void GetUserInfo()
+        private async void GetUserInfo()
         {
-            FirebaseDatabase.Instance.GetReference("AppUsers").Child(auth.CurrentUser.Uid).AddValueEventListener(this);
+
+            var results = await CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(FirebaseAuth.Instance.Uid)
+                .GetAsync();
+
+            if (results.Exists)
+            {
+                var user = results.ToObject<AppUsers>();
+                if (user.Role == "A")
+                {
+                    BtnLogin.Enabled = true;
+                    loading.Dismiss();
+                    Intent intent = new Intent(this, typeof(Dashboad));
+                    StartActivity(intent);
+                    OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
+
+                }
+                else
+                {
+                    BtnLogin.Enabled = true;
+                    loading.Dismiss();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.SetTitle("Error");
+                    builder.SetMessage("Your not registered as a administrator");
+                    builder.SetNeutralButton("OK", delegate
+                    {
+                        builder.Dispose();
+                        FirebaseAuth.Instance.SignOut();
+                    });
+                    builder.Show();
+
+                }
+            }
+            else
+            {
+                FirebaseAuth.Instance.SignOut();
+            }
+
+
+          
         }
         public void OnSuccess(Java.Lang.Object result)
         {
@@ -193,40 +237,6 @@ namespace admin.Activities
             builder.Show();
         }
 
-        public void OnCancelled(DatabaseError error)
-        {
-            
-        }
 
-        public void OnDataChange(DataSnapshot snapshot)
-        {
-            if (snapshot.Child("UserType").Value.ToString() == "Admin")
-            {
-                BtnLogin.Enabled = true;
-
-                loading.Dismiss();
-                Intent intent = new Intent(this, typeof(Dashboad));
-                StartActivity(intent);
-                
-                OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
-
-            }
-            else
-            {
-                BtnLogin.Enabled = true;
-
-                loading.Dismiss();
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.SetTitle("Error");
-                builder.SetMessage("Your not registered as a administrator");
-                builder.SetNeutralButton("OK", delegate
-                {
-                    builder.Dispose();
-                });
-                builder.Show();
-
-            }
-
-        }
     }
 }

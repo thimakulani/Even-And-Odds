@@ -11,18 +11,14 @@ using Firebase.Auth;
 using System.Collections.Generic;
 using admin.Models;
 using admin.Adapters;
+using Plugin.CloudFirestore;
 
 namespace admin.Activities
 {
     [Activity(Label = "Dashboad")]
-    public class Dashboad : Activity, IValueEventListener
+    public class Dashboad : Activity
     {
-        
-        private string UserKeyId;
-
         //loading progress dialog
-        private AlertDialog loading;
-        private AlertDialog.Builder loadingBuilder;
 
         //dialogs
         private TextView txtDashboardUsername;
@@ -32,12 +28,40 @@ namespace admin.Activities
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_dashboard);
-            UserKeyId = FirebaseAuth.Instance.CurrentUser.Uid;
             RecyclerMennu = FindViewById<RecyclerView>(Resource.Id.RecyclerMennu);
             txtDashboardUsername = FindViewById<TextView>(Resource.Id.txtDashboardUsername);
-           
-            LoadingProgress();
-            GetUserInfo();
+
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(FirebaseAuth.Instance.Uid)
+                .AddSnapshotListener((value, error) =>
+                {
+                    if (value.Exists)
+                    {
+                        var user = value.ToObject<AppUsers>();
+                        if(user.Role == "A")
+                        {
+                            txtDashboardUsername.Text = $"{user.Name} {user.Surname}";
+                        }
+                        else
+                        {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                            builder.SetTitle("Error");
+                            builder.SetMessage("Unauthorized user");
+                            builder.SetNeutralButton("Ok", delegate
+                            {
+                                builder.Dispose();
+                                FirebaseAuth.Instance.SignOut();
+                                Finish();
+                            }).Show();
+                        }
+                        
+
+                    }
+                });
+            
             SetUpMenu();
  
         }
@@ -154,22 +178,7 @@ namespace admin.Activities
             StartActivity(intent);
             OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
         }
-        private void LoadingProgress()
-        {
-            loadingBuilder = new AlertDialog.Builder(this);
-            LayoutInflater inflater = (LayoutInflater)GetSystemService(Context.LayoutInflaterService);
-            View view = inflater.Inflate(Resource.Layout.loading_progress, null);
-
-
-            loadingBuilder.SetView(view);
-            loadingBuilder.SetCancelable(false);
-            loading = loadingBuilder.Create();
-            loading.Show();
-        }
-        private void GetUserInfo()
-        {
-            FirebaseDatabase.Instance.GetReference("AppUsers").Child(UserKeyId).AddValueEventListener(this);
-        }
+        
 
         private void CVLogout_Click(object sender, EventArgs e)
         {
@@ -197,48 +206,7 @@ namespace admin.Activities
             builder.Show();
         }
 
-        public void OnCancelled(DatabaseError error)
-        {
 
-        }
-
-        public void OnDataChange(DataSnapshot snapshot)
-        {
-            if (snapshot.Exists())
-            {
-                if(snapshot.Child("UserType").Value.ToString() == "Admin")
-                {
-                    txtDashboardUsername.Text = "Welcome: " + snapshot.Child("Name").Value.ToString() + ", " + snapshot.Child("Surname").Value.ToString();
-                }
-                else
-                {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.SetTitle("Error");
-                    builder.SetMessage("Unauthorized user");
-                    builder.SetNeutralButton("Ok", delegate
-                    {
-                        builder.Dispose();
-                        FirebaseAuth.Instance.SignOut();
-                        Finish();
-                    }).Show();
-                    
-                }
-            }
-            else
-            {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.SetTitle("Error");
-                builder.SetMessage("Unauthorized user");
-                builder.SetNeutralButton("Ok", delegate
-                {
-                    builder.Dispose();
-                    FirebaseAuth.Instance.SignOut();
-                    Finish();
-                }).Show();
-            }
-            loading.Dismiss();
-            //loading.Dispose();
-        }
     }
 
 }

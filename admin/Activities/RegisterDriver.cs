@@ -22,11 +22,11 @@ using AlertDialog = Android.App.AlertDialog;
 namespace admin.Activities
 {
     [Activity(Label = "RegisterDriver", MainLauncher = false)]
-    public class RegisterDriver : AppCompatActivity, IOnFailureListener, IOnCompleteListener
+    public class RegisterDriver : AppCompatActivity
     {
         
         private readonly List<AppUsers> items = new List<AppUsers>();
-        private List<AppUsers> UseritemsList = new List<AppUsers>();
+        private readonly List<AppUsers> UseritemsList = new List<AppUsers>();
        // private RecyclerView RecyclerUserList;
         private AppUsersAdapter adapter;
 
@@ -128,7 +128,7 @@ namespace admin.Activities
         {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             recyclerUsersList.SetLayoutManager(linearLayoutManager);
-            adapter = new AppUsersAdapter(users, this);
+            adapter = new AppUsersAdapter(users);
             recyclerUsersList.SetAdapter(adapter);
             adapter.FabCallClick += Adapter_FabCallClick;
             adapter.FabEmailClick += Adapter_FabEmailClick;
@@ -147,8 +147,10 @@ namespace admin.Activities
                 builder.SetPositiveButton("Yes", delegate
                 {
 
-                    UpdateExistingUserFragment userFragment = new UpdateExistingUserFragment(items[e.Position]);
-                    userFragment.Cancelable = false;
+                    UpdateExistingUserFragment userFragment = new UpdateExistingUserFragment(items[e.Position])
+                    {
+                        Cancelable = false
+                    };
                     userFragment.Show(SupportFragmentManager.BeginTransaction(), "Update User");
                     builder.Dispose();
                     
@@ -188,8 +190,10 @@ namespace admin.Activities
             
             try
             {
-                List<string> to = new List<string>();// 
-                to.Add(items[e.Position].Email);
+                List<string> to = new List<string>
+                {
+                    items[e.Position].Email
+                };// 
                 var message = new EmailMessage
                 {
                     Subject = "Even & Odds Team",
@@ -268,31 +272,6 @@ namespace admin.Activities
             }
         }
 
-        private AlertDialog loading;
-        private void LoadingProgress()
-        {
-            var loadingBuilder = new AlertDialog.Builder(this);
-            LayoutInflater inflater = (LayoutInflater)GetSystemService(Context.LayoutInflaterService);
-            View view = inflater.Inflate(Resource.Layout.loading_progress, null);
-            loadingBuilder.SetView(view);
-            loadingBuilder.SetCancelable(false);
-            loading = loadingBuilder.Create();
-            loading.Show();
-        }
-
-        private void HUD(string message)
-        {
-            AndHUD.Shared.ShowSuccess(this, message, MaskType.Black, TimeSpan.FromSeconds(2));
-        }
-        public void OnFailure(Java.Lang.Exception e)
-        {
-            
-        }
-
-        public void OnComplete(Task task)
-        {
-            
-        }
 
         
         //public void OnCancelled(DatabaseError error)

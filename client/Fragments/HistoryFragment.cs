@@ -5,38 +5,32 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Views;
+using AndroidHUD;
 using AndroidX.RecyclerView.Widget;
 using client.Adapters;
  
 using client.Classes;
 using Firebase.Auth;
+using Plugin.CloudFirestore;
 
 namespace client.Fragments
 {
     public class HistoryFragment : Android.Support.V4.App.Fragment
     {
         private RecyclerView RecyclerHistory;
-        private List<DelivaryModal> items = new List<DelivaryModal>();
+        private readonly List<DelivaryModal> items = new List<DelivaryModal>();
         private Context context;
 
-        public HistoryFragment(Context context)
-        {
-            this.context = context;
-        }
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Create your fragment here
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
-
             var view = inflater.Inflate(Resource.Layout.activity_history, container, false);
+            context = view.Context;
             ConnectViews(view);
             return view;
         }
@@ -61,15 +55,32 @@ namespace client.Fragments
             driverDialogFragment.Show(ChildFragmentManager.BeginTransaction(), "Driver Info");
         }
 
-        public event EventHandler<CancelRequestEventHandler> CancelHandler;
-        public class CancelRequestEventHandler : EventArgs
-        {
-            public DelivaryModal Items { get; set; }
-        }
+        
         private void Adapter_BtnCancelClick(object sender, RequestAdapterClickEventArgs e)
         {
             int index = (items.Count - 1) - e.Position;
-            CancelHandler.Invoke(this, new CancelRequestEventHandler { Items = items[index] });
+            AlertDialog.Builder alert = new AlertDialog.Builder(context);
+            alert.SetTitle("Confirm");
+            alert.SetMessage("Are you sure you want to cancel the delivery request:");
+            alert.SetPositiveButton("Yes", delegate
+            {
+                Dictionary<string, object> valuePairs = new Dictionary<string, object>();
+                CrossCloudFirestore
+                    .Current
+                    .Instance
+                    .Collection("DelivaryRequest")
+                    .Document(items[index].KeyId)
+                    .UpdateAsync("Status", "C");
+
+                AndHUD.Shared.ShowSuccess(context, "Your request has been cancelled", MaskType.Black, TimeSpan.FromSeconds(10));
+                alert.Dispose();
+
+            });
+            alert.SetNegativeButton("No", delegate
+            {
+                alert.Dispose();
+            });
+            alert.Show();
 
         }
 

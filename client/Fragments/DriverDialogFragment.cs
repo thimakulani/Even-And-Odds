@@ -9,6 +9,7 @@ using Android.Widget;
 using client.Classes;
 using Firebase.Database;
 using Google.Android.Material.FloatingActionButton;
+using Plugin.CloudFirestore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ using System.Text;
 
 namespace client.Fragments
 {
-    public class DriverDialogFragment : DialogFragment, IValueEventListener
+    public class DriverDialogFragment : DialogFragment
     {
-        private string driverId;
+        private readonly string driverId;
         private string PhoneNo;
 
         public DriverDialogFragment(string driverId)
@@ -66,9 +67,27 @@ namespace client.Fragments
             FabMakeCall.Click += FabMakeCall_Click;
             FabClose.Click += FabClose_Click;
 
-            FirebaseDatabase.Instance.GetReference("AppUsers")
-                .Child(driverId)
-                .AddValueEventListener(this);
+            CrossCloudFirestore.
+                Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(driverId)
+                .AddSnapshotListener((value, error) =>
+                {
+                    if (value.Exists)
+                    {
+                        var user = value.ToObject<AppUsers>();
+                        Make.Text = user.Make;
+                        Color.Text = user.Color;
+                        Type.Text = user.Type;
+                        RegNo.Text = user.RegNo;
+                        Surname.Text = user.Surname;
+                        Names.Text = user.Name;
+                        Make.Text = user.Make;
+                        PhoneNo = user.Phone;
+                    }
+                });
+           
                 
 
         }
@@ -95,45 +114,6 @@ namespace client.Fragments
             Dismiss();
         }
 
-        public void OnCancelled(DatabaseError error)
-        {
-            
-        }
 
-        public void OnDataChange(DataSnapshot snapshot)
-        {
-            if (snapshot.Exists())
-            {
-                if (snapshot.Child("Name").Exists())
-                {
-                    Names.Text = snapshot.Child("Name").Value.ToString();
-                }
-                if (snapshot.Child("Surname").Exists())
-                {
-                    Surname.Text = snapshot.Child("Surname").Value.ToString();
-                }
-                if (snapshot.Child("Phone").Exists())
-                {
-                    PhoneNo = snapshot.Child("Phone").Value.ToString();
-                }
-                if (snapshot.Child("RegNo").Exists())
-                {
-                    RegNo.Text = snapshot.Child("RegNo").Value.ToString();
-                }
-                if (snapshot.Child("Make").Exists())
-                {
-                    Make.Text = snapshot.Child("Make").Value.ToString();
-                }
-                if (snapshot.Child("Color").Exists())
-                {
-                    Color.Text = snapshot.Child("Color").Value.ToString();
-                }
-                if (snapshot.Child("Type").Exists())
-                {
-                    Type.Text = snapshot.Child("Type").Value.ToString();
-                }
-
-            }
-        }
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using admin.Models;
 using Firebase.Database;
 using AndroidX.RecyclerView.Widget;
+using Plugin.CloudFirestore;
 
 namespace admin.Adapters
 {
@@ -13,7 +14,7 @@ namespace admin.Adapters
     {
         public event EventHandler<QuerySendersAdapterClickEventArgs> ItemClick;
         public event EventHandler<QuerySendersAdapterClickEventArgs> ItemLongClick;
-        private List<QueriesModel> items = new List<QueriesModel>();
+        private readonly List<QueriesModel> items = new List<QueriesModel>();
 
         public QueriesAdapter(List<QueriesModel> data)
         {
@@ -37,12 +38,26 @@ namespace admin.Adapters
         // Replace the contents of a view (invoked by the layout manager)
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
-            var item = items[position];
 
             // Replace the contents of the view with that element
             var holder = viewHolder as QuerySendersAdapterViewHolder;
             
             holder.TimeSent.Text = items[position].Datetime.ToString();
+
+
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(items[position].QueryId)
+                .AddSnapshotListener((value, error) =>
+                {
+                    if (value.Exists)
+                    {
+                        var user = value.ToObject<AppUsers>();
+                        
+                    }
+                });
             FirebaseDatabase.Instance.GetReference("AppUsers")
                 .Child(items[position].QueryId)
                 .AddValueEventListener(new ValueListener(holder));
@@ -55,7 +70,7 @@ namespace admin.Adapters
 
         private class ValueListener : Java.Lang.Object, IValueEventListener
         {
-            private QuerySendersAdapterViewHolder holder;
+            private readonly QuerySendersAdapterViewHolder holder;
 
             public ValueListener(QuerySendersAdapterViewHolder holder)
             {

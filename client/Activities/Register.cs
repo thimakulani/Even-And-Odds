@@ -10,6 +10,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
+using client.Classes;
 using Firebase.Auth;
 using Firebase.Database;
 using Google.Android.Material.AppBar;
@@ -245,15 +246,20 @@ namespace client.Activities
 
         public void OnSuccess(Java.Lang.Object result)
         {
-            HashMap data = new HashMap();
-            data.Put("Name", InputName.Text.Trim());
-            data.Put("Phone", InputPhone.Text.Trim());
-            data.Put("Surname", InputSurname.Text.Trim());
-            data.Put("Email", InputEmail.Text.Trim());
-            data.Put("UserType", "Client");
+            AppUsers driver = new AppUsers()
+            {
+                Color = null,
+                Email = InputEmail.Text,
+                Make = null,
+                Name = InputName.Text,
+                Phone = InputPhone.Text,
+                RegNo = null,
+                Role = null,
+                Surname = InputSurname.Text,
+                Type = "C",
+                Uid = FirebaseAuth.Instance.Uid
+            };
 
-            var database = FirebaseDatabase.Instance.GetReference("AppUsers").Child(FirebaseAuth.Instance.CurrentUser.Uid);
-            database.SetValue(data);
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle("Successful");
             builder.SetMessage("Your account has been successfully created please proceed to login");

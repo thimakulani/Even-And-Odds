@@ -8,6 +8,7 @@ using Firebase.Database;
 using Java.Util;
 using System.Collections.Generic;
 using Google.Android.Material.AppBar;
+using Plugin.CloudFirestore;
 
 namespace admin.Activities
 {
@@ -16,7 +17,7 @@ namespace admin.Activities
     {
         private MaterialToolbar include_app_toolbar;
         private RecyclerView recycler_driver_requests;
-        private readonly List<DriverRequestModel> items = new List<DriverRequestModel>();
+        private readonly List<AppUsers> Items = new List<AppUsers>();
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -28,10 +29,47 @@ namespace admin.Activities
             include_app_toolbar.NavigationClick += Include_app_toolbar_NavigationClick1; ;
 
             recycler_driver_requests.SetLayoutManager(new LinearLayoutManager(this));
-            DriverRequestAdapter adapter = new DriverRequestAdapter(items);
+            DriverRequestAdapter adapter = new DriverRequestAdapter(Items);
             recycler_driver_requests.SetAdapter(adapter);
             adapter.BtnApproveClick += Adapter_BtnApproveClick;
             adapter.BtnDeclinelick += Adapter_BtnDeclinelick;
+
+            CrossCloudFirestore.Current
+                .Instance
+                .Collection("AppUsers")
+                .WhereEqualsTo("Role", null)
+                .AddSnapshotListener((value, error) =>
+                {
+                    if (!value.IsEmpty)
+                    {
+                        foreach (var dc in value.DocumentChanges)
+                        {
+                            var user = new AppUsers();
+
+                            switch (dc.Type)
+                            {
+
+                                case DocumentChangeType.Added:
+                                    user = dc.Document.ToObject<AppUsers>();
+                                    user.Uid = dc.Document.Id;
+                                    Items.Add(user);
+                                    adapter.NotifyItemInserted(dc.NewIndex);
+                                    break;
+                                case DocumentChangeType.Modified:
+                                    user = dc.Document.ToObject<AppUsers>();
+                                    user.Uid = dc.Document.Id;
+                                    Items[dc.OldIndex] = user;
+                                    adapter.NotifyDataSetChanged();
+                                    break;
+                                case DocumentChangeType.Removed:
+                                    break;
+                            }
+                        }
+                    }
+                });
+
+
+
         }
 
         private void Include_app_toolbar_NavigationClick1(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
@@ -40,39 +78,23 @@ namespace admin.Activities
         }
 
 
-        private void Adapter_BtnDeclinelick(object sender, DriverRequestAdapterClickEventArgs e)
+        private async void Adapter_BtnDeclinelick(object sender, DriverRequestAdapterClickEventArgs e)
         {
-            FirebaseDatabase.Instance.GetReference("DriverRequests")
-                .Child(items[e.Position].KeyId)
-                .Child("Status")
-                .SetValue("Declined");
+             await CrossCloudFirestore.Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(Items[e.Position].Uid)
+                .UpdateAsync("Role", "-D");
+            
         }
 
-        private void Adapter_BtnApproveClick(object sender, DriverRequestAdapterClickEventArgs e)
+        private async void Adapter_BtnApproveClick(object sender, DriverRequestAdapterClickEventArgs e)
         {
-            FirebaseDatabase.Instance.GetReference("DriverRequests")
-                .Child(items[e.Position].KeyId)
-                .Child("Status")
-                .SetValue("Approved");
-
-            HashMap data = new HashMap();
-            data.Put("Name", items[e.Position].Name);
-            data.Put("Phone", items[e.Position].PhoneNumber);
-            data.Put("Surname", items[e.Position].Surname);
-            data.Put("Email", items[e.Position].Email);
-            data.Put("Make", items[e.Position].Make);
-            data.Put("Color", items[e.Position].Color);
-            data.Put("Type", items[e.Position].Type);
-            data.Put("RegNo", items[e.Position].RegNo);
-            data.Put("UserType", "Driver");
-
-            //data.Put("UserType", "Driver");
-
-            var database = FirebaseDatabase
+            await CrossCloudFirestore.Current
                 .Instance
-                .GetReference("AppUsers")
-                .Child(items[e.Position].KeyId);
-            database.SetValue(data);
+                .Collection("AppUsers")
+                .Document(Items[e.Position].Uid)
+                .UpdateAsync("Role", "D");
 
 
         }

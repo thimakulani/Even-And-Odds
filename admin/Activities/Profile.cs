@@ -6,16 +6,19 @@ using Firebase.Database;
 using System;
 using Google.Android.Material.TextField;
 using Google.Android.Material.AppBar;
+using System.Collections.Generic;
+using Plugin.CloudFirestore;
+using AndroidHUD;
+using admin.Models;
 
 namespace admin.Activities
 {
     [Activity(Label = "Profile")]
-    public class Profile : Activity, IValueEventListener
+    public class Profile : Activity
     {
         private TextInputEditText InputNames;
         private TextInputEditText InputSurname;
         private TextInputEditText InputPhone;
-        private TextInputEditText InputAltPhone;
         private TextInputEditText InputEmail;
 
         private MaterialButton BtnAppyChanges;
@@ -32,16 +35,27 @@ namespace admin.Activities
             InputNames = FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateName);
             InputSurname = FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateSurname);
             InputPhone = FindViewById<TextInputEditText>(Resource.Id.ProfileUpdatePhone);
-            InputAltPhone = FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateAltPhone);
             InputEmail = FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateEmail);
             BtnAppyChanges = FindViewById<MaterialButton>(Resource.Id.BtnUpdateProfile);
             InputEmail.Enabled = false;
             BtnAppyChanges.Click += BtnAppyChanges_Click;
 
             //ISharedPreferences pref = Application.Context.GetSharedPreferences("UserInfo", FileCreationMode.Private);
-            FirebaseDatabase.Instance.GetReference("AppUsers")
-                .Child(FirebaseAuth.Instance.CurrentUser.Uid)
-                .AddValueEventListener(this);
+            CrossCloudFirestore.Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(FirebaseAuth.Instance.Uid)
+                .AddSnapshotListener((value, error) =>
+                {
+                    if (value.Exists)
+                    {
+                        var user = value.ToObject<AppUsers>();
+                        InputNames.Text = user.Name;
+                        InputSurname.Text = user.Surname;
+                        InputPhone.Text = user.Phone;
+                        InputEmail.Text = user.Email;
+                    }
+                });
             include_app_toolbar.NavigationClick += Include_app_toolbar_NavigationClick;
         }
 
@@ -50,7 +64,7 @@ namespace admin.Activities
             Finish();
         }
 
-        private void BtnAppyChanges_Click(object sender, EventArgs e)
+        private async void BtnAppyChanges_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(InputNames.Text))
             {
@@ -72,49 +86,22 @@ namespace admin.Activities
                 InputEmail.Error = "Email cannot be empty";
                 return;
             }
-            
-            FirebaseDatabase.Instance.GetReference("AppUsers").Child(FirebaseAuth.Instance.CurrentUser.Uid).Child("Name").SetValue(InputNames.Text);
-            FirebaseDatabase.Instance.GetReference("AppUsers").Child(FirebaseAuth.Instance.CurrentUser.Uid).Child("Surname").SetValue(InputSurname.Text);
-            FirebaseDatabase.Instance.GetReference("AppUsers").Child(FirebaseAuth.Instance.CurrentUser.Uid).Child("Phone").SetValue(InputPhone.Text);
-            if (!string.IsNullOrWhiteSpace(InputAltPhone.Text))
+            Dictionary<string, object> keyValues = new Dictionary<string, object>
             {
-                FirebaseDatabase.Instance.GetReference("AppUsers").Child(FirebaseAuth.Instance.CurrentUser.Uid).Child("AltPhone").SetValue(InputAltPhone.Text);
-            }
-            //FirebaseDatabase.Instance.GetReference("AppUsers").Child(FirebaseAuth.Instance.CurrentUser.Uid).Child("Email").SetValue(InputEmail.Text);
+                { "Name", InputNames.Text.Trim() },
+                { "Phone", InputPhone.Text.Trim() },
+                { "Surname", InputSurname.Text.Trim() }
+            };
+            await CrossCloudFirestore.Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(FirebaseAuth.Instance.Uid)
+                .UpdateAsync(keyValues);
 
-        }
 
-        public void OnCancelled(DatabaseError error)
-        {
 
-        }
+            AndHUD.Shared.ShowSuccess(this, "Profile has been successfully updated!!", MaskType.Black, TimeSpan.FromSeconds(3));
 
-        public void OnDataChange(DataSnapshot snapshot)
-        {
-            if (snapshot != null)
-            {
-                if (snapshot.Child("Name").Exists())
-                {
-                    InputNames.Text = snapshot.Child("Name").Value.ToString();
-                }
-                if (snapshot.Child("Surname").Exists())
-                {
-                    InputSurname.Text = snapshot.Child("Surname").Value.ToString();
-                }
-                if (snapshot.Child("Phone").Exists())
-                {
-                    InputPhone.Text = snapshot.Child("Phone").Value.ToString();
-                }
-                if (snapshot.Child("AltPhone").Exists())
-                {
-                    InputAltPhone.Text = snapshot.Child("AltPhone").Value.ToString();
-                }
-                if (snapshot.Child("Email").Exists())
-                {
-                    InputEmail.Text = snapshot.Child("Email").Value.ToString();
-                }
-
-            }
         }
     }
 }

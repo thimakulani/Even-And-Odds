@@ -45,29 +45,38 @@ namespace admin.Activities
             Recycler.SetLayoutManager(new LinearLayoutManager(this));
             AnnouncementAdapter adapter = new AnnouncementAdapter(items);
             Recycler.SetAdapter(adapter);
+            adapter.ItemDeleteClick += Adapter_ItemDeleteClick;
 
 
             CrossCloudFirestore
                 .Current
                 .Instance
                 .Collection("Announcements")
+                .OrderBy("TimeStamp", true)
                 .AddSnapshotListener((snapshop, error) =>
                 {
                     if (!snapshop.IsEmpty)
                     {
                         foreach (var dc in snapshop.DocumentChanges)
                         {
+                            var announce = new AnnouncementModel();
                             switch (dc.Type)
                             {
                                 case DocumentChangeType.Added:
-                                    items.Add(dc.Document.ToObject<AnnouncementModel>());
-                                    
+                                    announce = dc.Document.ToObject<AnnouncementModel>();
+                                    announce.Id = dc.Document.Id;
+                                    items.Add(announce);
+                                    adapter.NotifyDataSetChanged();
                                     break;
                                 case DocumentChangeType.Modified:
-                                    items[dc.OldIndex] = dc.Document.ToObject<AnnouncementModel>();
+                                    announce = dc.Document.ToObject<AnnouncementModel>();
+                                    announce.Id = dc.Document.Id;
+                                    items[dc.OldIndex] = announce;
+                                    adapter.NotifyDataSetChanged();
                                     break;
                                 case DocumentChangeType.Removed:
                                     items.RemoveAt(dc.OldIndex);
+                                    adapter.NotifyItemRemoved(dc.OldIndex);
                                     break;
                             }
                         }
@@ -75,6 +84,27 @@ namespace admin.Activities
                 });
 
 
+        }
+
+        private void Adapter_ItemDeleteClick(object sender, AnnouncementAdapterClickEventArgs e)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle("Confirm");
+            builder.SetMessage("Are you sure you want to delete the announcement");
+            builder.SetNegativeButton("No", delegate
+            {
+                builder.Dispose();
+            });
+            builder.SetPositiveButton("Yes", async delegate
+            {
+                await CrossCloudFirestore.Current
+                   .Instance
+                   .Collection("Announcement")
+                   .Document(items[e.Position].Id)
+                   .DeleteAsync();
+                builder.Dispose();
+            });
+            builder.Show();
         }
 
         private void Toolbar_NavigationClick(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
@@ -112,37 +142,22 @@ namespace admin.Activities
 
         private void SubmitAnnouncement_Click(object sender, EventArgs e)
         {
-            HashMap data = new HashMap();
-            data.Put("Dates", DateTime.Now.ToString("dddd, dd/MMMM/yyyy, HH:mm tt"));
-            data.Put("Message", InputMessage.Text);
+            
+
+            AnnouncementModel model = new AnnouncementModel()
+            {
+                TimeStamp = FieldValue.ServerTimestamp,
+                Message = InputMessage.Text
+            };
 
             if (!string.IsNullOrEmpty(InputMessage.Text) && !string.IsNullOrWhiteSpace(InputMessage.Text))
             {
-                var dbRef = FirebaseDatabase.Instance.GetReference("Announcements").Push();
-                dbRef.SetValue(data);
+                CrossCloudFirestore.Current
+                    .Instance
+                    .Collection("Announcement")
+                    .AddAsync(model);
             }
             InputMessage.Text = string.Empty;
-        }
-
-     
-
-        private void Adapter_ItemDeleteClick(object sender, AnnouncementAdapterClickEventArgs e)
-        {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Confirm");
-            builder.SetMessage("Are you sure you want to delete the announcement");
-            builder.SetNegativeButton("No", delegate
-            {
-                builder.Dispose();
-            });
-            builder.SetPositiveButton("Yes", delegate
-            {
-                FirebaseDatabase.Instance.GetReference("Announcements")
-                    .Child(items[e.Position].Id)
-                    .RemoveValue();
-                builder.Dispose();
-            });
-            builder.Show();
         }
     }
 }

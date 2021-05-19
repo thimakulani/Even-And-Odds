@@ -15,11 +15,13 @@ using Android.Support.V7.Widget;
 using Android.Content.PM;
 using Google.Android.Material.Navigation;
 using Google.Android.Material.AppBar;
+using Plugin.CloudFirestore;
+using client.Classes;
 
 namespace client
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme")]
-    public class MainActivity : AppCompatActivity, IValueEventListener
+    public class MainActivity : AppCompatActivity
     {
         private NavigationView nav_view;
        // HomeFragment homeFragment;
@@ -44,9 +46,22 @@ namespace client
             drawerLayout = FindViewById<DrawerLayout>(Resource.Id.nav_drawer);
             nav_view.NavigationItemSelected += Nav_view_NavigationItemSelected;
 
-            FirebaseDatabase.Instance.GetReference("AppUsers")
-                .Child(Firebase.Auth.FirebaseAuth.Instance.CurrentUser.Uid)
-                .AddValueEventListener(this);
+            
+
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(FirebaseAuth.Instance.Uid)
+                .AddSnapshotListener((value, error) =>
+                {
+                    if (value.Exists)
+                    {
+                        var users = value.ToObject<AppUsers>();
+                        HeaderUsername.Text = $"{users.Name} {users.Surname}";
+                        TxtHeaderEmail.Text = users.Email;
+                    }
+                });
 
             WelcomeFragment homeFragment = new WelcomeFragment();
             SupportFragmentManager.BeginTransaction()
@@ -57,13 +72,13 @@ namespace client
 
             if (log == "History")
             {
-                HistoryFragment frag = new HistoryFragment(this);
+                HistoryFragment frag = new HistoryFragment();
                 SupportFragmentManager.BeginTransaction()
                     .Replace(Resource.Id.fragment_container, frag)
                     .Commit();
                 toolbar_main.Title = "History";
 
-                frag.CancelHandler += Frag_CancelHandler;
+                
             }
            
             
@@ -78,29 +93,7 @@ namespace client
         {
             drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
         }
-        private void Frag_CancelHandler(object sender, HistoryFragment.CancelRequestEventHandler e)
-        {
-            Android.App.AlertDialog.Builder alert = new Android.App.AlertDialog.Builder(this);
-            alert.SetTitle("Confirm");
-            alert.SetMessage("Are you sure you want to delete the delivery request:");
-            alert.SetPositiveButton("Yes", delegate
-            {
-
-                FirebaseDatabase.Instance
-                .GetReference("DelivaryRequest")
-                .Child(e.Items.KeyId)
-                .Child("Status")
-                .SetValue("Canceled");
-                HUD("Request Canceled");
-                alert.Dispose();
-
-            });
-            alert.SetNegativeButton("No", delegate
-            {
-                alert.Dispose();
-            });
-            alert.Show();
-        }
+      
 
  
         private void HomeFragment_RequestEventHandler(object sender, EventArgs e)
@@ -161,13 +154,12 @@ namespace client
             }
             if (e.MenuItem.ItemId == Resource.Id.nav_history)
             {
-                HistoryFragment frag = new HistoryFragment(this);
+                HistoryFragment frag = new HistoryFragment();
                 SupportFragmentManager.BeginTransaction()
                     .Replace(Resource.Id.fragment_container, frag)
                     .Commit();
                 toolbar_main.Title = "History";
 
-                frag.CancelHandler += Frag_CancelHandler;
 
             }
             if (e.MenuItem.ItemId == Resource.Id.nav_about)
@@ -272,23 +264,6 @@ namespace client
 
             }
         }
-        public void OnCancelled(DatabaseError error)
-        {
-            
-        }
-
-        public void OnDataChange(DataSnapshot snapshot)
-        {
-            if(snapshot != null)
-            {
-                if(snapshot.Child("Name").Exists() && snapshot.Child("Email").Exists() && snapshot.Child("Surname").Exists())
-                {
-                    HeaderUsername.Text = snapshot.Child("Name").Value.ToString()
-                        + " " + snapshot.Child("Surname").Value.ToString();
-                    TxtHeaderEmail.Text = snapshot.Child("Email").Value.ToString();
-                }
-                
-            }
-        }
+      
     }
 }

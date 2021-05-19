@@ -19,12 +19,10 @@ namespace admin.Adapters
         public event EventHandler<AppUsersAdapterClickEventArgs> FabEmailClick;
         public event EventHandler<AppUsersAdapterClickEventArgs> CreateDriverClick;
 
-        private List<AppUsers> items = new List<AppUsers>();
-        private Context context;
-        public AppUsersAdapter(List<AppUsers> data, Context context)
+        private readonly List<AppUsers> items = new List<AppUsers>();
+        public AppUsersAdapter(List<AppUsers> data)
         {
             items = data;
-            this.context = context;
         }
 
         // Create new views (invoked by the layout manager)
@@ -46,7 +44,6 @@ namespace admin.Adapters
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
             
-            var item = items[position];
 
             // Replace the contents of the view with that element
             var holder = viewHolder as AppUsersAdapterViewHolder;
@@ -69,25 +66,13 @@ namespace admin.Adapters
             else
             {
                 holder.BtnCreateDriver.Text = "Activate Driver";
-                holder.linearLayoutCarInformatio.Visibility = ViewStates.Gone;
+                holder.LinearLayoutCarInformatio.Visibility = ViewStates.Gone;
             }
             //ViewAnimationUtils(viewHolder.ItemView, position);
 
 
         }
-        private void ViewAnimationUtils(View view, int pos)
-        {
-            if (pos % 2 == 0)
-            {
-                Animation anim = AnimationUtils.LoadAnimation(context, Resource.Animation.Side_in_right);
-                view.StartAnimation(anim);
-            }
-            else
-            {
-                Animation anim = AnimationUtils.LoadAnimation(context, Resource.Animation.Side_in_left);
-                view.StartAnimation(anim);
-            }
-        }
+
         public override int ItemCount => items.Count;
 
         void OnClick(AppUsersAdapterClickEventArgs args) => ItemClick?.Invoke(this, args);
@@ -112,7 +97,7 @@ namespace admin.Adapters
         public MaterialButton BtnCreateDriver { get; set; }
         public FloatingActionButton FabSendEmail { get; set; }
         public FloatingActionButton FabMakeCall { get; set; }
-        public LinearLayout linearLayoutCarInformatio { get; set; }
+        public LinearLayout LinearLayoutCarInformatio { get; set; }
 
 
         public AppUsersAdapterViewHolder(View itemView, Action<AppUsersAdapterClickEventArgs> clickListener,
@@ -123,7 +108,7 @@ namespace admin.Adapters
             Color = itemView.FindViewById<TextView>(Resource.Id.RowUserColor);
             Type = itemView.FindViewById<TextView>(Resource.Id.RowUserCarType);
             RegNo = itemView.FindViewById<TextView>(Resource.Id.RowUserRegNo);
-            linearLayoutCarInformatio = itemView.FindViewById<LinearLayout>(Resource.Id.linearLayoutCarInformatio);
+            LinearLayoutCarInformatio = itemView.FindViewById<LinearLayout>(Resource.Id.linearLayoutCarInformatio);
 
             //TextView = v;
             UserType = itemView.FindViewById<TextView>(Resource.Id.RowUserType);

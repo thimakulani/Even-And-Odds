@@ -34,20 +34,17 @@ namespace admin.Activities
         public ProgressBar LoadingProgressBar;
         private MaterialButton RequestsType;
         private ImageView imgBack;
+
         // private string FileName;
-        string documentName = "Delivery Report " + DateTime.Now.ToString("dddd dd MMM") + ".pdf";
 
         private RecyclerView RecyclerHistory;
-        private List<DelivaryModal> delivariesList = new List<DelivaryModal>();
+        private readonly List<DelivaryModal> delivariesList = new List<DelivaryModal>();
         private List<DelivaryModal> ReportData = new List<DelivaryModal>();
        
 
         //permissions
-        readonly string[] permission = { Manifest.Permission.AccessCoarseLocation, Manifest.Permission.AccessFineLocation };
-        const int requestLocationId = 0;
 
-
-        protected  override  void OnCreate(Bundle savedInstanceState)
+        protected override  void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
@@ -209,21 +206,7 @@ namespace admin.Activities
             
 
         }
-        private bool CheckPermission()
-        {
-            bool permisionGranted = false;
-            if (ActivityCompat.CheckSelfPermission(this, Manifest.Permission.ReadExternalStorage) != Permission.Granted &&
-                ActivityCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) != Permission.Granted)
-            {
-                //               permisionGranted = true;
-                RequestPermissions(permission, requestLocationId);
-            }
-            else
-            {
-                return true;
-            }
-            return permisionGranted;
-        }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] gra0ntResults)
         {
             if (gra0ntResults[0] == (int)Permission.Granted)

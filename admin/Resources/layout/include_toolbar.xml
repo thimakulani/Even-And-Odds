@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/include_app_toolbar"
-   
     app:navigationIcon="@mipmap/ic_arrow_back_black_18dp"
+    app:navigationIconTint="@android:color/white"
 />
 

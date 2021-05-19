@@ -43,15 +43,15 @@ namespace admin.Adapters
             // Replace the contents of the view with that element
             var holder = viewHolder as AnnouncementAdapterViewHolder;
             holder.AnouncementMsg.Text = items[position].Message;
-            if (items[position].Date_Time.ToString("dd/MMM/yyyy") == DateTime.Now.ToString("dd/MMM/yyyy"))
+            if (items[position].DateTime.ToString("dd/MMM/yyyy") == DateTime.Now.ToString("dd/MMM/yyyy"))
             {
 
-                holder.DatesPosted.Text = "today: " + items[position].Date_Time.ToString("HH:mm tt");
+                holder.DatesPosted.Text = "today: " + items[position].DateTime.ToString("HH:mm tt");
 
             }
             else
             {
-                holder.DatesPosted.Text = items[position].Date_Time.ToString("ddd, dd/MMM/yyyy HH:mm tt");
+                holder.DatesPosted.Text = items[position].DateTime.ToString("ddd, dd/MMM/yyyy HH:mm tt");
             }
         }
 
