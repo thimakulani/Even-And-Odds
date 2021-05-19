@@ -46,16 +46,16 @@ namespace admin.Activities
 
         private void Adapter_BtnRejectClick(object sender, Adapters.ReassignAdapterClickEventArgs e)
         {
-            FirebaseDatabase.Instance.GetReference("Reassign")
-                .Child(items[e.Position].Key)
-                .Child("Status").SetValue("Rejected");
+            //FirebaseDatabase.Instance.GetReference("Reassign")
+            //    .Child(items[e.Position].Key)
+            //    .Child("Status").SetValue("Rejected");
         }
 
         private void Adapter_BtnClick(object sender, Adapters.ReassignAdapterClickEventArgs e)
         {
-            FirebaseDatabase.Instance.GetReference("Reassign")
-                .Child(items[e.Position].Key)
-                .Child("Status").SetValue("Approved");
+            //FirebaseDatabase.Instance.GetReference("Reassign")
+            //    .Child(items[e.Position].Key)
+            //    .Child("Status").SetValue("Approved");
         }
     }
 }

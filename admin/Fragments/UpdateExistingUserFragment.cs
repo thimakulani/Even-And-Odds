@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
+using Plugin.CloudFirestore;
 
 namespace admin.Fragments
 {
@@ -108,7 +109,7 @@ namespace admin.Fragments
             base.OnStart();
             Dialog.Window.SetLayout(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent);
         }
-        private void BtnSubmitReg_Click(object sender, EventArgs e)
+        private async void BtnSubmitReg_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(InputName.Text) && string.IsNullOrWhiteSpace(InputName.Text))
             {
@@ -159,14 +160,25 @@ namespace admin.Fragments
                 BtnType.Error = "required";
                 return;
             }
-            //FirebaseDatabase.Instance.GetReference("AppUsers").Child(appUsers.KeyId).Child(.Role").SetValue("Driver");
-            //FirebaseDatabase.Instance.GetReference("AppUsers").Child(appUsers.KeyId).Child("Make").SetValue(InputMake.Text);
-            //FirebaseDatabase.Instance.GetReference("AppUsers").Child(appUsers.KeyId).Child("RegNo").SetValue(InputRegNo.Text);
-            //FirebaseDatabase.Instance.GetReference("AppUsers").Child(appUsers.KeyId).Child("Color").SetValue(InputColor.Text);
-            //FirebaseDatabase.Instance.GetReference("AppUsers").Child(appUsers.KeyId).Child("Type").SetValue(BtnType.Text);
 
-            AndroidHUD.AndHUD.Shared.ShowSuccess(context, "Successfully created a driver", AndroidHUD.MaskType.Black, TimeSpan.FromSeconds(2));
+            Dictionary<string, object> data = new Dictionary<string, object>();
+            data.Add("Type", BtnType.Text);
+            data.Add("Make", InputMake.Text);
+            data.Add("RegNo", InputRegNo.Text);
+            data.Add("Color", InputColor.Text);
+            data.Add("Role", "D");
+
+            await CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(appUsers.Uid)
+                .UpdateAsync(data);
+
+
+            AndroidHUD.AndHUD.Shared.ShowSuccess(context, "Successfully registered a driver", AndroidHUD.MaskType.Black, TimeSpan.FromSeconds(2));
             Dismiss();
+
         }
 
         private void FabClose_Click(object sender, EventArgs e)

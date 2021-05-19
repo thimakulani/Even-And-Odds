@@ -42,25 +42,23 @@ namespace admin.Adapters
             // Replace the contents of the view with that element
             var holder = viewHolder as QuerySendersAdapterViewHolder;
             
-            holder.TimeSent.Text = items[position].Datetime.ToString();
+            holder.TimeSent.Text = items[position].TimeStamp.ToString();
 
 
             CrossCloudFirestore
                 .Current
                 .Instance
                 .Collection("AppUsers")
-                .Document(items[position].QueryId)
+                .Document(items[position].Uid)
                 .AddSnapshotListener((value, error) =>
                 {
                     if (value.Exists)
                     {
                         var user = value.ToObject<AppUsers>();
-                        
+                        holder.SenderName.Text = $"{user.Name} {user.Surname}";
                     }
                 });
-            FirebaseDatabase.Instance.GetReference("AppUsers")
-                .Child(items[position].QueryId)
-                .AddValueEventListener(new ValueListener(holder));
+            
         }
 
         public override int ItemCount => items.Count;
@@ -68,31 +66,7 @@ namespace admin.Adapters
         void OnClick(QuerySendersAdapterClickEventArgs args) => ItemClick?.Invoke(this, args);
         void OnLongClick(QuerySendersAdapterClickEventArgs args) => ItemLongClick?.Invoke(this, args);
 
-        private class ValueListener : Java.Lang.Object, IValueEventListener
-        {
-            private readonly QuerySendersAdapterViewHolder holder;
 
-            public ValueListener(QuerySendersAdapterViewHolder holder)
-            {
-                this.holder = holder;
-            }
-
-            public void OnCancelled(DatabaseError error)
-            {
-                
-            }
-
-            public void OnDataChange(DataSnapshot snapshot)
-            {
-                if (snapshot.Exists())
-                {
-                    if(snapshot.Child("Name").Exists() && snapshot.Child("Surname").Exists())
-                    {
-                        holder.SenderName.Text = snapshot.Child("Name").Value.ToString() + snapshot.Child("Surname").Value.ToString();
-                    }
-                }
-            }
-        }
     }
 
     public class QuerySendersAdapterViewHolder : RecyclerView.ViewHolder

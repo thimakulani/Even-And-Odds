@@ -16,11 +16,14 @@ using Java.Util;
 
 using Google.Android.Material.TextField;
 using Google.Android.Material.AppBar;
+using Plugin.CloudFirestore;
+using admin.Models;
+using AndroidHUD;
 
 namespace admin.Activities
 {
     [Activity(Label = "TripPrice")]
-    public class TripPrice : Activity, IValueEventListener
+    public class TripPrice : Activity
     {
         private MaterialToolbar toolbar;
         private TextInputEditText InputPrice;
@@ -41,18 +44,29 @@ namespace admin.Activities
             InputPriceAfter = FindViewById<TextInputEditText>(Resource.Id.InitialAfter);
             BtnApplyChanges = FindViewById<MaterialButton>(Resource.Id.BtnApplyChanges);
             BtnApplyChanges.Click += BtnApplyChanges_Click;
-            FirebaseDatabase.Instance.GetReference("TripPrice").AddValueEventListener(this);
+            
             toolbar.NavigationClick += Toolbar_NavigationClick1;
+            CrossCloudFirestore
+                 .Current
+                 .Instance
+                 .Collection("TripPrice")
+                 .Document("Price")
+                 .AddSnapshotListener((snapshot, error) =>
+                 {
+                     if (snapshot != null)
+                     {
+                         var price = snapshot.ToObject<PriceModel>();
+                         InputPrice.Text = price.InitialPrice;
+                         InputPriceAfter.Text = price.PriceAfter;
+                     }
+                 });
         }
 
         private void Toolbar_NavigationClick1(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
         {
             Finish();
         }
-
-  
-
-        private void BtnApplyChanges_Click(object sender, EventArgs e)
+        private async void BtnApplyChanges_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(InputPrice.Text))
             {
@@ -64,32 +78,20 @@ namespace admin.Activities
                 InputPriceAfter.Error = "Cannot be empty";
                 return;
             }
-            HashMap hashMap = new HashMap();
-            hashMap.Put("InitialPrice", InputPrice.Text);
-            hashMap.Put("PricePerKillos", InputPriceAfter.Text);
-            FirebaseDatabase.Instance
-                .GetReference("TripPrice")
-                .SetValue(hashMap);
-        }
-
-        public void OnCancelled(DatabaseError error)
-        {
-            
-        }
-
-        public void OnDataChange(DataSnapshot snapshot)
-        {
-            if (snapshot.Exists())
+            PriceModel price = new PriceModel()
             {
-                if (snapshot.Child("InitialPrice").Exists())
-                {
-                    InputPrice.Text = snapshot.Child("InitialPrice").Value.ToString();
-                }
-                if (snapshot.Child("PricePerKillos").Exists())
-                {
-                    InputPriceAfter.Text = snapshot.Child("PricePerKillos").Value.ToString();
-                }
-            }
+                PriceAfter = InputPriceAfter.Text,
+                InitialPrice = InputPrice.Text
+            };
+            await CrossCloudFirestore
+                 .Current
+                 .Instance
+                 .Collection("TripPrice")
+                 .Document("Price")
+                 .UpdateAsync(price);
+            AndHUD.Shared.ShowSuccess(this, "Price Updated", MaskType.Black, TimeSpan.FromSeconds(2));
         }
+
+
     }
 }

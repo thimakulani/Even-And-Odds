@@ -20,11 +20,12 @@ using Microcharts.Droid;
 using SkiaSharp;
 using Google.Android.Material.Button;
 using Google.Android.Material.AppBar;
+using Plugin.CloudFirestore;
 
 namespace admin.Activities
 {
     [Activity(Label = "StatsActivity")]
-    public class StatsActivity : Activity, IValueEventListener
+    public class StatsActivity : Activity
     {
         private ChartView chartStats;
         private  MaterialToolbar toolbar;
@@ -55,10 +56,32 @@ namespace admin.Activities
                 months.Add(m);
                 counter.Add(0);
             }
-       
-            FirebaseDatabase.Instance
-                .GetReference("DelivaryRequest")
-                .AddValueEventListener(this);
+
+
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("DeliveryRequests")
+                .OrderBy("TimeStamp", false)
+                .AddSnapshotListener(true, (value, error) =>
+                {
+                    if (!value.IsEmpty)
+                    {
+                        foreach (var data in value.DocumentChanges)
+                        {
+                            var delivery = data.Document.ToObject<DelivaryModal>();
+
+                            DateTime dateTime = DateTime.Parse(delivery.RequestTime);
+                            if (months.Contains(dateTime.ToString("MMMM")))
+                            {
+                                int pos = months.IndexOf(dateTime.ToString("MMMM"));
+                                counter[pos] = counter[pos] + 1;
+                            }
+                        }
+                        DrawCharts();
+                    }
+                });
+            
         }
 
         private void Toolbar_NavigationClick1(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
@@ -176,35 +199,6 @@ namespace admin.Activities
             }
         }
 
-        public void OnCancelled(DatabaseError error)
-        {
-
-        }
-
-        public void OnDataChange(DataSnapshot snapshot)
-        {
-            if (snapshot != null)
-            {
-                
-                var child = snapshot.Children.ToEnumerable<DataSnapshot>();
-                foreach (DataSnapshot data in child)
-                {
-                    
-                    DateTime dateTime = DateTime.Parse(data.Child("RequestTime").Value.ToString());
-                    if (months.Contains(dateTime.ToString("MMMM")))
-                    {
-                        int pos = months.IndexOf(dateTime.ToString("MMMM"));
-                        counter[pos] = counter[pos] + 1;
-                    }
-                    
-                }
-                DrawCharts();
-            }
-            else
-            {
-                DrawCharts();
-            }
-        }
 
 
     }

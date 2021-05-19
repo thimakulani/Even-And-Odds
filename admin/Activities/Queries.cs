@@ -29,7 +29,7 @@ namespace admin.Activities
                 .Add(Resource.Id.fragment_host, frag)
                 .AddToBackStack(frag.Tag)
                 .Commit();
-            frag.QueriesEvneHandler += Frag_QueriesEvneHandler;
+            
         }
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -39,12 +39,7 @@ namespace admin.Activities
             }
             return base.OnOptionsItemSelected(item);
         }
-        private void Frag_QueriesEvneHandler(object sender, QueriesFragment.QueryClickedEventHandler e)
-        {
-            QueryRepliesFragment frag = new QueryRepliesFragment(e.Items.QueryId);
-            var ft = SupportFragmentManager.BeginTransaction();
-            frag.Show(ft, null);
-        }
+       
 
        
     }

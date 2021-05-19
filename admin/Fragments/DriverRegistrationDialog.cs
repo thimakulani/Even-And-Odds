@@ -18,6 +18,7 @@ using System.Linq;
 using System.Text;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
+using Plugin.CloudFirestore;
 
 namespace admin.Fragments
 {
@@ -159,7 +160,6 @@ namespace admin.Fragments
             loading.Show(ChildFragmentManager.BeginTransaction(), "Loading");
             try
             {
-                
                 var results = await _auth.CreateUserAsync(user);
                 RegisterDriverInfor(results.Uid);
             }
@@ -177,23 +177,29 @@ namespace admin.Fragments
             finally
             {
                 loading.Dismiss();
-                loading.Dispose();
                 //loading.Show();
             }
         }
-        private void RegisterDriverInfor(string uid)
+        private async void RegisterDriverInfor(string uid)
         {
-            HashMap data = new HashMap();
-            data.Put("Name", InputName.Text);
-            data.Put("Phone", InputPhone.Text);
-            data.Put("Surname", InputSurname.Text);
-            data.Put("Email", InputEmail.Text);
-            data.Put("Type", BtnType.Text);
-            data.Put("Make", InputMake.Text);
-            data.Put("RegNo", InputRegNo.Text);
-            data.Put("Color", InputColor.Text);
-            var database = FirebaseDatabase.Instance.GetReference("AppUsers").Child(uid);
-            database.SetValue(data);
+            Dictionary<string, object> data = new Dictionary<string, object>();
+            data.Add("Name", InputName.Text);
+            data.Add("Phone", InputPhone.Text);
+            data.Add("Surname", InputSurname.Text);
+            data.Add("Email", InputEmail.Text);
+            data.Add("Role", BtnType.Text);
+            data.Add("Make", InputMake.Text);
+            data.Add("RegNo", InputRegNo.Text);
+            data.Add("Color", InputColor.Text);
+
+            await CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(uid)
+                .SetAsync(data);
+
+            
             AndroidHUD.AndHUD.Shared.ShowSuccess(context, "Successfully registered a driver", AndroidHUD.MaskType.Black, TimeSpan.FromSeconds(2));
             Dismiss();
 

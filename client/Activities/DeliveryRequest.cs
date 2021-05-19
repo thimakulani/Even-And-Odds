@@ -5,27 +5,23 @@ using Android.Content.PM;
 using Android.Gms.Location;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
-using Android.Gms.Tasks;
 using Android.Graphics;
 using Android.Locations;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
-using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
- 
+
 using client.Classes;
 using client.MapsHelper;
 using Firebase.Auth;
-using Firebase.Database;
 using Google.Android.Material.BottomSheet;
 using Google.Android.Material.Button;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
 using Google.Places;
-using Java.Util;
 using Plugin.CloudFirestore;
 using System;
 using System.Collections.Generic;

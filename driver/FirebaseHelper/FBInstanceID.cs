@@ -1,12 +1,11 @@
-﻿
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Gms.Extensions;
 using Android.Media;
-using Android.Support.V4.App;
 using Firebase.Iid;
 using Firebase.Messaging;
 using driver.Activities;
+using AndroidX.Core.App;
 
 namespace driver.FirebaseHelper
 {
@@ -40,7 +39,7 @@ namespace driver.FirebaseHelper
             var pendingIntent = PendingIntent.GetActivity(this, 0 /* Request code */, intent, PendingIntentFlags.OneShot);
 
             var defaultSoundUri = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
-            var notificationBuilder = new NotificationCompat.Builder(this)
+            var notificationBuilder = new NotificationCompat.Builder(this, "100")
                 .SetSmallIcon(Resource.Drawable.delivary_icon_2)
                 .SetContentTitle("FCM Message")
                 .SetContentText(p0.GetNotification().Body)

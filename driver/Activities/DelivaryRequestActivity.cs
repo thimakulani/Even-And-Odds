@@ -237,10 +237,15 @@ namespace driver.Activities
                 .Current
                 .Instance
                 .Collection("DeliveryRequests")
+                .OrderBy("TimeStamp", false)
                 .WhereIn("Status", new[] {"P", "A", "W"})
 
-                .AddSnapshotListener((snapshot, value) =>
+                .AddSnapshotListener((snapshot, error) =>
                 {
+                    if(error!= null)
+                    {
+                        Console.WriteLine("Errorrr", error.Message);
+                    }
                     if (!snapshot.IsEmpty)
                     {
                         foreach (var dc in snapshot.DocumentChanges)

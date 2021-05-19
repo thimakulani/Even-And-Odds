@@ -36,6 +36,5 @@ namespace driver.Models
         public string Distance { get; set; }
         public string Price { get; set; }
         public string DriverId { get; set; }
-        //public string Time { get; set; }
     }
 }

@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 using Android.App;
 using Android.Content;
 using Android.Media;
-using Android.OS;
-using Android.Runtime;
 using Android.Support.V4.App;
-using Android.Views;
-using Android.Widget;
 using Firebase.Messaging;
 using driver.Activities;
 
@@ -37,7 +29,7 @@ namespace driver
             var pendingIntent = PendingIntent.GetActivity(this, 0 /* Request code */, intent, PendingIntentFlags.OneShot);
 
             var defaultSoundUri = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
-            var notificationBuilder = new NotificationCompat.Builder(this)
+            var notificationBuilder = new NotificationCompat.Builder(this, "100")
                 .SetSmallIcon(Resource.Mipmap.delivery_icon)
                 .SetContentTitle(remoteMessage.GetNotification().Title)
                 .SetContentText(messageBody)

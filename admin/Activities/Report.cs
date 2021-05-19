@@ -24,6 +24,7 @@ using admin.Models;
 using admin.Common;
  
 using admin.Adapters;
+using Plugin.CloudFirestore;
 
 namespace admin.Activities
 {
@@ -65,6 +66,37 @@ namespace admin.Activities
                 .WithListener(this)
                 .Check();
             //get data
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("DeliveryRequests")
+                .AddSnapshotListener(true, (value, error) =>
+                {
+                    if (!value.IsEmpty)
+                    {
+                        foreach (var item in value.DocumentChanges)
+                        {
+                            DelivaryModal delivary = new DelivaryModal();
+                            switch (item.Type)
+                            {
+                                case DocumentChangeType.Added:
+                                    delivary = item.Document.ToObject<DelivaryModal>();
+                                    delivary.KeyId = item.Document.Id;
+                                    delivariesList.Add(delivary);
+                                    break;
+                                case DocumentChangeType.Modified:
+                                    delivary = item.Document.ToObject<DelivaryModal>();
+                                    delivary.KeyId = item.Document.Id;
+                                    delivariesList[item.OldIndex] = delivary;
+                                    break;
+                                case DocumentChangeType.Removed:
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                });
             Common.PrintReport.WriteFileToStorage(this, "Lato_Black.ttf");
 
         }
@@ -220,8 +252,8 @@ namespace admin.Activities
             }
         }
 
-               
-            
-        
+
+
+
     }
 }

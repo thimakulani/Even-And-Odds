@@ -18,6 +18,7 @@ using admin.Models;
 using Firebase.Database;
 using Xamarin.Essentials;
 using AlertDialog = Android.App.AlertDialog;
+using Plugin.CloudFirestore;
 
 namespace admin.Activities
 {
@@ -36,19 +37,9 @@ namespace admin.Activities
         /*views*/
         
         private Android.Support.V7.Widget.SearchView InputSearchUser;
-        
-        
-        
-        //private CheckBox Terms;
+
         private ImageView ImgBack;
         private RecyclerView recyclerUsersList;
-
-
-
-        /*Driver registration dialog*/
-        /*Dialog*/
-        //private AlertDialog RegistrationDialog;
-        //private AlertDialog.Builder dialogBuilder;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -62,10 +53,6 @@ namespace admin.Activities
 
         private void ConnectViews()
         {
-
-
-            //InputSearchUser.Visibility = ViewStates.Gone;
-
             ImgBack = FindViewById<ImageView>(Resource.Id.imgCloseSignUp);
 
            // FabSearch = FindViewById<FloatingActionButton>(Resource.Id.FabRearch);
@@ -118,12 +105,6 @@ namespace admin.Activities
             base.OnBackPressed();
             OverridePendingTransition(Resource.Animation.Side_in_left, Resource.Animation.Side_out_right);
         }
-        private void BtnSubmitReg_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-
         private void SetUpRecycler(List<AppUsers> users)
         {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -166,12 +147,15 @@ namespace admin.Activities
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetTitle("Confirm");
-                // builder.SetMessage("Reset password link has been sent to your email address");
                 builder.SetMessage("Are you sure you want to deactivate driver: " + items[e.Position].Name + " " + items[e.Position].Surname + "?");
-                builder.SetPositiveButton("Yes", delegate
+                builder.SetPositiveButton("Yes",async delegate
                 {
-
-                    FirebaseDatabase.Instance.GetReference("AppUsers").Child(items[e.Position].Uid).Child("UserType").SetValue("Client");
+                    await CrossCloudFirestore
+                        .Current
+                        .Instance
+                        .Collection("AppUsers")
+                        .Document(items[e.Position].Uid)
+                        .UpdateAsync("Role", "C");
                     builder.Dispose();
 
                 });

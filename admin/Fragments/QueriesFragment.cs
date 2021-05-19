@@ -56,11 +56,18 @@ namespace admin.Fragments
                     {
                         foreach (var dc in value.DocumentChanges)
                         {
+                            var query = new QueriesModel();
                             switch (dc.Type)
                             {
                                 case DocumentChangeType.Added:
+                                    query = dc.Document.ToObject<QueriesModel>();
+                                    query.Uid = dc.Document.Id;
+                                    Items.Add(query);
                                     break;
                                 case DocumentChangeType.Modified:
+                                    query = dc.Document.ToObject<QueriesModel>();
+                                    query.Uid = dc.Document.Id;
+                                    Items[dc.OldIndex] = query;
                                     break;
                                 case DocumentChangeType.Removed:
                                     break;
@@ -74,15 +81,11 @@ namespace admin.Fragments
 
         }
 
-
-        public event EventHandler<QueryClickedEventHandler> QueriesEvneHandler;
-        public class QueryClickedEventHandler : EventArgs
-        {
-            public QueriesModel Items { get; set; }
-        }
         private void Adapter_ItemClick(object sender, QuerySendersAdapterClickEventArgs e)
         {
-            QueriesEvneHandler.Invoke(this, new QueryClickedEventHandler { Items = Items[e.Position] });
+            QueryRepliesFragment frag = new QueryRepliesFragment(Items[e.Position].Uid);
+            var ft = ChildFragmentManager.BeginTransaction();
+            frag.Show(ft, null);
         }
     }
 }

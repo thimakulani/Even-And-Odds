@@ -18,6 +18,7 @@ using FirebaseAdmin.Auth;
 using Xamarin.Essentials;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
+using Plugin.CloudFirestore;
 
 namespace admin.Activities
 {
@@ -231,7 +232,7 @@ namespace admin.Activities
             try
             {
                 var results = await _auth.CreateUserAsync(user);
-                RegisterInfor(results);
+                RegisterInfor(results.Uid);
             }
             catch (Exception ex)
             {
@@ -369,9 +370,29 @@ namespace admin.Activities
             
         }
 
-        private void RegisterInfor(UserRecord results)
+        private async void RegisterInfor(string uid)
         {
             /*Register*/
+
+            Dictionary<string, object> data = new Dictionary<string, object>
+            {
+                { "Name", InputName.Text },
+                { "Phone", InputPhone.Text },
+                { "Surname", InputSurname.Text },
+                { "Email", InputEmail.Text },
+                { "Role", null },
+                { "Make", null },
+                { "RegNo", null },
+                { "Color", null }
+            };
+
+            await CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(uid)
+                .SetAsync(data);
+
             HUD($"Successfully registered a {InputName.Text} as administrator");
             RegistrationDialog.Dismiss();
         }
