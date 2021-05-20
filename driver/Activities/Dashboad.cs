@@ -20,7 +20,7 @@ using Google.Android.Material.BottomNavigation;
 namespace driver.Activities
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = false)]
-    public class Dashboad : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener, IOnCompleteListener, IOnSuccessListener
+    public class Dashboad : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
 
        // private FirebaseMessaging firebaseMessaging;// = new FirebaseMessaging();
@@ -58,13 +58,13 @@ namespace driver.Activities
                 .Document(FirebaseAuth.Instance.Uid)
                 .GetAsync();
             DriverModel driver = results.ToObject<DriverModel>();
-            if(driver.Role == "Driver")
+            if(driver.Role == "D")
             {
                 var requests = await CrossCloudFirestore
                     .Current
                     .Instance
                     .Collection("DeliveryRequests")
-                    .WhereEqualsTo("Driver", FirebaseAuth.Instance.Uid)
+                    .WhereEqualsTo("DriverId", FirebaseAuth.Instance.Uid)
                     .WhereIn("Status", new[] { "A", "P" })
                     .GetAsync();
                 if(requests.Count > 0)
@@ -191,16 +191,6 @@ namespace driver.Activities
 
         }
 
-        public void OnComplete(Task task)
-        {
-            
-
-        }
-
-        public void OnSuccess(Java.Lang.Object result)
-        {
-            
-        }
 
 
     }

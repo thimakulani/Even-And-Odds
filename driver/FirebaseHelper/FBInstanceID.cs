@@ -12,20 +12,7 @@ namespace driver.FirebaseHelper
 
     public class FBInstanceID: FirebaseMessagingService
     {
-        public async override void OnNewToken(string p0)
-        {
-            base.OnNewToken(p0);
-            var instanceIdResult = await FirebaseInstanceId.Instance.GetInstanceId().AsAsync<IInstanceIdResult>();
-            //var refresh = FirebaseInstanceId.Instance.Token;//.AddOnSuccessListener(this);
 
-            if (!string.IsNullOrEmpty(instanceIdResult.Token))
-            {
-                
-                await FirebaseMessaging.Instance.SubscribeToTopic("request");
-
-            }
-
-        }
         public override void OnMessageReceived(RemoteMessage p0)
         {
             
@@ -51,23 +38,7 @@ namespace driver.FirebaseHelper
 
             notificationManager.Notify(0, notificationBuilder.Build());
         }
-        //{
-        //    if (Build.VERSION.SdkInt < BuildVersionCodes.O)
-        //    {
-        //        // Notification channels are new in API 26 (and not a part of the
-        //        // support library). There is no need to create a notification
-        //        // channel on older versions of Android.
-        //        return;
-        //    }
 
-        //    var channel = new NotificationChannel("100", "Alert", NotificationImportance.Default)
-        //    {
-        //        Description = p0.GetNotification().Body,
-        //    };
-
-        //    var notificationManager = (NotificationManager)GetSystemService(Android.Content.Context.NotificationService);
-        //    notificationManager.CreateNotificationChannel(channel);
-        //}
 
     }
 }

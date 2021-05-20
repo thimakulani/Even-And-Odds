@@ -64,8 +64,7 @@ namespace driver.Activities
         }
         private void ConnectViews()
         {
-            ISharedPreferences pref = Application.Context.GetSharedPreferences("UserInfo", FileCreationMode.Private);
-            UserEmail = pref.GetString("Email", string.Empty);
+            
             
 
 
@@ -216,7 +215,7 @@ namespace driver.Activities
                 .GetAsync();
 
             var user = query.ToObject<DriverModel>();
-            if(user.Role is "Driver")
+            if(user.Role is "D")
             {
                 Intent intent = new Intent(this, typeof(Dashboad));
                 StartActivity(intent);

@@ -2,13 +2,11 @@
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
 using Android.Widget;
 using client.Activities;
 using Firebase.Auth;
 using System;
 using System.Threading.Tasks;
-using static Firebase.Auth.FirebaseAuth;
 
 namespace client
 {
@@ -33,18 +31,29 @@ namespace client
             });
             startWork.ContinueWith(t =>
             {
-                var user = FirebaseAuth.Instance.CurrentUser;
-                if (user != null)
+
+                
+
+                try
                 {
-                    Intent intent = new Intent(Application.Context, typeof(MainActivity));
-                    StartActivity(intent);
-                    OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
+                    var user = FirebaseAuth.Instance.CurrentUser;
+                    if (user != null)
+                    {
+                        Intent intent = new Intent(Application.Context, typeof(MainActivity));
+                        StartActivity(intent);
+                        OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
+                    }
+                    else
+                    {
+                        Intent intent = new Intent(Application.Context, typeof(Login));
+                        StartActivity(intent);
+                        OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    Intent intent = new Intent(Application.Context, typeof(Login));
-                    StartActivity(intent);
-                    OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
+                    Console.WriteLine("Errr", ex.Message);
+                    Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
             startWork.Start();

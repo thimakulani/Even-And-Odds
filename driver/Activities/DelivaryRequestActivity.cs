@@ -237,9 +237,8 @@ namespace driver.Activities
                 .Current
                 .Instance
                 .Collection("DeliveryRequests")
-                .OrderBy("TimeStamp", false)
                 .WhereIn("Status", new[] {"P", "A", "W"})
-
+                .OrderBy("TimeStamp", false)
                 .AddSnapshotListener((snapshot, error) =>
                 {
                     if(error!= null)

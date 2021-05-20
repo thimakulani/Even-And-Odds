@@ -59,7 +59,6 @@ namespace client.Fragments
         
       
         //public event EventHandler FailUpdateHandler; 
-        public event EventHandler SuccessUpdateHandler;
         private async void BtnAppyChanges_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(InputNames.Text))
