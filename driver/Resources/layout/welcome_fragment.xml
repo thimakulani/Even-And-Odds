@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/delivary_icon"
+        android:src="@drawable/delivery_icon"
         android:scaleType="fitCenter"
         android:alpha="0.5"
         tools:ignore="MissingDimension" 

@@ -1,21 +1,15 @@
-﻿using Android.Content;
+﻿using admin.Models;
+using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Google.Android.Material.Button;
-using Android.Support.Design.Widget;
 using Android.Support.V4.App;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
-using admin.Models;
-using Firebase.Database;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Google.Android.Material.Button;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
 using Plugin.CloudFirestore;
+using System;
+using System.Collections.Generic;
 
 namespace admin.Fragments
 {
@@ -161,12 +155,14 @@ namespace admin.Fragments
                 return;
             }
 
-            Dictionary<string, object> data = new Dictionary<string, object>();
-            data.Add("Type", BtnType.Text);
-            data.Add("Make", InputMake.Text);
-            data.Add("RegNo", InputRegNo.Text);
-            data.Add("Color", InputColor.Text);
-            data.Add("Role", "D");
+            Dictionary<string, object> data = new Dictionary<string, object>
+            {
+                { "Type", BtnType.Text },
+                { "Make", InputMake.Text },
+                { "RegNo", InputRegNo.Text },
+                { "Color", InputColor.Text },
+                { "Role", "D" }
+            };
 
             await CrossCloudFirestore
                 .Current

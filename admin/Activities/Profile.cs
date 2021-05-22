@@ -1,15 +1,14 @@
-﻿using Android.App;
+﻿using admin.Models;
+using Android.App;
 using Android.OS;
-using Google.Android.Material.Button;
-using Firebase.Auth;
-using Firebase.Database;
-using System;
-using Google.Android.Material.TextField;
-using Google.Android.Material.AppBar;
-using System.Collections.Generic;
-using Plugin.CloudFirestore;
 using AndroidHUD;
-using admin.Models;
+using Firebase.Auth;
+using Google.Android.Material.AppBar;
+using Google.Android.Material.Button;
+using Google.Android.Material.TextField;
+using Plugin.CloudFirestore;
+using System;
+using System.Collections.Generic;
 
 namespace admin.Activities
 {

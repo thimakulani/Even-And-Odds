@@ -1,13 +1,11 @@
-﻿using System;
-
-using Android.Views;
+﻿using Android.Views;
 using Android.Widget;
-using System.Collections.Generic;
-using client.Classes;
-using Firebase.Database;
 using AndroidX.RecyclerView.Widget;
+using client.Classes;
 using Google.Android.Material.Button;
 using Plugin.CloudFirestore;
+using System;
+using System.Collections.Generic;
 
 namespace client.Adapters
 {
@@ -17,9 +15,9 @@ namespace client.Adapters
         public event EventHandler<RequestAdapterClickEventArgs> ItemLongClick;
         public event EventHandler<RequestAdapterClickEventArgs> BtnCancelClick;
         public event EventHandler<RequestAdapterClickEventArgs> BtnViewDriverClick;
-        private readonly List<DelivaryModal> items = new List<DelivaryModal>();
+        private readonly List<DeliveryRequestModel> items = new List<DeliveryRequestModel>();
 
-        public RequestAdapter(List<DelivaryModal> data)
+        public RequestAdapter(List<DeliveryRequestModel> data)
         {
             items = data;
         }
@@ -42,12 +40,12 @@ namespace client.Adapters
         }
 
         // Replace the contents of a view (invoked by the layout manager)
-        public  override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
+        public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
 
             // Replace the contents of the view with that element
             var holder = viewHolder as RequestAdapterViewHolder;
-            int indexPos = (items.Count - 1) - position;
+            int indexPos = position;
             //if(items[indexPos].DriverName == null)
             //{
             //    holder.DriverName.Text = "Waiting for driver";
@@ -56,24 +54,26 @@ namespace client.Adapters
             //{
             //    holder.DriverName.Text = items[indexPos].DriverName;
             //}
-            
+
             holder.PickupLocation.Text = items[indexPos].PickupAddress;
             holder.Destination.Text = items[indexPos].DestinationAddress;
             holder.Price.Text = items[indexPos].Price;
             holder.Distance.Text = items[indexPos].Distance;
-            holder.HistoryRequestStatus.Text = items[indexPos].Status;
-            holder.HistoryDatesTimeCreated.Text = items[indexPos].RequestTime;
+            
+
+            holder.HistoryDatesTimeCreated.Text = $"{items[indexPos].TimeStamp.ToDateTime():dddd, dd MMMM yyyy, HH: mm tt}";
             if (items[indexPos].Status == "C")
             {
                 holder.BtnCancelRequest.Visibility = ViewStates.Gone;
                 holder.DriverName.Text = "==== No driver ====";
+                holder.HistoryRequestStatus.Text = "Cancelled";
             }
-            if(items[indexPos].Status == "A" || items[indexPos].Status == "D" || items[indexPos].Status == "P")
+            if (!string.IsNullOrWhiteSpace(items[indexPos].DriverId))
             {
                 holder.BtnCancelRequest.Visibility = ViewStates.Gone;
                 // holder.DriverName.Text = items[indexPos].DriverName;
                 holder.BtnViewDriver.Visibility = ViewStates.Visible;
-                
+
                 CrossCloudFirestore
                     .Current
                     .Instance
@@ -89,24 +89,35 @@ namespace client.Adapters
                     });
 
             }
-            else if(items[indexPos].Status == "Waiting")
+            switch (items[indexPos].Status)
             {
-                holder.DriverName.Text = "Waiting for driver";
+                case "W":
+                    holder.DriverName.Text = "Waiting for driver";
+                    break;
+                case "A":
+                    holder.DriverName.Text = "Accepted";
+                    break;
+                case "P":
+                    holder.DriverName.Text = "Picked up";
+                    break;
+                case "D":
+                    holder.DriverName.Text = "Delivered";
+                    break;
             }
             //holder.TextView.Text = items[position];
         }
 
-        
+
         public override int ItemCount => items.Count;
-        
+
         void OnClick(RequestAdapterClickEventArgs args) => ItemClick?.Invoke(this, args);
         void OnLongClick(RequestAdapterClickEventArgs args) => ItemLongClick?.Invoke(this, args);
         void OnCancelClick(RequestAdapterClickEventArgs args) => BtnCancelClick?.Invoke(this, args);
         void OnViewDriverClick(RequestAdapterClickEventArgs args) => BtnViewDriverClick?.Invoke(this, args);
 
-       
+
     }
-    
+
     public class RequestAdapterViewHolder : RecyclerView.ViewHolder
     {
         public TextView DriverName { get; set; }
@@ -123,7 +134,7 @@ namespace client.Adapters
                             Action<RequestAdapterClickEventArgs> longClickListener, Action<RequestAdapterClickEventArgs> CancelClickListener,
                             Action<RequestAdapterClickEventArgs> viewDriverClickListener) : base(itemView)
         {
-            
+
             DriverName = itemView.FindViewById<TextView>(Resource.Id.HistoryDriverName);
             PickupLocation = itemView.FindViewById<TextView>(Resource.Id.HistoryPickupLocation);
             Destination = itemView.FindViewById<TextView>(Resource.Id.HistoryDestination);
@@ -143,7 +154,7 @@ namespace client.Adapters
             BtnViewDriver.Click += (sender, e) => viewDriverClickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
         }
 
-        
+
     }
 
     public class RequestAdapterClickEventArgs : EventArgs

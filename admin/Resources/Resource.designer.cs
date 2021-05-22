@@ -9852,13 +9852,13 @@ namespace admin
 			public const int common_google_signin_btn_text_light_normal_background = 2131165318;
 			
 			// aapt resource value: 0x7F070087
-			public const int delivary_icon = 2131165319;
+			public const int delivery_icon = 2131165319;
 			
 			// aapt resource value: 0x7F070088
-			public const int delivary_icon_2 = 2131165320;
+			public const int delivery_icon_2 = 2131165320;
 			
 			// aapt resource value: 0x7F070089
-			public const int delivary_icon_3 = 2131165321;
+			public const int delivery_icon_3 = 2131165321;
 			
 			// aapt resource value: 0x7F07008A
 			public const int design_bottom_navigation_item_background = 2131165322;
@@ -12735,7 +12735,7 @@ namespace admin
 			public const int about_us_icon = 2131558400;
 			
 			// aapt resource value: 0x7F0D0001
-			public const int delivery_icon = 2131558401;
+			public const int Delivery_icon = 2131558401;
 			
 			// aapt resource value: 0x7F0D0002
 			public const int feedback_icon = 2131558402;

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Android;
+﻿using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -15,24 +13,26 @@ using Android.Views;
 using Android.Views.Animations;
 using Android.Widget;
 using AndroidHUD;
-using Firebase.Auth;
+using AndroidX.RecyclerView.Widget;
 using driver.Adapters;
 using driver.MapsHelper;
 using driver.Models;
-using Xamarin.Essentials;
-using AlertDialog = Android.Support.V7.App.AlertDialog;
-using Plugin.CloudFirestore;
+using Firebase.Auth;
+using Google.Android.Material.AppBar;
+using Google.Android.Material.BottomSheet;
 using Google.Android.Material.Button;
 using Google.Android.Material.FloatingActionButton;
-using Google.Android.Material.BottomSheet;
 using Google.Android.Material.TextField;
-using AndroidX.RecyclerView.Widget;
-using Google.Android.Material.AppBar;
+using Plugin.CloudFirestore;
+using System;
+using System.Collections.Generic;
+using Xamarin.Essentials;
+using AlertDialog = Android.Support.V7.App.AlertDialog;
 
 namespace driver.Activities
 {
-    [Activity(Label = "DelivaryRequestActivity")]
-    public class DelivaryRequestActivity : AppCompatActivity, IOnMapReadyCallback
+    [Activity(Label = "DeliveryRequestActivity")]
+    public class DeliveryRequestActivity : AppCompatActivity, IOnMapReadyCallback
     {
         private GoogleMap mGoogleMap;
         /// 
@@ -59,7 +59,7 @@ namespace driver.Activities
         double Destinationlatitude;
         //
 
-        private readonly List<DelivaryModal> items = new List<DelivaryModal>();
+        private readonly List<DeliveryModal> items = new List<DeliveryModal>();
         private RecyclerView RecyclerRequests;
         string KeyPosition;
 
@@ -120,11 +120,11 @@ namespace driver.Activities
         private void ConnectViews()
         {
             RecyclerRequests = FindViewById<RecyclerView>(Resource.Id.RecyclerDeliveryRequest);
-            
+
             RequestMainMenuLayout = FindViewById<RelativeLayout>(Resource.Id.RequestMainMenuLayout);
             toolbarRequests = FindViewById<MaterialToolbar>(Resource.Id.toolbarRequests);
             ConnectDeliveryRequestNavigation();
-            
+
             ConnectBottomSheet();
             toolbarRequests.NavigationClick += ToolbarRequests_NavigationClick;
             // Notifications();
@@ -132,7 +132,7 @@ namespace driver.Activities
 
 
             SetupAdapter();
-            
+
         }
 
         private void ToolbarRequests_NavigationClick(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
@@ -175,24 +175,26 @@ namespace driver.Activities
                     { "DriverId", FirebaseAuth.Instance.Uid }
                 };
                 await CrossCloudFirestore.Current.Instance
-                    .Collection("DelivaryRequests")
+                    .Collection("DeliveryRequests")
                     .Document(KeyPosition)
                     .UpdateAsync(valuePairs);
-
-
-
-
-                
                 //Toast.MakeText(this, UserKeyId, ToastLength.Long).Show();
                 bottomSheet.State = BottomSheetBehavior.StateCollapsed;
                 RequestMainMenuLayout.StartAnimation(AnimMainMenuLayout);
                 AnimMainMenuLayout.AnimationEnd += AnimMainMenuLayout_AnimationEnd;
 
-                string json;
-                json = await mapHelper.GetDirectionJsonAsync(pickupLocationLatLng, destinationLocationLatLng);
-                if (!string.IsNullOrEmpty(json))
+                try
                 {
-                    mapHelper.DrawTripOnMap(json);
+                    string json;
+                    json = await mapHelper.GetDirectionJsonAsync(pickupLocationLatLng, destinationLocationLatLng);
+                    if (!string.IsNullOrEmpty(json))
+                    {
+                        mapHelper.DrawTripOnMap(json);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: ", ex.Message);
                 }
                 // UpdateState("Accepted", KeyPositiono
             }
@@ -233,26 +235,31 @@ namespace driver.Activities
             adapter.ItemClick += Adapter_ItemClick;
             RecyclerRequests.SetAdapter(adapter);
 
+
+            
+
+
             CrossCloudFirestore
                 .Current
                 .Instance
                 .Collection("DeliveryRequests")
-                .WhereIn("Status", new[] {"P", "A", "W"})
+                .WhereIn("Status", new[] { "P", "A", "W" })
                 .OrderBy("TimeStamp", false)
                 .AddSnapshotListener((snapshot, error) =>
                 {
-                    if(error!= null)
+                    if (error != null)
                     {
                         Console.WriteLine("Errorrr", error.Message);
+
                     }
-                    if (!snapshot.IsEmpty)
+                    if (!snapshot.IsEmpty && snapshot != null)
                     {
                         foreach (var dc in snapshot.DocumentChanges)
                         {
                             switch (dc.Type)
                             {
                                 case DocumentChangeType.Added:
-                                    var doc = dc.Document.ToObject<DelivaryModal>();
+                                    var doc = dc.Document.ToObject<DeliveryModal>();
                                     doc.KeyId = dc.Document.Id;
                                     items.Add(doc);
                                     adapter.NotifyDataSetChanged();
@@ -261,29 +268,37 @@ namespace driver.Activities
 
                                     break;
                                 case DocumentChangeType.Modified:
-
-                                    var mod = dc.Document.ToObject<DelivaryModal>();
+                                    
+                                    var mod = dc.Document.ToObject<DeliveryModal>();
                                     mod.KeyId = dc.Document.Id;
-                                    if(mod.DriverId == FirebaseAuth.Instance.Uid && mod.Status == "A" && mod.Status == "P")
+                                    if (mod.Status == "A" || mod.Status == "P")
                                     {
-                                        CheckRequestAsync(mod);
+                                        if (mod.DriverId == FirebaseAuth.Instance.Uid)
+                                        {
+                                            CheckRequestAsync(mod);
+                                            adapter.NotifyDataSetChanged(); 
+                                        }
+                                        else
+                                        {
+                                            items.RemoveAt(dc.OldIndex);
+                                            adapter.NotifyDataSetChanged();
+                                        }
+                                    }
+                                    
+
+                                    if (mod.Status == "D")
+                                    {
+                                        items.RemoveAt(dc.OldIndex);
                                         adapter.NotifyDataSetChanged();
                                     }
-
-                                    if(mod.Status == "D" || mod.Status == "D")
-                                    {
-                                        items.Remove(new DelivaryModal() { KeyId = mod.KeyId});
-                                        adapter.NotifyDataSetChanged();
-                                    }
-                                    if (mod.Status == "W")
-                                    {
-                                        items.Add(mod);
-                                        adapter.NotifyDataSetChanged();
-                                    }
-
-
+                                    //if (mod.Status == "W")
+                                    //{
+                                    //    items[dc.OldIndex] = mod;
+                                    //    adapter.NotifyDataSetChanged();
+                                    //}
                                     break;
                                 case DocumentChangeType.Removed:
+
                                     break;
                             }
                         }
@@ -292,7 +307,7 @@ namespace driver.Activities
 
         }
 
-        private async void CheckRequestAsync(DelivaryModal doc)
+        private async void CheckRequestAsync(DeliveryModal doc)
         {
             if (doc.DriverId == FirebaseAuth.Instance.Uid)
             {
@@ -339,7 +354,7 @@ namespace driver.Activities
         private void Adapter_ItemClick(object sender, RequestAdapterClickEventArgs e)
         {
 
-            int indexPos = (items.Count - 1) - e.Position;
+            int indexPos = e.Position;
 
             KeyPosition = items[indexPos].KeyId;
             txtRequestDestination.Text = items[indexPos].DestinationAddress;
@@ -349,7 +364,13 @@ namespace driver.Activities
             txtRequestItemType.Text = items[indexPos].ItemType;
             txtRequestPickupLication.Text = items[indexPos].PickupAddress;
             txtRequestPrice.Text = items[indexPos].Price;
-            txtRequestStatus.Text = items[indexPos].Status;
+            if(items[indexPos].Status == "W")
+            {
+                txtRequestStatus.Text = "Waiting";
+            }
+
+            
+
             txtRequestToContact.Text = items[indexPos].PersonContact;
             txtRequestToName.Text = items[indexPos].PersonName;
 
@@ -438,7 +459,6 @@ namespace driver.Activities
                     .SetAsync(hashMap);
                 HUD("Your request has been successfully submitted");
                 dialog.Dismiss();
-                
             }
             else
             {
@@ -452,13 +472,13 @@ namespace driver.Activities
                     .Collection("DeliveryRequests")
                     .Document(KeyPosition);
             Dictionary<string, object> valuePairs = new Dictionary<string, object>();
-                    
+
             if (BtnPickupDestination.Text == "Pickup")
             {
                 valuePairs.Add("Status", "P");
                 query.UpdateAsync(valuePairs);
 
-                
+
                 //UpdateState("Picked up", KeyPosition);
                 BtnPickupDestination.Text = "Deliver";
                 imgCancelDelivery.Enabled = false;
@@ -471,7 +491,7 @@ namespace driver.Activities
                 query.UpdateAsync(valuePairs);
 
 
-                
+
                 BtnPickupDestination.Text = "Done";
                 HUD("Updated");
                 //preferencesEditor.Clear();
@@ -566,18 +586,18 @@ namespace driver.Activities
         private void ImgCall_Click(object sender, EventArgs e)
         {
             int index = 0;
-            
+
             string[] arr = { "Pick up location", "Drop point" };
             Android.App.AlertDialog.Builder builder = new Android.App.AlertDialog.Builder(this);
             builder.SetSingleChoiceItems(arr, 0, (s, args) =>
             {
-                
+
                 index = args.Which;
 
             });
             builder.SetPositiveButton("Call", delegate
             {
-                
+
                 if (index == 1)
                 {
                     PhoneDialer.Open(DestPhone);
@@ -615,7 +635,7 @@ namespace driver.Activities
         private bool CheckPermission()
         {
             bool permisionGranted = false;
-            if (ActivityCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) != Permission.Granted &&
+            if (Android.Support.V4.Content.ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) != Permission.Granted &&
                 ActivityCompat.CheckSelfPermission(this, Manifest.Permission.AccessCoarseLocation) != Permission.Granted)
             {
                 //               permisionGranted = true;
@@ -643,7 +663,7 @@ namespace driver.Activities
         }
         private void CreateLocationRequest()
         {
-            locationRequest = new LocationRequest();
+            locationRequest = LocationRequest.Create();
             locationRequest.SetInterval(UPDATE_INTERVAL);
             locationRequest.SetFastestInterval(UPDATE_FASTEST_INTERVAL);
             locationRequest.SetPriority(LocationRequest.PriorityHighAccuracy);

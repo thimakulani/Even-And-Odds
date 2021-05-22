@@ -1,8 +1,8 @@
-﻿using Google.Android.Material.Button;
+﻿using admin.Models;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using admin.Models;
+using Google.Android.Material.Button;
 using System;
 using System.Collections.Generic;
 
@@ -59,7 +59,7 @@ namespace admin.Adapters
     public class ReassignAdapterViewHolder : RecyclerView.ViewHolder
     {
         public TextView TxtReason { get; set; }
-        public TextView TxtDriver{ get; set; }
+        public TextView TxtDriver { get; set; }
         public TextView TxtLocation { get; set; }
         public MaterialButton BtnReassign { get; set; }
         public MaterialButton BtnReject { get; set; }

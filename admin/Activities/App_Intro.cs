@@ -1,8 +1,7 @@
-﻿using System.Drawing;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
+using System.Drawing;
 using Xamarin.Essentials;
 
 namespace admin.Activities
@@ -16,13 +15,13 @@ namespace admin.Activities
 
             // Create your application here
             AddSlide(AppIntro.AppIntroFragment.NewInstance("xx", "xx",
-                Resource.Drawable.delivary_icon,
+                Resource.Drawable.delivery_icon,
                 Color.Gray.ToInt()));
             AddSlide(AppIntro.AppIntroFragment.NewInstance("yy", "yy",
-                Resource.Drawable.delivary_icon_2,
+                Resource.Drawable.delivery_icon_2,
                 Color.Gray.ToInt()));
             AddSlide(AppIntro.AppIntroFragment.NewInstance("zz", "zz",
-                Resource.Drawable.delivary_icon_3,
+                Resource.Drawable.delivery_icon_3,
                 Color.Gray.ToInt()));
         }
         public override void OnDonePressed()

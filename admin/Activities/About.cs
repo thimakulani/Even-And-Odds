@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
+﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V7.App;
 using Android.Views;
-using Android.Widget;
 using AndroidAboutPage;
+using System;
 
 namespace admin.Activities
 {
@@ -30,7 +23,7 @@ namespace admin.Activities
 
             View about = new AboutPage(this)
                 .IsRtl(false)
-                .SetImage(Resource.Drawable.delivary_icon_2)
+                .SetImage(Resource.Drawable.delivery_icon_2)
                 .SetDescription("This Even and odds delivery \n  growing group of people desires faster home delivery, yet most are highly price sensitive Moving goods from one place to another is never an easy to go task if you don't own a car")
                 .AddItem(new Element() { Title = "Version 1.0.0" })
                 .AddItem(element)

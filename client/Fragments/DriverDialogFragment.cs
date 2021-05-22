@@ -1,19 +1,11 @@
-﻿using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Support.Design.Widget;
+﻿using Android.OS;
 using Android.Support.V4.App;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using client.Classes;
-using Firebase.Database;
 using Google.Android.Material.FloatingActionButton;
 using Plugin.CloudFirestore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace client.Fragments
 {
@@ -46,8 +38,8 @@ namespace client.Fragments
         {
             // Use this to return your custom view for this Fragment
 
-           base.OnCreateView(inflater, container, savedInstanceState);
-           View view =  inflater.Inflate(Resource.Layout.driver_info_dialog, container, false);
+            base.OnCreateView(inflater, container, savedInstanceState);
+            View view = inflater.Inflate(Resource.Layout.driver_info_dialog, container, false);
             ConnectViews(view);
             return view;
         }
@@ -56,7 +48,7 @@ namespace client.Fragments
         {
             Make = itemView.FindViewById<TextView>(Resource.Id.RowUserMake);
             Color = itemView.FindViewById<TextView>(Resource.Id.RowUserColor);
-            Type = itemView.FindViewById<TextView>(Resource.Id.RowUserCarType); 
+            Type = itemView.FindViewById<TextView>(Resource.Id.RowUserCarType);
             RegNo = itemView.FindViewById<TextView>(Resource.Id.RowUserRegNo);
 
             //TextView = v;
@@ -87,8 +79,8 @@ namespace client.Fragments
                         PhoneNo = user.Phone;
                     }
                 });
-           
-                
+
+
 
         }
         public override void OnStart()

@@ -1,13 +1,11 @@
-﻿using System;
+﻿using admin.Models;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Android.Support.V7.Widget;
-using admin.Models;
-using System.Collections.Generic;
-using Android.Content;
-using Android.Views.Animations;
 using Google.Android.Material.Button;
 using Google.Android.Material.FloatingActionButton;
+using System;
+using System.Collections.Generic;
 
 namespace admin.Adapters
 {
@@ -32,10 +30,10 @@ namespace admin.Adapters
             //Setup your layout here
             View itemView = null;
 
-            
-                var id = Resource.Layout.users_row;
-                itemView = LayoutInflater.From(parent.Context).
-                       Inflate(id, parent, false);
+
+            var id = Resource.Layout.users_row;
+            itemView = LayoutInflater.From(parent.Context).
+                   Inflate(id, parent, false);
             var vh = new AppUsersAdapterViewHolder(itemView, OnClick, OnLongClick, OnCallClick, OnEmailClick, OnCreateDriverClick);
             return vh;
         }
@@ -43,7 +41,7 @@ namespace admin.Adapters
         // Replace the contents of a view (invoked by the layout manager)
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
-            
+
 
             // Replace the contents of the view with that element
             var holder = viewHolder as AppUsersAdapterViewHolder;
@@ -54,14 +52,14 @@ namespace admin.Adapters
             holder.UserType.Text = items[position].Role;
             holder.PhoneNumber.Text = items[position].Phone;
 
-            if(items[position].Role == "Driver")
+            if (items[position].Role == "Driver")
             {
                 holder.BtnCreateDriver.Text = "Deactivate Driver";
                 holder.RegNo.Text = items[position].RegNo;
                 holder.Make.Text = items[position].Make;
                 holder.Color.Text = items[position].Color;
                 holder.Type.Text = items[position].Type;
-                
+
             }
             else
             {

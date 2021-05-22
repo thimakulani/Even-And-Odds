@@ -30,7 +30,7 @@ using System.Threading.Tasks;
 namespace client.Activities
 {
     [Activity(Label = "DeliveryRequest")]
-    public class DeliveryRequest : AppCompatActivity, IOnMapReadyCallback, 
+    public class DeliveryRequest : AppCompatActivity, IOnMapReadyCallback,
         IDialogInterfaceOnCancelListener
     {
         //private LinearLayout PickUpDestinationLayout;
@@ -138,7 +138,7 @@ namespace client.Activities
 
         }
 
-       
+
         private void ConnectViews()
         {
 
@@ -148,7 +148,7 @@ namespace client.Activities
             RdbPickUpLocation = FindViewById<RadioButton>(Resource.Id.RdbPickUpLocation);
             RdbDestinationLocation = FindViewById<RadioButton>(Resource.Id.RdbDestinationLocation);
             ImgMyLocation = FindViewById<ImageView>(Resource.Id.ImgMyLocation);
-           // PickUpDestinationLayout = FindViewById<LinearLayout>(Resource.Id.PickUpDestinationLayout);
+            // PickUpDestinationLayout = FindViewById<LinearLayout>(Resource.Id.PickUpDestinationLayout);
 
             layoutPickup = FindViewById<RelativeLayout>(Resource.Id.RelativePickUpLocation);
             layoutDestination = FindViewById<RelativeLayout>(Resource.Id.RelativeDestinationLocation);
@@ -201,14 +201,14 @@ namespace client.Activities
                 .Document("Price")
                 .AddSnapshotListener((snapshot, error) =>
                 {
-                    if(snapshot != null)
+                    if (snapshot.Exists)
                     {
                         var price = snapshot.ToObject<TripPrice>();
                         InitialPrice = double.Parse(price.InitialPrice);
                         AfterInitial = double.Parse(price.PriceAfter);
                     }
                 });
-            
+
 
         }
         private void FabRestart_Click(object sender, EventArgs e)
@@ -217,7 +217,7 @@ namespace client.Activities
         }
         private double InitialPrice;
         private double AfterInitial;
-       
+
 
         private void FabHome_Click(object sender, EventArgs e)
         {
@@ -264,7 +264,7 @@ namespace client.Activities
             ImgCenterMarker.SetColorFilter(Color.DarkGreen);
         }
 
-       
+
         private void BtnContinueRequest_Click(object sender, EventArgs e)
         {
             OpenPascelDetails();
@@ -426,7 +426,7 @@ namespace client.Activities
             {
                 RdbCash.Visibility = ViewStates.Gone;
                 RdbOnline.Visibility = ViewStates.Gone;
-                //txtPaymentMethod.Text = "Free Delivary";
+                //txtPaymentMethod.Text = "Free Delivery";
             }
             RetriveUserInfo();
 
@@ -445,7 +445,7 @@ namespace client.Activities
 
         }
 
-       
+
         private void BtnTimePick_Click(object sender, EventArgs e)
         {
             TimePickerFragment timePicker = TimePickerFragment.NewInstance(
@@ -520,7 +520,7 @@ namespace client.Activities
             }
 
             string RequestTime = DateTime.Now.ToString("dddd, dd MMMM yyyy, HH:mm tt");
-            DelivaryModal deliveryRequest = new DelivaryModal()
+            DeliveryModal deliveryRequest = new DeliveryModal()
             {
                 Price = trip_price,
                 ContactNo = InputContactNo.Text,
@@ -547,12 +547,12 @@ namespace client.Activities
             await CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("DeloiveryRequests")
+                .Collection("DeliveryRequests")
                 .AddAsync(deliveryRequest);
             SuccessPopUpDialog();
 
         }
-        
+
         private void BtnDatePick_Click(object sender, EventArgs e)
         {
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
@@ -636,7 +636,7 @@ namespace client.Activities
                     if (!double.IsNaN(destinationLocationLatLng.Latitude))
                     {
                         destinationLocationLatLng = googleMap.CameraPosition.Target;
-                        TxtDestination.Text = await mapHelper.FindCordinateAddress(destinationLocationLatLng); 
+                        TxtDestination.Text = await mapHelper.FindCordinateAddress(destinationLocationLatLng);
                     }
                 }
 
@@ -722,7 +722,7 @@ namespace client.Activities
         }
         private void CreateLocationRequest()
         {
-            locationRequest = new LocationRequest();
+            locationRequest = LocationRequest.Create();
             locationRequest.SetInterval(UPDATE_INTERVAL);
             locationRequest.SetFastestInterval(UPDATE_FASTEST_INTERVAL);
             locationRequest.SetPriority(LocationRequest.PriorityHighAccuracy);
@@ -824,7 +824,7 @@ namespace client.Activities
                         InputSurname.Text = user.Surname;
                     }
                 });
-            
+
             InputPickUpLocation.Text = TxtPickup.Text;
             InputDestinationLocation.Text = TxtDestination.Text;
         }
@@ -868,7 +868,7 @@ namespace client.Activities
             SuccessDialog = SuccessDialogBuilder.Create();
             SuccessDialog.Show();
         }
-        
+
         private void BtnSuccessDialogOk_Click(object sender, EventArgs e)
         {
             SuccessDialog.Dismiss();
@@ -876,7 +876,7 @@ namespace client.Activities
 
             DeliveryRootLayout.Alpha = 1f;
 
-            
+
 
             Intent intent = new Intent(this, typeof(MainActivity));
             intent.PutExtra("Log", "History");
@@ -938,8 +938,8 @@ namespace client.Activities
                 }
                 s.Append(address[0].SubAdminArea);
             }
-           
-           
+
+
             return s.ToString();
 
 

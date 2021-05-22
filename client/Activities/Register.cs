@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Content.Res;
@@ -12,16 +9,16 @@ using Android.Widget;
 using AndroidX.AppCompat.App;
 using client.Classes;
 using Firebase.Auth;
-using Firebase.Database;
 using Google.Android.Material.AppBar;
 using Google.Android.Material.Button;
 using Google.Android.Material.TextField;
-using Java.Util;
+using System;
+using System.IO;
 using AlertDialog = Android.App.AlertDialog;
 
 namespace client.Activities
 {
-    [Activity(Label = "Register", NoHistory =true)]
+    [Activity(Label = "Register", NoHistory = true)]
     public class Register : AppCompatActivity, IOnCompleteListener, IOnSuccessListener, IOnFailureListener
     {
         private MaterialButton BtnSubmitReg;
@@ -99,9 +96,9 @@ namespace client.Activities
 
         private void RegTxtTerms_Click(object sender, EventArgs e)
         {
-           
+
             TermsAndCoditions();
-            
+
         }
 
         private void BtnSubmitReg_Click(object sender, EventArgs e)
@@ -115,7 +112,7 @@ namespace client.Activities
             }
             if (string.IsNullOrEmpty(InputSurname.Text) && string.IsNullOrWhiteSpace(InputSurname.Text))
             {
-                
+
                 InputSurname.RequestFocus();
                 InputSurname.Error = "provide your last name";
                 return;
@@ -150,7 +147,7 @@ namespace client.Activities
                 InputConfirmPassword.Error = "password does not match";
                 return;
             }
-           
+
             if (Terms.Checked)
             {
                 LoadingProgress();
@@ -174,7 +171,7 @@ namespace client.Activities
             }
 
         }
-       
+
         private void LoadingProgress()
         {
             loadingBuilder = new AlertDialog.Builder(this);
@@ -195,16 +192,16 @@ namespace client.Activities
             BtnSubmitReg.Enabled = true;
         }
 
-        
+
 
         /*Terms and condition*/
-      
+
         private AlertDialog TermsDialog;
         private AlertDialog.Builder dialogBuilder;
 
 
         private TextView Parag1;
-      
+
         private MaterialButton BtnAcceptTerms;
 
         private void TermsAndCoditions()

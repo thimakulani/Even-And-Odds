@@ -1,9 +1,7 @@
-﻿using System;
-using Android.App;
-using Android.Content;
-using Android.OS;
+﻿using Android.OS;
 using Android.Views;
 using Google.Android.Material.Button;
+using System;
 
 namespace driver.Fragments
 {
@@ -11,7 +9,7 @@ namespace driver.Fragments
     {
 
 
-       
+
         private MaterialButton RequestBtn;
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -21,7 +19,7 @@ namespace driver.Fragments
 
             //var mapFragment = (SupportMapFragment)FragmentManager.FindFragmentById(Resource.Id.fragMap);
 
-            
+
 
 
 

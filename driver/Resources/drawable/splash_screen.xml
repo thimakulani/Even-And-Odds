@@ -7,7 +7,7 @@
   <item>
     
     <bitmap
-      android:src="@drawable/delivary_icon_3"
+      android:src="@drawable/delivery_icon_3"
       android:tileMode="disabled"
       android:gravity="center"
       

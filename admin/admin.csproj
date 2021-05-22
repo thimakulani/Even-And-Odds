@@ -291,13 +291,13 @@
     <AndroidResource Include="Resources\drawable\cancel_btn.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\delivary_icon.png" />
+    <AndroidResource Include="Resources\drawable\delivery_icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\delivary_icon_2.png" />
+    <AndroidResource Include="Resources\drawable\delivery_icon_2.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\delivary_icon_3.png" />
+    <AndroidResource Include="Resources\drawable\delivery_icon_3.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\dialog_text_style.xml" />
@@ -1227,7 +1227,7 @@
     <AndroidResource Include="Resources\mipmap-xhdpi\about_us_icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\delivery_icon.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\Delivery_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xhdpi\feedback_icon.png" />

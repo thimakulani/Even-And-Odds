@@ -1,17 +1,14 @@
-﻿using System;
+﻿using admin.Adapters;
+using admin.Models;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Support.V7.Widget;
-using Android.Views;
 using Android.Widget;
-using Xamarin.Essentials;
-using Firebase.Database;
 using Firebase.Auth;
-using System.Collections.Generic;
-using admin.Models;
-using admin.Adapters;
 using Plugin.CloudFirestore;
+using System;
+using System.Collections.Generic;
 
 namespace admin.Activities
 {
@@ -41,7 +38,7 @@ namespace admin.Activities
                     if (value.Exists)
                     {
                         var user = value.ToObject<AppUsers>();
-                        if(user.Role == "A")
+                        if (user.Role == "A")
                         {
                             txtDashboardUsername.Text = $"{user.Name} {user.Surname}";
                         }
@@ -57,13 +54,13 @@ namespace admin.Activities
                                 Finish();
                             }).Show();
                         }
-                        
+
 
                     }
                 });
-            
+
             SetUpMenu();
- 
+
         }
         private readonly List<Menu_Items> items = new List<Menu_Items>();
         private void SetUpMenu()
@@ -128,7 +125,7 @@ namespace admin.Activities
             }
             if (e.Position == 6)
             {
-                
+
                 Intent intent = new Intent(this, typeof(TripPrice));
                 StartActivity(intent);
                 OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
@@ -178,11 +175,11 @@ namespace admin.Activities
             StartActivity(intent);
             OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
         }
-        
+
 
         private void CVLogout_Click(object sender, EventArgs e)
         {
-            
+
         }
         public override void OnBackPressed()
         {
@@ -193,7 +190,7 @@ namespace admin.Activities
             builder.SetMessage("Are you sure that you want to exit");
             builder.SetPositiveButton("Yes", delegate
             {
-                
+
                 builder.Dispose();
                 base.OnBackPressed();
                 Finish();

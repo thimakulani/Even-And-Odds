@@ -1,22 +1,20 @@
 ﻿using Android.App;
+using Android.Content;
+using Android.Content.PM;
+using Android.Locations;
 using Android.OS;
+using Android.Support.V4.Widget;
 using Android.Support.V7.App;
 using Android.Widget;
-using client.Fragments;
-using Android.Locations;
-using Android.Content;
 using AndroidHUD;
-using System;
-using Firebase.Database;
 using client.Activities;
-using Android.Support.V4.Widget;
-using Firebase.Auth;
-using Android.Support.V7.Widget;
-using Android.Content.PM;
-using Google.Android.Material.Navigation;
-using Google.Android.Material.AppBar;
-using Plugin.CloudFirestore;
 using client.Classes;
+using client.Fragments;
+using Firebase.Auth;
+using Google.Android.Material.AppBar;
+using Google.Android.Material.Navigation;
+using Plugin.CloudFirestore;
+using System;
 
 namespace client
 {
@@ -24,7 +22,7 @@ namespace client
     public class MainActivity : AppCompatActivity
     {
         private NavigationView nav_view;
-       // HomeFragment homeFragment;
+        // HomeFragment homeFragment;
         TextView HeaderUsername;
         TextView TxtHeaderEmail;
         private DrawerLayout drawerLayout;
@@ -46,7 +44,7 @@ namespace client
             drawerLayout = FindViewById<DrawerLayout>(Resource.Id.nav_drawer);
             nav_view.NavigationItemSelected += Nav_view_NavigationItemSelected;
 
-            
+
 
             CrossCloudFirestore
                 .Current
@@ -78,10 +76,10 @@ namespace client
                     .Commit();
                 toolbar_main.Title = "History";
 
-                
+
             }
-           
-            
+
+
             toolbar_main.SetNavigationIcon(Resource.Mipmap.ic_menu_white_18dp);
             toolbar_main.NavigationClick += Toolbar_main_NavigationClick1;
             CheckGps();
@@ -93,16 +91,16 @@ namespace client
         {
             drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
         }
-      
 
- 
+
+
         private void HomeFragment_RequestEventHandler(object sender, EventArgs e)
         {
             Intent intent = new Intent(this, typeof(DeliveryRequest));
             intent.PutExtra("Log", "Other");
             StartActivity(intent);
             OverridePendingTransition(Resource.Animation.Side_in_left, Resource.Animation.Side_out_right);
-            if(toolbar_main.Title == "History")
+            if (toolbar_main.Title == "History")
             {
                 WelcomeFragment homeFragment = new WelcomeFragment();
                 SupportFragmentManager.BeginTransaction()
@@ -120,7 +118,7 @@ namespace client
             drawerLayout.CloseDrawers();
             if (e.MenuItem.ItemId == Resource.Id.nav_profile)
             {
-                
+
 
                 ProfileFragment profileFragment = new ProfileFragment();
                 SupportFragmentManager.BeginTransaction()
@@ -128,7 +126,6 @@ namespace client
                     .Commit();
                 toolbar_main.Title = "User Profile";
 
-                profileFragment.SuccessUpdateHandler += ProfileFragment_SuccessUpdateHandler;
             }
             if (e.MenuItem.ItemId == Resource.Id.nav_home)
             {
@@ -136,7 +133,7 @@ namespace client
                 SupportFragmentManager.BeginTransaction()
                     .Replace(Resource.Id.fragment_container, homeFragment)
                     .Commit();
-               // TxtAppBarTitle.Text = "Home";
+                // TxtAppBarTitle.Text = "Home";
                 homeFragment.RequestEventHandler += HomeFragment_RequestEventHandler;
                 toolbar_main.Title = "Home";
 
@@ -170,7 +167,7 @@ namespace client
                     .Commit();
                 toolbar_main.Title = "About";
 
-                
+
 
             }
             if (e.MenuItem.ItemId == Resource.Id.nav_logout)
@@ -182,7 +179,7 @@ namespace client
                 alert.SetPositiveButton("Yes", delegate
                 {
 
-                    
+
                     alert.Dispose();
                     FirebaseAuth.Instance.SignOut();
                     if (Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
@@ -205,7 +202,7 @@ namespace client
         }
         public override void OnBackPressed()
         {
-            
+
         }
         private void CheckGps()
         {
@@ -264,6 +261,6 @@ namespace client
 
             }
         }
-      
+
     }
 }

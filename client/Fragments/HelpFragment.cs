@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Com.Github.Library.Bubbleview;
 using client.Classes;
+using Com.Github.Library.Bubbleview;
 using Firebase.Database;
-using Java.Util;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
+using Java.Util;
+using System;
+using System.Collections.Generic;
 
 namespace client.Fragments
 {
@@ -23,7 +22,7 @@ namespace client.Fragments
         private RecyclerView recyclerView;
         private string UserKeyId;
         private string Names;
-        private List<Queries> items = new List<Queries>();
+        private readonly List<Queries> items = new List<Queries>();
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -61,7 +60,7 @@ namespace client.Fragments
             recyclerView.SetAdapter(adapter);
         }
 
-    
+
 
         private void BtnSend_Click(object sender, EventArgs e)
         {
@@ -90,7 +89,7 @@ namespace client.Fragments
 
         public void OnCancelled(DatabaseError error)
         {
-            
+
         }
 
         public void OnDataChange(DataSnapshot snapshot)
@@ -105,7 +104,7 @@ namespace client.Fragments
     class QueriesAdapter : RecyclerView.Adapter
     {
         readonly List<Queries> items = new List<Queries>();
-        string KeyId;
+        readonly string KeyId;
         public QueriesAdapter(List<Queries> data, string key)
         {
             items = data;

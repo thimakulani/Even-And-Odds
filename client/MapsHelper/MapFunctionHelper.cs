@@ -1,14 +1,13 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Android.Gms.Maps;
+﻿using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.Graphics;
+using client.Helpers;
+using Com.Google.Maps.Android;
 using Java.Util;
 using Newtonsoft.Json;
+using System.Net.Http;
+using System.Threading.Tasks;
 using yucee.MapsHelper;
-using Com.Google.Maps.Android;
-using client.Helpers;
 
 namespace client.MapsHelper
 {
@@ -27,7 +26,7 @@ namespace client.MapsHelper
             map = mmap;
         }
 
-        public string GetGeoCodeUrl( double lat, double lng)
+        public string GetGeoCodeUrl(double lat, double lng)
         {
             string url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng + "&key=" + mapkey;
             return url;
@@ -55,7 +54,7 @@ namespace client.MapsHelper
                 var geoCodeData = JsonConvert.DeserializeObject<GeocodingPurser>(json);
                 if (!geoCodeData.status.Contains("ZERO"))
                 {
-                    if(geoCodeData.results[0] != null)
+                    if (geoCodeData.results[0] != null)
                     {
                         placeAddress = geoCodeData.results[0].formatted_address;
                     }
@@ -77,7 +76,7 @@ namespace client.MapsHelper
             string mode = "mode=driving";
 
             //Buidling the parameters to the webservice
-            string parameters = str_origin + "&" + str_destination + "&" + "&" + mode +  "&key=";
+            string parameters = str_origin + "&" + str_destination + "&" + "&" + mode + "&key=";
 
             //Output format
             string output = "json";
@@ -91,7 +90,7 @@ namespace client.MapsHelper
             json = await GetGeoJsonAsync(url);
 
             return json;
-            
+
         }
 
         public void DrawTripOnMap(string json)
@@ -163,14 +162,14 @@ namespace client.MapsHelper
         public double EstimateFares(double initialPrice, double afterInitial)
         {
             double fares;
-            if(distance/1000 <=5)
+            if (distance / 1000 <= 5)
             {
                 fares = initialPrice;
             }
             else
             {
-                fares = ((distance/1000 - 5) * afterInitial) + initialPrice;
-                
+                fares = ((distance / 1000 - 5) * afterInitial) + initialPrice;
+
             }
 
             return fares;

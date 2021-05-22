@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
+﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
+using System;
 
 namespace client.Classes
 {
-   
+
     public class DatePickerFragment : Android.Support.V4.App.DialogFragment,
                                   DatePickerDialog.IOnDateSetListener
     {
@@ -24,22 +17,23 @@ namespace client.Classes
 
         public static DatePickerFragment NewInstance(Action<DateTime> onDateSelected)
         {
-            DatePickerFragment frag = new DatePickerFragment();
-            
-            frag._dateSelectedHandler = onDateSelected;
+            DatePickerFragment frag = new DatePickerFragment
+            {
+                _dateSelectedHandler = onDateSelected
+            };
             return frag;
         }
-        
+
         public override Dialog OnCreateDialog(Bundle savedInstanceState)
         {
             DateTime currently = DateTime.Now;
-            
+
             DatePickerDialog dialog = new DatePickerDialog(Activity,
                                                            this,
                                                            currently.Year,
                                                            currently.Month - 1,
                                                            currently.Day);
-            
+
             return dialog;
         }
 
@@ -47,7 +41,7 @@ namespace client.Classes
         {
             // Note: monthOfYear is a value between 0 and 11, not 1 and 12!
             DateTime selectedDate = new DateTime(year, monthOfYear + 1, dayOfMonth);
-            
+
             //Log.Debug(TAG, selectedDate.ToLongDateString());
             _dateSelectedHandler(selectedDate);
         }

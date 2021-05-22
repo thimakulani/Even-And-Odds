@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+﻿using Plugin.CloudFirestore;
+using Plugin.CloudFirestore.Attributes;
 
 namespace driver.Models
 {
-    class DelivaryModal
+    class DeliveryModal
     {
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -36,5 +27,7 @@ namespace driver.Models
         public string Distance { get; set; }
         public string Price { get; set; }
         public string DriverId { get; set; }
+        [ServerTimestamp]
+        public Timestamp TimeStamp { get; set; }
     }
 }

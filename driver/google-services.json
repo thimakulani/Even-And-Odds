@@ -84,7 +84,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:453662960073:android:5bf7c56c6408274b35a018",
         "android_client_info": {
-          "package_name": "com.moshopjadi.even_odds_delivary_admin"
+          "package_name": "com.moshopjadi.even_odds_Delivery_admin"
         }
       },
       "oauth_client": [
@@ -92,7 +92,7 @@
           "client_id": "453662960073-is7gehrpto9dhbeh19v8gu0uar16hriq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.moshopjadi.even_odds_delivary_admin",
+            "package_name": "com.moshopjadi.even_odds_Delivery_admin",
             "certificate_hash": "83f8282bc1cd29f08023958a193ebac6d4693930"
           }
         },
@@ -121,7 +121,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:453662960073:android:c88d8077e75c756635a018",
         "android_client_info": {
-          "package_name": "com.moshopjadi.even_odds_delivary_driver"
+          "package_name": "com.moshopjadi.even_odds_Delivery_driver"
         }
       },
       "oauth_client": [
@@ -129,7 +129,7 @@
           "client_id": "453662960073-5uft73hncf1ij8egp3a9fqjecomp9s9l.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.moshopjadi.even_odds_delivary_driver",
+            "package_name": "com.moshopjadi.even_odds_Delivery_driver",
             "certificate_hash": "83f8282bc1cd29f08023958a193ebac6d4693930"
           }
         },

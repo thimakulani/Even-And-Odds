@@ -1,15 +1,14 @@
-﻿using System;
-using Android.Content;
+﻿using Android.Content;
 using Android.OS;
-using Google.Android.Material.Button;
 using Android.Views;
-using Android.Widget;
-using Firebase.Database;
+using AndroidHUD;
+using client.Classes;
+using Firebase.Auth;
+using Google.Android.Material.Button;
 using Google.Android.Material.TextField;
 using Plugin.CloudFirestore;
+using System;
 using System.Collections.Generic;
-using AndroidHUD;
-using Firebase.Auth;
 
 namespace client.Fragments
 {
@@ -19,7 +18,7 @@ namespace client.Fragments
         private TextInputEditText InputSurname;
         private TextInputEditText InputPhone;
         private TextInputEditText InputEmail;
-        
+
         private MaterialButton BtnAppyChanges;
         private Context context;
 
@@ -49,15 +48,28 @@ namespace client.Fragments
             InputSurname = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateSurname);
             InputPhone = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdatePhone);
             InputEmail = view.FindViewById<TextInputEditText>(Resource.Id.ProfileUpdateEmail);
-            
+
             BtnAppyChanges = view.FindViewById<MaterialButton>(Resource.Id.BtnUpdateProfile);
 
             BtnAppyChanges.Click += BtnAppyChanges_Click;
-         
-            
+            CrossCloudFirestore.Current.Instance.Collection("AppUsers")
+               .Document(FirebaseAuth.Instance.Uid)
+               .AddSnapshotListener((snapshot, error) =>
+               {
+                   if (snapshot.Exists)
+                   {
+                       var user = snapshot.ToObject<AppUsers>();
+                       InputNames.Text = user.Name;
+                       InputSurname.Text = user.Surname;
+                       InputPhone.Text = user.Phone;
+                       InputEmail.Text = user.Email;
+                   }
+               });
+
+
         }
-        
-      
+
+
         //public event EventHandler FailUpdateHandler; 
         private async void BtnAppyChanges_Click(object sender, EventArgs e)
         {
@@ -101,7 +113,7 @@ namespace client.Fragments
 
         }
 
-  
-        
+
+
     }
 }

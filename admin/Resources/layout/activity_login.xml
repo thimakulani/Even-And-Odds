@@ -16,6 +16,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="100"
+        tools:ignore="MissingDimension"
     >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -63,7 +64,7 @@
                 android:hint=" Email"
             />
         </com.google.android.material.textfield.TextInputLayout>
-        
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,11 +73,11 @@
             android:layout_marginLeft="20dp"
             app:boxStrokeWidth="2dp"
             app:boxStrokeColor="@color/colorPrimary"
-            android:layout_marginRight="20dp" 
+            android:layout_marginRight="20dp"
             
             
         >
-           <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -93,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/TxtForgotPassword" />
-        
+
         <com.google.android.material.button.MaterialButton
             android:text="Login"
             android:layout_width="match_parent"
@@ -110,7 +111,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
         />
-     </LinearLayout>
+    </LinearLayout>
     
     
 </RelativeLayout>

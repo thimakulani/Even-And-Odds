@@ -22,7 +22,7 @@
     >
 
         <ImageView
-            android:src="@drawable/delivary_icon"
+            android:src="@drawable/delivery_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:id="@+id/imageView1"

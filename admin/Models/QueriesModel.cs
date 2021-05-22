@@ -3,10 +3,10 @@ using Plugin.CloudFirestore.Attributes;
 
 namespace admin.Models
 {
-    public  class QueriesModel
+    public class QueriesModel
     {
         [ServerTimestamp]
-        public FieldValue TimeStamp { get; set; }
+        public Timestamp TimeStamp { get; set; }
         public string Uid { get; set; }
     }
 }

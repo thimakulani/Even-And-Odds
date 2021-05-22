@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿using admin.Adapters;
+using admin.Models;
+using Android.Content;
 using Android.OS;
 using Android.Views;
-using admin.Adapters;
- 
-using admin.Models;
-using AndroidX.RecyclerView.Widget;
 using AndroidX.Fragment.App;
-using Android.Content;
+using AndroidX.RecyclerView.Widget;
 using Plugin.CloudFirestore;
+using System.Collections.Generic;
 
 namespace admin.Fragments
 {
@@ -17,7 +14,7 @@ namespace admin.Fragments
     {
         private readonly List<QueriesModel> Items = new List<QueriesModel>();
         private RecyclerView Recycler;
-       
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -30,7 +27,7 @@ namespace admin.Fragments
             base.OnCreateView(inflater, container, savedInstanceState);
 
 
-            var view =  inflater.Inflate(Resource.Layout.activity_queries, container, false);
+            var view = inflater.Inflate(Resource.Layout.activity_queries, container, false);
             context = view.Context;
             ConnectViews(view);
             return view;

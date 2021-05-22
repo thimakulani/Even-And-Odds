@@ -1,10 +1,10 @@
 ﻿
+using admin.Fragments;
 using Android.App;
 using Android.OS;
 using Android.Views;
-using admin.Fragments;
-using Google.Android.Material.AppBar;
 using AndroidX.AppCompat.App;
+using Google.Android.Material.AppBar;
 
 namespace admin.Activities
 {
@@ -23,13 +23,13 @@ namespace admin.Activities
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetDisplayShowHomeEnabled(true);
 
-            
+
             QueriesFragment frag = new QueriesFragment();
             SupportFragmentManager.BeginTransaction()
                 .Add(Resource.Id.fragment_host, frag)
                 .AddToBackStack(frag.Tag)
                 .Commit();
-            
+
         }
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -39,8 +39,8 @@ namespace admin.Activities
             }
             return base.OnOptionsItemSelected(item);
         }
-       
 
-       
+
+
     }
 }

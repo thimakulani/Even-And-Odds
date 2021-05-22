@@ -38,6 +38,10 @@
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -70,6 +74,7 @@
     <Compile Include="Classes\AppUsers.cs" />
     <Compile Include="Classes\DatePickerFragment.cs" />
     <Compile Include="Classes\DelivaryModal.cs" />
+    <Compile Include="Classes\DeliveryRequestModel.cs" />
     <Compile Include="Classes\Queries.cs" />
     <Compile Include="Classes\TimePickerFragment.cs" />
     <Compile Include="Classes\TripPrice.cs" />
@@ -243,13 +248,13 @@
     <AndroidResource Include="Resources\drawable\chats_sender_style.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\delivary_icon.png" />
+    <AndroidResource Include="Resources\drawable\delivery_icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\delivary_icon_2.png" />
+    <AndroidResource Include="Resources\drawable\delivery_icon_2.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\delivary_icon_3.png" />
+    <AndroidResource Include="Resources\drawable\delivery_icon_3.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\dialog_text_style.xml" />

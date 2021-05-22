@@ -1,24 +1,17 @@
-﻿using Android.Content;
+﻿using admin.FirebaseHelper;
+using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Google.Android.Material.Button;
-using Android.Support.Design.Widget;
 using Android.Support.V4.App;
 using Android.Support.V7.App;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
-using admin.FirebaseHelper;
-using Firebase.Database;
 using FirebaseAdmin.Auth;
-using Java.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Google.Android.Material.Button;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
 using Plugin.CloudFirestore;
+using System;
+using System.Collections.Generic;
 
 namespace admin.Fragments
 {
@@ -46,7 +39,7 @@ namespace admin.Fragments
             // Use this to return your custom view for this Fragment
             base.OnCreateView(inflater, container, savedInstanceState);
 
-           View view = inflater.Inflate(Resource.Layout.create_driver_dialog, container, false);
+            View view = inflater.Inflate(Resource.Layout.create_driver_dialog, container, false);
             ConnectViews(view);
             return view;
 
@@ -155,8 +148,10 @@ namespace admin.Fragments
                 Email = InputEmail.Text.Trim(),
                 Password = InputPhone.Text.Trim()
             };
-            LoadingDialog loading = new LoadingDialog();
-            loading.Cancelable = false;
+            LoadingDialog loading = new LoadingDialog
+            {
+                Cancelable = false
+            };
             loading.Show(ChildFragmentManager.BeginTransaction(), "Loading");
             try
             {
@@ -182,15 +177,17 @@ namespace admin.Fragments
         }
         private async void RegisterDriverInfor(string uid)
         {
-            Dictionary<string, object> data = new Dictionary<string, object>();
-            data.Add("Name", InputName.Text);
-            data.Add("Phone", InputPhone.Text);
-            data.Add("Surname", InputSurname.Text);
-            data.Add("Email", InputEmail.Text);
-            data.Add("Role", BtnType.Text);
-            data.Add("Make", InputMake.Text);
-            data.Add("RegNo", InputRegNo.Text);
-            data.Add("Color", InputColor.Text);
+            Dictionary<string, object> data = new Dictionary<string, object>
+            {
+                { "Name", InputName.Text },
+                { "Phone", InputPhone.Text },
+                { "Surname", InputSurname.Text },
+                { "Email", InputEmail.Text },
+                { "Role", BtnType.Text },
+                { "Make", InputMake.Text },
+                { "RegNo", InputRegNo.Text },
+                { "Color", InputColor.Text }
+            };
 
             await CrossCloudFirestore
                 .Current
@@ -199,7 +196,7 @@ namespace admin.Fragments
                 .Document(uid)
                 .SetAsync(data);
 
-            
+
             AndroidHUD.AndHUD.Shared.ShowSuccess(context, "Successfully registered a driver", AndroidHUD.MaskType.Black, TimeSpan.FromSeconds(2));
             Dismiss();
 

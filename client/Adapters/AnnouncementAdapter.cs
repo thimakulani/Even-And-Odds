@@ -1,11 +1,9 @@
-﻿using System;
-
+﻿using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Android.Support.V7.Widget;
-using Google.Android.Material.Button;
-using System.Collections.Generic;
 using client.Classes;
+using System;
+using System.Collections.Generic;
 
 namespace client.Adapters
 {
@@ -65,7 +63,7 @@ namespace client.Adapters
         //public TextView TextView { get; set; }
         public TextView AnouncementMsg { get; set; }
         public TextView DatesPosted { get; set; }
-     
+
 
         public AnnouncementAdapterViewHolder(View itemView, Action<AnnouncementAdapterClickEventArgs> clickListener,
                             Action<AnnouncementAdapterClickEventArgs> longClickListener) : base(itemView)

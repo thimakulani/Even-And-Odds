@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using admin.Adapters;
+using admin.Common;
+using admin.Models;
 using Android;
 using Android.App;
 using Android.Content;
@@ -10,8 +8,6 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Print;
 using Android.Runtime;
-using Google.Android.Material.Button;
-using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Android.Views;
@@ -19,16 +15,18 @@ using Android.Widget;
 using Com.Karumi.Dexter;
 using Com.Karumi.Dexter.Listener;
 using Com.Karumi.Dexter.Listener.Single;
+using Google.Android.Material.Button;
 using iTextSharp.text;
-using admin.Models;
-using admin.Common;
- 
-using admin.Adapters;
 using Plugin.CloudFirestore;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace admin.Activities
 {
-    [Activity(Label = "Report", MainLauncher =false)]
+    [Activity(Label = "Report", MainLauncher = false)]
     public class Report : AppCompatActivity, IPermissionListener
     {
         private MaterialButton BtnGenerate;
@@ -39,13 +37,13 @@ namespace admin.Activities
         // private string FileName;
 
         private RecyclerView RecyclerHistory;
-        private readonly List<DelivaryModal> delivariesList = new List<DelivaryModal>();
-        private List<DelivaryModal> ReportData = new List<DelivaryModal>();
-       
+        private readonly List<DeliveryModal> delivariesList = new List<DeliveryModal>();
+        private List<DeliveryModal> ReportData = new List<DeliveryModal>();
+
 
         //permissions
 
-        protected override  void OnCreate(Bundle savedInstanceState)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
@@ -59,7 +57,7 @@ namespace admin.Activities
             imgBack = FindViewById<ImageView>(Resource.Id.ImgCloseHistory);
             BtnGenerate.Click += BtnGenerate_Click;
             RequestsType.Click += RequestsType_Click;
-           // CheckPermission();
+            // CheckPermission();
             imgBack.Click += ImgBack_Click;
             Dexter.WithActivity(this)
                 .WithPermission(Manifest.Permission.WriteExternalStorage)
@@ -76,18 +74,18 @@ namespace admin.Activities
                     {
                         foreach (var item in value.DocumentChanges)
                         {
-                            DelivaryModal delivary = new DelivaryModal();
+                            DeliveryModal Delivery = new DeliveryModal();
                             switch (item.Type)
                             {
                                 case DocumentChangeType.Added:
-                                    delivary = item.Document.ToObject<DelivaryModal>();
-                                    delivary.KeyId = item.Document.Id;
-                                    delivariesList.Add(delivary);
+                                    Delivery = item.Document.ToObject<DeliveryModal>();
+                                    Delivery.KeyId = item.Document.Id;
+                                    delivariesList.Add(Delivery);
                                     break;
                                 case DocumentChangeType.Modified:
-                                    delivary = item.Document.ToObject<DelivaryModal>();
-                                    delivary.KeyId = item.Document.Id;
-                                    delivariesList[item.OldIndex] = delivary;
+                                    Delivery = item.Document.ToObject<DeliveryModal>();
+                                    Delivery.KeyId = item.Document.Id;
+                                    delivariesList[item.OldIndex] = Delivery;
                                     break;
                                 case DocumentChangeType.Removed:
                                     break;
@@ -112,14 +110,14 @@ namespace admin.Activities
             popupMenu.Menu.Add(IMenu.None, 1, 1, "All-Requests");
             popupMenu.Menu.Add(IMenu.None, 1, 1, "Monthly");
             popupMenu.Menu.Add(IMenu.None, 2, 2, "Weekly");
-            popupMenu.Menu.Add(IMenu.None, 3, 3, "Daily"); 
+            popupMenu.Menu.Add(IMenu.None, 3, 3, "Daily");
             popupMenu.Show();
             popupMenu.MenuItemClick += PopupMenu_MenuItemClick;
         }
 
         private void PopupMenu_MenuItemClick(object sender, Android.Widget.PopupMenu.MenuItemClickEventArgs e)
         {
-            
+
             RequestsType.Text = e.Item.TitleFormatted.ToString();
             if (e.Item.TitleFormatted.ToString() == "All-Requests")
             {
@@ -133,7 +131,7 @@ namespace admin.Activities
                 int currDayWeek = (int)today.DayOfWeek;
                 DateTime sunday = today.AddDays(-currDayWeek);
                 DateTime monday = sunday.AddDays(1);
-                if(currDayWeek == 0)
+                if (currDayWeek == 0)
                 {
                     monday = monday.AddDays(-7);
                 }
@@ -147,16 +145,16 @@ namespace admin.Activities
                               data.RequestTime.Contains(dates[4].Date.ToString("dd MMMMM yyyy")) ||
                               data.RequestTime.Contains(dates[5].Date.ToString("dd MMMMM yyyy")) ||
                               data.RequestTime.Contains(dates[6].Date.ToString("dd MMMMM yyyy"))
-                              select data).ToList<DelivaryModal>();
+                              select data).ToList<DeliveryModal>();
                 SetRecycler(ReportData);
             }
             if (e.Item.TitleFormatted.ToString() == "Daily")
             {
                 ReportData = (from data in delivariesList
                               where
-                              
+
                               data.RequestTime.Contains(DateTime.Now.ToString("dddd, dd MMMM yyyy,"))
-                              select data).ToList<DelivaryModal>();
+                              select data).ToList<DeliveryModal>();
                 SetRecycler(ReportData);
             }
             if (e.Item.TitleFormatted.ToString() == "Monthly")
@@ -164,19 +162,19 @@ namespace admin.Activities
                 ReportData = (from data in delivariesList
                               where
                               data.RequestTime.Contains(DateTime.Now.ToString("MMMM yyyy"))
-                              select data).ToList<DelivaryModal>();
+                              select data).ToList<DeliveryModal>();
                 SetRecycler(ReportData);
             }
             //Toast.MakeText(this, ReportData.Count.ToString(), ToastLength.Long).Show();
         }
         RequestAdapter adapter;
-        private void SetRecycler(List<DelivaryModal> reportData)
+        private void SetRecycler(List<DeliveryModal> reportData)
         {
             LinearLayoutManager linearLayout = new LinearLayoutManager(this);
             adapter = new RequestAdapter(ref reportData);
             RecyclerHistory.SetLayoutManager(linearLayout);
             RecyclerHistory.SetAdapter(adapter);
-            
+
         }
 
 
@@ -235,7 +233,7 @@ namespace admin.Activities
 
         public void OnPermissionRationaleShouldBeShown(PermissionRequest p0, IPermissionToken p1)
         {
-            
+
 
         }
 
@@ -244,7 +242,7 @@ namespace admin.Activities
             if (gra0ntResults[0] == (int)Permission.Granted)
             {
                 Toast.MakeText(this, "Permission was granted", ToastLength.Long).Show();
-               
+
             }
             else
             {

@@ -1,11 +1,10 @@
-﻿using System;
-
-using Android.Views;
+﻿using Android.Views;
 using Android.Widget;
-using System.Collections.Generic;
+using AndroidX.RecyclerView.Widget;
 using driver.Models;
 using Plugin.CloudFirestore;
-using AndroidX.RecyclerView.Widget;
+using System;
+using System.Collections.Generic;
 
 namespace driver.Adapters
 {
@@ -13,9 +12,9 @@ namespace driver.Adapters
     {
         public event EventHandler<RequestAdapterClickEventArgs> ItemClick;
         public event EventHandler<RequestAdapterClickEventArgs> ItemLongClick;
-        private readonly List<DelivaryModal> items = new List<DelivaryModal>();
+        private readonly List<DeliveryModal> items = new List<DeliveryModal>();
 
-        public RequestAdapter(List<DelivaryModal> data)
+        public RequestAdapter(List<DeliveryModal> data)
         {
             items = data;
         }
@@ -44,12 +43,12 @@ namespace driver.Adapters
 
             // Replace the contents of the view with that element
             var holder = viewHolder as RequestAdapterViewHolder;
-            int indexPos = (items.Count - 1) - position;
+            int indexPos = position;
 
             holder.RequestName.Text = items[indexPos].Name;
             holder.RequestPickupLocation.Text = items[indexPos].PickupAddress;
             holder.RequestDestination.Text = items[indexPos].DestinationAddress;
-            holder.RequestDate.Text = items[indexPos].RequestTime;
+            holder.RequestDate.Text = $"{items[indexPos].TimeStamp.ToDateTime():dddd, dd MMMM yyyy, HH:mm tt}";
 
             CrossCloudFirestore
                 .Current
@@ -65,10 +64,10 @@ namespace driver.Adapters
                     }
                 });
 
-            
 
-           
-            
+
+
+
         }
 
 
@@ -77,7 +76,7 @@ namespace driver.Adapters
         void OnClick(RequestAdapterClickEventArgs args) => ItemClick?.Invoke(this, args);
         void OnLongClick(RequestAdapterClickEventArgs args) => ItemLongClick?.Invoke(this, args);
 
-       
+
     }
 
     public class RequestAdapterViewHolder : RecyclerView.ViewHolder
@@ -99,7 +98,7 @@ namespace driver.Adapters
             //TextView = v;
 
 
-            
+
             itemView.Click += (sender, e) => clickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
             itemView.LongClick += (sender, e) => longClickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
         }

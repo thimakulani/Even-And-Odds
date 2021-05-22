@@ -1,21 +1,20 @@
-﻿using System.Collections.Generic;
-
-using Android.App;
+﻿using Android.App;
 using Android.OS;
 using Android.Views;
-using Firebase.Auth;
+using AndroidX.RecyclerView.Widget;
 using driver.Adapters;
 using driver.Models;
+using Firebase.Auth;
 using Plugin.CloudFirestore;
-using AndroidX.RecyclerView.Widget;
+using System.Collections.Generic;
 
 namespace driver.Fragments
 {
     public class HistoryFragment : Android.Support.V4.App.Fragment
     {
         private RecyclerView RecyclerHistory;
-        private readonly List<DelivaryModal> items = new List<DelivaryModal>();
-        
+        private readonly List<DeliveryModal> items = new List<DeliveryModal>();
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -29,7 +28,7 @@ namespace driver.Fragments
 
             base.OnCreateView(inflater, container, savedInstanceState);
             //ISharedPreferences pref = Application.Context.GetSharedPreferences("UserInfo", FileCreationMode.Private);
-            var view =  inflater.Inflate(Resource.Layout.activity_history, container, false);
+            var view = inflater.Inflate(Resource.Layout.activity_history, container, false);
             ConnectViews(view);
             return view;
         }
@@ -51,17 +50,17 @@ namespace driver.Fragments
                 .WhereEqualsTo("DriverId", FirebaseAuth.Instance.Uid)
                 .AddSnapshotListener((snapshot, error) =>
                 {
-                    if(!snapshot.IsEmpty)
+                    if (!snapshot.IsEmpty)
                     {
-                        foreach(var dc in snapshot.DocumentChanges)
+                        foreach (var dc in snapshot.DocumentChanges)
                         {
                             switch (dc.Type)
                             {
                                 case DocumentChangeType.Added:
-                                    var doc = dc.Document.ToObject<DelivaryModal>();
+                                    var doc = dc.Document.ToObject<DeliveryModal>();
                                     doc.KeyId = dc.Document.Id;
                                     items.Add(doc);
-                                    
+
                                     adapter.NotifyDataSetChanged();
                                     break;
                                 case DocumentChangeType.Modified:

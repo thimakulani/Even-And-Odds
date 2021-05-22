@@ -1,16 +1,16 @@
 ﻿using Android.App;
-using Android.OS;
-using System.Threading.Tasks;
 using Android.Content;
+using Android.OS;
 using driver.Activities;
 using Firebase.Auth;
+using System.Threading.Tasks;
 
 namespace driver
 {
     [Activity(Label = "@string/app_name", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
     public class SplashScreen : Activity
     {
-      
+
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -33,9 +33,9 @@ namespace driver
                 else
                 {
                     Intent intent = new Intent(Application.Context, typeof(Login));
-                        StartActivity(intent);
-                        OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
-                        Finish();
+                    StartActivity(intent);
+                    OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
+                    Finish();
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
             startWork.Start();

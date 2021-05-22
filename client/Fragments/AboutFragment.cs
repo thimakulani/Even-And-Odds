@@ -1,8 +1,8 @@
-﻿using System;
-using Android.Content;
+﻿using Android.Content;
 using Android.OS;
 using Android.Views;
 using AndroidAboutPage;
+using System;
 using Xamarin.Essentials;
 
 namespace client.Fragments
@@ -22,12 +22,14 @@ namespace client.Fragments
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
             base.OnCreateView(inflater, container, savedInstanceState);
-            Element element = new Element();
-            element.Title = "About";
+            Element element = new Element
+            {
+                Title = "About"
+            };
 
             View about = new AboutPage(Context.ApplicationContext)
                 .IsRtl(false)
-                .SetImage(Resource.Drawable.delivary_icon_2)
+                .SetImage(Resource.Drawable.delivery_icon)
                 .AddGroup("Even & Odds")
                 .SetDescription("Growing group of people desires faster home delivery, yet most are highly price sensitive Moving goods from one place to another is never an easy to go task if you don't own a car")
                 .AddItem(new Element() { Title = $"Version {VersionTracking.CurrentVersion}" })

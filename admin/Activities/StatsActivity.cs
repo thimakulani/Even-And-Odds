@@ -1,26 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-
+﻿using admin.Models;
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
- 
-using admin.Models;
-using Firebase.Database;
+using Google.Android.Material.AppBar;
+using Google.Android.Material.Button;
 using Microcharts;
 using Microcharts.Droid;
-using SkiaSharp;
-using Google.Android.Material.Button;
-using Google.Android.Material.AppBar;
 using Plugin.CloudFirestore;
+using SkiaSharp;
+using System;
+using System.Collections.Generic;
 
 namespace admin.Activities
 {
@@ -28,7 +18,7 @@ namespace admin.Activities
     public class StatsActivity : Activity
     {
         private ChartView chartStats;
-        private  MaterialToolbar toolbar;
+        private MaterialToolbar toolbar;
         private ProgressBar loading_stats_progress;
         private readonly List<string> months = new List<string>();
         private readonly List<int> counter = new List<int>();
@@ -69,7 +59,7 @@ namespace admin.Activities
                     {
                         foreach (var data in value.DocumentChanges)
                         {
-                            var delivery = data.Document.ToObject<DelivaryModal>();
+                            var delivery = data.Document.ToObject<DeliveryModal>();
 
                             DateTime dateTime = DateTime.Parse(delivery.RequestTime);
                             if (months.Contains(dateTime.ToString("MMMM")))
@@ -81,7 +71,7 @@ namespace admin.Activities
                         DrawCharts();
                     }
                 });
-            
+
         }
 
         private void Toolbar_NavigationClick1(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
@@ -100,7 +90,7 @@ namespace admin.Activities
             popupMenu.Show();
             popupMenu.MenuItemClick += PopupMenu_MenuItemClick;
         }
-       // int Year = 2020;
+        // int Year = 2020;
         //private void BtnYear_Click(object sender, EventArgs e)
         //{
         //    Android.Widget.PopupMenu popupYear = new Android.Widget.PopupMenu(this, BtnYear);
@@ -150,20 +140,20 @@ namespace admin.Activities
                     TextColor = SKColor.Parse(colors[i]),
                     ValueLabelColor = SKColor.Parse(colors[i])
                 });
-                if(months[i].Contains(DateTime.Now.ToString("MMMM")))
+                if (months[i].Contains(DateTime.Now.ToString("MMMM")))
                 {
                     break;
                 }
             }
             loading_stats_progress.Visibility = ViewStates.Gone;
-            
+
             if (type == 0)
             {
                 var chart = new BarChart()
                 {
                     Entries = DataEntry,
                 };
-                chartStats.Chart = chart; 
+                chartStats.Chart = chart;
             }
             if (type == 1)
             {

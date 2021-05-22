@@ -1,8 +1,8 @@
-﻿using Google.Android.Material.Button;
+﻿using admin.Models;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using admin.Models;
+using Google.Android.Material.Button;
 using System;
 using System.Collections.Generic;
 
@@ -59,8 +59,8 @@ namespace admin.Adapters
                 holder.BtnAccept.Visibility = ViewStates.Gone;
                 holder.BtnDecline.Visibility = ViewStates.Gone;
             }
-            
-            
+
+
         }
 
         public override int ItemCount => items.Count;
@@ -84,9 +84,9 @@ namespace admin.Adapters
         public TextView Color { get; set; }
         public TextView RegNo { get; set; }
         public TextView Type { get; set; }
-        public MaterialButton BtnAccept { get; set; } 
+        public MaterialButton BtnAccept { get; set; }
         public MaterialButton BtnDecline { get; set; }
-        
+
 
 
 

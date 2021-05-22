@@ -1,5 +1,4 @@
-﻿using Android.App;
-using Google.Apis.Auth.OAuth2;
+﻿using Google.Apis.Auth.OAuth2;
 using System.IO;
 
 namespace admin.FirebaseHelper
@@ -28,6 +27,6 @@ namespace admin.FirebaseHelper
             }
             return auth;
         }
- 
+
     }
 }

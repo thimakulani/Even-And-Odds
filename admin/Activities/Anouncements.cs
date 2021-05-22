@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿using admin.Adapters;
+using admin.Models;
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using admin.Adapters;
- 
-using admin.Models;
-using Firebase.Database;
-using Java.Util;
+using Google.Android.Material.AppBar;
 using Google.Android.Material.TextField;
 using Plugin.CloudFirestore;
-using Google.Android.Material.AppBar;
+using System;
+using System.Collections.Generic;
 
 namespace admin.Activities
 {
@@ -25,7 +17,7 @@ namespace admin.Activities
     public class Anouncements : Activity
     {
         private RecyclerView Recycler;
-        
+
         private readonly List<AnnouncementModel> items = new List<AnnouncementModel>();
         private MaterialToolbar toolbar;
         protected override void OnCreate(Bundle savedInstanceState)
@@ -38,7 +30,7 @@ namespace admin.Activities
             toolbar = FindViewById<MaterialToolbar>(Resource.Id.toolbar_announcement);
             toolbar.InflateMenu(Resource.Menu.top_app_bar);
             toolbar.SetNavigationIcon(Resource.Mipmap.ic_arrow_back_black_18dp);
-            
+
             toolbar.MenuItemClick += Toolbar_MenuItemClick;
             toolbar.NavigationClick += Toolbar_NavigationClick;
             /*Get announcements*/
@@ -142,20 +134,21 @@ namespace admin.Activities
 
         private void SubmitAnnouncement_Click(object sender, EventArgs e)
         {
+
+
             
-
-            AnnouncementModel model = new AnnouncementModel()
+            Dictionary<string, object> data = new Dictionary<string, object>()
             {
-                TimeStamp = FieldValue.ServerTimestamp,
-                Message = InputMessage.Text
-            };
+                {"TimeStamp",FieldValue.ServerTimestamp },
+                {"Message",InputMessage.Text },
 
+            };
             if (!string.IsNullOrEmpty(InputMessage.Text) && !string.IsNullOrWhiteSpace(InputMessage.Text))
             {
                 CrossCloudFirestore.Current
                     .Instance
                     .Collection("Announcement")
-                    .AddAsync(model);
+                    .AddAsync(data);
             }
             InputMessage.Text = string.Empty;
         }

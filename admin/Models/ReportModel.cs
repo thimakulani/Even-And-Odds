@@ -1,19 +1,10 @@
-﻿
-using Android.App;
-using Android.Content;
-using Android.Content.Res;
-using Android.OS;
-using Android.Print;
+﻿using Android.Content;
 using Android.Util;
 using Apitron.PDF.Kit;
-using Apitron.PDF.Kit.FixedLayout.Content;
 using Apitron.PDF.Kit.FixedLayout.Resources;
-using Apitron.PDF.Kit.FixedLayout.Resources.Fonts;
-using Apitron.PDF.Kit.FlowLayout;
 using Apitron.PDF.Kit.FlowLayout.Content;
 using Apitron.PDF.Kit.Styles;
 using Apitron.PDF.Kit.Styles.Appearance;
-using Java.IO;
 using System;
 using System.Collections.Generic;
 
@@ -22,12 +13,12 @@ namespace admin.Models
 {
     class ReportModel
     {
-        private readonly List<DelivaryModal> reportData = new List<DelivaryModal>();
-        
-        public ReportModel(List<DelivaryModal> reportData)
+        private readonly List<DeliveryModal> reportData = new List<DeliveryModal>();
+
+        public ReportModel(List<DeliveryModal> reportData)
         {
             this.reportData = reportData;
-            
+
         }
 
         public void GenerateInvoice(System.IO.Stream stream, Context context)
@@ -56,36 +47,19 @@ namespace admin.Models
             document.PageHeader.Height = 120;
             document.PageHeader.Background = RgbColors.LightGray;
             document.PageHeader.LineHeight = 60;
-            try
-            {
-                string path = "file:///android_res/raw/delivery_icon.png";
-                context.Resources.OpenRawResource(Resource.Raw.delivary_icon);
-                document.PageHeader.Add(new Image(path)
-                {
-                    Height = 50,
-                    Width = 50,
-                    VerticalAlign =
-                    VerticalAlign.Middle
-                });
-               // document.Add(new TextBlock(new File(path).Exists().ToString()));
-            }
-            catch (Exception ex)
-            {
-                Log.Debug("errorrr: ", ex.Message);
-                //document.Add(new TextBlock("errror::::" + ex.Message));
-            }
+         
 
             document.PageHeader.Add(new Apitron.PDF.Kit.FlowLayout.Content.TextBlock("REPORT")
             {
                 Display = Display.InlineBlock,
                 Align = Align.Right,
-               
-               //Font = new Apitron.PDF.Kit.FixedLayout.Resources.Fonts.Font(StandardFonts.CourierBold, 20),
+
+                //Font = new Apitron.PDF.Kit.FixedLayout.Resources.Fonts.Font(StandardFonts.CourierBold, 20),
                 Color = RgbColors.Black
             });
             Section pageSection = new Section() { Padding = new Thickness(20) };
 
-            
+
             Section head = new Section()
             {
                 Border = new Border(1),
@@ -97,7 +71,7 @@ namespace admin.Models
             head.Add(new TextBlock("EVEN AND ODDS DELIVERY"));
             head.Add(new Br());
             head.Add(new TextBlock(DateTime.Now.ToString("dddd dd-MMMM-yyyy HH:mm:ss tt")));
-           
+
             document.Add(head);
             //Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
             //keyValuePairs.Add("Dates: ", );
@@ -114,8 +88,8 @@ namespace admin.Models
             document.Add(pageSection);
 
             document.Write(stream, resourceManager, new Apitron.PDF.Kit.FixedLayout.PageProperties.PageBoundary(Apitron.PDF.Kit.FixedLayout.Boundaries.A4));
-            
-            
+
+
         }
         private Grid CreateRequestsGrid()
         {
@@ -147,13 +121,13 @@ namespace admin.Models
                 TextBlock dest = new TextBlock(item.DestinationAddress);
                 TextBlock dates = new TextBlock(item.RequestTime);
                 TextBlock status = new TextBlock(item.Status);
-                
+
                 requestsGrid.Add(new GridRow(pos, driver, pickup, dest, dates, status));
-                
+
             }
 
 
-            return  requestsGrid;
+            return requestsGrid;
         }
     }
 }

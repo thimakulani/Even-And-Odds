@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿using admin.Adapters;
+using admin.FirebaseHelper;
+using admin.Models;
 using Android.App;
 using Android.Content;
 using Android.Gms.Tasks;
 using Android.OS;
-using Google.Android.Material.Button;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using AndroidHUD;
-using admin.Adapters;
-using admin.FirebaseHelper;
-using admin.Models;
 using FirebaseAdmin.Auth;
-using Xamarin.Essentials;
+using Google.Android.Material.Button;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
 using Plugin.CloudFirestore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Xamarin.Essentials;
 
 namespace admin.Activities
 {
@@ -43,7 +42,7 @@ namespace admin.Activities
         private TextInputEditText InputSurname;
         private TextInputEditText InputPhone;
         private AndroidX.AppCompat.Widget.SearchView InputSearchUser;
-        
+
 
         private MaterialButton BtnSubmitReg;
         //private CheckBox Terms;
@@ -87,7 +86,7 @@ namespace admin.Activities
 
 
             ImgBack.Click += ImgBack_Click;
-           
+
             txtCreateSuperUser.Click += TxtCreateSuperUser_Click;
 
             SetUpRecycler(UseritemsList);
@@ -115,7 +114,7 @@ namespace admin.Activities
             SuperUserRegistrationDialogHelper();
         }
 
-        
+
         private void SuperUserRegistrationDialogHelper()
         {
             dialogBuilder = new AlertDialog.Builder(this);
@@ -221,7 +220,7 @@ namespace admin.Activities
 
             var stream = Resources.Assets.Open("service_account.json");
             var _auth = FirebaseData.GetFirebaseAdminAuth(stream);
-            
+
 
             UserRecordArgs user = new UserRecordArgs()
             {
@@ -367,7 +366,7 @@ namespace admin.Activities
 
         public void OnSuccess(Java.Lang.Object result)
         {
-            
+
         }
 
         private async void RegisterInfor(string uid)

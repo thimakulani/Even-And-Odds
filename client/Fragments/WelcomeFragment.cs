@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-
-using Android.App;
-using Android.App.Usage;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Google.Android.Material.Button;
 using Android.Support.V7.Widget;
-using Android.Util;
 using Android.Views;
-using Android.Widget;
 using client.Adapters;
- 
 using client.Classes;
-using Firebase.Auth;
+using Google.Android.Material.Button;
+using System;
+using System.Collections.Generic;
 using Xamarin.Essentials;
 
 namespace client.Fragments
@@ -61,10 +51,10 @@ namespace client.Fragments
             recyclerFeeds.SetAdapter(adapter);
 
             /*GET ANNOUNCEMENTS*/
-            
+
         }
 
-       
+
 
         public event EventHandler RequestEventHandler;
         private void RequestBtn_Click(object sender, EventArgs e)

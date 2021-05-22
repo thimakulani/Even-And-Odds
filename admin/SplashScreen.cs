@@ -1,28 +1,23 @@
-﻿using Android.App;
-using Android.OS;
-using Android.Support.V7.App;
-using Android.Runtime;
-using Android.Widget;
-using System.Threading.Tasks;
+﻿using admin.Activities;
+using Android.App;
 using Android.Content;
-using admin.Activities;
-using static Firebase.Auth.FirebaseAuth;
+using Android.OS;
 using Firebase.Auth;
-using System;
 using Firebase.Database;
+using System.Threading.Tasks;
 
 namespace admin
 {
     [Activity(Label = "@string/app_name", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
     public class SplashScreen : Activity
     {
-        
+
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             // Set our view from the "main" layout resource
-            if(savedInstanceState == null)
+            if (savedInstanceState == null)
             {
                 FirebaseDatabase.Instance.SetPersistenceEnabled(true);
             }

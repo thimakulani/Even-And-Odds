@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.Gms.Location;
+﻿using Android.Gms.Location;
 using Android.Locations;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+using System;
 
 namespace driver.MapsHelper
 {
-    public class LocationCallBackHelper: LocationCallback
+    public class LocationCallBackHelper : LocationCallback
     {
         public event EventHandler<OnLocationCapturedEventArgs> CurrentLocation;
-        public class OnLocationCapturedEventArgs: EventArgs
+        public class OnLocationCapturedEventArgs : EventArgs
         {
             public Location Location_ { get; set; }
         }
@@ -27,7 +17,7 @@ namespace driver.MapsHelper
         }
         public override void OnLocationResult(LocationResult result)
         {
-            if(result.Locations.Count !=0)
+            if (result.Locations.Count != 0)
             {
                 CurrentLocation?.Invoke(this, new OnLocationCapturedEventArgs { Location_ = result.Locations[0] });
             }

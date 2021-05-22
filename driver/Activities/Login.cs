@@ -1,18 +1,17 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Gms.Tasks;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using Firebase.Auth;
-using Google.Android.Material.FloatingActionButton;
-using Google.Android.Material.Button;
-using Google.Android.Material.TextField;
 using driver.Models;
+using Firebase.Auth;
+using Google.Android.Material.Button;
+using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.TextField;
 using Plugin.CloudFirestore;
+using System;
 
 namespace driver.Activities
 {
@@ -37,7 +36,7 @@ namespace driver.Activities
         private int EventType;
         /**/
         private MaterialButton BtnLogin;
-        
+
         private TextView TxtForgotPassword;
         private TextInputEditText InputEmail;
         private TextInputEditText InputPassword;
@@ -51,7 +50,6 @@ namespace driver.Activities
 
 
 
-        private string UserEmail;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -64,8 +62,8 @@ namespace driver.Activities
         }
         private void ConnectViews()
         {
-            
-            
+
+
 
 
             BtnLogin = FindViewById<MaterialButton>(Resource.Id.BtnLogin);
@@ -76,7 +74,6 @@ namespace driver.Activities
             rootLayout = FindViewById<RelativeLayout>(Resource.Id.rootLayout);
             /////user infor
             //
-            InputEmail.Text = UserEmail;
             BtnLogin.Click += BtnLogin_Click;
             TxtCreateAccount.Click += TxtCreateAccount_Click;
             TxtForgotPassword.Click += TxtForgotPassword_Click;
@@ -116,7 +113,7 @@ namespace driver.Activities
                 .AddOnFailureListener(this)
                 .AddOnCompleteListener(this);
             LoadingProgress();
-           
+
 
         }
         private void ResetPasswordDialog()
@@ -170,17 +167,17 @@ namespace driver.Activities
         {
             rootLayout.Alpha = 1f;
             PasswordDialog.Dismiss();
-          
+
         }
         public void OnSuccess(Java.Lang.Object result)
         {
 
-            if(EventType == 1)
+            if (EventType == 1)
             {
                 GetUserInfo();
-                
+
             }
-            if(EventType == 2)
+            if (EventType == 2)
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetTitle("Sent");
@@ -192,12 +189,12 @@ namespace driver.Activities
                 });
                 builder.Show();
             }
-            
+
         }
         public void OnFailure(Java.Lang.Exception e)
         {
             loading.Dismiss();
-           // loading.Dispose();
+            // loading.Dispose();
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle("Error");
             builder.SetMessage(e.Message);
@@ -215,7 +212,7 @@ namespace driver.Activities
                 .GetAsync();
 
             var user = query.ToObject<DriverModel>();
-            if(user.Role is "D")
+            if (user.Role is "D")
             {
                 Intent intent = new Intent(this, typeof(Dashboad));
                 StartActivity(intent);
@@ -243,7 +240,7 @@ namespace driver.Activities
 
         public void OnComplete(Task task)
         {
-            
+
             loading.Dismiss();
         }
 

@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Plugin.CloudFirestore;
+﻿using Plugin.CloudFirestore;
+using Plugin.CloudFirestore.Attributes;
 
 namespace client.Classes
 {
-    public class DelivaryModal
+    public class DeliveryModal
     {
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -40,6 +30,7 @@ namespace client.Classes
         public string Status { get; set; }
         public string Distance { get; set; }
         public string Price { get; set; }
-        public FieldValue TimeStamp { get; internal set; }
+        [ServerTimestamp]
+        public FieldValue TimeStamp { get; set; }
     }
 }

@@ -3,8 +3,8 @@ using Android.App;
 using Android.Content;
 using Android.Media;
 using Android.Support.V4.App;
-using Firebase.Messaging;
 using driver.Activities;
+using Firebase.Messaging;
 
 namespace driver
 {
@@ -14,14 +14,14 @@ namespace driver
     {
         public override void OnMessageReceived(RemoteMessage remoteMessage)
         {
-            if(remoteMessage.GetNotification() != null)
+            if (remoteMessage.GetNotification() != null)
             {
                 SendNotification(remoteMessage.GetNotification().Body, remoteMessage);
             }
             base.OnMessageReceived(remoteMessage);
         }
-        
-        
+
+
         void SendNotification(string messageBody, RemoteMessage remoteMessage)
         {
             var intent = new Intent(this, typeof(Dashboad));

@@ -1,10 +1,9 @@
-﻿using System;
-
+﻿using admin.Models;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Android.Support.V7.Widget;
 using Google.Android.Material.Button;
-using admin.Models;
+using System;
 using System.Collections.Generic;
 
 namespace admin.Adapters
@@ -38,13 +37,12 @@ namespace admin.Adapters
         // Replace the contents of a view (invoked by the layout manager)
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
-            var item = items[position];
 
             // Replace the contents of the view with that element
             var holder = viewHolder as AnnouncementAdapterViewHolder;
             holder.AnouncementMsg.Text = items[position].Message;
-                holder.DatesPosted.Text = $"{items[position].TimeStamp}";
-            
+            holder.DatesPosted.Text = $"{items[position].TimeStamp}";
+
         }
 
         public override int ItemCount => items.Count;
@@ -60,7 +58,7 @@ namespace admin.Adapters
         //public TextView TextView { get; set; }
         public TextView AnouncementMsg { get; set; }
         public TextView DatesPosted { get; set; }
-     
+
         public MaterialButton BtnDelete { get; set; }
 
         public AnnouncementAdapterViewHolder(View itemView, Action<AnnouncementAdapterClickEventArgs> clickListener,

@@ -9846,13 +9846,13 @@ namespace driver
 			public const int common_google_signin_btn_text_light_normal_background = 2131165323;
 			
 			// aapt resource value: 0x7F07008C
-			public const int delivary_icon = 2131165324;
+			public const int delivery_icon = 2131165324;
 			
 			// aapt resource value: 0x7F07008D
-			public const int delivary_icon_2 = 2131165325;
+			public const int delivery_icon_2 = 2131165325;
 			
 			// aapt resource value: 0x7F07008E
-			public const int delivary_icon_3 = 2131165326;
+			public const int delivery_icon_3 = 2131165326;
 			
 			// aapt resource value: 0x7F07008F
 			public const int design_bottom_navigation_item_background = 2131165327;

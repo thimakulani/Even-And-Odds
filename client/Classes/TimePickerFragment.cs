@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
+﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
 using Android.Text.Format;
-using Android.Views;
 using Android.Widget;
+using System;
 
 namespace client.Classes
 {
-    
+
     public class TimePickerFragment : Android.Support.V4.App.DialogFragment, TimePickerDialog.IOnTimeSetListener
     {
         public static readonly string TAG = "MyTimePickerFragment";
@@ -21,8 +14,10 @@ namespace client.Classes
 
         public static TimePickerFragment NewInstance(Action<DateTime> onTimeSelected)
         {
-            TimePickerFragment frag = new TimePickerFragment();
-            frag.timeSelectedHandler = onTimeSelected;
+            TimePickerFragment frag = new TimePickerFragment
+            {
+                timeSelectedHandler = onTimeSelected
+            };
             return frag;
         }
 
@@ -39,7 +34,7 @@ namespace client.Classes
         {
             DateTime currentTime = DateTime.Now;
             DateTime selectedTime = new DateTime(currentTime.Year, currentTime.Month, currentTime.Day, hourOfDay, minute, 0);
-           // Log.Debug(TAG, selectedTime.ToLongTimeString());
+            // Log.Debug(TAG, selectedTime.ToLongTimeString());
             timeSelectedHandler(selectedTime);
         }
     }

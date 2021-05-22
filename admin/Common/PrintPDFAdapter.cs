@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
+﻿using Android.Content;
 using Android.OS;
 using Android.Print;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using Java.IO;
+using System;
 
 namespace admin.Common
 {
@@ -51,12 +44,12 @@ namespace admin.Common
                 input = new FileInputStream(file);
                 output = new FileOutputStream(destination.FileDescriptor);
 
-                byte[] buffer = new byte[8*1024];
+                byte[] buffer = new byte[8 * 1024];
 
                 int length;
 
                 while ((length = input.Read(buffer)) >= 0 && !cancellationSignal.IsCanceled)
-                
+
                     output.Write(buffer, 0, length);
                 if (cancellationSignal.IsCanceled)
                     callback.OnWriteCancelled();
@@ -67,7 +60,7 @@ namespace admin.Common
             }
             catch (Exception ex)
             {
-                Toast.MakeText(context, "adapter error"+ex.Message, ToastLength.Long).Show();
+                Toast.MakeText(context, "adapter error" + ex.Message, ToastLength.Long).Show();
             }
             finally
             {
@@ -76,7 +69,7 @@ namespace admin.Common
                     input.Close();
                     output.Close();
                 }
-                catch(IOException ex)
+                catch (IOException ex)
                 {
                     Toast.MakeText(context, ex.Message, ToastLength.Long).Show();
                 }

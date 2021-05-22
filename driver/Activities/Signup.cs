@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Content.Res;
@@ -9,16 +6,17 @@ using Android.Gms.Tasks;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using Firebase.Auth;
-using Java.Util;
-using AlertDialog = Android.App.AlertDialog;
-using Google.Android.Material.TextField;
-using Google.Android.Material.Button;
-using AndroidX.AppCompat.App;
-using Google.Android.Material.AppBar;
-using Plugin.CloudFirestore;
-using driver.Models;
 using AndroidHUD;
+using AndroidX.AppCompat.App;
+using driver.Models;
+using Firebase.Auth;
+using Google.Android.Material.AppBar;
+using Google.Android.Material.Button;
+using Google.Android.Material.TextField;
+using Plugin.CloudFirestore;
+using System;
+using System.IO;
+using AlertDialog = Android.App.AlertDialog;
 
 namespace driver.Activities
 {
@@ -278,7 +276,7 @@ namespace driver.Activities
             loading = loadingBuilder.Create();
             loading.Show();
         }
-     
+
         public void OnComplete(Task task)
         {
             loading.Dismiss();
@@ -310,7 +308,7 @@ namespace driver.Activities
                 .SetAsync(driver);
 
             AndHUD.Shared.ShowSuccess(this, "Your account has been successfully created, Please wait for administrator to approve your registration.", MaskType.Black, TimeSpan.FromSeconds(10));
-            
+
         }
 
         public void OnFailure(Java.Lang.Exception e)

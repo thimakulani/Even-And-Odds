@@ -2,20 +2,19 @@
 using Android.Content;
 using Android.Content.PM;
 using Android.Gms.Extensions;
-using Android.Gms.Tasks;
 using Android.Locations;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Views;
 using AndroidHUD;
-using Firebase.Messaging;
 using driver.Fragments;
+using driver.Models;
+using Firebase.Auth;
+using Firebase.Messaging;
+using Google.Android.Material.BottomNavigation;
+using Plugin.CloudFirestore;
 using System;
 using AlertDialog = Android.App.AlertDialog;
-using Plugin.CloudFirestore;
-using Firebase.Auth;
-using driver.Models;
-using Google.Android.Material.BottomNavigation;
 
 namespace driver.Activities
 {
@@ -23,7 +22,7 @@ namespace driver.Activities
     public class Dashboad : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
 
-       // private FirebaseMessaging firebaseMessaging;// = new FirebaseMessaging();
+        // private FirebaseMessaging firebaseMessaging;// = new FirebaseMessaging();
         protected async override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -34,7 +33,7 @@ namespace driver.Activities
             ///*OUT*/
             BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
             navigation.SetOnNavigationItemSelectedListener(this);
-            
+
             CheckGps();
             WelcomeFragment welcomeFrag = new WelcomeFragment();
             SupportFragmentManager.BeginTransaction()
@@ -58,7 +57,7 @@ namespace driver.Activities
                 .Document(FirebaseAuth.Instance.Uid)
                 .GetAsync();
             DriverModel driver = results.ToObject<DriverModel>();
-            if(driver.Role == "D")
+            if (driver.Role == "D")
             {
                 var requests = await CrossCloudFirestore
                     .Current
@@ -67,12 +66,12 @@ namespace driver.Activities
                     .WhereEqualsTo("DriverId", FirebaseAuth.Instance.Uid)
                     .WhereIn("Status", new[] { "A", "P" })
                     .GetAsync();
-                if(requests.Count > 0)
+                if (requests.Count > 0)
                 {
-                    Intent intent = new Intent(this, typeof(DelivaryRequestActivity));
+                    Intent intent = new Intent(this, typeof(DeliveryRequestActivity));
                     StartActivity(intent);
                 }
-                
+
             }
             else
             {
@@ -91,7 +90,7 @@ namespace driver.Activities
         }
         private void WelcomeFrag_RequestEventHandler(object sender, EventArgs e)
         {
-            Intent intent = new Intent(this, typeof(DelivaryRequestActivity));
+            Intent intent = new Intent(this, typeof(DeliveryRequestActivity));
             StartActivity(intent);
             OverridePendingTransition(Resource.Animation.Side_in_left, Resource.Animation.Side_out_right);
         }
@@ -133,7 +132,7 @@ namespace driver.Activities
                 case Resource.Id.navigation_logout:
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.SetTitle("Confirm");
-                    
+
                     builder.SetMessage("Are you sure that you want to exit");
                     builder.SetPositiveButton("Yes", delegate
                     {

@@ -1,25 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
+﻿using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
 using Android.Views;
-using Android.Widget;
-using Firebase.Database;
-using Firebase.Events;
-using driver.FirebaseHelper;
-using Plugin.CloudFirestore;
-using Firebase.Auth;
-using driver.Models;
 using AndroidHUD;
-using Java.Util;
-using Google.Android.Material.TextField;
+using driver.Models;
+using Firebase.Auth;
 using Google.Android.Material.Button;
+using Google.Android.Material.TextField;
+using Plugin.CloudFirestore;
+using System;
+using System.Collections.Generic;
 
 namespace driver.Fragments
 {
@@ -29,7 +18,7 @@ namespace driver.Fragments
         private TextInputEditText InputSurname;
         private TextInputEditText InputPhone;
         private TextInputEditText InputEmail;
-        
+
         private MaterialButton BtnAppyChanges;
 
 
@@ -50,7 +39,7 @@ namespace driver.Fragments
             var view = inflater.Inflate(Resource.Layout.update_profile_dialog, container, false);
             context = view.Context;
             ConnectViews(view);
-            
+
             return view;
         }
 
@@ -63,7 +52,7 @@ namespace driver.Fragments
             BtnAppyChanges = view.FindViewById<MaterialButton>(Resource.Id.BtnUpdateProfile);
 
             BtnAppyChanges.Click += BtnAppyChanges_Click;
-           
+
             //ISharedPreferences pref = Application.Context.GetSharedPreferences("UserInfo", FileCreationMode.Private);
             //UserKeyId = FirebaseAuth.Instance.CurrentUser.Uid;
             CrossCloudFirestore.Current.Instance.Collection("AppUsers")
@@ -80,9 +69,9 @@ namespace driver.Fragments
                     }
                 });
         }
-        
-        
-       
+
+
+
         private async void BtnAppyChanges_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(InputNames.Text))
@@ -126,8 +115,8 @@ namespace driver.Fragments
                 .Collection("AppUsers")
                 .Document(FirebaseAuth.Instance.Uid)
                 .UpdateAsync(keyValues);
-                
-                
+
+
 
             AndHUD.Shared.ShowSuccess(context, "Profile has been successfully updated!!", MaskType.Black, TimeSpan.FromSeconds(3));
 

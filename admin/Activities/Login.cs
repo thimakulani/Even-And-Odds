@@ -1,17 +1,16 @@
-﻿using Android.App;
+﻿using admin.Models;
+using Android.App;
 using Android.Content;
 using Android.Gms.Tasks;
 using Android.OS;
-using Google.Android.Material.Button;
 using Android.Views;
 using Android.Widget;
 using Firebase.Auth;
-using Firebase.Database;
-using System;
+using Google.Android.Material.Button;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
 using Plugin.CloudFirestore;
-using admin.Models;
+using System;
 
 namespace admin.Activities
 {
@@ -83,7 +82,7 @@ namespace admin.Activities
         private void BtnLogin_Click(object sender, EventArgs e)
         {
             EventType = 1;
-            
+
             if (string.IsNullOrEmpty(InputEmail.Text) && string.IsNullOrWhiteSpace(InputEmail.Text))
             {
                 Toast.MakeText(this, "Please provide your email", ToastLength.Long).Show();
@@ -195,7 +194,7 @@ namespace admin.Activities
             }
 
 
-          
+
         }
         public void OnSuccess(Java.Lang.Object result)
         {

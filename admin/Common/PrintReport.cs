@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Java.IO;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using System.Threading.Tasks;
+﻿using Android.Content;
 using Android.Content.Res;
+using Android.Widget;
+using Java.IO;
 
 namespace admin.Common
 {
@@ -19,11 +9,11 @@ namespace admin.Common
     {
         public static string GetAppPath(Context context)
         {
-            File dir = new File(Android.OS.Environment.ExternalStorageDirectory 
+            File dir = new File(Android.OS.Environment.ExternalStorageDirectory
                 + File.Separator
                 + context.GetString(Resource.String.app_name)
                 + File.Separator);
-            if(!dir.Exists())
+            if (!dir.Exists())
             {
                 dir.Mkdir();
             }

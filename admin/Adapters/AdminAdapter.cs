@@ -1,12 +1,10 @@
-﻿using System;
+﻿using admin.Models;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Android.Support.V7.Widget;
-using admin.Models;
-using System.Collections.Generic;
-using Android.Content;
-using Android.Views.Animations;
 using Google.Android.Material.FloatingActionButton;
+using System;
+using System.Collections.Generic;
 
 namespace admin.Adapters
 {

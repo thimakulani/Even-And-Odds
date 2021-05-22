@@ -1,11 +1,10 @@
-﻿using System;
-
-using Android.Views;
+﻿using Android.Views;
 using Android.Widget;
-using System.Collections.Generic;
+using AndroidX.RecyclerView.Widget;
 using driver.Models;
 using Plugin.CloudFirestore;
-using AndroidX.RecyclerView.Widget;
+using System;
+using System.Collections.Generic;
 
 namespace driver.Adapters
 {
@@ -13,9 +12,9 @@ namespace driver.Adapters
     {
         public event EventHandler<HistoryAdapterClickEventArgs> ItemClick;
         public event EventHandler<HistoryAdapterClickEventArgs> ItemLongClick;
-        private readonly List<DelivaryModal> items = new List<DelivaryModal>();
+        private readonly List<DeliveryModal> items = new List<DeliveryModal>();
 
-        public HistoryAdapter(List<DelivaryModal> data)
+        public HistoryAdapter(List<DeliveryModal> data)
         {
             items = data;
         }
@@ -48,7 +47,7 @@ namespace driver.Adapters
             holder.TxtPickUploaction.Text = items[indexPos].PickupAddress;
             holder.TxtPrice.Text = items[indexPos].Price;
             holder.TxtStatus.Text = items[indexPos].Status;
-            holder.TxtHistoryRequestDatesTimeCreated.Text = items[indexPos].RequestTime;
+            holder.TxtHistoryRequestDatesTimeCreated.Text = $"{items[indexPos].TimeStamp.ToDateTime():dddd, dd MMMM yyyy, HH:mm tt}";
             CrossCloudFirestore
                 .Current
                 .Instance

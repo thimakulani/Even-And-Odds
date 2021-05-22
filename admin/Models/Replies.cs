@@ -9,6 +9,6 @@ namespace admin.Models
         public string Id { get; set; }
         public string Uid { get; set; }
         [ServerTimestamp]
-        public FieldValue TimeStamp { get; set; }
+        public Timestamp TimeStamp { get; set; }
     }
 }

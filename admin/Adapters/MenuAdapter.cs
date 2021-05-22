@@ -1,10 +1,9 @@
-﻿using System;
-
+﻿using admin.Models;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Android.Support.V7.Widget;
+using System;
 using System.Collections.Generic;
-using admin.Models;
 
 namespace admin.Adapters
 {

@@ -1,21 +1,19 @@
 ﻿using Android.App;
 using Android.Content;
-using Android.Gms.Extensions;
 using Android.Media;
-using Firebase.Iid;
-using Firebase.Messaging;
-using driver.Activities;
 using AndroidX.Core.App;
+using driver.Activities;
+using Firebase.Messaging;
 
 namespace driver.FirebaseHelper
 {
 
-    public class FBInstanceID: FirebaseMessagingService
+    public class FBInstanceID : FirebaseMessagingService
     {
 
         public override void OnMessageReceived(RemoteMessage p0)
         {
-            
+
             base.OnMessageReceived(p0);
             CreateNotificationChannel(p0);
         }
@@ -27,7 +25,7 @@ namespace driver.FirebaseHelper
 
             var defaultSoundUri = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
             var notificationBuilder = new NotificationCompat.Builder(this, "100")
-                .SetSmallIcon(Resource.Drawable.delivary_icon_2)
+                .SetSmallIcon(Resource.Drawable.delivery_icon_2)
                 .SetContentTitle("FCM Message")
                 .SetContentText(p0.GetNotification().Body)
                 .SetAutoCancel(true)

@@ -79,7 +79,7 @@
     <Compile Include="MapsHelper\LocationCallBackHelper.cs" />
     <Compile Include="MapsHelper\MapFunctionHelper.cs" />
     <Compile Include="Models\ClientModel.cs" />
-    <Compile Include="Models\DelivaryModal.cs" />
+    <Compile Include="Models\DeliveryModal.cs" />
     <Compile Include="Models\DriverModel.cs" />
     <Compile Include="MyFirebaseMessagingService.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -250,13 +250,13 @@
     <AndroidResource Include="Resources\drawable\chats_sender_style.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\delivary_icon.png" />
+    <AndroidResource Include="Resources\drawable\delivery_icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\delivary_icon_2.png" />
+    <AndroidResource Include="Resources\drawable\delivery_icon_2.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\delivary_icon_3.png" />
+    <AndroidResource Include="Resources\drawable\delivery_icon_3.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\green_btn_style.xml" />

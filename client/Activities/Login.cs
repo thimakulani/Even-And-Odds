@@ -1,6 +1,4 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Gms.Tasks;
@@ -11,6 +9,7 @@ using Firebase.Auth;
 using Google.Android.Material.Button;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
+using System;
 
 namespace client.Activities
 {
@@ -64,7 +63,7 @@ namespace client.Activities
         {
             ISharedPreferences pref = Application.Context.GetSharedPreferences("UserInfo", FileCreationMode.Private);
             UserEmail = pref.GetString("Email", string.Empty);
-            
+
 
 
             BtnLogin = FindViewById<MaterialButton>(Resource.Id.BtnLogin);
@@ -95,7 +94,7 @@ namespace client.Activities
         private void BtnLogin_Click(object sender, EventArgs e)
         {
             EventType = 1;
-            
+
             if (string.IsNullOrEmpty(InputEmail.Text) && string.IsNullOrWhiteSpace(InputEmail.Text))
             {
                 Toast.MakeText(this, "Please provide your email", ToastLength.Long).Show();
@@ -116,7 +115,7 @@ namespace client.Activities
                 .AddOnCompleteListener(this)
                 .AddOnFailureListener(this);
             LoadingProgress();
-           
+
 
         }
         private void ResetPasswordDialog()
@@ -170,40 +169,40 @@ namespace client.Activities
         {
             rootLayout.Alpha = 1f;
             PasswordDialog.Dismiss();
-          //  PasswordDialog.Dispose();
+            //  PasswordDialog.Dispose();
         }
         public void OnSuccess(Java.Lang.Object result)
         {
-            if(EventType == 1)
+            if (EventType == 1)
             {
                 BtnLogin.Enabled = true;
 
                 Intent intent = new Intent(this, typeof(MainActivity));
                 StartActivity(intent);
-                
+
                 OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
                 //loading.Dismiss();
-              //  loading.Dispose();
+                //  loading.Dispose();
             }
-            if(EventType == 2)
+            if (EventType == 2)
             {
                 //loading.Dismiss();
-            //    loading.Dispose();
+                //    loading.Dispose();
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetTitle("Sent");
                 builder.SetMessage("Reset password link has been sent to your email address");
-               // builder.SetMessage(auth.CurrentUser.DisplayName);
+                // builder.SetMessage(auth.CurrentUser.DisplayName);
                 builder.SetNeutralButton("Ok", delegate
                 {
                     builder.Dispose();
                 });
                 builder.Show();
             }
-            
+
         }
         public void OnFailure(Java.Lang.Exception e)
         {
-            
+
             BtnLogin.Enabled = true;
 
             //  loading.Dispose();

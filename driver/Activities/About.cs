@@ -1,10 +1,9 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using AndroidAboutPage;
+using System;
 using Xamarin.Essentials;
 
 namespace driver.Activities
@@ -26,7 +25,7 @@ namespace driver.Activities
 
             View about = new AboutPage(this)
                 .IsRtl(false)
-                .SetImage(Resource.Drawable.delivary_icon_2)
+                .SetImage(Resource.Drawable.delivery_icon_2)
                 .SetDescription("Even & odds delivery")
                 .AddItem(new Element() { Title = $"Version {AppInfo.VersionString}" })
                 .AddItem(element)
@@ -48,7 +47,7 @@ namespace driver.Activities
             Element copy = new Element();
             string cr = $"Copyright {DateTime.Now.Year} by Thima Kulani";
             copy.Title = cr;
-            copy.IconDrawable = Resource.Drawable.delivary_icon_2;
+            copy.IconDrawable = Resource.Drawable.delivery_icon_2;
             return copy;
         }
     }

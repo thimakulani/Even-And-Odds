@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿using admin.Models;
 using Android.Content;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using AndroidX.Fragment.App;
 using Com.Github.Library.Bubbleview;
-using admin.Models;
+using Firebase.Auth;
 using Firebase.Database;
-using Java.Util;
+using Google.Android.Material.AppBar;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
-using Google.Android.Material.AppBar;
-using AndroidX.Fragment.App;
+using Java.Util;
 using Plugin.CloudFirestore;
-using Firebase.Auth;
+using System;
+using System.Collections.Generic;
 
 namespace admin.Fragments
 {
@@ -26,7 +25,7 @@ namespace admin.Fragments
         private FloatingActionButton FabSend;
         private readonly List<Replies> Items = new List<Replies>();
         private readonly string queryId;
-        
+
         private MaterialToolbar toolbar_reply_queries;
 
         public QueryRepliesFragment(string queryId)
@@ -59,7 +58,7 @@ namespace admin.Fragments
             InputMessage = view.FindViewById<TextInputEditText>(Resource.Id.TInputMessage);
             InputMessage.SetTextColor(Android.Graphics.Color.Black);
             toolbar_reply_queries = view.FindViewById<MaterialToolbar>(Resource.Id.toolbar_reply_queries);
-            
+
             toolbar_reply_queries.SetNavigationIcon(Resource.Mipmap.ic_arrow_back_black_18dp);
             FabSend.Click += FabSend_Click;
             toolbar_reply_queries.NavigationClick += Toolbar_reply_queries_NavigationClick1;
@@ -95,10 +94,10 @@ namespace admin.Fragments
                         foreach (var dc in value.DocumentChanges)
                         {
                             var reply = new Replies();
-                            
+
                             switch (dc.Type)
                             {
-                                
+
                                 case DocumentChangeType.Added:
                                     reply = dc.Document.ToObject<Replies>();
                                     reply.Id = dc.Document.Id;
@@ -128,7 +127,7 @@ namespace admin.Fragments
             Dismiss();
         }
 
-      
+
 
         private void FabSend_Click(object sender, EventArgs e)
         {

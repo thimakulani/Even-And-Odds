@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
+﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
 using Android.Views;
-using Android.Widget;
 using AndroidAboutPage;
+using System;
 
 namespace driver.Fragments
 {
@@ -36,14 +28,14 @@ namespace driver.Fragments
 
             View about = new AboutPage(Application.Context)
                 .IsRtl(false)
-                .SetImage(Resource.Drawable.delivary_icon_2)
+                .SetImage(Resource.Drawable.delivery_icon_2)
                 .SetDescription("Even & Odds delivery")
                 .AddItem(new Element() { Title = "Version 1.0.0" })
                 .AddItem(element)
                 .AddGroup("Contact us on")
                 .AddEmail("thimakulani@gmail.com")
                 .AddFacebook("Thima")
-               // .AddWebsite("")
+                // .AddWebsite("")
                 .AddPlayStore("Thima")
                 .AddItem(CreateCopyright())
                 .AddGroup("Developers")
@@ -59,7 +51,7 @@ namespace driver.Fragments
             Element copy = new Element();
             string cr = $"Copyright {DateTime.Now.Year} by Thima Kulani";
             copy.Title = cr;
-            copy.IconDrawable = Resource.Drawable.delivary_icon_2;
+            copy.IconDrawable = Resource.Drawable.delivery_icon_2;
             return copy;
         }
     }

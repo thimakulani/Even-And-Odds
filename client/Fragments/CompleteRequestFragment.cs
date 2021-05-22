@@ -1,6 +1,4 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Views;
@@ -8,6 +6,7 @@ using Android.Widget;
 using Firebase.Database;
 using Google.Android.Material.Button;
 using Google.Android.Material.TextField;
+using System;
 
 namespace client.Fragments
 {

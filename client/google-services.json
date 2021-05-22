@@ -37,12 +37,20 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:453662960073:android:d03c1b05e5014c5235a018",
+        "mobilesdk_app_id": "1:453662960073:android:5ae418ebe0b37ee835a018",
         "android_client_info": {
           "package_name": "com.evenandodds.client"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "453662960073-k8kvh924co9mpiojtvd0i77a30jd24ek.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.evenandodds.client",
+            "certificate_hash": "240580d78c2e0aae66cac134682738828559038b"
+          }
+        },
         {
           "client_id": "453662960073-di4o1o8jltiso09tt7gep17bdp6e7mnr.apps.googleusercontent.com",
           "client_type": 3

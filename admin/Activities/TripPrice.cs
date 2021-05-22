@@ -1,24 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿using admin.Models;
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Google.Android.Material.Button;
-using Android.Support.V7.Widget;
-using Android.Views;
-using Android.Widget;
-using Firebase.Database;
-using Java.Util;
-
-using Google.Android.Material.TextField;
-using Google.Android.Material.AppBar;
-using Plugin.CloudFirestore;
-using admin.Models;
 using AndroidHUD;
+using Google.Android.Material.AppBar;
+using Google.Android.Material.Button;
+using Google.Android.Material.TextField;
+using Plugin.CloudFirestore;
+using System;
 
 namespace admin.Activities
 {
@@ -44,7 +32,7 @@ namespace admin.Activities
             InputPriceAfter = FindViewById<TextInputEditText>(Resource.Id.InitialAfter);
             BtnApplyChanges = FindViewById<MaterialButton>(Resource.Id.BtnApplyChanges);
             BtnApplyChanges.Click += BtnApplyChanges_Click;
-            
+
             toolbar.NavigationClick += Toolbar_NavigationClick1;
             CrossCloudFirestore
                  .Current

@@ -1,12 +1,10 @@
-﻿using System;
-
+﻿using admin.Models;
 using Android.Views;
 using Android.Widget;
-using System.Collections.Generic;
-using admin.Models;
-using Firebase.Database;
 using AndroidX.RecyclerView.Widget;
 using Plugin.CloudFirestore;
+using System;
+using System.Collections.Generic;
 
 namespace admin.Adapters
 {
@@ -19,7 +17,7 @@ namespace admin.Adapters
         public QueriesAdapter(List<QueriesModel> data)
         {
             items = data;
-            
+
         }
 
         // Create new views (invoked by the layout manager)
@@ -41,7 +39,7 @@ namespace admin.Adapters
 
             // Replace the contents of the view with that element
             var holder = viewHolder as QuerySendersAdapterViewHolder;
-            
+
             holder.TimeSent.Text = items[position].TimeStamp.ToString();
 
 
@@ -58,7 +56,7 @@ namespace admin.Adapters
                         holder.SenderName.Text = $"{user.Name} {user.Surname}";
                     }
                 });
-            
+
         }
 
         public override int ItemCount => items.Count;
@@ -83,7 +81,10 @@ namespace admin.Adapters
             TimeSent = itemView.FindViewById<TextView>(Resource.Id.QueryRowDates);
 
             itemView.Click += (sender, e) => clickListener(new QuerySendersAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            itemView.LongClick += (sender, e) => longClickListener(new QuerySendersAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
+            itemView.LongClick += (sender, e) =>
+            {
+                longClickListener(new QuerySendersAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
+            };
         }
     }
 

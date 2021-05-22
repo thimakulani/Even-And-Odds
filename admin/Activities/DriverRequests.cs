@@ -1,14 +1,12 @@
-﻿using Android.App;
+﻿using admin.Adapters;
+using admin.Models;
+using Android.App;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Support.V7.Widget;
-using admin.Adapters;
-using admin.Models;
-using Firebase.Database;
-using Java.Util;
-using System.Collections.Generic;
 using Google.Android.Material.AppBar;
 using Plugin.CloudFirestore;
+using System.Collections.Generic;
 
 namespace admin.Activities
 {
@@ -80,12 +78,12 @@ namespace admin.Activities
 
         private async void Adapter_BtnDeclinelick(object sender, DriverRequestAdapterClickEventArgs e)
         {
-             await CrossCloudFirestore.Current
-                .Instance
-                .Collection("AppUsers")
-                .Document(Items[e.Position].Uid)
-                .UpdateAsync("Role", "-D");
-            
+            await CrossCloudFirestore.Current
+               .Instance
+               .Collection("AppUsers")
+               .Document(Items[e.Position].Uid)
+               .UpdateAsync("Role", "-D");
+
         }
 
         private async void Adapter_BtnApproveClick(object sender, DriverRequestAdapterClickEventArgs e)
@@ -99,6 +97,6 @@ namespace admin.Activities
 
         }
 
-      
+
     }
 }

@@ -1,41 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿using admin.Adapters;
+using admin.Fragments;
+using admin.Models;
 using Android.App;
-using Android.Content;
-using Android.Gms.Tasks;
 using Android.OS;
-using Google.Android.Material.Button;
 using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using AndroidHUD;
-using admin.Adapters;
-using admin.Fragments;
-using admin.Models;
-using Firebase.Database;
+using Google.Android.Material.Button;
+using Plugin.CloudFirestore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Essentials;
 using AlertDialog = Android.App.AlertDialog;
-using Plugin.CloudFirestore;
 
 namespace admin.Activities
 {
     [Activity(Label = "RegisterDriver", MainLauncher = false)]
     public class RegisterDriver : AppCompatActivity
     {
-        
+
         private readonly List<AppUsers> items = new List<AppUsers>();
         private readonly List<AppUsers> UseritemsList = new List<AppUsers>();
-       // private RecyclerView RecyclerUserList;
+        // private RecyclerView RecyclerUserList;
         private AppUsersAdapter adapter;
 
         private MaterialButton txtCreateDriver;
 
 
         /*views*/
-        
+
         private Android.Support.V7.Widget.SearchView InputSearchUser;
 
         private ImageView ImgBack;
@@ -55,7 +50,7 @@ namespace admin.Activities
         {
             ImgBack = FindViewById<ImageView>(Resource.Id.imgCloseSignUp);
 
-           // FabSearch = FindViewById<FloatingActionButton>(Resource.Id.FabRearch);
+            // FabSearch = FindViewById<FloatingActionButton>(Resource.Id.FabRearch);
             InputSearchUser = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.InputSearchUsers);
             InputSearchUser.Visibility = ViewStates.Visible;
             recyclerUsersList = FindViewById<RecyclerView>(Resource.Id.recyclerUsersList);
@@ -63,9 +58,9 @@ namespace admin.Activities
             InputSearchUser.QueryTextChange += InputSearchUser_QueryTextChange;
             txtCreateDriver = FindViewById<MaterialButton>(Resource.Id.txtCreateDriver);
 
-            
+
             ImgBack.Click += ImgBack_Click;
-           // FabSearch.Click += FabSearch_Click;
+            // FabSearch.Click += FabSearch_Click;
             txtCreateDriver.Click += TxtCreateDriver_Click;
 
             SetUpRecycler(UseritemsList);
@@ -86,11 +81,11 @@ namespace admin.Activities
             SetUpRecycler(users);
         }
 
-      
+
 
         private void TxtCreateDriver_Click(object sender, EventArgs e)
         {
-            
+
             DriverRegistrationDialog dlg = new DriverRegistrationDialog();
             dlg.Show(SupportFragmentManager.BeginTransaction(), "Driver Reg");
         }
@@ -119,7 +114,7 @@ namespace admin.Activities
 
         private void Adapter_CreateDriverClick(object sender, AppUsersAdapterClickEventArgs e)
         {
-            if(items[e.Position].Role != "Driver")
+            if (items[e.Position].Role != "Driver")
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetTitle("Confirm");
@@ -134,7 +129,7 @@ namespace admin.Activities
                     };
                     userFragment.Show(SupportFragmentManager.BeginTransaction(), "Update User");
                     builder.Dispose();
-                    
+
                 });
                 builder.SetNegativeButton("No", delegate
                 {
@@ -148,30 +143,30 @@ namespace admin.Activities
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetTitle("Confirm");
                 builder.SetMessage("Are you sure you want to deactivate driver: " + items[e.Position].Name + " " + items[e.Position].Surname + "?");
-                builder.SetPositiveButton("Yes",async delegate
-                {
-                    await CrossCloudFirestore
-                        .Current
-                        .Instance
-                        .Collection("AppUsers")
-                        .Document(items[e.Position].Uid)
-                        .UpdateAsync("Role", "C");
-                    builder.Dispose();
+                builder.SetPositiveButton("Yes", async delegate
+                 {
+                     await CrossCloudFirestore
+                         .Current
+                         .Instance
+                         .Collection("AppUsers")
+                         .Document(items[e.Position].Uid)
+                         .UpdateAsync("Role", "C");
+                     builder.Dispose();
 
-                });
+                 });
                 builder.SetNegativeButton("No", delegate
                 {
                     builder.Dispose();
                     return;
                 });
                 builder.Show();
-                
+
             }
         }
 
         private async void Adapter_FabEmailClick(object sender, AppUsersAdapterClickEventArgs e)
         {
-            
+
             try
             {
                 List<string> to = new List<string>
@@ -183,7 +178,7 @@ namespace admin.Activities
                     Subject = "Even & Odds Team",
                     Body = "Even & Odds Team",
                     To = to,
-                    
+
                     //Cc = ,
                     //Bcc = bccRecipients            
                 };
@@ -211,7 +206,7 @@ namespace admin.Activities
                 });
                 builder.Show();
             }
-            
+
         }
 
         private void Adapter_FabCallClick(object sender, AppUsersAdapterClickEventArgs e)
@@ -257,7 +252,7 @@ namespace admin.Activities
         }
 
 
-        
+
         //public void OnCancelled(DatabaseError error)
         //{
 
