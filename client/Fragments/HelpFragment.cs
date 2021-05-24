@@ -6,22 +6,22 @@ using Android.Views;
 using Android.Widget;
 using client.Classes;
 using Com.Github.Library.Bubbleview;
+using Firebase.Auth;
 using Firebase.Database;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
 using Java.Util;
+using Plugin.CloudFirestore;
 using System;
 using System.Collections.Generic;
 
 namespace client.Fragments
 {
-    public class HelpFragment : Android.Support.V4.App.Fragment, Firebase.Database.IValueEventListener
+    public class HelpFragment : Android.Support.V4.App.Fragment
     {
         private TextInputEditText InputMessage;
         private FloatingActionButton BtnSend;
         private RecyclerView recyclerView;
-        private string UserKeyId;
-        private string Names;
         private readonly List<Queries> items = new List<Queries>();
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -37,11 +37,8 @@ namespace client.Fragments
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
             var view = inflater.Inflate(Resource.Layout.activity_help_queries, container, false);
-            UserKeyId = Firebase.Auth.FirebaseAuth.Instance.CurrentUser.Uid;
             ConnectViews(view);
-            FirebaseDatabase.Instance.GetReference("AppUsers")
-                .Child(UserKeyId)
-                .AddValueEventListener(this);
+            
             return view;
         }
 
@@ -55,9 +52,39 @@ namespace client.Fragments
             InputMessage.SetTextColor(Android.Graphics.Color.Black);
 
             LinearLayoutManager linear = new LinearLayoutManager(Application.Context);
-            QueriesAdapter adapter = new QueriesAdapter(items, UserKeyId);
+            QueriesAdapter adapter = new QueriesAdapter(items);
             recyclerView.SetLayoutManager(linear);
             recyclerView.SetAdapter(adapter);
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("Query")
+                .Document(FirebaseAuth.Instance.Uid)
+                .Collection("Messages")
+                .OrderBy("TimeStamp")
+                .AddSnapshotListener((value, error)=>
+                {
+                    if (!value.IsEmpty)
+                    {
+                        foreach (var item in value.DocumentChanges)
+                        {
+                            switch (item.Type)
+                            {
+                                case DocumentChangeType.Added:
+                                    items.Add(item.Document.ToObject<Queries>());
+                                    adapter.NotifyDataSetChanged();
+                                    break;
+                                case DocumentChangeType.Modified:
+                                    break;
+                                case DocumentChangeType.Removed:
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                });
+
         }
 
 
@@ -66,49 +93,50 @@ namespace client.Fragments
         {
             if (string.IsNullOrEmpty(InputMessage.Text))
             {
-                Toast.MakeText(Context.ApplicationContext, "Type in a message", ToastLength.Long).Show();
+                InputMessage.Error = "Type in a message";
                 return;
             }
-            HashMap senderTime = new HashMap();
-            senderTime.Put("SenderName", Names);
-            senderTime.Put("DateTime", DateTime.Now.ToString("dddd, dd MMM yyyy HH:mm:ss tt"));
-            FirebaseDatabase.Instance.GetReference("Query").Child(UserKeyId)
-                .Child("senderDateTime")
-                .SetValue(senderTime);
 
-            HashMap hash = new HashMap();
-            hash.Put("Message", InputMessage.Text);
-            hash.Put("DateTime", DateTime.Now.ToString("dddd, dd MMM yyyy HH:mm:ss tt"));
-            hash.Put("SenderId", UserKeyId);
-            FirebaseDatabase.Instance.GetReference("Query")
-                .Child(UserKeyId)
-                .Child("Messages")
-                .Push().SetValue(hash);
-            InputMessage.Text = string.Empty;
-        }
-
-        public void OnCancelled(DatabaseError error)
-        {
-
-        }
-
-        public void OnDataChange(DataSnapshot snapshot)
-        {
-            if (snapshot != null)
+            Dictionary<string, object> dates = new Dictionary<string, object>
             {
-                Names = snapshot.Child("Name").Value.ToString()
-                    + " " + snapshot.Child("Surname").Value.ToString();
-            }
+                { "TimeStamp", FieldValue.ServerTimestamp }
+            };
+
+            Dictionary<string, object> chat = new Dictionary<string, object>
+            {
+                { "Uid", FirebaseAuth.Instance.Uid },
+                { "Message", InputMessage.Text },
+                { "TimeStamp", FieldValue.ServerTimestamp }
+            };
+
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("Query")
+                .Document(FirebaseAuth.Instance.Uid)
+                .Collection("Messages")
+                .AddAsync(chat);
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("Query")
+                .Document(FirebaseAuth.Instance.Uid)
+                .SetAsync(dates);
+            InputMessage.Text = string.Empty;
+            
+            //query.Collection("TimeStamp")
+            //    .Document("TimeStamp")
+            //    .SetAsync(dates); 
+
         }
+
     }
     class QueriesAdapter : RecyclerView.Adapter
     {
         readonly List<Queries> items = new List<Queries>();
-        readonly string KeyId;
-        public QueriesAdapter(List<Queries> data, string key)
+        public QueriesAdapter(List<Queries> data)
         {
             items = data;
-            KeyId = key;
         }
 
         public override int ItemCount
@@ -123,15 +151,15 @@ namespace client.Fragments
             if (holder is ChatsView)
             {
                 ChatsView chatsView = holder as ChatsView;
-                chatsView.TxtTimeDate.Text = items[position].TimeSent;
-                chatsView.TxtMessage.Text = items[position].QueryMessage;
+                chatsView.TxtTimeDate.Text = $"{items[position].TimeStamp.ToDateTime():dddd, dd MMMM yyyy, HH: mm tt}";
+                chatsView.TxtMessage.Text = items[position].Message;
                 //chatsView.TxtName.Text = items[position].SenderName;
             }
             else
             {
                 SenderChats senderView = holder as SenderChats;
-                senderView.SenderTxtMessage.Text = items[position].QueryMessage;
-                senderView.SenderTxtTimeDate.Text = items[position].TimeSent;
+                senderView.SenderTxtMessage.Text = items[position].Message;
+                senderView.SenderTxtTimeDate.Text = $"{items[position].TimeStamp.ToDateTime():dddd, dd MMMM yyyy, HH: mm tt}";
             }
 
         }
@@ -169,7 +197,7 @@ namespace client.Fragments
         }
         public override int GetItemViewType(int position)
         {
-            if (items[position].SenderId == KeyId)
+            if (items[position].Uid == FirebaseAuth.Instance.Uid)
             {
                 return Resource.Layout.chat_message_reciever_row;
             }

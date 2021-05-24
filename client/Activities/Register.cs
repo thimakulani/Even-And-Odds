@@ -12,6 +12,7 @@ using Firebase.Auth;
 using Google.Android.Material.AppBar;
 using Google.Android.Material.Button;
 using Google.Android.Material.TextField;
+using Plugin.CloudFirestore;
 using System;
 using System.IO;
 using AlertDialog = Android.App.AlertDialog;
@@ -243,7 +244,7 @@ namespace client.Activities
 
         public void OnSuccess(Java.Lang.Object result)
         {
-            AppUsers driver = new AppUsers()
+            AppUsers user = new AppUsers()
             {
                 Color = null,
                 Email = InputEmail.Text,
@@ -251,11 +252,17 @@ namespace client.Activities
                 Name = InputName.Text,
                 Phone = InputPhone.Text,
                 RegNo = null,
-                Role = null,
+                Role = "C",
                 Surname = InputSurname.Text,
-                Type = "C",
+                Type = null,
                 Uid = FirebaseAuth.Instance.Uid
             };
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("AppUsers")
+                .Document(FirebaseAuth.Instance.Uid)
+                .SetAsync(user);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle("Successful");

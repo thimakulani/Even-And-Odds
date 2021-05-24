@@ -44,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fabSize="mini"
+            android:layout_alignParentRight="true"
             android:id="@+id/ImgCall"
             android:layout_toLeftOf="@+id/imgCancelDelivery"
             
@@ -56,6 +57,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/imgCancelDelivery"
             app:fabSize="mini"
+            android:visibility="gone"
             android:layout_alignParentRight="true"
             
         />
@@ -65,6 +67,7 @@
             android:textAllCaps="false"
             android:textColor="#ffffff"
             app:icon="@mipmap/ic_local_shipping_black_18dp"
+            style="@style/Widget.MaterialComponents.Button.Icon"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ImgNavigate"
             android:id="@+id/BtnPickupDestination" 

@@ -44,11 +44,5 @@
         android:layout_margin="20dp"
         android:id="@+id/BtnGenerateInvoice"
     />
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:background="@drawable/progressbarstyle"
-        android:layout_centerInParent="true"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBarInvoice"
-    />
+
 </RelativeLayout>

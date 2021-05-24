@@ -5,7 +5,9 @@ using Android.Content;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Widget;
+using AndroidX.AppCompat.App;
 using Firebase.Auth;
+using Google.Android.Material.Dialog;
 using Plugin.CloudFirestore;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,7 @@ using System.Collections.Generic;
 namespace admin.Activities
 {
     [Activity(Label = "Dashboad")]
-    public class Dashboad : Activity
+    public class Dashboad : AppCompatActivity
     {
         //loading progress dialog
 
@@ -44,7 +46,7 @@ namespace admin.Activities
                         }
                         else
                         {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
                             builder.SetTitle("Error");
                             builder.SetMessage("Unauthorized user");
                             builder.SetNeutralButton("Ok", delegate
@@ -54,8 +56,6 @@ namespace admin.Activities
                                 Finish();
                             }).Show();
                         }
-
-
                     }
                 });
 
@@ -150,7 +150,10 @@ namespace admin.Activities
             }
             if (e.Position == 10)
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+
+                //AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetTitle("Confirm");
                 // builder.SetMessage("Reset password link has been sent to your email address");
                 builder.SetMessage("Are you sure that you want to exit");
@@ -184,7 +187,7 @@ namespace admin.Activities
         public override void OnBackPressed()
         {
             //AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
             builder.SetTitle("Confirm");
             // builder.SetMessage("Reset password link has been sent to your email address");
             builder.SetMessage("Are you sure that you want to exit");

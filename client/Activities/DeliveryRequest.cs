@@ -207,6 +207,11 @@ namespace client.Activities
                         InitialPrice = double.Parse(price.InitialPrice);
                         AfterInitial = double.Parse(price.PriceAfter);
                     }
+                    else
+                    {
+                        InitialPrice = 25.0;
+                        AfterInitial = 7.0;
+                    }
                 });
 
 
@@ -306,7 +311,7 @@ namespace client.Activities
 
                         }
                         BtnOpenBottomSheet.Text = "Done...";
-                        await System.Threading.Tasks.Task.Delay(2000);
+                        await Task.Delay(2000);
                         BtnOpenBottomSheet.Text = "Continue";
                         BtnOpenBottomSheet.Enabled = true;
                     }
@@ -327,11 +332,11 @@ namespace client.Activities
                         double fares;
                         if (dstnc <= 5)
                         {
-                            fares = 25.00;
+                            fares = InitialPrice;
                         }
                         else
                         {
-                            fares = ((dstnc - 5) * 7) + 25;
+                            fares = ((dstnc - 5) * AfterInitial) + InitialPrice;
                         }
 
                         TxtPrice.Text = "R" + fares.ToString("0.##");

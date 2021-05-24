@@ -1,11 +1,15 @@
-﻿namespace client.Classes
+﻿using Plugin.CloudFirestore;
+using Plugin.CloudFirestore.Attributes;
+
+namespace client.Classes
 {
     public class Queries
     {
+        [Id]
         public string Id { get; set; }
-        public string QueryMessage { get; set; }
-        public string SenderId { get; set; }
-        public string SenderName { get; set; }
-        public string TimeSent { get; set; }
+        public string Message { get; set; }
+        public string Uid { get; set; }
+        [ServerTimestamp]
+        public Timestamp TimeStamp { get; set; }
     }
 }

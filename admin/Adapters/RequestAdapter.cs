@@ -2,7 +2,6 @@
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using Firebase.Database;
 using Plugin.CloudFirestore;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,6 @@ namespace admin.Adapters
     {
         public event EventHandler<RequestAdapterClickEventArgs> ItemClick;
         public event EventHandler<RequestAdapterClickEventArgs> ItemLongClick;
-        public event EventHandler<RequestAdapterClickEventArgs> BtnCancelClick;
         private readonly List<DeliveryModal> items = new List<DeliveryModal>();
         public List<string> Driver_Name = new List<string>();
         public RequestAdapter(ref List<DeliveryModal> data)
@@ -49,17 +47,25 @@ namespace admin.Adapters
 
             holder.PickupLocation.Text = items[position].PickupAddress;
             holder.Destination.Text = items[position].DestinationAddress;
-            holder.Price.Text = "R" + items[position].Price;
+            holder.Price.Text = items[position].Price;
             holder.Distance.Text = items[position].Distance;
-            if (items[position].Status == "W")
+
+            switch (items[position].Status)
             {
-                holder.HistoryRequestStatus.Text = items[position].Status;
-                holder.DriverName.Text = null;
+                case "W":
+                    holder.DriverName.Text = "Waiting for driver";
+                    break;
+                case "A":
+                    holder.DriverName.Text = "Accepted";
+                    break;
+                case "P":
+                    holder.DriverName.Text = "Picked up";
+                    break;
+                case "D":
+                    holder.DriverName.Text = "Delivered";
+                    break;
             }
-            else
-            {
-                holder.HistoryRequestStatus.Text = items[position].Status;
-            }
+            
             if (items[position].DriverId != null)
             {
                 CrossCloudFirestore
@@ -117,14 +123,9 @@ namespace admin.Adapters
             Distance = itemView.FindViewById<TextView>(Resource.Id.HistoryDistance);
             Price = itemView.FindViewById<TextView>(Resource.Id.HistoryPrice);
             HistoryRequestStatus = itemView.FindViewById<TextView>(Resource.Id.HistoryRequestStatus);
-            //            BtnCancelRequest = itemView.FindViewById<com.google.android.material.button.MaterialButton>(Resource.Id.BtnCancelRequest);
-            //TextView = v;
-
-
 
             itemView.Click += (sender, e) => clickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
             itemView.LongClick += (sender, e) => longClickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            //BtnCancelRequest.Click += (sender, e) => CancelClickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
         }
 
 

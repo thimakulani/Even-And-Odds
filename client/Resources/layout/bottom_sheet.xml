@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relativeLayout1"
+        tools:ignore="PossiblyUselessParentWithBackground"
     >
 
         <ImageView
@@ -39,7 +40,6 @@
             android:layout_below="@+id/imageView1"
         />
         <TextView
-            android:text="Distance"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +52,6 @@
             
         />
         <TextView
-            android:text="Distance: 10 km"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,7 +66,6 @@
             
         />
         <TextView
-            android:text="Price"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,7 +78,6 @@
             
         />
         <TextView
-            android:text="Price: R75.50"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,7 +91,6 @@
             android:layout_below="@+id/TxtDistance"
         />
         <TextView
-            android:text="Estimate Duration"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,7 +103,6 @@
             
         />
         <TextView
-            android:text="Duration"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

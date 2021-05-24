@@ -35,11 +35,10 @@ namespace driver.Adapters
         // Replace the contents of a view (invoked by the layout manager)
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
-            var item = items[position];
 
             // Replace the contents of the view with that element
             var holder = viewHolder as HistoryAdapterViewHolder;
-            int indexPos = (items.Count - 1) - position;
+            int indexPos =  position;
             //holder.TextView.Text = items[position];
             //holder.TxtClientName.Text = items[indexPos].Name;
             holder.TxtDestination.Text = items[indexPos].DestinationAddress;
