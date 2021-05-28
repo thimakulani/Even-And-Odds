@@ -1,10 +1,10 @@
 ﻿using Android.Content;
-using Android.Util;
 using Apitron.PDF.Kit;
 using Apitron.PDF.Kit.FixedLayout.Resources;
 using Apitron.PDF.Kit.FlowLayout.Content;
 using Apitron.PDF.Kit.Styles;
 using Apitron.PDF.Kit.Styles.Appearance;
+using Plugin.CloudFirestore;
 using System;
 using System.Collections.Generic;
 
@@ -49,7 +49,7 @@ namespace admin.Models
             document.PageHeader.LineHeight = 60;
          
 
-            document.PageHeader.Add(new Apitron.PDF.Kit.FlowLayout.Content.TextBlock("REPORT")
+            document.PageHeader.Add(new TextBlock("REPORT")
             {
                 Display = Display.InlineBlock,
                 Align = Align.Right,
@@ -91,7 +91,7 @@ namespace admin.Models
 
 
         }
-        private Grid CreateRequestsGrid()
+        private  Grid  CreateRequestsGrid()
         {
             Grid requestsGrid = new Grid(20, Length.Auto, Length.Auto, Length.Auto, Length.Auto, Length.Auto)
             {
@@ -101,7 +101,7 @@ namespace admin.Models
                     Class = "tableHeader centerAlignedCells"
                 }
             };
-            int counter = 0;
+            int counter = 0; 
 
             foreach (var item in reportData)
             {
@@ -114,8 +114,23 @@ namespace admin.Models
                 }
                 else
                 {
-
-                    driver = new TextBlock(item.DriverId);
+                    var results = CrossCloudFirestore
+                        .Current
+                        .Instance
+                        .Collection("AppUsers")
+                        .Document(item.DriverId)
+                        .GetAsync().Result;
+                    if (results.Exists)
+                    {
+                        var user = results.ToObject<AppUsers>();
+                        driver = new TextBlock($"{user.Name} {user.Surname}");
+                    }
+                    else
+                    {
+                        driver = new TextBlock("---------------");
+                    }
+                        
+                    
                 }
                 TextBlock pickup = new TextBlock(item.PickupAddress);
                 TextBlock dest = new TextBlock(item.DestinationAddress);

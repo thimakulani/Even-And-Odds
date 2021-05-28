@@ -9,7 +9,7 @@ namespace admin.Common
     {
         public static string GetAppPath(Context context)
         {
-            File dir = new File(Android.OS.Environment.ExternalStorageDirectory
+            File dir = new File(Android.OS.Environment.DirectoryDocuments
                 + File.Separator
                 + context.GetString(Resource.String.app_name)
                 + File.Separator);

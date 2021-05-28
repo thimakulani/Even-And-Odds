@@ -57,7 +57,7 @@ namespace admin.Activities
                 .Current
                 .Instance
                 .Collection("DeliveryRequests")
-                .WhereIn("Status", new object[] { "D", "A" })
+                .WhereIn("Status", new object[] { "D", "A", "P" })
                 .AddSnapshotListener((value, error) =>
                 {
                     if (!value.IsEmpty)
@@ -185,7 +185,7 @@ namespace admin.Activities
             document.PageHeader.LineHeight = 60;
             document.PageHeader.Add(new TextBlock("Invoice")
             {
-                // Display = Display.InlineBlock,
+                //Display = Display.InlineBlock,
                 Align = Align.Right,
             });
             Section pageSection = new Section() { Padding = new Thickness(20) };

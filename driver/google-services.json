@@ -1,153 +1,108 @@
 {
   "project_info": {
-    "project_number": "453662960073",
-    "firebase_url": "https://moshopjadi-45b4a.firebaseio.com",
-    "project_id": "moshopjadi-45b4a",
-    "storage_bucket": "moshopjadi-45b4a.appspot.com"
+    "project_number": "3641416410",
+    "firebase_url": "https://even-and-odds-default-rtdb.firebaseio.com",
+    "project_id": "even-and-odds",
+    "storage_bucket": "even-and-odds.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:453662960073:android:723ad2288d65183835a018",
+        "mobilesdk_app_id": "1:3641416410:android:6a308e22f98b700838e3e3",
+        "android_client_info": {
+          "package_name": "com.evenandodds.admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3641416410-nb6lv0d5lm4f44at2rvi16f9jm9o0amj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.evenandodds.admin",
+            "certificate_hash": "240580d78c2e0aae66cac134682738828559038b"
+          }
+        },
+        {
+          "client_id": "3641416410-q0eui40oke83kmmj7giosa3n7ubrslno.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCig7wjJ1Xgo1Z7_6FrlsQxp9yor0tte4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3641416410-q0eui40oke83kmmj7giosa3n7ubrslno.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3641416410:android:d750e100b393e10038e3e3",
+        "android_client_info": {
+          "package_name": "com.evenandodds.client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3641416410-q0eui40oke83kmmj7giosa3n7ubrslno.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCig7wjJ1Xgo1Z7_6FrlsQxp9yor0tte4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3641416410-q0eui40oke83kmmj7giosa3n7ubrslno.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3641416410:android:233bb81649d6cec538e3e3",
         "android_client_info": {
           "package_name": "com.evenandodds.driver"
         }
       },
       "oauth_client": [
         {
-          "client_id": "453662960073-uvhitgfm1eo0kf2463h9ebkcs5vcb37v.apps.googleusercontent.com",
+          "client_id": "3641416410-khlhausmqs87m5ov3s4evmg20uk8on5v.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.evenandodds.driver",
-            "certificate_hash": "cddcb9d1cc47bfc225e0bcccfc6069af403735f2"
+            "certificate_hash": "240580d78c2e0aae66cac134682738828559038b"
           }
         },
         {
-          "client_id": "453662960073-di4o1o8jltiso09tt7gep17bdp6e7mnr.apps.googleusercontent.com",
+          "client_id": "3641416410-q0eui40oke83kmmj7giosa3n7ubrslno.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBjj4FHDYwBhzIiSWLNkrJxxikKrorVuVE"
+          "current_key": "AIzaSyCig7wjJ1Xgo1Z7_6FrlsQxp9yor0tte4s"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "453662960073-di4o1o8jltiso09tt7gep17bdp6e7mnr.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:453662960073:android:cf2306190bc19e5335a018",
-        "android_client_info": {
-          "package_name": "com.moshopjadi.eaod"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "453662960073-th1lp6jn4rec0vmla9jpcgdmd0870qs1.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.moshopjadi.eaod",
-            "certificate_hash": "83f8282bc1cd29f08023958a193ebac6d4693930"
-          }
-        },
-        {
-          "client_id": "453662960073-di4o1o8jltiso09tt7gep17bdp6e7mnr.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBjj4FHDYwBhzIiSWLNkrJxxikKrorVuVE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "453662960073-di4o1o8jltiso09tt7gep17bdp6e7mnr.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:453662960073:android:5bf7c56c6408274b35a018",
-        "android_client_info": {
-          "package_name": "com.moshopjadi.even_odds_Delivery_admin"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "453662960073-is7gehrpto9dhbeh19v8gu0uar16hriq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.moshopjadi.even_odds_Delivery_admin",
-            "certificate_hash": "83f8282bc1cd29f08023958a193ebac6d4693930"
-          }
-        },
-        {
-          "client_id": "453662960073-di4o1o8jltiso09tt7gep17bdp6e7mnr.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBjj4FHDYwBhzIiSWLNkrJxxikKrorVuVE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "453662960073-di4o1o8jltiso09tt7gep17bdp6e7mnr.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:453662960073:android:c88d8077e75c756635a018",
-        "android_client_info": {
-          "package_name": "com.moshopjadi.even_odds_Delivery_driver"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "453662960073-5uft73hncf1ij8egp3a9fqjecomp9s9l.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.moshopjadi.even_odds_Delivery_driver",
-            "certificate_hash": "83f8282bc1cd29f08023958a193ebac6d4693930"
-          }
-        },
-        {
-          "client_id": "453662960073-di4o1o8jltiso09tt7gep17bdp6e7mnr.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBjj4FHDYwBhzIiSWLNkrJxxikKrorVuVE"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "453662960073-di4o1o8jltiso09tt7gep17bdp6e7mnr.apps.googleusercontent.com",
+              "client_id": "3641416410-q0eui40oke83kmmj7giosa3n7ubrslno.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
