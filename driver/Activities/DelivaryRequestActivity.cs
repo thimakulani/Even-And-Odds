@@ -271,6 +271,9 @@ namespace driver.Activities
                                     
                                     var mod = dc.Document.ToObject<DeliveryModal>();
                                     mod.KeyId = dc.Document.Id;
+
+
+
                                     if (mod.Status == "A" || mod.Status == "P")
                                     {
                                         if (mod.DriverId == FirebaseAuth.Instance.Uid)
@@ -291,11 +294,12 @@ namespace driver.Activities
                                         items.RemoveAt(dc.OldIndex);
                                         adapter.NotifyDataSetChanged();
                                     }
-                                    //if (mod.Status == "W")
-                                    //{
-                                    //    items[dc.OldIndex] = mod;
-                                    //    adapter.NotifyDataSetChanged();
-                                    //}
+                                    if (mod.Status == "W")
+                                    {
+                                        Toast.MakeText(this, $"Old: {dc.OldIndex}   New: {dc.NewIndex}", ToastLength.Long).Show();
+                                        //items[dc.OldIndex] = mod;
+                                        //adapter.NotifyDataSetChanged();
+                                    }
                                     break;
                                 case DocumentChangeType.Removed:
 

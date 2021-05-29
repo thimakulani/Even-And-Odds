@@ -62,12 +62,6 @@ namespace client.Adapters
             
 
             holder.HistoryDatesTimeCreated.Text = $"{items[indexPos].TimeStamp.ToDateTime():dddd, dd MMMM yyyy, HH: mm tt}";
-            if (items[indexPos].Status == "C")
-            {
-                holder.BtnCancelRequest.Visibility = ViewStates.Gone;
-                holder.DriverName.Text = "==== No driver ====";
-                holder.HistoryRequestStatus.Text = "Cancelled";
-            }
             if (!string.IsNullOrWhiteSpace(items[indexPos].DriverId))
             {
                 holder.BtnCancelRequest.Visibility = ViewStates.Gone;
@@ -92,16 +86,24 @@ namespace client.Adapters
             switch (items[indexPos].Status)
             {
                 case "W":
-                    holder.DriverName.Text = "Waiting for driver";
+                    holder.HistoryRequestStatus.Text = "Waiting for driver";
+                    holder.DriverName.Text = "==== No driver ====";
                     break;
                 case "A":
-                    holder.DriverName.Text = "Accepted";
+                    holder.HistoryRequestStatus.Text = "Accepted";
                     break;
                 case "P":
-                    holder.DriverName.Text = "Picked up";
+                    holder.HistoryRequestStatus.Text = "Picked up";
+                    
                     break;
                 case "D":
-                    holder.DriverName.Text = "Delivered";
+                    holder.HistoryRequestStatus.Text = "Delivered";
+                    
+                    break;
+                case "C":
+                    holder.BtnCancelRequest.Visibility = ViewStates.Gone;
+                    holder.DriverName.Text = "==== No driver ====";
+                    holder.HistoryRequestStatus.Text = "Cancelled";
                     break;
             }
             //holder.TextView.Text = items[position];

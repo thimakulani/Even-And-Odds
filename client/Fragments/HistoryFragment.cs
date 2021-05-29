@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.OS;
 using Android.Views;
+using Android.Widget;
 using AndroidHUD;
 using AndroidX.RecyclerView.Widget;
 using client.Adapters;
@@ -65,14 +66,14 @@ namespace client.Fragments
                                     modal = item.Document.ToObject<DeliveryRequestModel>();
                                     modal.KeyId = item.Document.Id;
                                     items.Add(modal);
-                                    
                                     adapter.NotifyDataSetChanged();
                                     break;
                                 case DocumentChangeType.Modified:
                                     modal = item.Document.ToObject<DeliveryRequestModel>();
                                     modal.KeyId = item.Document.Id;
                                     items[item.OldIndex] = modal;
-                                    adapter.NotifyDataSetChanged();
+                                    adapter.NotifyItemChanged(item.OldIndex);
+                                    
                                     break;
                                 case DocumentChangeType.Removed:
                                     break;

@@ -58,7 +58,7 @@ namespace client.Fragments
             FabClose = itemView.FindViewById<FloatingActionButton>(Resource.Id.FabClose);
             FabMakeCall.Click += FabMakeCall_Click;
             FabClose.Click += FabClose_Click;
-
+            
             CrossCloudFirestore.
                 Current
                 .Instance
