@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 app:navigationIcon="@drawable/ic_arrow_back_black_18dp"
                 android:id="@+id/toolbarRequests"
+                app:navigationIconTint="@android:color/white"
             />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -51,7 +52,7 @@
         >
 
 
-    
+
             <LinearLayout
                 android:orientation="vertical"
                 android:minWidth="25px"
@@ -60,8 +61,9 @@
                 android:layout_height="match_parent"
                 android:id="@+id/linearLayout1"
                 android:layout_above="@+id/navigation"
+                tools:ignore="PossiblyUselessParent"
             >
-                
+
 
 
 
