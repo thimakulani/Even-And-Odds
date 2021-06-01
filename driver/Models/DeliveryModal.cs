@@ -21,6 +21,7 @@ namespace driver.Models
         public string PersonContact { get; set; }
         public string PaymentType { get; set; }
         public string RequestTime { get; set; }
+        [Id]
         public string KeyId { get; set; }
         public string UserId { get; set; }
         public string Status { get; set; }
