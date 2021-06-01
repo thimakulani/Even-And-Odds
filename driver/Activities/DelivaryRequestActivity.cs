@@ -146,7 +146,6 @@ namespace driver.Activities
             bottomSheetLayout = FindViewById<LinearLayout>(Resource.Id.bottom_sheet_delivery_request);
             bottomSheet = BottomSheetBehavior.From(bottomSheetLayout);
             BtnAcceptRequest = FindViewById<MaterialButton>(Resource.Id.BtnAcceptRequest);
-
             txtRequestDestination = FindViewById<TextView>(Resource.Id.txtRequestDestination);
             txtRequestDistance = FindViewById<TextView>(Resource.Id.txtRequestDistance);
             txtRequestFromContact = FindViewById<TextView>(Resource.Id.txtRequestFromContact);
@@ -235,10 +234,6 @@ namespace driver.Activities
             adapter.ItemClick += Adapter_ItemClick;
             RecyclerRequests.SetAdapter(adapter);
 
-
-            
-
-
             CrossCloudFirestore
                 .Current
                 .Instance
@@ -260,10 +255,18 @@ namespace driver.Activities
                             {
                                 case DocumentChangeType.Added:
                                     var doc = dc.Document.ToObject<DeliveryModal>();
-                                    doc.KeyId = dc.Document.Id;
-                                    items.Add(doc);
-                                    adapter.NotifyDataSetChanged();
-
+                                    if(doc.Status == "W")
+                                    {
+                                        doc.KeyId = dc.Document.Id;
+                                        items.Add(doc);
+                                    }
+                                    else
+                                    {
+                                        adapter.NotifyDataSetChanged();
+                                    }
+                                    //doc.KeyId = dc.Document.Id;
+                                    //items.Add(doc);
+                                    
                                     CheckRequestAsync(doc);
 
                                     break;
@@ -271,9 +274,6 @@ namespace driver.Activities
                                     
                                     var mod = dc.Document.ToObject<DeliveryModal>();
                                     mod.KeyId = dc.Document.Id;
-
-
-
                                     if (mod.Status == "A" || mod.Status == "P")
                                     {
                                         if (mod.DriverId == FirebaseAuth.Instance.Uid)
@@ -283,11 +283,14 @@ namespace driver.Activities
                                         }
                                         else
                                         {
-                                            items.RemoveAt(dc.OldIndex);
+                                            int pos = items.FindIndex(x => x.KeyId == dc.Document.Id);
+                                            if(pos >= 0)
+                                            {
+                                                items.RemoveAt(pos);
+                                            }
                                             adapter.NotifyDataSetChanged();
                                         }
                                     }
-                                    
 
                                     if (mod.Status == "D")
                                     {
@@ -296,9 +299,9 @@ namespace driver.Activities
                                     }
                                     if (mod.Status == "W")
                                     {
-                                        Toast.MakeText(this, $"Old: {dc.OldIndex}   New: {dc.NewIndex}", ToastLength.Long).Show();
-                                        //items[dc.OldIndex] = mod;
-                                        //adapter.NotifyDataSetChanged();
+                                        int pos = items.FindIndex(X => X.KeyId == dc.Document.Id);
+                                        items[pos] = mod;
+                                        adapter.NotifyDataSetChanged();
                                     }
                                     break;
                                 case DocumentChangeType.Removed:
