@@ -9,7 +9,6 @@
     app:behavior_hideable="true"
     app:behavior_peekHeight="0dp"
     android:padding="3dp"
-    android:background="@drawable/bottom_sheet_style"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
 >
     <LinearLayout
@@ -17,6 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
+        tools:ignore="UselessParent"
         
     >
         <LinearLayout
@@ -31,7 +31,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:minWidth="25px"
-                android:textColor="#4b0082"
                 android:minHeight="25px"
                 android:id="@+id/textView1"
                 android:textStyle="bold"
@@ -43,8 +42,6 @@
                 android:layout_height="wrap_content"
             >
                 <TextView
-                    android:text="From"
-                    android:textColor="#4b0082"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:minWidth="25px"
@@ -66,7 +63,6 @@
                 android:text="Contact No"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textColor="#4b0082"
                 android:minWidth="25px"
                 android:minHeight="25px"
                 android:textStyle="bold"
@@ -78,10 +74,8 @@
                 android:layout_height="wrap_content"
             >
                 <TextView
-                    android:text="Contact"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textColor="#4b0082"
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:id="@+id/txtRequestFromContact"
@@ -102,7 +96,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:minWidth="25px"
-                android:textColor="#4b0082"
                 android:minHeight="25px"
                 android:id="@+id/textView2"
                 android:textStyle="bold"
@@ -114,10 +107,8 @@
                 android:layout_height="wrap_content"
             >
                 <TextView
-                    android:text="Alt Nr"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textColor="#4b0082"
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:id="@+id/txtRequestFromAltNr"
@@ -128,8 +119,8 @@
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#4b0082"
+            android:layout_height="1dp"
+            android:background="@color/material_blue_grey_950"
           />
         <LinearLayout
             android:layout_width="match_parent"
@@ -142,7 +133,6 @@
                 android:text="To"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textColor="#4b0082"
                 android:minWidth="25px"
                 android:minHeight="25px"
                 android:textStyle="bold"
@@ -154,10 +144,8 @@
                 android:layout_height="wrap_content"
             >
                 <TextView
-                    android:text="Text"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textColor="#4b0082"
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:id="@+id/txtRequestToName"
@@ -172,13 +160,12 @@
             android:orientation="horizontal"
             android:weightSum="100"
             tools:ignore="MissingDimension"
-         >
+        >
             <TextView
                 android:text="Contact No"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:minWidth="25px"
-                android:textColor="#4b0082"
                 android:minHeight="25px"
                 android:textStyle="bold"
                 android:layout_weight="35"
@@ -189,10 +176,8 @@
                 android:layout_height="wrap_content"
             >
                 <TextView
-                    android:text="Text"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textColor="#4b0082"
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:id="@+id/txtRequestToContact"
@@ -204,8 +189,8 @@
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#4b0082"
+            android:layout_height="1dp"
+            android:background="@color/material_blue_grey_950"
          />
         <LinearLayout
             android:layout_width="match_parent"
@@ -219,7 +204,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:minWidth="25px"
-                android:textColor="#4b0082"
                 android:minHeight="25px"
                 android:textStyle="bold"
                 android:layout_weight="35"
@@ -228,12 +212,11 @@
                 android:layout_width="0dp"
                 android:layout_weight="65"
                 android:layout_height="wrap_content"
+                tools:ignore="Suspicious0dp"
             >
                 <TextView
-                    android:text="Text"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textColor="#4b0082"
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:id="@+id/txtRequestItemType"
@@ -253,7 +236,6 @@
                 android:text="Pickup location"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textColor="#4b0082"
                 android:minWidth="25px"
                 android:minHeight="25px"
                 android:textStyle="bold"
@@ -265,11 +247,9 @@
                 android:layout_height="wrap_content"
             >
                 <TextView
-                    android:text="Text"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:minWidth="25px"
-                    android:textColor="#4b0082"
                     android:minHeight="25px"
                     android:id="@+id/txtRequestPickupLication"
                     android:textStyle="bold"
@@ -289,7 +269,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:minWidth="25px"
-                android:textColor="#4b0082"
                 android:minHeight="25px"
                 android:textStyle="bold"
                 android:layout_weight="35"
@@ -300,10 +279,8 @@
                 android:layout_height="wrap_content"
             >
                 <TextView
-                    android:text="Text"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textColor="#4b0082"
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:id="@+id/txtRequestDestination"
@@ -324,7 +301,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:minWidth="25px"
-                android:textColor="#4b0082"
                 android:minHeight="25px"
                 android:textStyle="bold"
                 android:layout_weight="35"
@@ -335,10 +311,8 @@
                 android:layout_height="wrap_content"
             >
                 <TextView
-                    android:text="Text"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textColor="#4b0082"
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:id="@+id/txtRequestDistance"
@@ -358,7 +332,6 @@
                 android:text="Price"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textColor="#4b0082"
                 android:minWidth="25px"
                 android:minHeight="25px"
                 android:textStyle="bold"
@@ -370,10 +343,8 @@
                 android:layout_height="wrap_content"
             >
                 <TextView
-                    android:text="Text"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textColor="#4b0082"
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:id="@+id/txtRequestPrice"
@@ -393,7 +364,6 @@
                 android:text="Status"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textColor="#4b0082"
                 android:minWidth="25px"
                 android:minHeight="25px"
                 android:textStyle="bold"
@@ -405,10 +375,8 @@
                 android:layout_height="wrap_content"
             >
                 <TextView
-                    android:text="Text"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:textColor="#4b0082"
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:id="@+id/txtRequestStatus"
