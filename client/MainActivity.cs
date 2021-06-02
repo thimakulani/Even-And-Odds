@@ -12,6 +12,7 @@ using client.Classes;
 using client.Fragments;
 using Firebase.Auth;
 using Google.Android.Material.AppBar;
+using Google.Android.Material.Dialog;
 using Google.Android.Material.Navigation;
 using Plugin.CloudFirestore;
 using System;
@@ -27,6 +28,7 @@ namespace client
         TextView TxtHeaderEmail;
         private DrawerLayout drawerLayout;
         private MaterialToolbar toolbar_main;
+        AppUsers users = new AppUsers();
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -55,7 +57,7 @@ namespace client
                 {
                     if (value.Exists)
                     {
-                        var users = value.ToObject<AppUsers>();
+                        users = value.ToObject<AppUsers>();
                         HeaderUsername.Text = $"{users.Name} {users.Surname}";
                         TxtHeaderEmail.Text = users.Email;
                     }
@@ -172,7 +174,25 @@ namespace client
             }
             if (e.MenuItem.ItemId == Resource.Id.nav_become_driver)
             {
+                if(users.Role == "C")
+                {
+                    DriverRegistrationDialog driver = new DriverRegistrationDialog();
+                    driver.Show(SupportFragmentManager.BeginTransaction(), "Driver Registration");
+                }
+                else if(users.Role == null)
+                {
+                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+                    builder.SetTitle("Confirm");
+                    // builder.SetMessage("Reset password link has been sent to your email address");
+                    builder.SetMessage("Waiting for your driver request to be approved by administrators");
+                    builder.SetPositiveButton("Yes", delegate
+                    {
 
+                        builder.Dispose();
+
+                    });
+                    builder.Show();
+                }
             }
             if (e.MenuItem.ItemId == Resource.Id.nav_logout)
             {
@@ -182,8 +202,6 @@ namespace client
                 alert.SetMessage("Are you sure you want to exit:");
                 alert.SetPositiveButton("Yes", delegate
                 {
-
-
                     alert.Dispose();
                     FirebaseAuth.Instance.SignOut();
                     if (Android.OS.Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)

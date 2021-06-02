@@ -81,6 +81,7 @@
     <Compile Include="Fragments\AboutFragment.cs" />
     <Compile Include="Fragments\CompleteRequestFragment.cs" />
     <Compile Include="Fragments\DriverDialogFragment.cs" />
+    <Compile Include="Fragments\DriverRegistrationDialog.cs" />
     <Compile Include="Fragments\HelpFragment.cs" />
     <Compile Include="Fragments\HistoryFragment.cs" />
     <Compile Include="Fragments\ProfileFragment.cs" />
@@ -690,6 +691,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_local_shipping_black_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\create_driver_dialog.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
