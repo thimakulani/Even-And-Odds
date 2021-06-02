@@ -8,7 +8,7 @@
 >
     
         
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/FabCloseDirverRegDialog"
@@ -55,7 +55,7 @@
                 android:layout_margin="5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/RegisterInputFirstName"
@@ -73,7 +73,7 @@
                 android:layout_margin="5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >   
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/RegisterInputLastName"
@@ -91,7 +91,7 @@
                 android:layout_margin="5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/RegisterInputPhoneNumber"
@@ -109,7 +109,7 @@
                 android:layout_margin="5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >    
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/RegisterInputEmail"
@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >    
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/RegisterInputRegNo"
@@ -145,7 +145,7 @@
                 android:layout_margin="5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >    
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/RegisterInputMake"
@@ -163,7 +163,7 @@
                 android:layout_margin="5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             >    
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/RegisterInputColor"
@@ -180,7 +180,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/BtnRegisterCarType"
-                style="@android:style/Widget.Material.Light.Button"
+                style="@style/Widget.MaterialComponents.Button"
                 android:textColor="#ffffff"
                 android:textAllCaps="false"
                 android:layout_margin="5dp"
@@ -190,7 +190,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/BtnRegisterDriver"
-                style="@android:style/Widget.Material.Light.Button"
+                style="@style/Widget.MaterialComponents.Button"
                 android:textColor="#ffffff"
                 android:textAllCaps="false"
                 android:layout_margin="5dp"

@@ -21,7 +21,6 @@ namespace admin.Activities
     public class RegisterDriver : AppCompatActivity
     {
 
-        private readonly List<AppUsers> items = new List<AppUsers>();
         private readonly List<AppUsers> UseritemsList = new List<AppUsers>();
         // private RecyclerView RecyclerUserList;
         private AppUsersAdapter adapter;
@@ -54,8 +53,8 @@ namespace admin.Activities
             InputSearchUser = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.InputSearchUsers);
             InputSearchUser.Visibility = ViewStates.Visible;
             recyclerUsersList = FindViewById<RecyclerView>(Resource.Id.recyclerUsersList);
-
-            InputSearchUser.QueryTextChange += InputSearchUser_QueryTextChange;
+            InputSearchUser.Visibility = ViewStates.Gone;
+            // InputSearchUser.QueryTextChange += InputSearchUser_QueryTextChange;
             txtCreateDriver = FindViewById<MaterialButton>(Resource.Id.txtCreateDriver);
 
 
@@ -65,21 +64,57 @@ namespace admin.Activities
 
             SetUpRecycler(UseritemsList);
 
+            CrossCloudFirestore
+                 .Current
+                 .Instance
+                 .Collection("AppUsers")
+                 .WhereIn("Role", new object[] { "D", "C"})
+                 .AddSnapshotListener((values, error) =>
+                 {
+                     if (!values.IsEmpty)
+                     {
+                         foreach (var item in values.DocumentChanges)
+                         {
+                             AppUsers users = new AppUsers();
+                             switch (item.Type)
+                             {
+                                 case DocumentChangeType.Added:
+                                     users = item.Document.ToObject<AppUsers>();
+                                     UseritemsList.Add(users);
+                                     adapter.NotifyDataSetChanged();
+                                     break;
+                                 case DocumentChangeType.Modified:
+                                     users = item.Document.ToObject<AppUsers>();
+                                     UseritemsList[item.OldIndex] = users;
+                                     adapter.NotifyDataSetChanged();
+                                     break;
+                                 case DocumentChangeType.Removed:
+                                     break;
+                                 default:
+                                     break;
+                             }
+                         }
+
+                     }
+                 });
+
+
+
         }
 
-        private void InputSearchUser_QueryTextChange(object sender, Android.Support.V7.Widget.SearchView.QueryTextChangeEventArgs e)
-        {
-            var users = (from data in UseritemsList
-                         where
-                        data.Name.Contains(e.NewText) ||
-                        data.Role.Contains(e.NewText) ||
-                        data.Surname.Contains(e.NewText) ||
-                        data.Email.Contains(e.NewText) ||
-                        data.Phone.Contains(e.NewText)
-                         select data).ToList<AppUsers>();
-
-            SetUpRecycler(users);
-        }
+        //private void InputSearchUser_QueryTextChange(object sender, Android.Support.V7.Widget.SearchView.QueryTextChangeEventArgs e)
+        //{
+        //    var users = (from data in UseritemsList
+        //                 where
+        //                data.Name.Contains(e.NewText) ||
+        //                data.Role.Contains(e.NewText) ||
+        //                data.Surname.Contains(e.NewText) ||
+        //                data.Email.Contains(e.NewText) ||
+        //                data.Phone.Contains(e.NewText)
+        //                 select data).ToList<AppUsers>();
+        //    UseritemsList = users;
+        //    SetUpRecycler(users);
+        //}
 
 
 
@@ -114,16 +149,16 @@ namespace admin.Activities
 
         private void Adapter_CreateDriverClick(object sender, AppUsersAdapterClickEventArgs e)
         {
-            if (items[e.Position].Role != "Driver")
+            if (UseritemsList[e.Position].Role != "D")
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetTitle("Confirm");
                 // builder.SetMessage("Reset password link has been sent to your email address");
-                builder.SetMessage("Are you sure you want to activate user: " + items[e.Position].Name + " " + items[e.Position].Surname + " as a driver?");
+                builder.SetMessage($"Are you sure you want to activate user: { UseritemsList[e.Position].Name}  {UseritemsList[e.Position].Surname} as a driver?");
                 builder.SetPositiveButton("Yes", delegate
                 {
 
-                    UpdateExistingUserFragment userFragment = new UpdateExistingUserFragment(items[e.Position])
+                    UpdateExistingUserFragment userFragment = new UpdateExistingUserFragment(UseritemsList[e.Position])
                     {
                         Cancelable = false
                     };
@@ -142,14 +177,14 @@ namespace admin.Activities
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetTitle("Confirm");
-                builder.SetMessage("Are you sure you want to deactivate driver: " + items[e.Position].Name + " " + items[e.Position].Surname + "?");
+                builder.SetMessage($"Are you sure you want to change role to client for: {UseritemsList[e.Position].Name} { UseritemsList[e.Position].Surname} ?");
                 builder.SetPositiveButton("Yes", async delegate
                  {
                      await CrossCloudFirestore
                          .Current
                          .Instance
                          .Collection("AppUsers")
-                         .Document(items[e.Position].Uid)
+                         .Document(UseritemsList[e.Position].Uid)
                          .UpdateAsync("Role", "C");
                      builder.Dispose();
 
@@ -171,7 +206,7 @@ namespace admin.Activities
             {
                 List<string> to = new List<string>
                 {
-                    items[e.Position].Email
+                    UseritemsList[e.Position].Email
                 };// 
                 var message = new EmailMessage
                 {
@@ -213,7 +248,7 @@ namespace admin.Activities
         {
             try
             {
-                PhoneDialer.Open(items[e.Position].Phone);
+                PhoneDialer.Open(UseritemsList[e.Position].Phone);
             }
             catch (ArgumentNullException anEx)
             {
@@ -250,29 +285,5 @@ namespace admin.Activities
 
             }
         }
-
-
-
-        //public void OnCancelled(DatabaseError error)
-        //{
-
-        //}
-
-        //public void OnDataChange(DataSnapshot snapshot)
-        //{
-        //    if(snapshot.Value != null)
-        //    {
-        //        var child = snapshot.Children.ToEnumerable<DataSnapshot>();
-        //        foreach(DataSnapshot data in child)
-        //        {
-        //            if (data.Child("Email").Value.ToString() == "thimakulani@gmail.com")
-        //            {
-        //                databaseReference.RemoveEventListener(this);
-        //                return;
-        //            }
-        //        }
-        //    }
-        //}
-
     }
 }

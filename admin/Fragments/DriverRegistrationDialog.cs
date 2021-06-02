@@ -183,7 +183,8 @@ namespace admin.Fragments
                 { "Phone", InputPhone.Text },
                 { "Surname", InputSurname.Text },
                 { "Email", InputEmail.Text },
-                { "Role", BtnType.Text },
+                { "Type", BtnType.Text },
+                { "Role", "D" },
                 { "Make", InputMake.Text },
                 { "RegNo", InputRegNo.Text },
                 { "Color", InputColor.Text }

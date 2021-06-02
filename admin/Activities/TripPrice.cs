@@ -41,7 +41,7 @@ namespace admin.Activities
                  .Document("Price")
                  .AddSnapshotListener((snapshot, error) =>
                  {
-                     if (snapshot != null)
+                     if (snapshot.Exists && snapshot != null)
                      {
                          var price = snapshot.ToObject<PriceModel>();
                          InputPrice.Text = price.InitialPrice;
@@ -76,7 +76,7 @@ namespace admin.Activities
                  .Instance
                  .Collection("TripPrice")
                  .Document("Price")
-                 .UpdateAsync(price);
+                 .SetAsync(price);
             AndHUD.Shared.ShowSuccess(this, "Price Updated", MaskType.Black, TimeSpan.FromSeconds(2));
         }
 

@@ -1,4 +1,6 @@
-﻿namespace admin.Models
+﻿using Plugin.CloudFirestore.Attributes;
+
+namespace admin.Models
 {
     public class DriverRequestModel
     {
@@ -7,6 +9,7 @@
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
+        [Id]
         public string KeyId { get; set; }
         public string Status { get; set; }
         public string Make { get; set; }

@@ -45,8 +45,9 @@ namespace admin.Adapters
             holder.Email.Text = items[position].Email;
             holder.Names.Text = items[position].Name;
             holder.Surname.Text = items[position].Surname;
-            holder.UserType.Text = items[position].Role;
+            holder.UserType.Text = "Admin";
             holder.PhoneNumber.Text = items[position].Phone;
+            
 
             //ViewAnimationUtils(viewHolder.ItemView, position);
         }

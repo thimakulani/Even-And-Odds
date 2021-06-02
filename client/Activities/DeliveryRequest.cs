@@ -289,8 +289,6 @@ namespace client.Activities
                 {
                     try
                     {
-
-
                         BtnOpenBottomSheet.Text = "Please wait...";
                         BtnOpenBottomSheet.Enabled = false;
                         googleMap.Clear();

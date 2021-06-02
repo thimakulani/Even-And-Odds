@@ -22,11 +22,11 @@ using Xamarin.Essentials;
 namespace admin.Activities
 {
     [Activity(Label = "SuperUser", MainLauncher = false)]
-    public class SuperUser : Activity, IOnSuccessListener, IDialogInterfaceOnDismissListener
+    public class SuperUser : Activity, IDialogInterfaceOnDismissListener
     {
 
 
-        private readonly List<AppUsers> items = new List<AppUsers>();
+       // private readonly List<AppUsers> items = new List<AppUsers>();
         private readonly List<AppUsers> UseritemsList = new List<AppUsers>();
         //private List<AppUsers> adminList = new List<AppUsers>();
 
@@ -81,7 +81,6 @@ namespace admin.Activities
             InputSearchUser.Visibility = ViewStates.Gone;
             recyclerUsersList = FindViewById<RecyclerView>(Resource.Id.recyclerSuperUsersList);
 
-            InputSearchUser.QueryTextChange += InputSearchUser_QueryTextChange1;
             txtCreateSuperUser = FindViewById<MaterialButton>(Resource.Id.txtCreateSuperUser);
 
 
@@ -89,23 +88,57 @@ namespace admin.Activities
 
             txtCreateSuperUser.Click += TxtCreateSuperUser_Click;
 
-            SetUpRecycler(UseritemsList);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            recyclerUsersList.SetLayoutManager(linearLayoutManager);
+            adapter = new AdminAdapter(UseritemsList);
+            recyclerUsersList.SetAdapter(adapter);
+            adapter.FabCallClick += Adapter_FabCallClick;
+            adapter.FabEmailClick += Adapter_FabEmailClick;
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("AppUsers")
+                .WhereEqualsTo("Role", "A")
+                .AddSnapshotListener((values, error) =>
+                {
+                    if (!values.IsEmpty)
+                    {
+                        foreach (var item in values.DocumentChanges)
+                        {
+                            AppUsers users = new AppUsers();
+                            switch (item.Type)
+                            {
+                                case DocumentChangeType.Added:
+                                    users = item.Document.ToObject<AppUsers>();
+                                    UseritemsList.Add(users);
+                                    adapter.NotifyDataSetChanged();
+                                    break;
+                                case DocumentChangeType.Modified:
+                                    break;
+                                case DocumentChangeType.Removed:
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
 
+                    }
+                });
         }
 
-        private void InputSearchUser_QueryTextChange1(object sender, AndroidX.AppCompat.Widget.SearchView.QueryTextChangeEventArgs e)
-        {
-            var users = (from data in UseritemsList
-                         where
-                        data.Name.Contains(e.NewText) ||
-                        data.Role.Contains(e.NewText) ||
-                        data.Surname.Contains(e.NewText) ||
-                        data.Email.Contains(e.NewText) ||
-                        data.Phone.Contains(e.NewText)
-                         select data).ToList<AppUsers>();
+        //private void InputSearchUser_QueryTextChange1(object sender, AndroidX.AppCompat.Widget.SearchView.QueryTextChangeEventArgs e)
+        //{
+        //    var users = (from data in UseritemsList
+        //                 where
+        //                data.Name.Contains(e.NewText) ||
+        //                data.Role.Contains(e.NewText) ||
+        //                data.Surname.Contains(e.NewText) ||
+        //                data.Email.Contains(e.NewText) ||
+        //                data.Phone.Contains(e.NewText)
+        //                 select data).ToList<AppUsers>();
 
-            SetUpRecycler(users);
-        }
+        //    //SetUpRecycler(users);
+        //}
 
 
         private void TxtCreateSuperUser_Click(object sender, EventArgs e)
@@ -185,7 +218,18 @@ namespace admin.Activities
                 InputEmail.RequestFocus();
                 return;
             }
-            foreach (var data in items)
+            var query = CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("AppUsers")
+                .WhereIn("Role", new object[] { "C", "D", null })
+                .WhereEqualsTo("Email", InputEmail.Text.Trim())
+                .GetAsync();
+
+            var users = query.Result.ToObjects<AppUsers>();
+            
+
+            foreach (var data in users)
             {
                 if (data.Email == InputEmail.Text)
                 {
@@ -197,9 +241,15 @@ namespace admin.Activities
                         "a administrator?");
                     builder.SetPositiveButton("Yes", delegate
                     {
+                        CrossCloudFirestore
+                            .Current
+                            .Instance
+                            .Collection("AppUsers")
+                            .Document(data.Uid)
+                            .UpdateAsync("Role", "A");
+                        HUD("User Role has been updated");
 
-                        //FirebaseDatabase.Instance.GetReference("AppUsers")
-                        //.Child(data.Uid).Child(.Role").SetValue("Admin");
+
                         builder.Dispose();
 
                     });
@@ -254,16 +304,7 @@ namespace admin.Activities
         }
 
 
-        private void SetUpRecycler(List<AppUsers> users)
-        {
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-            recyclerUsersList.SetLayoutManager(linearLayoutManager);
-            adapter = new AdminAdapter(users);
-            recyclerUsersList.SetAdapter(adapter);
-            adapter.FabCallClick += Adapter_FabCallClick;
-            adapter.FabEmailClick += Adapter_FabEmailClick;
 
-        }
         private AlertDialog loading;
         private void LoadingProgress()
         {
@@ -284,7 +325,7 @@ namespace admin.Activities
             {
                 List<string> to = new List<string>
                 {
-                    items[e.Position].Email
+                    UseritemsList[e.Position].Email
                 };// 
                 var message = new EmailMessage
                 {
@@ -326,7 +367,7 @@ namespace admin.Activities
         {
             try
             {
-                PhoneDialer.Open(items[e.Position].Phone);
+                PhoneDialer.Open(UseritemsList[e.Position].Phone);
             }
             catch (ArgumentNullException anEx)
             {
@@ -364,11 +405,6 @@ namespace admin.Activities
             }
         }
 
-        public void OnSuccess(Java.Lang.Object result)
-        {
-
-        }
-
         private async void RegisterInfor(string uid)
         {
             /*Register*/
@@ -379,7 +415,7 @@ namespace admin.Activities
                 { "Phone", InputPhone.Text },
                 { "Surname", InputSurname.Text },
                 { "Email", InputEmail.Text },
-                { "Role", null },
+                { "Role", "A" },
                 { "Make", null },
                 { "RegNo", null },
                 { "Color", null }

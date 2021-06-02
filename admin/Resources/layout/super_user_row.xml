@@ -94,12 +94,14 @@
                 android:id="@+id/SuperUserRowFabCall"
                 android:layout_toLeftOf="@+id/SuperUserRowFabEmail"
                 android:src="@android:drawable/stat_sys_phone_call"
+                app:backgroundTint="@color/colorPrimary"
                 android:layout_margin="5dp"
             />
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fabSize="mini"
+                app:backgroundTint="@color/colorPrimary"
                 android:id="@+id/SuperUserRowFabEmail"
                 android:src="@android:drawable/ic_dialog_email"
                 android:layout_alignParentRight="true"

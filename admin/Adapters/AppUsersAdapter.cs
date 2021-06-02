@@ -49,22 +49,25 @@ namespace admin.Adapters
             holder.Email.Text = items[position].Email;
             holder.Names.Text = items[position].Name;
             holder.Surname.Text = items[position].Surname;
-            holder.UserType.Text = items[position].Role;
+            
             holder.PhoneNumber.Text = items[position].Phone;
 
-            if (items[position].Role == "Driver")
+            if (items[position].Role == "D")
             {
                 holder.BtnCreateDriver.Text = "Deactivate Driver";
                 holder.RegNo.Text = items[position].RegNo;
                 holder.Make.Text = items[position].Make;
                 holder.Color.Text = items[position].Color;
                 holder.Type.Text = items[position].Type;
+                holder.UserType.Text = "Driver";
+                holder.LinearLayoutCarInformatio.Visibility = ViewStates.Visible;
 
             }
             else
             {
                 holder.BtnCreateDriver.Text = "Activate Driver";
                 holder.LinearLayoutCarInformatio.Visibility = ViewStates.Gone;
+                holder.UserType.Text = "Client";
             }
             //ViewAnimationUtils(viewHolder.ItemView, position);
 

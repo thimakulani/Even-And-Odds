@@ -15,9 +15,11 @@ using Android.Widget;
 using Com.Karumi.Dexter;
 using Com.Karumi.Dexter.Listener;
 using Com.Karumi.Dexter.Listener.Single;
+using Google.Android.Material.AppBar;
 using Google.Android.Material.Button;
 using iTextSharp.text;
 using Plugin.CloudFirestore;
+using Supercharge;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,10 +32,8 @@ namespace admin.Activities
     public class Report : AppCompatActivity, IPermissionListener
     {
         private MaterialButton BtnGenerate;
-        public ProgressBar LoadingProgressBar;
         private MaterialButton RequestsType;
-        private ImageView imgBack;
-
+        private MaterialToolbar toolbar;
         // private string FileName;
 
         private RecyclerView RecyclerHistory;
@@ -52,17 +52,22 @@ namespace admin.Activities
 
             BtnGenerate = FindViewById<MaterialButton>(Resource.Id.BtnGenerate);
             RecyclerHistory = FindViewById<RecyclerView>(Resource.Id.RecyclerHistory);
-            LoadingProgressBar = FindViewById<ProgressBar>(Resource.Id.LoadingProgressBar);
             RequestsType = FindViewById<MaterialButton>(Resource.Id.RequestsType);
-            imgBack = FindViewById<ImageView>(Resource.Id.ImgCloseHistory);
+            toolbar = FindViewById<MaterialToolbar>(Resource.Id.include_app_toolbar);
             BtnGenerate.Click += BtnGenerate_Click;
             RequestsType.Click += RequestsType_Click;
             // CheckPermission();
-            imgBack.Click += ImgBack_Click;
+            toolbar.Title = "Delivery Report";
+            toolbar.NavigationClick += Toolbar_NavigationClick;
+            
             Dexter.WithActivity(this)
                 .WithPermission(Manifest.Permission.WriteExternalStorage)
                 .WithListener(this)
                 .Check();
+
+            var shimmerLayout = FindViewById<ShimmerLayout>(Resource.Id.shimmer_layout);
+            shimmerLayout.StartShimmerAnimation();
+            SetRecycler(delivariesList);
             //get data
             CrossCloudFirestore
                 .Current
@@ -81,11 +86,13 @@ namespace admin.Activities
                                     Delivery = item.Document.ToObject<DeliveryModal>();
                                     Delivery.KeyId = item.Document.Id;
                                     delivariesList.Add(Delivery);
+                                    adapter.NotifyDataSetChanged();
                                     break;
                                 case DocumentChangeType.Modified:
                                     Delivery = item.Document.ToObject<DeliveryModal>();
                                     Delivery.KeyId = item.Document.Id;
                                     delivariesList[item.OldIndex] = Delivery;
+                                    adapter.NotifyDataSetChanged();
                                     break;
                                 case DocumentChangeType.Removed:
                                     break;
@@ -95,11 +102,13 @@ namespace admin.Activities
                         }
                     }
                 });
-            Common.PrintReport.WriteFileToStorage(this, "Lato_Black.ttf");
+            shimmerLayout.StopShimmerAnimation();
+            shimmerLayout.Visibility = ViewStates.Gone;
+            PrintReport.WriteFileToStorage(this, "Lato_Black.ttf");
 
         }
 
-        private void ImgBack_Click(object sender, EventArgs e)
+        private void Toolbar_NavigationClick(object sender, AndroidX.AppCompat.Widget.Toolbar.NavigationClickEventArgs e)
         {
             base.OnBackPressed();
         }

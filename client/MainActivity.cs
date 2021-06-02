@@ -170,6 +170,10 @@ namespace client
 
 
             }
+            if (e.MenuItem.ItemId == Resource.Id.nav_become_driver)
+            {
+
+            }
             if (e.MenuItem.ItemId == Resource.Id.nav_logout)
             {
 

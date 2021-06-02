@@ -93,7 +93,11 @@ namespace driver.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
+            if(savedInstanceState == null)
+            {
+                CrossCloudFirestore.Current
+                    .Instance.ClearPersistenceAsync();
+            }
             // Create your application here
             SetContentView(Resource.Layout.activity_home);
             RequestedOrientation = ScreenOrientation.Portrait;
@@ -226,26 +230,23 @@ namespace driver.Activities
         }
         private string PickPhone;
         private string DestPhone;
+        RequestAdapter adapter;
         private void SetupAdapter()
         {
             LinearLayoutManager linearLayout = new LinearLayoutManager(this);
             RecyclerRequests.SetLayoutManager(linearLayout);
-            RequestAdapter adapter = new RequestAdapter(items);
+            adapter = new RequestAdapter(items);
             adapter.ItemClick += Adapter_ItemClick;
             RecyclerRequests.SetAdapter(adapter);
 
             CrossCloudFirestore
-                .Current
-                .Instance
-                .Collection("DeliveryRequests")
-                .WhereIn("Status", new[] { "P", "A", "W" })
+                .Current.Instance.Collection("DeliveryRequests").WhereIn("Status", new[] { "P", "A", "W" })
                 .OrderBy("TimeStamp", false)
                 .AddSnapshotListener((snapshot, error) =>
                 {
                     if (error != null)
                     {
                         Console.WriteLine("Errorrr", error.Message);
-
                     }
                     if (!snapshot.IsEmpty && snapshot != null)
                     {
@@ -264,14 +265,10 @@ namespace driver.Activities
                                     {
                                         adapter.NotifyDataSetChanged();
                                     }
-                                    //doc.KeyId = dc.Document.Id;
-                                    //items.Add(doc);
-                                    
                                     CheckRequestAsync(doc);
-
+                                    adapter.NotifyDataSetChanged();
                                     break;
                                 case DocumentChangeType.Modified:
-                                    
                                     var mod = dc.Document.ToObject<DeliveryModal>();
                                     mod.KeyId = dc.Document.Id;
                                     if (mod.Status == "A" || mod.Status == "P")
@@ -294,13 +291,25 @@ namespace driver.Activities
 
                                     if (mod.Status == "D")
                                     {
-                                        items.RemoveAt(dc.OldIndex);
+                                        int pos = items.FindIndex(x => x.KeyId == dc.Document.Id);
+                                        if (pos >= 0)
+                                        {
+                                            items.RemoveAt(pos);
+                                        }
                                         adapter.NotifyDataSetChanged();
                                     }
-                                    if (mod.Status == "W")
+                                    else if (mod.Status == "D")
+                                    {
+
+                                    }
+                                    
+                                    if (mod.Status == "W" && mod.DriverId == null)
                                     {
                                         int pos = items.FindIndex(X => X.KeyId == dc.Document.Id);
-                                        items[pos] = mod;
+                                        if(pos>=0)
+                                        {
+                                            items.Add(mod);
+                                        }
                                         adapter.NotifyDataSetChanged();
                                     }
                                     break;
@@ -505,6 +514,12 @@ namespace driver.Activities
             }
             else if (BtnPickupDestination.Text == "Done")
             {
+                int pos = items.FindIndex(x => x.KeyId == KeyPosition);
+                if(pos >= 0)
+                {
+                    items.RemoveAt(pos);
+                    adapter.NotifyDataSetChanged();
+                }
                 RequestMainMenuLayout.Visibility = ViewStates.Visible;
                 DeliveryRequestNavigation.Visibility = ViewStates.Gone;
                 BtnPickupDestination.Text = "Pickup";

@@ -22,15 +22,16 @@
        android:title="Help"
        android:icon="@mipmap/help_icon"
     />
+    <item android:id="@+id/nav_become_driver"
+      android:title="Become Driver"
+      android:icon="@android:drawable/ic_local_shipping_black_18dp"
+    />
     <item android:id="@+id/nav_logout"
       android:title="Logout"
       android:icon="@android:drawable/ic_menu_close_clear_cancel"
     />
   </group>
-  <item android:id="@+id/action_search"
-         android:showAsAction="always"
-        android:text="Search"
-         android:actionViewClass="android.widget.SearchView"/>
+  
   
 </menu>
 

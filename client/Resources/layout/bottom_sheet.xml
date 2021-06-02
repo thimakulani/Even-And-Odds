@@ -47,6 +47,7 @@
             android:paddingTop="5dp"
             android:textColor="#ffffff"
             android:minHeight="25px"
+            android:text="Distance"
             android:textStyle="bold"
             android:layout_below="@+id/view1"
             
@@ -72,6 +73,7 @@
             android:minWidth="25px"
             android:paddingTop="5dp"
             android:textColor="#ffffff"
+            android:text="Price"
             android:minHeight="25px"
             android:textStyle="bold"
             android:layout_below="@+id/TxtDistance"
@@ -97,6 +99,7 @@
             android:minWidth="25px"
             android:paddingTop="5dp"
             android:textColor="#ffffff"
+            android:text="Estimated Duration"
             android:minHeight="25px"
             android:textStyle="bold"
             android:layout_below="@+id/TxtPrice"

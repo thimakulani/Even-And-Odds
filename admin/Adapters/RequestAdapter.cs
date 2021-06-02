@@ -53,16 +53,16 @@ namespace admin.Adapters
             switch (items[position].Status)
             {
                 case "W":
-                    holder.DriverName.Text = "Waiting for driver";
+                    holder.HistoryRequestStatus.Text = "Waiting for driver";
                     break;
                 case "A":
-                    holder.DriverName.Text = "Accepted";
+                    holder.HistoryRequestStatus.Text = "Accepted";
                     break;
                 case "P":
-                    holder.DriverName.Text = "Picked up";
+                    holder.HistoryRequestStatus.Text = "Picked up";
                     break;
                 case "D":
-                    holder.DriverName.Text = "Delivered";
+                    holder.HistoryRequestStatus.Text = "Delivered";
                     break;
             }
             

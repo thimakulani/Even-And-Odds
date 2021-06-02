@@ -3,4 +3,5 @@
     <color name="colorPrimary">#3498db</color>
     <color name="colorPrimaryDark">#3498db</color>
     <color name="colorAccent">#3498db</color>
+  <color name="shimmer_background_color">#b1b1b1</color>
 </resources>
