@@ -1,10 +1,9 @@
-﻿using admin.FirebaseHelper;
-using Android.Content;
+﻿using Android.Content;
 using Android.OS;
-using Android.Support.V4.App;
-using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using AndroidX.Fragment.App;
+using client.Classes;
 using Firebase.Auth;
 using Google.Android.Material.Button;
 using Google.Android.Material.FloatingActionButton;
@@ -39,7 +38,7 @@ namespace client.Fragments
             // Use this to return your custom view for this Fragment
             base.OnCreateView(inflater, container, savedInstanceState);
 
-            View view = inflater.Inflate(Resource.Layout.create_driver_dialog, container, false);
+            View view = inflater.Inflate(Resource.Layout.create_driver_dlg, container, false);
             ConnectViews(view);
             return view;
 
@@ -61,6 +60,19 @@ namespace client.Fragments
             FabClose.Click += FabClose_Click;
             BtnSubmitReg.Click += BtnSubmitReg_Click;
             BtnType.Click += BtnType_Click;
+            CrossCloudFirestore.Current.Instance.Collection("AppUsers")
+               .Document(FirebaseAuth.Instance.Uid)
+               .AddSnapshotListener((snapshot, error) =>
+               {
+                   if (snapshot.Exists)
+                   {
+                       var user = snapshot.ToObject<AppUsers>();
+                       InputName.Text = user.Name;
+                       InputSurname.Text = user.Surname;
+                       InputPhone.Text = user.Phone;
+                       InputEmail.Text = user.Email;
+                   }
+               });
         }
 
         private void BtnType_Click(object sender, EventArgs e)

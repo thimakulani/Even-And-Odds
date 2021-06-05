@@ -1,4 +1,4 @@
-﻿using Android.App;
+﻿using AndroidX.Fragment.App;
 using Android.Content;
 using Android.OS;
 using Android.Support.V7.Widget;
@@ -17,7 +17,7 @@ using System.Collections.Generic;
 
 namespace client.Fragments
 {
-    public class HelpFragment : Android.Support.V4.App.Fragment
+    public class HelpFragment : Fragment
     {
         private TextInputEditText InputMessage;
         private FloatingActionButton BtnSend;
@@ -51,7 +51,7 @@ namespace client.Fragments
             BtnSend.Click += BtnSend_Click;
             InputMessage.SetTextColor(Android.Graphics.Color.Black);
 
-            LinearLayoutManager linear = new LinearLayoutManager(Application.Context);
+            LinearLayoutManager linear = new LinearLayoutManager(view.Context);
             QueriesAdapter adapter = new QueriesAdapter(items);
             recyclerView.SetLayoutManager(linear);
             recyclerView.SetAdapter(adapter);

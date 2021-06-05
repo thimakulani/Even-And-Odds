@@ -42,12 +42,9 @@ namespace admin.Fragments
         }
         private void SubmitAnnouncement_Click(object sender, EventArgs e)
         {
-
-
-
             Dictionary<string, object> data = new Dictionary<string, object>()
             {
-                {"TimeStamp",FieldValue.ServerTimestamp },
+                {"TimeStamp", FieldValue.ServerTimestamp },
                 {"Message",InputMessage.Text },
 
             };
@@ -55,7 +52,7 @@ namespace admin.Fragments
             {
                 CrossCloudFirestore.Current
                     .Instance
-                    .Collection("Announcement")
+                    .Collection("Announcements")
                     .AddAsync(data);
             }
             InputMessage.Text = string.Empty;

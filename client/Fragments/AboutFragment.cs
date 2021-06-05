@@ -2,12 +2,13 @@
 using Android.OS;
 using Android.Views;
 using AndroidAboutPage;
+using AndroidX.Fragment.App;
 using System;
 using Xamarin.Essentials;
 
 namespace client.Fragments
 {
-    public class AboutFragment : Android.Support.V4.App.Fragment
+    public class AboutFragment : Fragment
     {
         public override void OnCreate(Bundle savedInstanceState)
         {

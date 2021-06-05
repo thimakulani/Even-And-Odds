@@ -1,16 +1,18 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Gms.Extensions;
 using Android.Locations;
 using Android.OS;
 using Android.Support.V4.Widget;
-using Android.Support.V7.App;
 using Android.Widget;
 using AndroidHUD;
+using AndroidX.AppCompat.App;
 using client.Activities;
 using client.Classes;
 using client.Fragments;
 using Firebase.Auth;
+using Firebase.Messaging;
 using Google.Android.Material.AppBar;
 using Google.Android.Material.Dialog;
 using Google.Android.Material.Navigation;
@@ -53,16 +55,17 @@ namespace client
                 .Instance
                 .Collection("AppUsers")
                 .Document(FirebaseAuth.Instance.Uid)
-                .AddSnapshotListener((value, error) =>
+                .AddSnapshotListener(async (value, error) =>
                 {
                     if (value.Exists)
                     {
                         users = value.ToObject<AppUsers>();
                         HeaderUsername.Text = $"{users.Name} {users.Surname}";
                         TxtHeaderEmail.Text = users.Email;
+                        await FirebaseMessaging.Instance.SubscribeToTopic(FirebaseAuth.Instance.Uid);
                     }
                 });
-
+            
             WelcomeFragment homeFragment = new WelcomeFragment();
             SupportFragmentManager.BeginTransaction()
                 .Add(Resource.Id.fragment_container, homeFragment)
@@ -185,6 +188,34 @@ namespace client
                     builder.SetTitle("Confirm");
                     // builder.SetMessage("Reset password link has been sent to your email address");
                     builder.SetMessage("Waiting for your driver request to be approved by administrators");
+                    builder.SetPositiveButton("Ok", delegate
+                    {
+
+                        builder.Dispose();
+
+                    });
+                    builder.Show();
+                }
+                else if (users.Role=="D")
+                {
+                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+                    builder.SetTitle("Confirm");
+                    // builder.SetMessage("Reset password link has been sent to your email address");
+                    builder.SetMessage("You have already registrerd as a driver");
+                    builder.SetPositiveButton("Ok", delegate
+                    {
+
+                        builder.Dispose();
+
+                    });
+                    builder.Show();
+                }
+                else
+                {
+                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+                    builder.SetTitle("Confirm");
+                    // builder.SetMessage("Reset password link has been sent to your email address");
+                    builder.SetMessage("You have already registered as administrators");
                     builder.SetPositiveButton("Yes", delegate
                     {
 
@@ -193,6 +224,7 @@ namespace client
                     });
                     builder.Show();
                 }
+                
             }
             if (e.MenuItem.ItemId == Resource.Id.nav_logout)
             {

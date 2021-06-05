@@ -1,9 +1,10 @@
-﻿using Android.App;
-using Android.Content;
+﻿using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
 using AndroidHUD;
+using AndroidX.AppCompat.App;
+using AndroidX.Fragment.App;
 using AndroidX.RecyclerView.Widget;
 using client.Adapters;
 using client.Classes;
@@ -14,7 +15,7 @@ using System.Collections.Generic;
 
 namespace client.Fragments
 {
-    public class HistoryFragment : Android.Support.V4.App.Fragment
+    public class HistoryFragment : Fragment
     {
         private RecyclerView RecyclerHistory;
         private readonly List<DeliveryRequestModel> items = new List<DeliveryRequestModel>();

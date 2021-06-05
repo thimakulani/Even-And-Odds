@@ -1,18 +1,20 @@
-﻿using Android.App;
-using Android.Content;
+﻿using Android.Content;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Views;
+using AndroidX.AppCompat.App;
+using AndroidX.Fragment.App;
 using client.Adapters;
 using client.Classes;
 using Google.Android.Material.Button;
+using Plugin.CloudFirestore;
 using System;
 using System.Collections.Generic;
 using Xamarin.Essentials;
 
 namespace client.Fragments
 {
-    public class WelcomeFragment : Android.Support.V4.App.Fragment
+    public class WelcomeFragment : Fragment
     {
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -21,7 +23,7 @@ namespace client.Fragments
         //string keyId;
         private MaterialButton RequestBtn;
         private RecyclerView recyclerFeeds;
-        private List<AnnouncementModel> Items = new List<AnnouncementModel>();
+        private List<AnnouncementModel> items = new List<AnnouncementModel>();
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
@@ -46,11 +48,44 @@ namespace client.Fragments
             RequestBtn.Click += RequestBtn_Click;
             context = view.Context;
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context.ApplicationContext);
-            AnnouncementAdapter adapter = new AnnouncementAdapter(Items);
+            AnnouncementAdapter adapter = new AnnouncementAdapter(items);
             recyclerFeeds.SetLayoutManager(linearLayoutManager);
             recyclerFeeds.SetAdapter(adapter);
 
             /*GET ANNOUNCEMENTS*/
+
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("Announcements")
+                .OrderBy("TimeStamp", true)
+                .AddSnapshotListener((snapshop, error) =>
+                {
+                    if (!snapshop.IsEmpty)
+                    {
+                        foreach (var dc in snapshop.DocumentChanges)
+                        {
+                            var announce = new AnnouncementModel();
+                            switch (dc.Type)
+                            {
+                                case DocumentChangeType.Added:
+                                    announce = dc.Document.ToObject<AnnouncementModel>();
+                                    items.Add(announce);
+                                    adapter.NotifyDataSetChanged();
+                                    break;
+                                case DocumentChangeType.Modified:
+                                    announce = dc.Document.ToObject<AnnouncementModel>();
+                                    items[dc.OldIndex] = announce;
+                                    adapter.NotifyDataSetChanged();
+                                    break;
+                                case DocumentChangeType.Removed:
+                                    items.RemoveAt(dc.OldIndex);
+                                    adapter.NotifyItemRemoved(dc.OldIndex);
+                                    break;
+                            }
+                        }
+                    }
+                });
 
         }
 
