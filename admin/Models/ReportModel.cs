@@ -21,7 +21,7 @@ namespace admin.Models
 
         }
 
-        public void GenerateInvoice(System.IO.Stream stream, Context context)
+        public void GenerateInvoice(System.IO.Stream stream)
         {
             FlowDocument document = new FlowDocument();
 

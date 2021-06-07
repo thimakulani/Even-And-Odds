@@ -206,7 +206,7 @@ namespace admin.Activities
                 ReportModel reportModel = new ReportModel(ReportData);
                 await Task.Run(() =>
                 {
-                    reportModel.GenerateInvoice(new FileStream(PrintReport.GetAppPath(this) + dname, FileMode.Create, FileAccess.Write), this);
+                    reportModel.GenerateInvoice(new FileStream(PrintReport.GetAppPath(this) + dname, FileMode.Create, FileAccess.Write));
                 });
                 Common.PrintReport.WriteFileToStorage(this, dname);
                 PrintManager printManager = (PrintManager)this.GetSystemService(Context.PrintService);

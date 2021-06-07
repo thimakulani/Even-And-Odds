@@ -41,7 +41,7 @@ namespace admin.Adapters
             // Replace the contents of the view with that element
             var holder = viewHolder as AnnouncementAdapterViewHolder;
             holder.AnouncementMsg.Text = items[position].Message;
-            holder.DatesPosted.Text = $"{items[position].TimeStamp}";
+            holder.DatesPosted.Text = $"{items[position].TimeStamp.ToDateTime():dddd, dd MMMM yyyy, HH:mm tt}";
 
         }
 

@@ -9,11 +9,10 @@ using Android.Graphics;
 using Android.Locations;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
-
+using AndroidX.CoordinatorLayout.Widget;
 using client.Classes;
 using client.MapsHelper;
 using Firebase.Auth;

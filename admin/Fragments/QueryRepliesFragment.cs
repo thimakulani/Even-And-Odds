@@ -133,17 +133,35 @@ namespace admin.Fragments
         {
             if (string.IsNullOrEmpty(InputMessage.Text))
             {
-                //Toast.MakeText(Context.ApplicationContext, "Type in a message", ToastLength.Long).Show();
+                InputMessage.Error = "Type in a message";
+                InputMessage.RequestFocus();
                 return;
             }
-            HashMap hash = new HashMap();
-            hash.Put("Message", InputMessage.Text);
-            hash.Put("DateTime", DateTime.Now.ToString("dddd, dd MMM yyyy HH:mm:ss tt"));
-            hash.Put("SenderId", "Admin");
-            FirebaseDatabase.Instance.GetReference("Query")
-                .Child(queryId)
-                .Child("Messages")
-                .Push().SetValue(hash);
+            Dictionary<string, object> chat = new Dictionary<string, object>
+            {
+                { "Uid", "A" },
+                { "Message", InputMessage.Text },
+                { "TimeStamp", FieldValue.ServerTimestamp }
+            };
+
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("Query")
+                .Document(queryId)
+                .Collection("Messages")
+                .AddAsync(chat);
+
+            Dictionary<string, object> dates = new Dictionary<string, object>
+            {
+                { "TimeStamp", FieldValue.ServerTimestamp }
+            };
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("Query")
+                .Document(queryId)
+                .SetAsync(dates);
             InputMessage.Text = string.Empty;
         }
 
@@ -218,7 +236,7 @@ namespace admin.Fragments
         }
         public override int GetItemViewType(int position)
         {
-            if (items[position].Uid == FirebaseAuth.Instance.Uid)
+            if (items[position].Uid == "A")
             {
                 return Resource.Layout.message_reply_row;
             }

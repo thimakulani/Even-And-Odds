@@ -1,19 +1,17 @@
 ﻿using AndroidX.Fragment.App;
-using Android.Content;
 using Android.OS;
-using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using client.Classes;
 using Com.Github.Library.Bubbleview;
 using Firebase.Auth;
-using Firebase.Database;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
-using Java.Util;
 using Plugin.CloudFirestore;
 using System;
 using System.Collections.Generic;
+using AndroidX.RecyclerView.Widget;
+using Firebase.Messaging;
 
 namespace client.Fragments
 {
@@ -123,6 +121,17 @@ namespace client.Fragments
                 .Document(FirebaseAuth.Instance.Uid)
                 .SetAsync(dates);
             InputMessage.Text = string.Empty;
+            //Dictionary<string, string> data = new Dictionary<string, string>();
+            //string sender_id = GetString(Resource.String.sender_id);
+            //var msg = new RemoteMessage
+            //    .Builder(sender_id + "@fcm.googleapis.com")
+            //    .AddData("Message", "New Message")
+            //    .AddData("Topic", "QUERIES")
+            //    .Build();
+                
+            
+            //FirebaseMessaging.Instance
+            //    .Send(msg);
             
             //query.Collection("TimeStamp")
             //    .Document("TimeStamp")
@@ -151,7 +160,7 @@ namespace client.Fragments
             if (holder is ChatsView)
             {
                 ChatsView chatsView = holder as ChatsView;
-                chatsView.TxtTimeDate.Text = $"{items[position].TimeStamp.ToDateTime():dddd, dd MMMM yyyy, HH: mm tt}";
+                chatsView.TxtTimeDate.Text = $"{items[position].TimeStamp.ToDateTime():dddd, dd MMMM yyyy, HH:mm tt}";
                 chatsView.TxtMessage.Text = items[position].Message;
                 //chatsView.TxtName.Text = items[position].SenderName;
             }
@@ -159,7 +168,7 @@ namespace client.Fragments
             {
                 SenderChats senderView = holder as SenderChats;
                 senderView.SenderTxtMessage.Text = items[position].Message;
-                senderView.SenderTxtTimeDate.Text = $"{items[position].TimeStamp.ToDateTime():dddd, dd MMMM yyyy, HH: mm tt}";
+                senderView.SenderTxtTimeDate.Text = $"{items[position].TimeStamp.ToDateTime():dddd, dd MMMM yyyy, HH:mm tt}";
             }
 
         }

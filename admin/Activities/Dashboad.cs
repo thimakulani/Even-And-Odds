@@ -2,11 +2,13 @@
 using admin.Models;
 using Android.App;
 using Android.Content;
+using Android.Gms.Extensions;
 using Android.OS;
 using Android.Support.V7.Widget;
 using Android.Widget;
 using AndroidX.AppCompat.App;
 using Firebase.Auth;
+using Firebase.Messaging;
 using Google.Android.Material.Dialog;
 using Plugin.CloudFirestore;
 using System;
@@ -29,13 +31,13 @@ namespace admin.Activities
             SetContentView(Resource.Layout.activity_dashboard);
             RecyclerMennu = FindViewById<RecyclerView>(Resource.Id.RecyclerMennu);
             txtDashboardUsername = FindViewById<TextView>(Resource.Id.txtDashboardUsername);
-
+            FirebaseMessaging.Instance.SubscribeToTopic("QUERIES");
             CrossCloudFirestore
                 .Current
                 .Instance
                 .Collection("AppUsers")
                 .Document(FirebaseAuth.Instance.Uid)
-                .AddSnapshotListener((value, error) =>
+                .AddSnapshotListener(async (value, error) =>
                 {
                     if (value.Exists)
                     {
@@ -43,9 +45,11 @@ namespace admin.Activities
                         if (user.Role == "A")
                         {
                             txtDashboardUsername.Text = $"{user.Name} {user.Surname}";
+                            await FirebaseMessaging.Instance.SubscribeToTopic("QUERIES");
                         }
                         else
                         {
+                            
                             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
                             builder.SetTitle("Error");
                             builder.SetMessage("Unauthorized user");

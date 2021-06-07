@@ -60,11 +60,9 @@ namespace admin.Fragments
                                     query = dc.Document.ToObject<QueriesModel>();
                                     query.Uid = dc.Document.Id;
                                     Items.Add(query);
+                                    adapter.NotifyDataSetChanged();
                                     break;
                                 case DocumentChangeType.Modified:
-                                    query = dc.Document.ToObject<QueriesModel>();
-                                    query.Uid = dc.Document.Id;
-                                    Items[dc.OldIndex] = query;
                                     break;
                                 case DocumentChangeType.Removed:
                                     break;

@@ -60,6 +60,7 @@ namespace admin.Activities
                                 case DocumentChangeType.Added:
                                     announce = dc.Document.ToObject<AnnouncementModel>();
                                     announce.Id = dc.Document.Id;
+                                    //Toast.MakeText(this, $"{announce.TimeStamp.ToDateTime().Year}", ToastLength.Long).Show();
                                     items.Add(announce);
                                     adapter.NotifyDataSetChanged();
                                     break;
@@ -94,7 +95,7 @@ namespace admin.Activities
             {
                 await CrossCloudFirestore.Current
                    .Instance
-                   .Collection("Announcement")
+                   .Collection("Announcements")
                    .Document(items[e.Position].Id)
                    .DeleteAsync();
                 builder.Dispose();

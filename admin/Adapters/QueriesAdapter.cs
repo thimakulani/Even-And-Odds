@@ -40,7 +40,7 @@ namespace admin.Adapters
             // Replace the contents of the view with that element
             var holder = viewHolder as QuerySendersAdapterViewHolder;
 
-            holder.TimeSent.Text = items[position].TimeStamp.ToString();
+            holder.TimeSent.Text = $"{items[position].TimeStamp.ToDateTime():dddd, dd MMMM yyyy, HH:mm tt}";
 
 
             CrossCloudFirestore

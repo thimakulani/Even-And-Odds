@@ -4,6 +4,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using AndroidX.AppCompat.App;
 using AndroidX.Fragment.App;
+using AndroidX.RecyclerView.Widget;
 using client.Adapters;
 using client.Classes;
 using Google.Android.Material.Button;
@@ -23,7 +24,7 @@ namespace client.Fragments
         //string keyId;
         private MaterialButton RequestBtn;
         private RecyclerView recyclerFeeds;
-        private List<AnnouncementModel> items = new List<AnnouncementModel>();
+        private readonly List<AnnouncementModel> items = new List<AnnouncementModel>();
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);

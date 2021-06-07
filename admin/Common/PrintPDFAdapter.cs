@@ -9,9 +9,9 @@ namespace admin.Common
 {
     public class PrintReportPDFAdapter : PrintDocumentAdapter
     {
-        private Context context;
-        private string path;
-        private string filename;
+        private readonly Context context;
+        private readonly string path;
+        private readonly string filename;
         public PrintReportPDFAdapter(Context context, string path, string filename)
         {
             this.context = context;

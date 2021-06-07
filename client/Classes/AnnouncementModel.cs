@@ -6,6 +6,7 @@ namespace client.Classes
 {
     public class AnnouncementModel
     {
+        
         public string Message { get; set; }
         [Id]
         public string Id { get; set; }
