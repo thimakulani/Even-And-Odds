@@ -73,8 +73,8 @@ namespace client.Adapters
             DatesPosted = itemView.FindViewById<TextView>(Resource.Id.txtDateAnnounced);
             AnouncementMsg = itemView.FindViewById<TextView>(Resource.Id.txtAnnouncementMsg);
 
-            itemView.Click += (sender, e) => clickListener(new AnnouncementAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            itemView.LongClick += (sender, e) => longClickListener(new AnnouncementAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
+            itemView.Click += (sender, e) => clickListener(new AnnouncementAdapterClickEventArgs { View = itemView, Position = BindingAdapterPosition });
+            itemView.LongClick += (sender, e) => longClickListener(new AnnouncementAdapterClickEventArgs { View = itemView, Position = BindingAdapterPosition });
         }
     }
 

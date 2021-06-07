@@ -150,10 +150,10 @@ namespace client.Adapters
 
 
 
-            itemView.Click += (sender, e) => clickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            itemView.LongClick += (sender, e) => longClickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            BtnCancelRequest.Click += (sender, e) => CancelClickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            BtnViewDriver.Click += (sender, e) => viewDriverClickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
+            itemView.Click += (sender, e) => clickListener(new RequestAdapterClickEventArgs { View = itemView, Position = BindingAdapterPosition });
+            itemView.LongClick += (sender, e) => longClickListener(new RequestAdapterClickEventArgs { View = itemView, Position = BindingAdapterPosition });
+            BtnCancelRequest.Click += (sender, e) => CancelClickListener(new RequestAdapterClickEventArgs { View = itemView, Position = BindingAdapterPosition });
+            BtnViewDriver.Click += (sender, e) => viewDriverClickListener(new RequestAdapterClickEventArgs { View = itemView, Position = BindingAdapterPosition });
         }
 
 

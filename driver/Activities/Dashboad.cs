@@ -77,6 +77,7 @@ namespace driver.Activities
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.SetTitle("Error");
+                builder.SetCancelable(false);
                 builder.SetMessage("Your not registered as a driver, Please contact the administrator.");
                 builder.SetNeutralButton("Continue", delegate
                 {

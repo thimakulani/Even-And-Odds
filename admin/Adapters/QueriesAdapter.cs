@@ -80,10 +80,10 @@ namespace admin.Adapters
             SenderName = itemView.FindViewById<TextView>(Resource.Id.QueryRowName);
             TimeSent = itemView.FindViewById<TextView>(Resource.Id.QueryRowDates);
 
-            itemView.Click += (sender, e) => clickListener(new QuerySendersAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
+            itemView.Click += (sender, e) => clickListener(new QuerySendersAdapterClickEventArgs { View = itemView, Position = BindingAdapterPosition });
             itemView.LongClick += (sender, e) =>
             {
-                longClickListener(new QuerySendersAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
+                longClickListener(new QuerySendersAdapterClickEventArgs { View = itemView, Position = BindingAdapterPosition });
             };
         }
     }

@@ -53,7 +53,7 @@ namespace admin.Activities
                             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
                             builder.SetTitle("Error");
                             builder.SetMessage("Unauthorized user");
-                          //  builder.SetCancelable(false);
+                            builder.SetCancelable(false);
                             builder.SetNeutralButton("Ok", delegate
                             {
                                 builder.Dispose();
