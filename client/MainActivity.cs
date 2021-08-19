@@ -63,6 +63,7 @@ namespace client
                         HeaderUsername.Text = $"{users.Name} {users.Surname}";
                         TxtHeaderEmail.Text = users.Email;
                         await FirebaseMessaging.Instance.SubscribeToTopic(FirebaseAuth.Instance.Uid);
+                        await FirebaseMessaging.Instance.SubscribeToTopic("A");
                     }
                 });
             

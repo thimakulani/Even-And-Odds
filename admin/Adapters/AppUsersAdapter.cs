@@ -51,6 +51,7 @@ namespace admin.Adapters
             holder.Surname.Text = items[position].Surname;
             
             holder.PhoneNumber.Text = items[position].Phone;
+            holder.FabSendEmail.Visibility = ViewStates.Gone;
 
             if (items[position].Role == "D")
             {

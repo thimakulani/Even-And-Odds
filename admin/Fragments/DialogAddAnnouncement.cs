@@ -1,6 +1,7 @@
 ﻿using Android.OS;
 using Android.Views;
 using AndroidX.Fragment.App;
+using FirebaseAdmin.Messaging;
 using Google.Android.Material.Button;
 using Google.Android.Material.TextField;
 using Plugin.CloudFirestore;
@@ -40,7 +41,7 @@ namespace admin.Fragments
             base.OnStart();
             Dialog.Window.SetLayout(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.WrapContent);
         }
-        private void SubmitAnnouncement_Click(object sender, EventArgs e)
+        private async void SubmitAnnouncement_Click(object sender, EventArgs e)
         {
             Dictionary<string, object> data = new Dictionary<string, object>()
             {
@@ -50,11 +51,24 @@ namespace admin.Fragments
             };
             if (!string.IsNullOrEmpty(InputMessage.Text) && !string.IsNullOrWhiteSpace(InputMessage.Text))
             {
-                CrossCloudFirestore.Current
+                await CrossCloudFirestore.Current
                     .Instance
                     .Collection("Announcements")
                     .AddAsync(data);
             }
+            var stream = Resources.Assets.Open("service_account.json");
+            var fcm = new FirebaseHelper.FirebaseData().GetFirebaseMessaging(stream);
+            FirebaseAdmin.Messaging.Message message = new FirebaseAdmin.Messaging.Message()
+            {
+                Topic = "A",
+                Notification = new Notification()
+                {
+                    Title = "New Announcement",
+                    Body = $"{InputMessage.Text}",
+                    
+                },
+            };
+            await fcm.SendAsync(message);
             InputMessage.Text = string.Empty;
         }
     }

@@ -72,7 +72,7 @@ namespace admin.Activities
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("DeliveryRequests")
+                .Collection("DeliveryRequests")//DeliveryRequests
                 .AddSnapshotListener(true, (value, error) =>
                 {
                     if (!value.IsEmpty)
@@ -86,6 +86,7 @@ namespace admin.Activities
                                     Delivery = item.Document.ToObject<DeliveryModal>();
                                     Delivery.KeyId = item.Document.Id;
                                     delivariesList.Add(Delivery);
+                                    ReportData.Add(Delivery);
                                     adapter.NotifyDataSetChanged();
                                     break;
                                 case DocumentChangeType.Modified:

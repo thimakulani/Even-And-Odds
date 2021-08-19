@@ -31,7 +31,7 @@ namespace admin.Activities
             SetContentView(Resource.Layout.activity_dashboard);
             RecyclerMennu = FindViewById<RecyclerView>(Resource.Id.RecyclerMennu);
             txtDashboardUsername = FindViewById<TextView>(Resource.Id.txtDashboardUsername);
-            FirebaseMessaging.Instance.SubscribeToTopic("QUERIES");
+            //FirebaseMessaging.Instance.SubscribeToTopic("QUERIES");
             CrossCloudFirestore
                 .Current
                 .Instance
@@ -77,7 +77,7 @@ namespace admin.Activities
             items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_commute_white_18dp, Title = "Driver Requests" });
             items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_bar_chart_black_18dp, Title = "Stats" });
             items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_addchart_black_18dp, Title = "Manage Fee" });
-            items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_account_tree_black_18dp, Title = "Invoice" });
+           // items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_account_tree_black_18dp, Title = "Invoice" });
             items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_assignment_black_18dp, Title = "Delivery Report" });
             items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_attach_email_black_18dp, Title = "Queries" });
             items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_exit_to_app_black_18dp, Title = "Logout" });
@@ -135,25 +135,25 @@ namespace admin.Activities
                 StartActivity(intent);
                 OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
             }
+            //if (e.Position == 7)
+            //{
+            //    Intent intent = new Intent(this, typeof(Invoice));
+            //    StartActivity(intent);
+            //    OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
+            //}
             if (e.Position == 7)
-            {
-                Intent intent = new Intent(this, typeof(Invoice));
-                StartActivity(intent);
-                OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
-            }
-            if (e.Position == 8)
             {
                 Intent intent = new Intent(this, typeof(Report));
                 StartActivity(intent);
                 OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
             }
-            if (e.Position == 9)
+            if (e.Position == 8)
             {
                 Intent intent = new Intent(this, typeof(Queries));
                 StartActivity(intent);
                 OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
             }
-            if (e.Position == 10)
+            if (e.Position == 9)
             {
 
                 MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);

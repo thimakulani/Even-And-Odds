@@ -1,12 +1,21 @@
-﻿using FirebaseAdmin.Messaging;
+﻿using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Views;
+using Android.Widget;
+using FirebaseAdmin.Messaging;
 using Google.Apis.Auth.OAuth2;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 
-namespace admin.FirebaseHelper
+namespace client.FirebaseHelper
 {
-    class FirebaseData
+    public static class FirebaseAdminSDK
     {
-
         public static FirebaseAdmin.Auth.FirebaseAuth GetFirebaseAdminAuth(Stream input)
         {
             FirebaseAdmin.Auth.FirebaseAuth auth;
@@ -28,7 +37,7 @@ namespace admin.FirebaseHelper
             }
             return auth;
         }
-        public  FirebaseMessaging GetFirebaseMessaging(Stream input)
+        public static FirebaseMessaging GetFirebaseMessaging(Stream input)
         {
             FirebaseMessaging messaging;
 
@@ -51,6 +60,6 @@ namespace admin.FirebaseHelper
 
             return messaging;
         }
-
     }
+
 }

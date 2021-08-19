@@ -8,6 +8,7 @@ using AndroidX.Fragment.App;
 using Com.Github.Library.Bubbleview;
 using Firebase.Auth;
 using Firebase.Database;
+using FirebaseAdmin.Messaging;
 using Google.Android.Material.AppBar;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
@@ -129,7 +130,7 @@ namespace admin.Fragments
 
 
 
-        private void FabSend_Click(object sender, EventArgs e)
+        private async void FabSend_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(InputMessage.Text))
             {
@@ -144,7 +145,7 @@ namespace admin.Fragments
                 { "TimeStamp", FieldValue.ServerTimestamp }
             };
 
-            CrossCloudFirestore
+            await CrossCloudFirestore
                 .Current
                 .Instance
                 .Collection("Query")
@@ -156,24 +157,33 @@ namespace admin.Fragments
             {
                 { "TimeStamp", FieldValue.ServerTimestamp }
             };
-            CrossCloudFirestore
+            await CrossCloudFirestore
                 .Current
                 .Instance
                 .Collection("Query")
                 .Document(queryId)
                 .SetAsync(dates);
             InputMessage.Text = string.Empty;
+
+            var stream = Resources.Assets.Open("service_account.json");
+            var fcm = new FirebaseHelper.FirebaseData().GetFirebaseMessaging(stream);
+            FirebaseAdmin.Messaging.Message message = new FirebaseAdmin.Messaging.Message()
+            {
+                Topic = queryId,
+                Notification = new Notification()
+                {
+                    Title = "Reply",
+                    Body = $"{InputMessage.Text}",
+
+                },
+            };
+            await fcm.SendAsync(message);
         }
 
 
 
 
     }
-
-
-
-
-
     public class ChatAdapter : RecyclerView.Adapter
     {
         readonly List<Replies> items = new List<Replies>();

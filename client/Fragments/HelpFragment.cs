@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using AndroidX.RecyclerView.Widget;
 using Firebase.Messaging;
+using FirebaseAdmin.Messaging;
 
 namespace client.Fragments
 {
@@ -87,7 +88,7 @@ namespace client.Fragments
 
 
 
-        private void BtnSend_Click(object sender, EventArgs e)
+        private async void BtnSend_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(InputMessage.Text))
             {
@@ -107,20 +108,40 @@ namespace client.Fragments
                 { "TimeStamp", FieldValue.ServerTimestamp }
             };
 
-            CrossCloudFirestore
+            await CrossCloudFirestore
                 .Current
                 .Instance
                 .Collection("Query")
                 .Document(FirebaseAuth.Instance.Uid)
                 .Collection("Messages")
                 .AddAsync(chat);
-            CrossCloudFirestore
+            await CrossCloudFirestore
                 .Current
                 .Instance
                 .Collection("Query")
                 .Document(FirebaseAuth.Instance.Uid)
                 .SetAsync(dates);
+
+
+            var stream = Resources.Assets.Open("service_account.json");
+            var fcm = FirebaseHelper.FirebaseAdminSDK.GetFirebaseMessaging(stream);
+            FirebaseAdmin.Messaging.Message message = new FirebaseAdmin.Messaging.Message()
+            {
+                Topic = "QUERIES",
+                Notification = new Notification()
+                {
+                    Title = "New Query",
+                    Body = $"{InputMessage.Text}",
+
+                },
+            };
+            await fcm.SendAsync(message);
+
+
             InputMessage.Text = string.Empty;
+
+
+
             //Dictionary<string, string> data = new Dictionary<string, string>();
             //string sender_id = GetString(Resource.String.sender_id);
             //var msg = new RemoteMessage

@@ -31,7 +31,7 @@ namespace client.Fragments
             View about = new AboutPage(Context.ApplicationContext)
                 .IsRtl(false)
                 .SetImage(Resource.Drawable.delivery_icon)
-                .AddGroup("Even & Odds")
+                .AddGroup("Pick & Drop delivery")
                 .SetDescription("Growing group of people desires faster home delivery, yet most are highly price sensitive Moving goods from one place to another is never an easy to go task if you don't own a car")
                 .AddItem(new Element() { Title = $"Version {VersionTracking.CurrentVersion}" })
                 .AddItem(element)

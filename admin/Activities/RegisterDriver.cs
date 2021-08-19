@@ -8,6 +8,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using Google.Android.Material.Button;
+using Google.Android.Material.TextView;
 using Plugin.CloudFirestore;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace admin.Activities
 
         private ImageView ImgBack;
         private RecyclerView recyclerUsersList;
+        private MaterialTextView txt_user_count;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -44,7 +46,7 @@ namespace admin.Activities
 
             ConnectViews();
         }
-
+        int counter = 0;
         private void ConnectViews()
         {
             ImgBack = FindViewById<ImageView>(Resource.Id.imgCloseSignUp);
@@ -52,6 +54,7 @@ namespace admin.Activities
             // FabSearch = FindViewById<FloatingActionButton>(Resource.Id.FabRearch);
             InputSearchUser = FindViewById<Android.Support.V7.Widget.SearchView>(Resource.Id.InputSearchUsers);
             InputSearchUser.Visibility = ViewStates.Visible;
+            txt_user_count = FindViewById<MaterialTextView>(Resource.Id.txt_user_count);
             recyclerUsersList = FindViewById<RecyclerView>(Resource.Id.recyclerUsersList);
             InputSearchUser.Visibility = ViewStates.Gone;
             // InputSearchUser.QueryTextChange += InputSearchUser_QueryTextChange;
@@ -61,7 +64,7 @@ namespace admin.Activities
             ImgBack.Click += ImgBack_Click;
             // FabSearch.Click += FabSearch_Click;
             txtCreateDriver.Click += TxtCreateDriver_Click;
-
+            
             SetUpRecycler(UseritemsList);
 
             CrossCloudFirestore
@@ -82,6 +85,8 @@ namespace admin.Activities
                                      users = item.Document.ToObject<AppUsers>();
                                      UseritemsList.Add(users);
                                      adapter.NotifyDataSetChanged();
+                                     counter++;
+                                     txt_user_count.Text = $"Number of Users: {counter}";
                                      break;
                                  case DocumentChangeType.Modified:
                                      users = item.Document.ToObject<AppUsers>();
