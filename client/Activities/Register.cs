@@ -263,6 +263,7 @@ namespace client.Activities
                 .Collection("AppUsers")
                 .Document(FirebaseAuth.Instance.Uid)
                 .SetAsync(user);
+            
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle("Successful");
