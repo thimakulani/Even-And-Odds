@@ -7,7 +7,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 >
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/appBarLayout1"
+    >
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toolbar_dashboad"
+            app:titleTextColor="#ffffff"
+            
+        />
 
+    </com.google.android.material.appbar.AppBarLayout>
     <FrameLayout
         android:minWidth="25px"
         android:minHeight="25px"
@@ -15,6 +28,7 @@
         android:layout_height="match_parent"
         android:id="@+id/frameLayout_container" 
         android:layout_above="@+id/navigation"
+        android:layout_below="@+id/appBarLayout1"
     />
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"

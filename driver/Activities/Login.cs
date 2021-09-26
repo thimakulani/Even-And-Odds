@@ -232,15 +232,11 @@ namespace driver.Activities
                 builder.Show();
                 FirebaseAuth.Instance.SignOut();
             }
-
+            
 
         }
-
-
-
         public void OnComplete(Task task)
         {
-
             loading.Dismiss();
         }
 

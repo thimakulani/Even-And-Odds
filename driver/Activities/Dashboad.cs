@@ -11,6 +11,7 @@ using driver.Fragments;
 using driver.Models;
 using Firebase.Auth;
 using Firebase.Messaging;
+using Google.Android.Material.AppBar;
 using Google.Android.Material.BottomNavigation;
 using Plugin.CloudFirestore;
 using System;
@@ -22,7 +23,7 @@ namespace driver.Activities
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = false)]
     public class Dashboad : AppCompatActivity, IOnItemSelectedListener
     {
-
+        MaterialToolbar toolbar;
         // private FirebaseMessaging firebaseMessaging;// = new FirebaseMessaging();
         protected async override void OnCreate(Bundle savedInstanceState)
         {
@@ -32,6 +33,7 @@ namespace driver.Activities
             this.RequestedOrientation = ScreenOrientation.Portrait;
 
             ///*OUT*/
+            toolbar = FindViewById<MaterialToolbar>(Resource.Id.toolbar_dashboad);
             BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
             navigation.SetOnItemSelectedListener(this);
 
@@ -43,6 +45,19 @@ namespace driver.Activities
             welcomeFrag.RequestEventHandler += WelcomeFrag_RequestEventHandler;
             await FirebaseMessaging.Instance.SubscribeToTopic("requests");
 
+            CrossCloudFirestore
+                .Current
+                .Instance
+                .Collection("USERS")
+                .Document(FirebaseAuth.Instance.Uid)
+                .AddSnapshotListener((value, error) =>
+                {
+                    if (value.Exists)
+                    {
+                        DriverModel user = value.ToObject<DriverModel>();
+                        toolbar.Title = $"{user.Name} {user.Surname}".ToUpper();
+                    }
+                });
 
 
             CheckUserType();
@@ -58,6 +73,7 @@ namespace driver.Activities
                 .Document(FirebaseAuth.Instance.Uid)
                 .GetAsync();
             DriverModel driver = results.ToObject<DriverModel>();
+            
             if (driver.Role == "D")
             {
                 var requests = await CrossCloudFirestore
