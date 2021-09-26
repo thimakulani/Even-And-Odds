@@ -1,7 +1,7 @@
 ﻿using admin.Models;
-using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.FloatingActionButton;
 using System;
 using System.Collections.Generic;
@@ -85,10 +85,10 @@ namespace admin.Adapters
 
 
 
-            itemView.Click += (sender, e) => clickListener(new AdminAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            itemView.LongClick += (sender, e) => longClickListener(new AdminAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            FabMakeCall.Click += (sender, e) => MakeCallClickListener(new AppUsersAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            FabSendEmail.Click += (sender, e) => SendEmailClickListener(new AppUsersAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
+            itemView.Click += (sender, e) => clickListener(new AdminAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            itemView.LongClick += (sender, e) => longClickListener(new AdminAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            FabMakeCall.Click += (sender, e) => MakeCallClickListener(new AppUsersAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            FabSendEmail.Click += (sender, e) => SendEmailClickListener(new AppUsersAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
 
         }
     }

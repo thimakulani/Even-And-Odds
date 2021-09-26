@@ -1,5 +1,5 @@
 ﻿using admin.Models;
-using Android.Support.V7.Widget;
+using AndroidX.RecyclerView.Widget;
 using Android.Views;
 using Android.Widget;
 using Plugin.CloudFirestore;
@@ -71,7 +71,7 @@ namespace admin.Adapters
                 CrossCloudFirestore
                     .Current
                     .Instance
-                    .Collection("AppUsers")
+                    .Collection("USERS")
                     .Document(items[position].DriverId)
                     .AddSnapshotListener((value, errors) =>
                     {
@@ -124,8 +124,8 @@ namespace admin.Adapters
             Price = itemView.FindViewById<TextView>(Resource.Id.HistoryPrice);
             HistoryRequestStatus = itemView.FindViewById<TextView>(Resource.Id.HistoryRequestStatus);
 
-            itemView.Click += (sender, e) => clickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            itemView.LongClick += (sender, e) => longClickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
+            itemView.Click += (sender, e) => clickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            itemView.LongClick += (sender, e) => longClickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
         }
 
 

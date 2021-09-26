@@ -4,7 +4,7 @@ using admin.Models;
 using Android.App;
 using Android.OS;
 using Android.Support.V7.App;
-using Android.Support.V7.Widget;
+using AndroidX.RecyclerView.Widget;
 using Android.Views;
 using Android.Widget;
 using Google.Android.Material.Button;
@@ -25,10 +25,7 @@ namespace admin.Activities
         private readonly List<AppUsers> UseritemsList = new List<AppUsers>();
         // private RecyclerView RecyclerUserList;
         private AppUsersAdapter adapter;
-
         private MaterialButton txtCreateDriver;
-
-
         /*views*/
 
         private Android.Support.V7.Widget.SearchView InputSearchUser;
@@ -46,7 +43,6 @@ namespace admin.Activities
 
             ConnectViews();
         }
-        int counter = 0;
         private void ConnectViews()
         {
             ImgBack = FindViewById<ImageView>(Resource.Id.imgCloseSignUp);
@@ -64,13 +60,13 @@ namespace admin.Activities
             ImgBack.Click += ImgBack_Click;
             // FabSearch.Click += FabSearch_Click;
             txtCreateDriver.Click += TxtCreateDriver_Click;
-            
+            txtCreateDriver.Visibility = ViewStates.Gone;
             SetUpRecycler(UseritemsList);
 
             CrossCloudFirestore
                  .Current
                  .Instance
-                 .Collection("AppUsers")
+                 .Collection("USERS")
                  .WhereIn("Role", new object[] { "D", "C"})
                  .AddSnapshotListener((values, error) =>
                  {
@@ -85,8 +81,6 @@ namespace admin.Activities
                                      users = item.Document.ToObject<AppUsers>();
                                      UseritemsList.Add(users);
                                      adapter.NotifyDataSetChanged();
-                                     counter++;
-                                     txt_user_count.Text = $"Number of Users: {counter}";
                                      break;
                                  case DocumentChangeType.Modified:
                                      users = item.Document.ToObject<AppUsers>();
@@ -99,6 +93,7 @@ namespace admin.Activities
                                      break;
                              }
                          }
+                         txt_user_count.Text = $"Number of Users: {values.Count}";
 
                      }
                  });
@@ -188,7 +183,7 @@ namespace admin.Activities
                      await CrossCloudFirestore
                          .Current
                          .Instance
-                         .Collection("AppUsers")
+                         .Collection("USERS")
                          .Document(UseritemsList[e.Position].Uid)
                          .UpdateAsync("Role", "C");
                      builder.Dispose();

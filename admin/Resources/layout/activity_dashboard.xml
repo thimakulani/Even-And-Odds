@@ -29,7 +29,7 @@
             android:id="@+id/linearLayout1"
         >
             <TextView
-                android:text="My Dashboard"
+                android:text="Dashboard"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,21 +40,12 @@
             <TextView
                 android:text="Welcome: "
                 android:layout_below="@+id/textView3"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtDashboardUsername" 
                 android:textColor="#2e7dd9"
             />
-            <ImageView
-                android:src="@drawable/delivery_icon"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:id="@+id/imageView1"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-            />
-             
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 

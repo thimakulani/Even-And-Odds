@@ -1,5 +1,5 @@
 ﻿using admin.Models;
-using Android.Support.V7.Widget;
+using AndroidX.RecyclerView.Widget;
 using Android.Views;
 using Android.Widget;
 using Google.Android.Material.Button;
@@ -69,9 +69,9 @@ namespace admin.Adapters
             AnouncementMsg = itemView.FindViewById<TextView>(Resource.Id.txtAnnouncementMsg);
             BtnDelete = itemView.FindViewById<MaterialButton>(Resource.Id.BtnDeleteAnouncement);
 
-            BtnDelete.Click += (sender, e) => deleteClickListener(new AnnouncementAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            itemView.Click += (sender, e) => clickListener(new AnnouncementAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            itemView.LongClick += (sender, e) => longClickListener(new AnnouncementAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
+            BtnDelete.Click += (sender, e) => deleteClickListener(new AnnouncementAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            itemView.Click += (sender, e) => clickListener(new AnnouncementAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            itemView.LongClick += (sender, e) => longClickListener(new AnnouncementAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
         }
     }
 

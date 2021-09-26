@@ -101,6 +101,7 @@
             android:textColor="#ffffff"
             android:text="Estimated Duration"
             android:minHeight="25px"
+            android:id="@+id/Duration_Caption"
             android:textStyle="bold"
             android:layout_below="@+id/TxtPrice"
             

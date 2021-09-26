@@ -56,7 +56,7 @@ namespace admin.Activities
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("DeliveryRequests")
+                .Collection("DELIVERY")
                 .WhereIn("Status", new object[] { "D", "A", "P" })
                 .AddSnapshotListener((value, error) =>
                 {
@@ -91,7 +91,7 @@ namespace admin.Activities
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(FirebaseAuth.Instance.Uid)
                 .AddSnapshotListener((snapshot, error) =>
                 {

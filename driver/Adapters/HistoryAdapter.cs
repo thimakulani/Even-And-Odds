@@ -50,7 +50,7 @@ namespace driver.Adapters
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(items[indexPos].UserId)
                 .AddSnapshotListener((snapshot, value) =>
                 {
@@ -94,8 +94,8 @@ namespace driver.Adapters
             TxtPrice = itemView.FindViewById<TextView>(Resource.Id.HistoryPrice);
             TxtHistoryRequestDatesTimeCreated = itemView.FindViewById<TextView>(Resource.Id.HistoryRequestDatesTimeCreated);
 
-            itemView.Click += (sender, e) => clickListener(new HistoryAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            itemView.LongClick += (sender, e) => longClickListener(new HistoryAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
+            itemView.Click += (sender, e) => clickListener(new HistoryAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            itemView.LongClick += (sender, e) => longClickListener(new HistoryAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
         }
     }
 

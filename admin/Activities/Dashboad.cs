@@ -4,7 +4,7 @@ using Android.App;
 using Android.Content;
 using Android.Gms.Extensions;
 using Android.OS;
-using Android.Support.V7.Widget;
+using AndroidX.RecyclerView.Widget;
 using Android.Widget;
 using AndroidX.AppCompat.App;
 using Firebase.Auth;
@@ -24,7 +24,7 @@ namespace admin.Activities
         //dialogs
         private TextView txtDashboardUsername;
         private RecyclerView RecyclerMennu;
-
+        int i = 0;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -35,7 +35,7 @@ namespace admin.Activities
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(FirebaseAuth.Instance.Uid)
                 .AddSnapshotListener(async (value, error) =>
                 {
@@ -46,6 +46,11 @@ namespace admin.Activities
                         {
                             txtDashboardUsername.Text = $"{user.Name} {user.Surname}";
                             await FirebaseMessaging.Instance.SubscribeToTopic("QUERIES");
+                            if(i==0)
+                            {
+                                SetUpMenu();
+                            }
+                            i++;
                         }
                         else
                         {
@@ -62,9 +67,22 @@ namespace admin.Activities
                             }).Show();
                         }
                     }
+                    else
+                    {
+                        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+                        builder.SetTitle("Error");
+                        builder.SetMessage("Unauthorized user");
+                        builder.SetCancelable(false);
+                        builder.SetNeutralButton("Ok", delegate
+                        {
+                            builder.Dispose();
+                            FirebaseAuth.Instance.SignOut();
+                            Finish();
+                        }).Show();
+                    }
                 });
 
-            SetUpMenu();
+            
 
         }
         private readonly List<Menu_Items> items = new List<Menu_Items>();
@@ -77,7 +95,7 @@ namespace admin.Activities
             items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_commute_white_18dp, Title = "Driver Requests" });
             items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_bar_chart_black_18dp, Title = "Stats" });
             items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_addchart_black_18dp, Title = "Manage Fee" });
-           // items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_account_tree_black_18dp, Title = "Invoice" });
+            items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_account_tree_black_18dp, Title = "Invoice" });
             items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_assignment_black_18dp, Title = "Delivery Report" });
             items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_attach_email_black_18dp, Title = "Queries" });
             items.Add(new Menu_Items { Icon = Resource.Mipmap.ic_exit_to_app_black_18dp, Title = "Logout" });
@@ -135,25 +153,25 @@ namespace admin.Activities
                 StartActivity(intent);
                 OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
             }
-            //if (e.Position == 7)
-            //{
-            //    Intent intent = new Intent(this, typeof(Invoice));
-            //    StartActivity(intent);
-            //    OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
-            //}
             if (e.Position == 7)
             {
-                Intent intent = new Intent(this, typeof(Report));
+                Intent intent = new Intent(this, typeof(Invoice));
                 StartActivity(intent);
                 OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
             }
             if (e.Position == 8)
             {
-                Intent intent = new Intent(this, typeof(Queries));
+                Intent intent = new Intent(this, typeof(Report));
                 StartActivity(intent);
                 OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
             }
             if (e.Position == 9)
+            {
+                Intent intent = new Intent(this, typeof(Queries));
+                StartActivity(intent);
+                OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
+            }
+            if (e.Position == 10)
             {
 
                 MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
@@ -184,11 +202,6 @@ namespace admin.Activities
             OverridePendingTransition(Resource.Animation.Side_in_right, Resource.Animation.Side_out_left);
         }
 
-
-        private void CVLogout_Click(object sender, EventArgs e)
-        {
-
-        }
         public override void OnBackPressed()
         {
             //AlertDialog.Builder builder = new AlertDialog.Builder(this);

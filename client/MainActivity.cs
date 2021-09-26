@@ -53,7 +53,7 @@ namespace client
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(FirebaseAuth.Instance.Uid)
                 .AddSnapshotListener(async (value, error) =>
                 {
@@ -267,7 +267,7 @@ namespace client
             gps_enable = locationManager.IsProviderEnabled(LocationManager.GpsProvider);
             if (!gps_enable)
             {
-                Android.App.AlertDialog.Builder builder = new Android.App.AlertDialog.Builder(this, Resource.Style.AlertDialog_AppCompat);
+                Android.App.AlertDialog.Builder builder = new Android.App.AlertDialog.Builder(this);
                 builder.SetTitle("Confirm");
                 builder.SetMessage("Enable location");
                 builder.SetNegativeButton("Cancel", delegate

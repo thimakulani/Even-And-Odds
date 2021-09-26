@@ -167,7 +167,7 @@ namespace admin.Fragments
             await CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(appUsers.Uid)
                 .UpdateAsync(data);
 

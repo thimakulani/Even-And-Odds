@@ -52,7 +52,7 @@ namespace client.Fragments
             BtnAppyChanges = view.FindViewById<MaterialButton>(Resource.Id.BtnUpdateProfile);
 
             BtnAppyChanges.Click += BtnAppyChanges_Click;
-            CrossCloudFirestore.Current.Instance.Collection("AppUsers")
+            CrossCloudFirestore.Current.Instance.Collection("USERS")
                .Document(FirebaseAuth.Instance.Uid)
                .AddSnapshotListener((snapshot, error) =>
                {
@@ -101,7 +101,7 @@ namespace client.Fragments
             };
             await CrossCloudFirestore.Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(FirebaseAuth.Instance.Uid)
                 .UpdateAsync(keyValues);
 

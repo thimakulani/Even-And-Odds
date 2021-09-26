@@ -3,7 +3,7 @@ using admin.Models;
 using Android.App;
 using Android.OS;
 using Android.Support.V7.App;
-using Android.Support.V7.Widget;
+using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.AppBar;
 using Plugin.CloudFirestore;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace admin.Activities
 
             CrossCloudFirestore.Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .WhereEqualsTo("Role", null)
                 .AddSnapshotListener((value, error) =>
                 {
@@ -80,7 +80,7 @@ namespace admin.Activities
         {
             await CrossCloudFirestore.Current
                .Instance
-               .Collection("AppUsers")
+               .Collection("USERS")
                .Document(Items[e.Position].Uid)
                .UpdateAsync("Role", "-D");
 
@@ -90,7 +90,7 @@ namespace admin.Activities
         {
             await CrossCloudFirestore.Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(Items[e.Position].Uid)
                 .UpdateAsync("Role", "D");
 

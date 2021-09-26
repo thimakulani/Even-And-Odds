@@ -1,10 +1,9 @@
 ﻿using Android.Content;
 using Android.OS;
-using Android.Support.V7.Widget;
+using AndroidX.RecyclerView.Widget;
 using Android.Views;
 using AndroidX.AppCompat.App;
 using AndroidX.Fragment.App;
-using AndroidX.RecyclerView.Widget;
 using client.Adapters;
 using client.Classes;
 using Google.Android.Material.Button;
@@ -58,7 +57,7 @@ namespace client.Fragments
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("Announcements")
+                .Collection("ANNOUNCEMENT")
                 .OrderBy("TimeStamp", true)
                 .AddSnapshotListener((snapshop, error) =>
                 {

@@ -45,7 +45,7 @@ namespace admin.Fragments
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("Query")
+                .Collection("QUERIES")
                 .OrderBy("TimeStamp", false)
                 .AddSnapshotListener((value, error) =>
                 {

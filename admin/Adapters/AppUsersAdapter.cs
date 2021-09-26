@@ -1,7 +1,7 @@
 ﻿using admin.Models;
-using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.Button;
 using Google.Android.Material.FloatingActionButton;
 using System;
@@ -51,7 +51,7 @@ namespace admin.Adapters
             holder.Surname.Text = items[position].Surname;
             
             holder.PhoneNumber.Text = items[position].Phone;
-            holder.FabSendEmail.Visibility = ViewStates.Gone;
+           // holder.FabSendEmail.Visibility = ViewStates.Gone;
 
             if (items[position].Role == "D")
             {
@@ -97,7 +97,7 @@ namespace admin.Adapters
         public TextView RegNo { get; set; }
         public TextView Type { get; set; }
         public MaterialButton BtnCreateDriver { get; set; }
-        public FloatingActionButton FabSendEmail { get; set; }
+        //public FloatingActionButton FabSendEmail { get; set; }
         public FloatingActionButton FabMakeCall { get; set; }
         public LinearLayout LinearLayoutCarInformatio { get; set; }
 
@@ -118,16 +118,16 @@ namespace admin.Adapters
             Names = itemView.FindViewById<TextView>(Resource.Id.RowNames);
             PhoneNumber = itemView.FindViewById<TextView>(Resource.Id.RowPhoneNumber);
             Email = itemView.FindViewById<TextView>(Resource.Id.RowEmail);
-            FabSendEmail = itemView.FindViewById<FloatingActionButton>(Resource.Id.RowFabEmail);
+            //FabSendEmail = itemView.FindViewById<FloatingActionButton>(Resource.Id.RowFabEmail);
             FabMakeCall = itemView.FindViewById<FloatingActionButton>(Resource.Id.RowFabCall);
             BtnCreateDriver = itemView.FindViewById<MaterialButton>(Resource.Id.RowMakeDriver);
 
 
-            itemView.Click += (sender, e) => clickListener(new AppUsersAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            itemView.LongClick += (sender, e) => longClickListener(new AppUsersAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            FabMakeCall.Click += (sender, e) => MakeCallClickListener(new AppUsersAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            FabSendEmail.Click += (sender, e) => SendEmailClickListener(new AppUsersAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            BtnCreateDriver.Click += (sender, e) => CreateDriverClickListener(new AppUsersAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
+            itemView.Click += (sender, e) => clickListener(new AppUsersAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            itemView.LongClick += (sender, e) => longClickListener(new AppUsersAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            FabMakeCall.Click += (sender, e) => MakeCallClickListener(new AppUsersAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            //FabSendEmail.Click += (sender, e) => SendEmailClickListener(new AppUsersAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            BtnCreateDriver.Click += (sender, e) => CreateDriverClickListener(new AppUsersAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
 
         }
     }

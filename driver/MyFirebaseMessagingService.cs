@@ -14,13 +14,14 @@ namespace driver
     {
         public override void OnMessageReceived(RemoteMessage remoteMessage)
         {
+            
             if (remoteMessage.GetNotification() != null)
             {
                 SendNotification(remoteMessage.GetNotification().Body, remoteMessage);
             }
             base.OnMessageReceived(remoteMessage);
         }
-
+        
 
         void SendNotification(string messageBody, RemoteMessage remoteMessage)
         {
@@ -29,7 +30,7 @@ namespace driver
             var pendingIntent = PendingIntent.GetActivity(this, 0 /* Request code */, intent, PendingIntentFlags.OneShot);
 
             var defaultSoundUri = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
-            var notificationBuilder = new NotificationCompat.Builder(this, "100")
+            var notificationBuilder = new NotificationCompat.Builder(this)
                 .SetSmallIcon(Resource.Mipmap.delivery_icon)
                 .SetContentTitle(remoteMessage.GetNotification().Title)
                 .SetContentText(messageBody)
@@ -39,7 +40,7 @@ namespace driver
 
             var notificationManager = NotificationManager.FromContext(this);
 
-            notificationManager.Notify(0 /* ID of notification */, notificationBuilder.Build());
+            notificationManager.Notify(0, notificationBuilder.Build());
         }
     }
 }

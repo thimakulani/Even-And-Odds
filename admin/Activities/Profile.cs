@@ -42,7 +42,7 @@ namespace admin.Activities
             //ISharedPreferences pref = Application.Context.GetSharedPreferences("UserInfo", FileCreationMode.Private);
             CrossCloudFirestore.Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(FirebaseAuth.Instance.Uid)
                 .AddSnapshotListener((value, error) =>
                 {
@@ -93,7 +93,7 @@ namespace admin.Activities
             };
             await CrossCloudFirestore.Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(FirebaseAuth.Instance.Uid)
                 .UpdateAsync(keyValues);
 

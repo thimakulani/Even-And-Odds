@@ -53,7 +53,7 @@ namespace driver.Adapters
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(items[indexPos].UserId)
                 .AddSnapshotListener((snapshot, value) =>
                 {
@@ -99,8 +99,8 @@ namespace driver.Adapters
 
 
 
-            itemView.Click += (sender, e) => clickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            itemView.LongClick += (sender, e) => longClickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
+            itemView.Click += (sender, e) => clickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            itemView.LongClick += (sender, e) => longClickListener(new RequestAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
         }
     }
 

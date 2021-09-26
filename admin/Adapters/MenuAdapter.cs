@@ -1,5 +1,5 @@
 ﻿using admin.Models;
-using Android.Support.V7.Widget;
+using AndroidX.RecyclerView.Widget;
 using Android.Views;
 using Android.Widget;
 using System;
@@ -61,8 +61,8 @@ namespace admin.Adapters
             //TextView = v;
             txt_title = itemView.FindViewById<TextView>(Resource.Id.txtTitle);
             img_icon = itemView.FindViewById<ImageView>(Resource.Id.imgIcon);
-            itemView.Click += (sender, e) => clickListener(new MenuAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            itemView.LongClick += (sender, e) => longClickListener(new MenuAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
+            itemView.Click += (sender, e) => clickListener(new MenuAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            itemView.LongClick += (sender, e) => longClickListener(new MenuAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
         }
     }
 

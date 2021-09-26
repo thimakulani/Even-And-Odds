@@ -60,7 +60,7 @@ namespace client.Fragments
             FabClose.Click += FabClose_Click;
             BtnSubmitReg.Click += BtnSubmitReg_Click;
             BtnType.Click += BtnType_Click;
-            CrossCloudFirestore.Current.Instance.Collection("AppUsers")
+            CrossCloudFirestore.Current.Instance.Collection("USERS")
                .Document(FirebaseAuth.Instance.Uid)
                .AddSnapshotListener((snapshot, error) =>
                {
@@ -143,6 +143,7 @@ namespace client.Fragments
             {
                 InputColor.RequestFocus();
                 InputColor.Error = "required";
+
                 return;
             }
             if (BtnType.Text == "Vehicle Type")
@@ -165,10 +166,14 @@ namespace client.Fragments
                 { "Color", InputColor.Text }
             };
 
+
+           
+
+
             await CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(FirebaseAuth.Instance.Uid)
                 .UpdateAsync(data);
 
@@ -177,5 +182,7 @@ namespace client.Fragments
             Dismiss();
 
         }
+
+      
     }
 }

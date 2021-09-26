@@ -49,7 +49,7 @@ namespace client.Fragments
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("DeliveryRequests")
+                .Collection("DELIVERY")
                 .WhereEqualsTo("UserId", FirebaseAuth.Instance.Uid)
                 .OrderBy("TimeStamp", true)
                 .AddSnapshotListener((value, errors) =>
@@ -109,7 +109,7 @@ namespace client.Fragments
                 CrossCloudFirestore
                     .Current
                     .Instance
-                    .Collection("DeliveryRequests")
+                    .Collection("DELIVERY")
                     .Document(items[index].KeyId)
                     .UpdateAsync("Status", "C");
 

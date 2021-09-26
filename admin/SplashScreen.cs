@@ -19,7 +19,7 @@ namespace admin
             // Set our view from the "main" layout resource
             if (savedInstanceState == null)
             {
-                FirebaseDatabase.Instance.SetPersistenceEnabled(true);
+                
             }
 
 

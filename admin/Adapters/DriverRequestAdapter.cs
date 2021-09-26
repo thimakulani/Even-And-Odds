@@ -1,5 +1,5 @@
 ﻿using admin.Models;
-using Android.Support.V7.Widget;
+using AndroidX.RecyclerView.Widget;
 using Android.Views;
 using Android.Widget;
 using Google.Android.Material.Button;
@@ -114,10 +114,10 @@ namespace admin.Adapters
 
 
             //TextView = v;
-            BtnDecline.Click += (sender, e) => DeclineClickListener(new DriverRequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            BtnAccept.Click += (sender, e) => AcceptClickListener(new DriverRequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            itemView.Click += (sender, e) => clickListener(new DriverRequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            itemView.LongClick += (sender, e) => longClickListener(new DriverRequestAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
+            BtnDecline.Click += (sender, e) => DeclineClickListener(new DriverRequestAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            BtnAccept.Click += (sender, e) => AcceptClickListener(new DriverRequestAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            itemView.Click += (sender, e) => clickListener(new DriverRequestAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            itemView.LongClick += (sender, e) => longClickListener(new DriverRequestAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
         }
     }
 

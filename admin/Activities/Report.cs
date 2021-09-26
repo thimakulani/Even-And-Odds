@@ -9,7 +9,7 @@ using Android.OS;
 using Android.Print;
 using Android.Runtime;
 using Android.Support.V7.App;
-using Android.Support.V7.Widget;
+using AndroidX.RecyclerView.Widget;
 using Android.Views;
 using Android.Widget;
 using Com.Karumi.Dexter;
@@ -72,7 +72,7 @@ namespace admin.Activities
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("DeliveryRequests")//DeliveryRequests
+                .Collection("DELIVERY")//DeliveryRequests
                 .AddSnapshotListener(true, (value, error) =>
                 {
                     if (!value.IsEmpty)
@@ -209,9 +209,9 @@ namespace admin.Activities
                 {
                     reportModel.GenerateInvoice(new FileStream(PrintReport.GetAppPath(this) + dname, FileMode.Create, FileAccess.Write));
                 });
-                Common.PrintReport.WriteFileToStorage(this, dname);
-                PrintManager printManager = (PrintManager)this.GetSystemService(Context.PrintService);
-                Common.PrintReportPDFAdapter _adapter = new Common.PrintReportPDFAdapter(this, Common.PrintReport.GetAppPath(this)
+                PrintReport.WriteFileToStorage(this, dname);
+                PrintManager printManager = (PrintManager)GetSystemService(PrintService);
+                PrintReportPDFAdapter _adapter = new PrintReportPDFAdapter(this, PrintReport.GetAppPath(this)
                         + dname, dname);
                 printManager.Print("Document", _adapter, new PrintAttributes.Builder().Build());
                 BtnGenerate.Enabled = true;

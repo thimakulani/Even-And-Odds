@@ -46,7 +46,7 @@ namespace driver.Fragments
 
             CrossCloudFirestore.Current
                 .Instance
-                .Collection("DeliveryRequests")
+                .Collection("DELIVERY")
                 .WhereEqualsTo("DriverId", FirebaseAuth.Instance.Uid)
                 .AddSnapshotListener((snapshot, error) =>
                 {

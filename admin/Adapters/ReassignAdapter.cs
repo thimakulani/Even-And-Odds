@@ -1,6 +1,6 @@
 ﻿using admin.Models;
-using Android.Support.V7.Widget;
 using Android.Views;
+using AndroidX.RecyclerView.Widget;
 using Android.Widget;
 using Google.Android.Material.Button;
 using System;
@@ -73,10 +73,10 @@ namespace admin.Adapters
             TxtLocation = itemView.FindViewById<TextView>(Resource.Id.txtLocation);
             BtnReject = itemView.FindViewById<MaterialButton>(Resource.Id.BtnReject);
             BtnReassign = itemView.FindViewById<MaterialButton>(Resource.Id.BtnReassign);
-            BtnReject.Click += (sender, e) => rejectClick(new ReassignAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            BtnReassign.Click += (sender, e) => reassignClic(new ReassignAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            itemView.Click += (sender, e) => clickListener(new ReassignAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
-            itemView.LongClick += (sender, e) => longClickListener(new ReassignAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
+            BtnReject.Click += (sender, e) => rejectClick(new ReassignAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            BtnReassign.Click += (sender, e) => reassignClic(new ReassignAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            itemView.Click += (sender, e) => clickListener(new ReassignAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
+            itemView.LongClick += (sender, e) => longClickListener(new ReassignAdapterClickEventArgs { View = itemView, Position = AbsoluteAdapterPosition });
         }
     }
 

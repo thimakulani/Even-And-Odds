@@ -117,7 +117,7 @@ namespace admin.Models
                     var results = CrossCloudFirestore
                         .Current
                         .Instance
-                        .Collection("AppUsers")
+                        .Collection("USERS")
                         .Document(item.DriverId)
                         .GetAsync().Result;
                     if (results.Exists)
@@ -135,7 +135,26 @@ namespace admin.Models
                 TextBlock pickup = new TextBlock(item.PickupAddress);
                 TextBlock dest = new TextBlock(item.DestinationAddress);
                 TextBlock dates = new TextBlock(item.RequestTime);
-                TextBlock status = new TextBlock(item.Status);
+
+
+                string s = null;
+                switch (item.Status)
+                {
+                    case "W":
+                        s = "Waiting for driver";
+                        break;
+                    case "A":
+                        s = "Accepted";
+                        break;
+                    case "P":
+                        s = "Picked up";
+                        break;
+                    case "D":
+                        s = "Delivered";
+                        break;
+             
+                }
+                TextBlock status = new TextBlock(s);
 
                 requestsGrid.Add(new GridRow(pos, driver, pickup, dest, dates, status));
 

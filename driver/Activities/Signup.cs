@@ -303,7 +303,7 @@ namespace driver.Activities
 
             CrossCloudFirestore.Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(FirebaseAuth.Instance.Uid)
                 .SetAsync(driver);
 

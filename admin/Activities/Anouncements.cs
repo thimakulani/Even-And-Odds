@@ -3,7 +3,7 @@ using admin.Fragments;
 using admin.Models;
 using Android.App;
 using Android.OS;
-using Android.Support.V7.Widget;
+using AndroidX.RecyclerView.Widget;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
@@ -46,7 +46,7 @@ namespace admin.Activities
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("Announcements")
+                .Collection("ANNOUNCEMENT")
                 .OrderBy("TimeStamp", true)
                 .AddSnapshotListener((snapshop, error) =>
                 {
@@ -95,7 +95,7 @@ namespace admin.Activities
             {
                 await CrossCloudFirestore.Current
                    .Instance
-                   .Collection("Announcements")
+                   .Collection("ANNOUNCEMENT")
                    .Document(items[e.Position].Id)
                    .DeleteAsync();
                 builder.Dispose();

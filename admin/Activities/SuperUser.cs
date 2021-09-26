@@ -5,7 +5,7 @@ using Android.App;
 using Android.Content;
 using Android.Gms.Tasks;
 using Android.OS;
-using Android.Support.V7.Widget;
+using AndroidX.RecyclerView.Widget;
 using Android.Views;
 using Android.Widget;
 using AndroidHUD;
@@ -97,7 +97,7 @@ namespace admin.Activities
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .WhereEqualsTo("Role", "A")
                 .AddSnapshotListener((values, error) =>
                 {
@@ -221,7 +221,7 @@ namespace admin.Activities
             var query = CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .WhereIn("Role", new object[] { "C", "D", null })
                 .WhereEqualsTo("Email", InputEmail.Text.Trim())
                 .GetAsync();
@@ -244,7 +244,7 @@ namespace admin.Activities
                         CrossCloudFirestore
                             .Current
                             .Instance
-                            .Collection("AppUsers")
+                            .Collection("USERS")
                             .Document(data.Uid)
                             .UpdateAsync("Role", "A");
                         HUD("User Role has been updated");
@@ -424,7 +424,7 @@ namespace admin.Activities
             await CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(uid)
                 .SetAsync(data);
 

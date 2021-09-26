@@ -14,12 +14,13 @@ using Firebase.Messaging;
 using Google.Android.Material.BottomNavigation;
 using Plugin.CloudFirestore;
 using System;
+using static Google.Android.Material.Navigation.NavigationBarView;
 using AlertDialog = Android.App.AlertDialog;
 
 namespace driver.Activities
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = false)]
-    public class Dashboad : AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
+    public class Dashboad : AppCompatActivity, IOnItemSelectedListener
     {
 
         // private FirebaseMessaging firebaseMessaging;// = new FirebaseMessaging();
@@ -32,7 +33,7 @@ namespace driver.Activities
 
             ///*OUT*/
             BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
-            navigation.SetOnNavigationItemSelectedListener(this);
+            navigation.SetOnItemSelectedListener(this);
 
             CheckGps();
             WelcomeFragment welcomeFrag = new WelcomeFragment();
@@ -53,7 +54,7 @@ namespace driver.Activities
             var results = await CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(FirebaseAuth.Instance.Uid)
                 .GetAsync();
             DriverModel driver = results.ToObject<DriverModel>();
@@ -62,7 +63,7 @@ namespace driver.Activities
                 var requests = await CrossCloudFirestore
                     .Current
                     .Instance
-                    .Collection("DeliveryRequests")
+                    .Collection("DELIVERY")
                     .WhereEqualsTo("DriverId", FirebaseAuth.Instance.Uid)
                     .WhereIn("Status", new[] { "A", "P" })
                     .GetAsync();

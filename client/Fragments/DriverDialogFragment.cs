@@ -62,7 +62,7 @@ namespace client.Fragments
             CrossCloudFirestore.
                 Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(driverId)
                 .AddSnapshotListener((value, error) =>
                 {

@@ -55,7 +55,7 @@ namespace driver.Fragments
 
             //ISharedPreferences pref = Application.Context.GetSharedPreferences("UserInfo", FileCreationMode.Private);
             //UserKeyId = FirebaseAuth.Instance.CurrentUser.Uid;
-            CrossCloudFirestore.Current.Instance.Collection("AppUsers")
+            CrossCloudFirestore.Current.Instance.Collection("USERS")
                 .Document(FirebaseAuth.Instance.Uid)
                 .AddSnapshotListener((snapshot, error) =>
                 {
@@ -112,7 +112,7 @@ namespace driver.Fragments
             };
             await CrossCloudFirestore.Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(FirebaseAuth.Instance.Uid)
                 .UpdateAsync(keyValues);
 

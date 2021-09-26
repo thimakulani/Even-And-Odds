@@ -156,7 +156,7 @@ namespace admin.Activities
             var results = await CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(FirebaseAuth.Instance.Uid)
                 .GetAsync();
 

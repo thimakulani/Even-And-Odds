@@ -24,6 +24,7 @@ using Google.Places;
 using Plugin.CloudFirestore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace client.Activities
@@ -69,6 +70,7 @@ namespace client.Activities
         private TextView TxtPrice;
         private TextView TxtDistance;
         private TextView TxtDuration;
+        private TextView Duration_Caption;
         /*Map*/
         GoogleMap googleMap;
         //trip details
@@ -163,6 +165,7 @@ namespace client.Activities
             TxtPrice = bottomSheetLayout.FindViewById<TextView>(Resource.Id.TxtPrice);
             TxtDistance = bottomSheetLayout.FindViewById<TextView>(Resource.Id.TxtDistance);
             TxtDuration = bottomSheetLayout.FindViewById<TextView>(Resource.Id.TxtDuration);
+            Duration_Caption = bottomSheetLayout.FindViewById<TextView>(Resource.Id.Duration_Caption);
 
             //
             DeliveryRootLayout = FindViewById<CoordinatorLayout>(Resource.Id.DeliveryRootLayout);
@@ -187,16 +190,11 @@ namespace client.Activities
             FabHome.Click += FabHome_Click;
             FabRestart.Click += FabRestart_Click;
 
-            /*get price
-             
-                InitialPrice = e.InitialPrice;
-                AfterInitial = e.AfrterPrice;
-             
-             */
+
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("TripPrice")
+                .Collection("PRICE")
                 .Document("Price")
                 .AddSnapshotListener((snapshot, error) =>
                 {
@@ -339,11 +337,12 @@ namespace client.Activities
                         TxtPrice.Text = "R" + fares.ToString("0.##");
                         trip_price = "R" + fares.ToString("0.##");
                         TxtDuration.Visibility = ViewStates.Gone;
+                        Duration_Caption.Visibility = ViewStates.Gone;
                         bottomSheet.State = BottomSheetBehavior.StateExpanded;
 
 
                         BtnOpenBottomSheet.Text = "Done...";
-                        await System.Threading.Tasks.Task.Delay(2000);
+                        await Task.Delay(2000);
                         BtnOpenBottomSheet.Text = "Continue";
 
                         BtnOpenBottomSheet.Enabled = true;
@@ -549,7 +548,7 @@ namespace client.Activities
             await CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("DeliveryRequests")
+                .Collection("DELIVERY")
                 .AddAsync(deliveryRequest);
             SuccessPopUpDialog();
 
@@ -814,7 +813,7 @@ namespace client.Activities
             CrossCloudFirestore.
                 Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(FirebaseAuth.Instance.Uid)
                 .AddSnapshotListener((value, error) =>
                 {
@@ -900,11 +899,13 @@ namespace client.Activities
 
             Geocoder geocode = new Geocoder(this);
 
+
+            
             var address = await geocode.GetFromLocationAsync(lat, lon, 1);
+
             System.Text.StringBuilder s = new System.Text.StringBuilder();
             if (!string.IsNullOrEmpty(address[0].SubThoroughfare) && !string.IsNullOrWhiteSpace(address[0].SubThoroughfare))
             {
-
                 s.Append(address[0].SubThoroughfare);
             }
             if (!string.IsNullOrEmpty(address[0].Thoroughfare) && !string.IsNullOrWhiteSpace(address[0].Thoroughfare))
@@ -915,15 +916,7 @@ namespace client.Activities
                 }
                 s.Append(address[0].Thoroughfare);
             }
-            if (!string.IsNullOrEmpty(address[0].SubLocality) && !string.IsNullOrWhiteSpace(address[0].SubLocality))
-            {
-                if (!string.IsNullOrEmpty(address[0].Thoroughfare) && !string.IsNullOrWhiteSpace(address[0].Thoroughfare))
-                {
-                    s.Append(", ");
-                }
-
-                s.Append(address[0].SubLocality);
-            }
+    
             if (!string.IsNullOrEmpty(address[0].Locality) && !string.IsNullOrWhiteSpace(address[0].Locality))
             {
                 if (!string.IsNullOrEmpty(address[0].SubLocality) && !string.IsNullOrWhiteSpace(address[0].SubLocality))
@@ -932,15 +925,6 @@ namespace client.Activities
                 }
                 s.Append(address[0].Locality);
             }
-            if (!string.IsNullOrEmpty(address[0].SubAdminArea) && !string.IsNullOrWhiteSpace(address[0].SubAdminArea))
-            {
-                if (!string.IsNullOrEmpty(address[0].Thoroughfare) && !string.IsNullOrWhiteSpace(address[0].Thoroughfare))
-                {
-                    s.Append(", ");
-                }
-                s.Append(address[0].SubAdminArea);
-            }
-
 
             return s.ToString();
 

@@ -178,7 +178,7 @@ namespace driver.Activities
                     { "DriverId", FirebaseAuth.Instance.Uid }
                 };
                 await CrossCloudFirestore.Current.Instance
-                    .Collection("DeliveryRequests")
+                    .Collection("DELIVERY")
                     .Document(KeyPosition)
                     .UpdateAsync(valuePairs);
                 //Toast.MakeText(this, UserKeyId, ToastLength.Long).Show();
@@ -240,7 +240,7 @@ namespace driver.Activities
             RecyclerRequests.SetAdapter(adapter);
 
             CrossCloudFirestore
-                .Current.Instance.Collection("DeliveryRequests").WhereIn("Status", new[] { "P", "A", "W" })
+                .Current.Instance.Collection("DELIVERY").WhereIn("Status", new[] { "P", "A", "W" })
                 .OrderBy("TimeStamp", false)
                 .AddSnapshotListener((snapshot, error) =>
                 {
@@ -485,7 +485,7 @@ namespace driver.Activities
         private void BtnPickupDestination_Click(object sender, EventArgs e)
         {
             var query = CrossCloudFirestore.Current.Instance
-                    .Collection("DeliveryRequests")
+                    .Collection("DELIVERY")
                     .Document(KeyPosition);
             Dictionary<string, object> valuePairs = new Dictionary<string, object>();
 
@@ -587,7 +587,7 @@ namespace driver.Activities
             };
 
             await CrossCloudFirestore.Current.Instance
-                    .Collection("DeliveryRequests")
+                    .Collection("DELIVERY")
                     .Document(KeyPosition)
                     .UpdateAsync(valuePairs);
 
@@ -726,7 +726,7 @@ namespace driver.Activities
                     { "lon", lastLocation.Longitude }
                 };
                 await CrossCloudFirestore.Current.Instance
-                    .Collection("Driver_Location")
+                    .Collection("LOCATION")
                     .Document(FirebaseAuth.Instance.CurrentUser.Uid)
                     .SetAsync(hashMap);
 

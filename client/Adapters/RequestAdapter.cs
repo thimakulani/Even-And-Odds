@@ -71,7 +71,7 @@ namespace client.Adapters
                 CrossCloudFirestore
                     .Current
                     .Instance
-                    .Collection("AppUsers")
+                    .Collection("USERS")
                     .Document(items[indexPos].DriverId)
                     .AddSnapshotListener((value, error) =>
                     {

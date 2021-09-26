@@ -51,7 +51,7 @@ namespace admin.Activities
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("DeliveryRequests")
+                .Collection("DELIVERY")
                 .OrderBy("TimeStamp", false)
                 .AddSnapshotListener(true, (value, error) =>
                 {

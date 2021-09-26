@@ -57,7 +57,7 @@ namespace client.Fragments
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("Query")
+                .Collection("QUERIES")
                 .Document(FirebaseAuth.Instance.Uid)
                 .Collection("Messages")
                 .OrderBy("TimeStamp")
@@ -111,14 +111,14 @@ namespace client.Fragments
             await CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("Query")
+                .Collection("QUERIES")
                 .Document(FirebaseAuth.Instance.Uid)
                 .Collection("Messages")
                 .AddAsync(chat);
             await CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("Query")
+                .Collection("QUERIES")
                 .Document(FirebaseAuth.Instance.Uid)
                 .SetAsync(dates);
 

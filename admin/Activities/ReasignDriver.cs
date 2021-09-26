@@ -1,7 +1,7 @@
 ﻿using admin.Models;
 using Android.App;
 using Android.OS;
-using Android.Support.V7.Widget;
+using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.AppBar;
 using System.Collections.Generic;
 

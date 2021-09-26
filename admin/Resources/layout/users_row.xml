@@ -161,21 +161,20 @@
                 app:fabSize="mini"
                 app:backgroundTint="@color/colorPrimary"
                 android:id="@+id/RowFabCall"
-                android:layout_toLeftOf="@+id/RowFabEmail"
+                android:layout_alignParentEnd="true"
                 android:src="@android:drawable/stat_sys_phone_call"
                 android:layout_margin="5dp"
             />
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:fabSize="mini"
                 android:id="@+id/RowFabEmail"
                 app:backgroundTint="@color/colorPrimary"
-                
                 android:src="@android:drawable/ic_dialog_email"
                 android:layout_alignParentRight="true"
                 android:layout_margin="5dp"
-            />
+            /> !-->
         </RelativeLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

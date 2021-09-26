@@ -207,7 +207,7 @@ namespace driver.Activities
         private async void GetUserInfo()
         {
             var query = await CrossCloudFirestore.Current.Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(FirebaseAuth.Instance.Uid)
                 .GetAsync();
 

@@ -16,7 +16,6 @@
         android:id="@+id/toolbar1"
         android:elevation="0dp"
         android:background="@color/colorPrimary"
-        
     >
         <ImageView
             android:src="?android:attr/homeAsUpIndicator"

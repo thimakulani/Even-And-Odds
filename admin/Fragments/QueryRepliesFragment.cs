@@ -1,18 +1,15 @@
 ﻿using admin.Models;
 using Android.Content;
 using Android.OS;
-using Android.Support.V7.Widget;
+using AndroidX.RecyclerView.Widget;
 using Android.Views;
 using Android.Widget;
 using AndroidX.Fragment.App;
 using Com.Github.Library.Bubbleview;
-using Firebase.Auth;
-using Firebase.Database;
 using FirebaseAdmin.Messaging;
 using Google.Android.Material.AppBar;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.TextField;
-using Java.Util;
 using Plugin.CloudFirestore;
 using System;
 using System.Collections.Generic;
@@ -71,7 +68,7 @@ namespace admin.Fragments
 
             CrossCloudFirestore.Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(queryId)
                 .AddSnapshotListener((value, error) =>
                 {
@@ -84,7 +81,7 @@ namespace admin.Fragments
 
             CrossCloudFirestore.Current
                 .Instance
-                .Collection("Query")
+                .Collection("QUERIES")
                 .Document(queryId)
                 .Collection("Messages")
                 .OrderBy("TimeStamp")
@@ -148,7 +145,7 @@ namespace admin.Fragments
             await CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("Query")
+                .Collection("QUERIES")
                 .Document(queryId)
                 .Collection("Messages")
                 .AddAsync(chat);
@@ -160,7 +157,7 @@ namespace admin.Fragments
             await CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("Query")
+                .Collection("QUERIES")
                 .Document(queryId)
                 .SetAsync(dates);
             InputMessage.Text = string.Empty;

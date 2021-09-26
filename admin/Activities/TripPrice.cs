@@ -37,7 +37,7 @@ namespace admin.Activities
             CrossCloudFirestore
                  .Current
                  .Instance
-                 .Collection("TripPrice")
+                 .Collection("PRICE")
                  .Document("Price")
                  .AddSnapshotListener((snapshot, error) =>
                  {
@@ -74,7 +74,7 @@ namespace admin.Activities
             await CrossCloudFirestore
                  .Current
                  .Instance
-                 .Collection("TripPrice")
+                 .Collection("PRICE")
                  .Document("Price")
                  .SetAsync(price);
             AndHUD.Shared.ShowSuccess(this, "Price Updated", MaskType.Black, TimeSpan.FromSeconds(2));

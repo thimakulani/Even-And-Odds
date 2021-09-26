@@ -46,7 +46,7 @@ namespace admin.Adapters
             CrossCloudFirestore
                 .Current
                 .Instance
-                .Collection("AppUsers")
+                .Collection("USERS")
                 .Document(items[position].Uid)
                 .AddSnapshotListener((value, error) =>
                 {

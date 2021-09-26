@@ -53,7 +53,7 @@ namespace admin.Fragments
             {
                 await CrossCloudFirestore.Current
                     .Instance
-                    .Collection("Announcements")
+                    .Collection("ANNOUNCEMENT")
                     .AddAsync(data);
             }
             var stream = Resources.Assets.Open("service_account.json");
