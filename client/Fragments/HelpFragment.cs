@@ -121,7 +121,7 @@ namespace client.Fragments
                 .Collection("QUERIES")
                 .Document(FirebaseAuth.Instance.Uid)
                 .SetAsync(dates);
-
+            InputMessage.Text = string.Empty;
 
             var stream = Resources.Assets.Open("service_account.json");
             var fcm = FirebaseHelper.FirebaseAdminSDK.GetFirebaseMessaging(stream);
@@ -138,7 +138,7 @@ namespace client.Fragments
             await fcm.SendAsync(message);
 
 
-            InputMessage.Text = string.Empty;
+            //InputMessage.Text = string.Empty;
 
 
 
