@@ -12,13 +12,14 @@
         android:layout_height="match_parent"
         android:src="@drawable/delivery_icon"
         android:scaleType="fitCenter"
-        android:alpha="0.5"
+        android:alpha="0.3"
+        android:padding="75dp"
         tools:ignore="MissingDimension" 
     />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Welcome to Pick &amp; Drop delivery \n driver's app"
+        android:text="Welcome to Even &amp; Odds delivery \n driver's app"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
         android:layout_margin="20dp"

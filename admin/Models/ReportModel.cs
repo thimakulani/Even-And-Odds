@@ -68,7 +68,7 @@ namespace admin.Models
                 Width = Length.FromPercentage(100),
 
             };
-            head.Add(new TextBlock("Pick & Drop delivery"));
+            head.Add(new TextBlock("Even & Odds Delivery"));
             head.Add(new Br());
             head.Add(new TextBlock(DateTime.Now.ToString("dddd dd-MMMM-yyyy HH:mm:ss tt")));
 

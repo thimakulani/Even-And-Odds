@@ -15,14 +15,6 @@ namespace driver.Fragments
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(Resource.Layout.welcome_fragment, container, false);
-
-
-            //var mapFragment = (SupportMapFragment)FragmentManager.FindFragmentById(Resource.Id.fragMap);
-
-
-
-
-
             ConnectViews(view);
             return view;
         }

@@ -29,7 +29,7 @@ namespace driver.Fragments
             View about = new AboutPage(Application.Context)
                 .IsRtl(false)
                 .SetImage(Resource.Drawable.delivery_icon_2)
-                .SetDescription("Pick & Drop delivery")
+                .SetDescription("Even & Odds delivery")
                 .AddItem(new Element() { Title = "Version 1.0.0" })
                 .AddItem(element)
                 .AddGroup("Contact us on")
